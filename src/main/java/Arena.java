@@ -4,72 +4,49 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import static java.lang.System.exit;
 
 public class Arena {
-
     private int width;
     private int height;
+
+    private Level level;
     private List<Wall> walls;
     private List<Ice> filled;
-    private Destination destination;
 
+    private Destination destination;
 
     private Hero hero;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.hero = new Hero(new Position(11,11));
-        this.walls = createLevel1Walls();
-        this.destination = createLevel1Destination();
+
+        // Create a new class for this
+        this.level = new Level(1);
+        this.walls = createMapLevel();
         this.filled = new ArrayList<>();
-
     }
 
-    private Destination createLevel1Destination() {
-        return new Destination(new Position(24,11));
-    }
-
-
-    private List<Wall> createLevel1Walls(){
+    private List<Wall> createMapLevel() {
+        List<String> mapInfo = level.getMapInfo();
         List<Wall> walls = new ArrayList<>();
-        int x = 10;
-        int y = 10;
 
-        for(int c = y;c < y + 3;c++){
-            walls.add(new Wall(x,c));
-            walls.add(new Wall(x+15,c));
-        }
-
-        for(int r = x + 1;r < x + 15;r++){
-            walls.add(new Wall(r,y));
-            walls.add(new Wall(r,y+2));
+        for(int yi = 0; yi < mapInfo.size(); yi++) {
+            for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
+                char c = mapInfo.get(yi).charAt(xi);
+                if(c == 'W')
+                    walls.add(new Wall(xi,yi));
+                if(c == 'D')
+                    this.destination = new Destination(new Position(xi,yi));
+                if(c == 'S')
+                    this.hero = new Hero(new Position(xi,yi));
+            }
         }
 
         return walls;
-    }
-    private List<Wall> createWalls() {
-        List<Wall> walls = new ArrayList<>();
-
-        for (int c = 0; c < width; c++) {
-
-            walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, height - 1));
-        }
-
-        for (int r = 1; r < height - 1; r++) {
-            walls.add(new Wall(0, r));
-            walls.add(new Wall(width - 1, r));
-        }
-
-        return walls;
-
     }
 
     public void draw(TextGraphics graphics) throws IOException {
@@ -81,7 +58,6 @@ public class Arena {
             wall.draw(graphics);
         for (Ice ice : filled)
             ice.draw(graphics);
-
     }
 
     public boolean canHeroMove(Position position){
@@ -103,7 +79,6 @@ public class Arena {
         }
     }
 
-
     public boolean processKey(KeyStroke key) {
         boolean checker = true;
         switch (key.getKeyType()) {
@@ -114,10 +89,10 @@ public class Arena {
                 moveHero(hero.moveDown());
                 break;
             case ArrowLeft:
-                moveHero(hero.moveLeft());;
+                moveHero(hero.moveLeft());
                 break;
             case ArrowRight:
-                moveHero(hero.moveRight());;
+                moveHero(hero.moveRight());
                 break;
             case Character:
                 if(key.getCharacter() == 'q') {
@@ -129,15 +104,11 @@ public class Arena {
             default:
                 break;
         }
-
         System.out.println(key);
         return checker;
     }
 
-    public boolean gameWon(){
+    public boolean gameWon() {
         return hero.getPosition().equals(destination.getPosition());
     }
-
-
-
 }

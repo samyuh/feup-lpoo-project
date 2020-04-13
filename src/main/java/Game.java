@@ -7,10 +7,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Game {
-
     private Screen screen;
     private Arena arena;
-
 
     public Game() {
         try {
@@ -29,6 +27,7 @@ public class Game {
             e.printStackTrace();
         }
     }
+
     private void draw() throws IOException {
         screen.clear();
         arena.draw(screen.newTextGraphics());
@@ -36,7 +35,6 @@ public class Game {
     }
 
     public void run() throws IOException {
-
         KeyStroke key;
 
         do {
@@ -48,12 +46,7 @@ public class Game {
         screen.close();
     }
 
-
     private boolean processKey(KeyStroke key) {
-
        return arena.processKey(key);
-
     }
-
-
 }

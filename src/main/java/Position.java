@@ -1,8 +1,6 @@
 public class Position {
-
     private int x;
     private int y;
-
 
     public Position(int x, int y) {
         this.x = x;
@@ -25,17 +23,21 @@ public class Position {
         this.y = y;
     }
 
-    public void moveUp(){ y-=1; }
-    public void moveDown(){
-        y+=1;
-    }
-    public void moveRight(){
-        x+=1;
-    }
-    public void moveLeft(){
-        x-=1;
+    public void moveUp() {
+        y-=1;
     }
 
+    public void moveDown() {
+        y+=1;
+    }
+
+    public void moveRight() {
+        x+=1;
+    }
+
+    public void moveLeft() {
+        x-=1;
+    }
 
     @Override
     public boolean equals(Object o) {

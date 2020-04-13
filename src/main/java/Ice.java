@@ -4,11 +4,12 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Ice extends Element {
+
     public Ice(Position position) {
         super(position);
     }
-    public Ice(int x, int y) {
 
+    public Ice(int x, int y) {
         super(new Position(x,y));
     }
 
