@@ -16,6 +16,8 @@ public class Arena {
     private int width;
     private int height;
     private List<Wall> walls;
+    private List<Ice> filled;
+    private Destination destination;
 
 
     private Hero hero;
@@ -24,10 +26,18 @@ public class Arena {
         this.width = width;
         this.height = height;
         this.hero = new Hero(new Position(11,11));
-        this.walls = createLevel1();
+        this.walls = createLevel1Walls();
+        this.destination = createLevel1Destination();
+        this.filled = new ArrayList<>();
+
     }
 
-    private List<Wall> createLevel1(){
+    private Destination createLevel1Destination() {
+        return new Destination(new Position(24,11));
+    }
+
+
+    private List<Wall> createLevel1Walls(){
         List<Wall> walls = new ArrayList<>();
         int x = 10;
         int y = 10;
@@ -62,36 +72,25 @@ public class Arena {
 
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        destination.draw(graphics);
         hero.draw(graphics);
         for (Wall wall : walls)
             wall.draw(graphics);
+        for (Ice ice : filled)
+            ice.draw(graphics);
 
     }
-
-
 
     public boolean canHeroMove(Position position){
         for (Wall wall : walls){
             if (wall.getPosition().equals(position))
+                return false;
+        }
+        for (Ice ice : filled){
+            if (ice.getPosition().equals(position))
                 return false;
         }
         return true;
@@ -99,7 +98,7 @@ public class Arena {
     }
     public void moveHero(Position position){
         if (canHeroMove(position)){
-            walls.add( new Wall(hero.getPosition().getX(),hero.getPosition().getY()));
+            filled.add( new Ice(hero.getPosition().getX(),hero.getPosition().getY()));
             hero.setPosition(position);
         }
     }
@@ -133,6 +132,10 @@ public class Arena {
 
         System.out.println(key);
         return checker;
+    }
+
+    public boolean gameWon(){
+        return hero.getPosition().equals(destination.getPosition());
     }
 
 

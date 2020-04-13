@@ -42,6 +42,7 @@ public class Game {
         do {
             key = screen.readInput();
             if(!processKey(key)) break;
+            if(arena.gameWon()) break;
             draw();
         }while (true);
         screen.close();
