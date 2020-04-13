@@ -18,23 +18,32 @@ public class Arena {
     private List<Wall> walls;
 
 
-    public Hero getHero() {
-        return hero;
-    }
-
-    public void setHero(Hero hero) {
-        this.hero = hero;
-    }
-
     private Hero hero;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.hero = new Hero(new Position(10,10));
-        this.walls = createWalls();
+        this.hero = new Hero(new Position(11,11));
+        this.walls = createLevel1();
     }
 
+    private List<Wall> createLevel1(){
+        List<Wall> walls = new ArrayList<>();
+        int x = 10;
+        int y = 10;
+
+        for(int c = y;c < y + 3;c++){
+            walls.add(new Wall(x,c));
+            walls.add(new Wall(x+15,c));
+        }
+
+        for(int r = x + 1;r < x + 15;r++){
+            walls.add(new Wall(r,y));
+            walls.add(new Wall(r,y+2));
+        }
+
+        return walls;
+    }
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
 
@@ -90,6 +99,7 @@ public class Arena {
     }
     public void moveHero(Position position){
         if (canHeroMove(position)){
+            walls.add( new Wall(hero.getPosition().getX(),hero.getPosition().getY()));
             hero.setPosition(position);
         }
     }
