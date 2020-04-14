@@ -9,9 +9,15 @@ import java.util.List;
 
 public class Level {
     private List<String> mapInfo;
+    private int number;
+
+    public int getNumber() {
+        return number;
+    }
 
     public Level(int levelNumber) {
         try {
+            this.number = levelNumber;
             this.mapInfo = readLines(levelNumber);
         } catch (IOException e) {
             e.printStackTrace();

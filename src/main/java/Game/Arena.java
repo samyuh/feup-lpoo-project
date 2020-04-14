@@ -23,16 +23,20 @@ public class Arena {
     private List<Wall> walls;
     private List<Ice> filled;
 
+    public int getLevel() {
+        return level.getNumber();
+    }
+
     private Destination destination;
 
     private Hero hero;
 
-    public Arena(int width, int height) {
+    public Arena(int width, int height, int level) {
         this.width = width;
         this.height = height;
 
         // Create a new class for this
-        this.level = new Level(2);
+        this.level = new Level(level);
         this.walls = createMapLevel();
         this.filled = new ArrayList<>();
     }

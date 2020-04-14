@@ -10,13 +10,18 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
+
+    public void setArena(Arena arena) {
+        this.arena = arena;
+    }
+
     private Arena arena;
 
     public Game() {
         try {
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
             this.screen = new TerminalScreen(terminal);
-            this.arena = new Arena(80,24);
+            this.arena = new Arena(80,24,1);
 
             screen.setCursorPosition(null);   // we don't need a cursor
             screen.startScreen();             // screens must be started
@@ -42,7 +47,14 @@ public class Game {
         do {
             key = screen.readInput();
             if(!processKey(key)) break;
-            if(arena.gameWon()) break;
+            if(arena.gameWon()){
+                if(arena.getLevel() != 2 ){
+                    setArena(new Arena(80,24, arena.getLevel()+1));
+                }
+                else{
+                    break;
+                }
+            }
             draw();
         }while (true);
         screen.close();
