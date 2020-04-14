@@ -1,3 +1,5 @@
+package Game;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,10 +13,8 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Game {
-
     private Screen screen;
     private Arena arena;
-
 
     public Game() {
         try {
@@ -38,6 +38,7 @@ public class Game {
             e.printStackTrace();
         }
     }
+
     private void draw() throws IOException {
         screen.clear();
         arena.draw(screen.newTextGraphics());
@@ -45,23 +46,18 @@ public class Game {
     }
 
     public void run() throws IOException {
-
         KeyStroke key;
 
         do {
             key = screen.readInput();
             if(!processKey(key)) break;
+            if(arena.gameWon()) break;
             draw();
         }while (true);
         screen.close();
     }
 
-
     private boolean processKey(KeyStroke key) {
-
        return arena.processKey(key);
-
     }
-
-
 }
