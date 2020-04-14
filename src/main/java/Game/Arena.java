@@ -23,8 +23,8 @@ public class Arena {
     private List<Wall> walls;
     private List<Ice> filled;
 
-    public int getLevel() {
-        return level.getNumber();
+    public Level getLevel() {
+        return level;
     }
 
     private Destination destination;
@@ -49,7 +49,7 @@ public class Arena {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
                 char c = mapInfo.get(yi).charAt(xi);
                 if(c == 'W')
-                    walls.add(new Wall(xi,yi));
+                    walls.add(new Wall( new Position(xi,yi)));
                 if(c == 'D')
                     this.destination = new Destination(new Position(xi,yi));
                 if(c == 'S')
@@ -85,7 +85,7 @@ public class Arena {
 
     public void moveHero(Position position) {
         if (canHeroMove(position)) {
-            filled.add(new Ice(hero.getPosition().getX(), hero.getPosition().getY()));
+            filled.add(new Ice(hero.getPosition()));
             hero.setPosition(position);
         }
     }
@@ -121,5 +121,9 @@ public class Arena {
 
     public boolean gameWon() {
         return hero.getPosition().equals(destination.getPosition());
+    }
+    public boolean gameLost() {
+        return !(canHeroMove(hero.moveUp()) || canHeroMove(hero.moveDown()) ||
+                canHeroMove(hero.moveLeft()) || canHeroMove(hero.moveRight()));
     }
 }

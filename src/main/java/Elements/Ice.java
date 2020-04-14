@@ -12,10 +12,6 @@ public class Ice extends Element {
         super(position);
     }
 
-    public Ice(int x, int y) {
-        super(new Position(x,y));
-    }
-
     @Override
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#0056ac"));

@@ -7,8 +7,9 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall extends Element {
-    public Wall(int x, int y) {
-        super(new Position(x,y));
+
+    public Wall(Position position) {
+        super(position);
     }
 
     public Position getPosition() {
@@ -17,10 +18,6 @@ public class Wall extends Element {
 
     public void setPosition(Position position) {
         super.setPosition(position);
-    }
-
-    public Wall(Position position) {
-        super(position);
     }
 
     public void draw(TextGraphics graphics) {

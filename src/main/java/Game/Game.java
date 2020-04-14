@@ -10,12 +10,14 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
+    private Arena arena;
+    final int MAX_LEVELS = 6;
 
     public void setArena(Arena arena) {
         this.arena = arena;
     }
 
-    private Arena arena;
+
 
     public Game() {
         try {
@@ -48,13 +50,15 @@ public class Game {
             key = screen.readInput();
             if(!processKey(key)) break;
             if(arena.gameWon()){
-                if(arena.getLevel() != 6 ){
-                    setArena(new Arena(80,24, arena.getLevel()+1));
+                int levelNumber = arena.getLevel().getNumber();
+                if(levelNumber != MAX_LEVELS){
+                    setArena(new Arena(80,24, ++levelNumber));
                 }
                 else{
                     break;
                 }
             }
+            if(arena.gameLost()) break;
             draw();
         }while (true);
         screen.close();

@@ -10,9 +10,6 @@ public class Destination extends Element {
     public Destination(Position position) {
         super(position);
     }
-    public Destination(int x, int y) {
-        super(new Position(x,y));
-    }
 
     @Override
     public void draw(TextGraphics graphics) {
