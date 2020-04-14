@@ -18,7 +18,7 @@ public class Game {
 
     public Game() {
         try {
-            Font font = new Font(Font.MONOSPACED, Font.PLAIN, 11);
+            Font font = new Font("Courier New", Font.PLAIN, 30);
             AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, font);
 
             Terminal terminal = new DefaultTerminalFactory().
