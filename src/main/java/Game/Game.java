@@ -1,11 +1,15 @@
 package Game;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Game {
@@ -21,7 +25,12 @@ public class Game {
 
     public Game() {
         try {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
+            Font font = new Font("Courier New", Font.PLAIN, 30);
+            AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, font);
+
+            Terminal terminal = new DefaultTerminalFactory().
+                    setInitialTerminalSize(new TerminalSize(150, 50)).setTerminalEmulatorFontConfiguration(config).createTerminal();
+
             this.screen = new TerminalScreen(terminal);
             this.arena = new Arena(80,24,1);
 
