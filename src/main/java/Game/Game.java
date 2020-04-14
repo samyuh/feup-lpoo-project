@@ -48,7 +48,7 @@ public class Game {
             key = screen.readInput();
             if(!processKey(key)) break;
             if(arena.gameWon()){
-                if(arena.getLevel() != 2 ){
+                if(arena.getLevel() != 6 ){
                     setArena(new Arena(80,24, arena.getLevel()+1));
                 }
                 else{
