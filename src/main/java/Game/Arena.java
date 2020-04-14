@@ -4,6 +4,9 @@ import Elements.Destination;
 import Elements.Hero;
 import Elements.Ice;
 import Elements.Wall;
+import Elements.Key;
+import Elements.Coin;
+import Elements.Lock;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -18,18 +21,18 @@ import java.util.List;
 public class Arena {
     private int width;
     private int height;
-
+    private Hero hero;
+    private Destination destination;
     private Level level;
     private List<Wall> walls;
     private List<Ice> filled;
+    private List<Coin> coins;
+    private Key key;
+    private Lock lock;
 
     public Level getLevel() {
         return level;
     }
-
-    private Destination destination;
-
-    private Hero hero;
 
     public Arena(int width, int height, int level) {
         this.width = width;
