@@ -32,7 +32,7 @@ public class Arena {
         this.height = height;
 
         // Create a new class for this
-        this.level = new Level(1);
+        this.level = new Level(2);
         this.walls = createMapLevel();
         this.filled = new ArrayList<>();
     }

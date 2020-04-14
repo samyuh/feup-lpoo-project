@@ -23,7 +23,7 @@ public class Level {
     }
 
     private static List<String> readLines(int levelNumber) throws IOException {
-        URL resource = Level.class.getResource("/rooms/level1.txt");
+        URL resource = Level.class.getResource("/rooms/level" + levelNumber + ".txt");
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )
