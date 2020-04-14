@@ -1,3 +1,5 @@
+package Elements;
+import Game.Position;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {

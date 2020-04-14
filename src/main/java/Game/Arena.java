@@ -1,3 +1,10 @@
+package Game;
+
+import Elements.Destination;
+import Elements.Hero;
+import Elements.Ice;
+import Elements.Wall;
+
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -60,7 +67,7 @@ public class Arena {
             ice.draw(graphics);
     }
 
-    public boolean canHeroMove(Position position){
+    public boolean canHeroMove(Position position) {
         for (Wall wall : walls){
             if (wall.getPosition().equals(position))
                 return false;
@@ -70,11 +77,11 @@ public class Arena {
                 return false;
         }
         return true;
-
     }
-    public void moveHero(Position position){
-        if (canHeroMove(position)){
-            filled.add( new Ice(hero.getPosition().getX(),hero.getPosition().getY()));
+
+    public void moveHero(Position position) {
+        if (canHeroMove(position)) {
+            filled.add(new Ice(hero.getPosition().getX(), hero.getPosition().getY()));
             hero.setPosition(position);
         }
     }
@@ -95,9 +102,9 @@ public class Arena {
                 moveHero(hero.moveRight());
                 break;
             case Character:
-                if(key.getCharacter() == 'q') {
+                if(key.getCharacter() == 'q')
                     checker = false;
-                }
+                break;
             case EOF:
                 checker = false;
                 break;

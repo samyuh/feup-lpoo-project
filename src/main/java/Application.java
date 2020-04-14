@@ -1,5 +1,7 @@
 
 
+import Game.Game;
+
 import java.io.IOException;
 
 public class Application {
