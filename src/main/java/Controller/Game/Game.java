@@ -1,5 +1,7 @@
-package Game;
+package Controller.Game;
 
+import Model.Game.Arena;
+import View.Game.GameView;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -13,15 +15,15 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Game {
-    private Screen screen;
-    private Arena arena;
+    ArenaController vAr;
+    public Screen screen;
+    public Arena arena;
     final int MAX_LEVELS = 6;
 
     public void setArena(Arena arena) {
         this.arena = arena;
+        this.vAr = new ArenaController(arena);
     }
-
-
 
     public Game() {
         try {
@@ -33,23 +35,19 @@ public class Game {
 
             this.screen = new TerminalScreen(terminal);
             this.arena = new Arena(80,24,1);
+            this.vAr = new ArenaController(arena);
 
             screen.setCursorPosition(null);   // we don't need a cursor
             screen.startScreen();             // screens must be started
             screen.doResizeIfNecessary();     // resize screen if necessary
 
-            draw();
+            GameView view = new GameView();
+            view.draw(arena, screen);
 
         } catch (
                 IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void draw() throws IOException {
-        screen.clear();
-        arena.draw(screen.newTextGraphics());
-        screen.refresh();
     }
 
     public void run() throws IOException {
@@ -58,8 +56,8 @@ public class Game {
         do {
             key = screen.readInput();
             if(!processKey(key)) break;
-            if(arena.gameWon()){
-                int levelNumber = arena.getLevel().getNumber();
+            if(vAr.gameWon()){
+                int levelNumber = arena.getLevel().getLevelNumber();
                 if(levelNumber != MAX_LEVELS){
                     setArena(new Arena(80,24, ++levelNumber));
                 }
@@ -67,13 +65,14 @@ public class Game {
                     break;
                 }
             }
-            if(arena.gameLost()) break;
-            draw();
+            if(vAr.gameLost()) break;
+            GameView view = new GameView();
+            view.draw(arena, screen);
         }while (true);
         screen.close();
     }
 
     private boolean processKey(KeyStroke key) {
-       return arena.processKey(key);
+       return vAr.processKey(key);
     }
 }

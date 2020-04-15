@@ -1,4 +1,4 @@
-package Game;
+package Model.Game;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,10 +11,6 @@ public class Level {
     private List<String> mapInfo;
     private int number;
 
-    public int getNumber() {
-        return number;
-    }
-
     public Level(int levelNumber) {
         try {
             this.number = levelNumber;
@@ -22,6 +18,10 @@ public class Level {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getLevelNumber() {
+        return number;
     }
 
     public List<String> getMapInfo() {

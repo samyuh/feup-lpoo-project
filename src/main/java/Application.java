@@ -1,6 +1,6 @@
 
 
-import Game.Game;
+import Controller.Game.Game;
 
 import java.io.IOException;
 
