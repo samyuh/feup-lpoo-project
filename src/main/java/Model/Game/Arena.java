@@ -16,6 +16,7 @@ public class Arena {
     private List<Wall> walls;
     private List<Ice> filled;
     private List<Coin> coins;
+    private List<White> white;
     private Key key;
     private Lock lock;
     private Points points;
@@ -30,6 +31,7 @@ public class Arena {
         this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
         this.coins  = new ArrayList<>();
+        this.white = new ArrayList<>();
         createMapLevel();
     }
 
@@ -37,6 +39,8 @@ public class Arena {
         List<String> mapInfo = level.getMapInfo();
         List<Wall> walls = new ArrayList<>();
         List<Coin> coins = new ArrayList<>();
+        List<White> white = new ArrayList<>();
+
 
 
         for(int yi = 0; yi < mapInfo.size(); yi++) {
@@ -44,21 +48,24 @@ public class Arena {
                 char c = mapInfo.get(yi).charAt(xi);
                 if(c == 'W')
                     walls.add(new Wall( new Position(xi,yi)));
-                if(c == 'D')
-                    this.destination = new Destination(new Position(xi,yi));
                 if(c == 'C')
                     coins.add(new Coin(new Position(xi,yi)));
+                if(c == 'B')
+                    white.add(new White(new Position(xi,yi)));
                 if(c == 'K')
                     setKey(new Key(new Position(xi,yi)));
                 if(c == 'L')
                     setLock(new Lock(new Position(xi,yi)));
                 if(c == 'S')
                     this.hero = new Hero(new Position(xi,yi));
+                if(c == 'D')
+                    this.destination = new Destination(new Position(xi,yi));
 
             }
         }
         setWalls(walls);
         setCoins(coins);
+        setWhite(white);
     }
 
     //Get Methods
@@ -100,6 +107,8 @@ public class Arena {
 
     public Points getPoints() { return points; }
 
+    public List<White> getWhite() { return white; }
+
     //Set Methods
 
     public void setKey(Key key) {
@@ -122,16 +131,28 @@ public class Arena {
         this.coins = coins;
     }
 
+    public void setWhite(List<White> white) { this.white = white; }
+
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
 
     //Remove Methods
-    public void removeCoin(Position position){
+    public boolean removeCoin(Position position){
         for(Coin coin : this.coins){
             if(coin.getPosition().equals(position)){
                 this.coins.remove(coin);
-                break;
+                return true;
             }
         }
+        return false;
+    }
+    public boolean removeWhite(Position position){
+        for(White white : this.white){
+            if(white.getPosition().equals(position)){
+                this.white.remove(white);
+                return true;
+            }
+        }
+        return false;
     }
 
 

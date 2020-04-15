@@ -3,6 +3,7 @@ package View.Game;
 import Model.Elements.Coin;
 import Model.Elements.Ice;
 import Model.Elements.Wall;
+import Model.Elements.White;
 import Model.Game.Arena;
 import View.Element.*;
 import com.googlecode.lanterna.TerminalPosition;
@@ -24,9 +25,8 @@ public class ArenaView {
         KeyView view6 = new KeyView();
         LockView view7 = new LockView();
         PointsView view8 = new PointsView();
+        WhiteView view9 = new WhiteView();
 
-        view1.draw(model.getDestination(), graphics);
-        view2.draw(model.getHero(), graphics);
 
         for (Wall wall : model.getWalls())
             view3.draw(wall, graphics);
@@ -34,10 +34,16 @@ public class ArenaView {
             view4.draw(ice, graphics);
         for (Coin coin : model.getCoins())
             view5.draw(coin, graphics);
+        for (White white : model.getWhite())
+            view9.draw(white,graphics);
         if(model.getKey() != null)
             view6.draw(model.getKey(), graphics);
         if(model.getLock() != null)
             view7.draw(model.getLock(), graphics);
         view8.draw(model.getPoints(),graphics);
+
+        view1.draw(model.getDestination(), graphics);
+        view2.draw(model.getHero(), graphics);
+
     }
 }
