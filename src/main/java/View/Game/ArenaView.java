@@ -23,6 +23,7 @@ public class ArenaView {
         CoinView view5 = new CoinView();
         KeyView view6 = new KeyView();
         LockView view7 = new LockView();
+        PointsView view8 = new PointsView();
 
         view1.draw(model.getDestination(), graphics);
         view2.draw(model.getHero(), graphics);
@@ -37,5 +38,6 @@ public class ArenaView {
             view6.draw(model.getKey(), graphics);
         if(model.getLock() != null)
             view7.draw(model.getLock(), graphics);
+        view8.draw(model.getPoints(),graphics);
     }
 }

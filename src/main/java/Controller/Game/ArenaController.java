@@ -2,6 +2,7 @@ package Controller.Game;
 
 import Model.Elements.Coin;
 import Model.Elements.Ice;
+import Model.Elements.Points;
 import Model.Elements.Wall;
 import Model.Game.Arena;
 import Model.Game.Position;
@@ -14,52 +15,50 @@ public class ArenaController {
         this.model = model;
     }
 
-    public boolean canHeroMove(Position position) {
+    private boolean checkCollisions(Position position) {
         for (Wall wall : model.getWalls()){
             if (wall.getPosition().equals(position))
-                return false;
+                return true;
         }
         for (Ice ice : model.getFilled()){
             if (ice.getPosition().equals(position))
-                return false;
+                return true;
         }
-        if(model.getLock() != null && model.getLock().getPosition().equals(position))
-            return false;
+        return model.getLock() != null && model.getLock().getPosition().equals(position);
+    }
+    public boolean canHeroMove(Position position) {
+        if (checkCollisions(position)) return false;
         for (Coin coin : model.getCoins()){
             if(coin.getPosition().equals(position)){
-                //this.points += 10;
+                model.addPoints(10);
                 model.removeCoin(position);
                 return true;
             }
         }
         if(model.getKey() != null && model.getKey().getPosition().equals(position)){
-            model.removeKey();
-            model.removeLock();
+            model.setKey(null);
+            model.setLock(null);
         }
 
-        //this.points += 1;
+        model.addPoints(1);
         return true;
     }
 
-    public boolean willHeroLose(Position position) {
-        for (Wall wall : model.getWalls()){
-            if (wall.getPosition().equals(position))
-                return false;
-        }
-        for (Ice ice : model.getFilled()){
-            if (ice.getPosition().equals(position))
-                return false;
-        }
-        if(model.getLock() != null && model.getLock().getPosition().equals(position))
-            return false;
-        return true;
-    }
 
     public void moveHero(Position position) {
         if (canHeroMove(position)){
             model.getFilled().add(new Ice(model.getHero().getPosition()));
             model.getHero().setPosition(position);
         }
+    }
+
+    public boolean gameWon() {
+        return model.getHero().getPosition().equals(model.getDestination().getPosition());
+    }
+
+    public boolean gameLost() {
+        return (checkCollisions(model.getHero().moveUp()) && checkCollisions(model.getHero().moveDown()) &&
+                checkCollisions(model.getHero().moveLeft()) && checkCollisions(model.getHero().moveRight()));
     }
 
     public boolean processKey(KeyStroke key) {
@@ -89,14 +88,5 @@ public class ArenaController {
         }
         System.out.println(key);
         return checker;
-    }
-
-    public boolean gameWon() {
-        return model.getHero().getPosition().equals(model.getDestination().getPosition());
-    }
-
-    public boolean gameLost() {
-        return !(canHeroMove(model.getHero().moveUp()) || canHeroMove(model.getHero().moveDown()) ||
-                canHeroMove(model.getHero().moveLeft()) || canHeroMove(model.getHero().moveRight()));
     }
 }

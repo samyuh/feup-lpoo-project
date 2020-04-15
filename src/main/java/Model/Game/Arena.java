@@ -1,12 +1,6 @@
 package Model.Game;
 
-import Model.Elements.Destination;
-import Model.Elements.Hero;
-import Model.Elements.Ice;
-import Model.Elements.Wall;
-import Model.Elements.Key;
-import Model.Elements.Coin;
-import Model.Elements.Lock;
+import Model.Elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,54 +18,19 @@ public class Arena {
     private List<Coin> coins;
     private Key key;
     private Lock lock;
-    private int points;
+    private Points points;
+
 
     public Arena(int width, int height, int level) {
         this.width = width;
         this.height = height;
-        this.points = 0;
 
+        this.points = new Points(0);
         this.level = new Level(level);
         this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
         this.coins  = new ArrayList<>();
         createMapLevel();
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
-
-    public void setLock(Lock lock) {
-        this.lock = lock;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setWalls(List<Wall> walls) {
-        this.walls = walls;
-    }
-
-    public void setCoins(List<Coin> coins) {
-        this.coins = coins;
-    }
-
-    public void removeCoin(Position position){
-        for(Coin coin : this.coins){
-            if(coin.getPosition().equals(position)){
-                this.coins.remove(coin);
-                break;
-            }
-        }
-    }
-
-    public void removeKey(){
-        this.key = null;
-    }
-    public void removeLock(){
-        this.lock = null;
     }
 
     private void createMapLevel() {
@@ -102,6 +61,7 @@ public class Arena {
         setCoins(coins);
     }
 
+    //Get Methods
     public int getWidth() {
         return width;
     }
@@ -137,4 +97,43 @@ public class Arena {
     public Lock getLock() {
         return lock;
     }
+
+    public Points getPoints() { return points; }
+
+    //Set Methods
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public void setLock(Lock lock) {
+        this.lock = lock;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setWalls(List<Wall> walls) {
+        this.walls = walls;
+    }
+
+    public void setCoins(List<Coin> coins) {
+        this.coins = coins;
+    }
+
+    public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
+
+    //Remove Methods
+    public void removeCoin(Position position){
+        for(Coin coin : this.coins){
+            if(coin.getPosition().equals(position)){
+                this.coins.remove(coin);
+                break;
+            }
+        }
+    }
+
+
+
 }
