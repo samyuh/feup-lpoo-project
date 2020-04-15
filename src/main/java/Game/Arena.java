@@ -4,6 +4,9 @@ import Elements.Destination;
 import Elements.Hero;
 import Elements.Ice;
 import Elements.Wall;
+import Elements.Key;
+import Elements.Coin;
+import Elements.Lock;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -18,21 +21,25 @@ import java.util.List;
 public class Arena {
     private int width;
     private int height;
-
+    private Hero hero;
+    private Destination destination;
     private Level level;
     private List<Wall> walls;
     private List<Ice> filled;
+    private List<Coin> coins;
+    private Key key;
+    private Lock lock;
 
-    private Destination destination;
+    public Level getLevel() {
+        return level;
+    }
 
-    private Hero hero;
-
-    public Arena(int width, int height) {
+    public Arena(int width, int height, int level) {
         this.width = width;
         this.height = height;
 
         // Create a new class for this
-        this.level = new Level(1);
+        this.level = new Level(level);
         this.walls = createMapLevel();
         this.filled = new ArrayList<>();
     }
@@ -45,7 +52,7 @@ public class Arena {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
                 char c = mapInfo.get(yi).charAt(xi);
                 if(c == 'W')
-                    walls.add(new Wall(xi,yi));
+                    walls.add(new Wall( new Position(xi,yi)));
                 if(c == 'D')
                     this.destination = new Destination(new Position(xi,yi));
                 if(c == 'S')
@@ -81,7 +88,7 @@ public class Arena {
 
     public void moveHero(Position position) {
         if (canHeroMove(position)) {
-            filled.add(new Ice(hero.getPosition().getX(), hero.getPosition().getY()));
+            filled.add(new Ice(hero.getPosition()));
             hero.setPosition(position);
         }
     }
@@ -117,5 +124,9 @@ public class Arena {
 
     public boolean gameWon() {
         return hero.getPosition().equals(destination.getPosition());
+    }
+    public boolean gameLost() {
+        return !(canHeroMove(hero.moveUp()) || canHeroMove(hero.moveDown()) ||
+                canHeroMove(hero.moveLeft()) || canHeroMove(hero.moveRight()));
     }
 }

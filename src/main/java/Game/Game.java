@@ -15,17 +15,24 @@ import java.io.IOException;
 public class Game {
     private Screen screen;
     private Arena arena;
+    final int MAX_LEVELS = 6;
+
+    public void setArena(Arena arena) {
+        this.arena = arena;
+    }
+
+
 
     public Game() {
         try {
-            Font font = new Font("Courier New", Font.PLAIN, 30);
+            Font font = new Font(Font.MONOSPACED, Font.PLAIN, 30);
             AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, font);
 
             Terminal terminal = new DefaultTerminalFactory().
                     setInitialTerminalSize(new TerminalSize(150, 50)).setTerminalEmulatorFontConfiguration(config).createTerminal();
 
             this.screen = new TerminalScreen(terminal);
-            this.arena = new Arena(150,50);
+            this.arena = new Arena(80,24,1);
 
             screen.setCursorPosition(null);   // we don't need a cursor
             screen.startScreen();             // screens must be started
@@ -51,7 +58,16 @@ public class Game {
         do {
             key = screen.readInput();
             if(!processKey(key)) break;
-            if(arena.gameWon()) break;
+            if(arena.gameWon()){
+                int levelNumber = arena.getLevel().getNumber();
+                if(levelNumber != MAX_LEVELS){
+                    setArena(new Arena(80,24, ++levelNumber));
+                }
+                else{
+                    break;
+                }
+            }
+            if(arena.gameLost()) break;
             draw();
         }while (true);
         screen.close();

@@ -9,9 +9,15 @@ import java.util.List;
 
 public class Level {
     private List<String> mapInfo;
+    private int number;
+
+    public int getNumber() {
+        return number;
+    }
 
     public Level(int levelNumber) {
         try {
+            this.number = levelNumber;
             this.mapInfo = readLines(levelNumber);
         } catch (IOException e) {
             e.printStackTrace();
@@ -23,7 +29,7 @@ public class Level {
     }
 
     private static List<String> readLines(int levelNumber) throws IOException {
-        URL resource = Level.class.getResource("/rooms/level1.txt");
+        URL resource = Level.class.getResource("/rooms/level" + levelNumber + ".txt");
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )

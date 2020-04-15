@@ -6,15 +6,15 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Destination extends Element {
-    public Destination(Position position) {
+public class Coin extends Element {
+    public Coin(Position position) {
         super(position);
     }
 
     @Override
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#e64c4c"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(super.getPosition().getX(), super.getPosition().getY()), "D");
+        graphics.putString(new TerminalPosition(super.getPosition().getX(), super.getPosition().getY()), "C");
     }
 }
