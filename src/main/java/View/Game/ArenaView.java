@@ -1,5 +1,6 @@
 package View.Game;
 
+import Model.Elements.Coin;
 import Model.Elements.Ice;
 import Model.Elements.Wall;
 import Model.Game.Arena;
@@ -8,8 +9,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-import java.io.IOException;
 
 public class ArenaView {
     public void draw(Arena model, TextGraphics graphics) {
@@ -21,6 +20,9 @@ public class ArenaView {
         HeroView view2 = new HeroView();
         WallView view3 = new WallView();
         IceView view4 = new IceView();
+        CoinView view5 = new CoinView();
+        KeyView view6 = new KeyView();
+        LockView view7 = new LockView();
 
         view1.draw(model.getDestination(), graphics);
         view2.draw(model.getHero(), graphics);
@@ -29,5 +31,11 @@ public class ArenaView {
             view3.draw(wall, graphics);
         for (Ice ice : model.getFilled())
             view4.draw(ice, graphics);
+        for (Coin coin : model.getCoins())
+            view5.draw(coin, graphics);
+        if(model.getKey() != null)
+            view6.draw(model.getKey(), graphics);
+        if(model.getLock() != null)
+            view7.draw(model.getLock(), graphics);
     }
 }

@@ -1,5 +1,6 @@
 package Controller.Game;
 
+import Model.Elements.Coin;
 import Model.Elements.Ice;
 import Model.Elements.Wall;
 import Model.Game.Arena;
@@ -22,11 +23,40 @@ public class ArenaController {
             if (ice.getPosition().equals(position))
                 return false;
         }
+        if(model.getLock() != null && model.getLock().getPosition().equals(position))
+            return false;
+        for (Coin coin : model.getCoins()){
+            if(coin.getPosition().equals(position)){
+                //this.points += 10;
+                model.removeCoin(position);
+                return true;
+            }
+        }
+        if(model.getKey() != null && model.getKey().getPosition().equals(position)){
+            model.removeKey();
+            model.removeLock();
+        }
+
+        //this.points += 1;
+        return true;
+    }
+
+    public boolean willHeroLose(Position position) {
+        for (Wall wall : model.getWalls()){
+            if (wall.getPosition().equals(position))
+                return false;
+        }
+        for (Ice ice : model.getFilled()){
+            if (ice.getPosition().equals(position))
+                return false;
+        }
+        if(model.getLock() != null && model.getLock().getPosition().equals(position))
+            return false;
         return true;
     }
 
     public void moveHero(Position position) {
-        if (canHeroMove(position)) {
+        if (canHeroMove(position)){
             model.getFilled().add(new Ice(model.getHero().getPosition()));
             model.getHero().setPosition(position);
         }
