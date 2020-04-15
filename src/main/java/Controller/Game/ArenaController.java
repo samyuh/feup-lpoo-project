@@ -7,17 +7,18 @@ import Model.Game.Position;
 import com.googlecode.lanterna.input.KeyStroke;
 
 public class ArenaController {
-    Arena arena;
+    Arena model;
 
-    public ArenaController(Arena arena){
-        this.arena = arena;
+    public ArenaController(Arena model){
+        this.model = model;
     }
+
     public boolean canHeroMove(Position position) {
-        for (Wall wall : arena.walls){
+        for (Wall wall : model.getWalls()){
             if (wall.getPosition().equals(position))
                 return false;
         }
-        for (Ice ice : arena.filled){
+        for (Ice ice : model.getFilled()){
             if (ice.getPosition().equals(position))
                 return false;
         }
@@ -26,8 +27,8 @@ public class ArenaController {
 
     public void moveHero(Position position) {
         if (canHeroMove(position)) {
-            arena.filled.add(new Ice(arena.hero.getPosition()));
-            arena.hero.setPosition(position);
+            model.getFilled().add(new Ice(model.getHero().getPosition()));
+            model.getHero().setPosition(position);
         }
     }
 
@@ -35,16 +36,16 @@ public class ArenaController {
         boolean checker = true;
         switch (key.getKeyType()) {
             case ArrowUp:
-                moveHero(arena.hero.moveUp());
+                moveHero(model.getHero().moveUp());
                 break;
             case ArrowDown:
-                moveHero(arena.hero.moveDown());
+                moveHero(model.getHero().moveDown());
                 break;
             case ArrowLeft:
-                moveHero(arena.hero.moveLeft());
+                moveHero(model.getHero().moveLeft());
                 break;
             case ArrowRight:
-                moveHero(arena.hero.moveRight());
+                moveHero(model.getHero().moveRight());
                 break;
             case Character:
                 if(key.getCharacter() == 'q')
@@ -61,11 +62,11 @@ public class ArenaController {
     }
 
     public boolean gameWon() {
-        return arena.hero.getPosition().equals(arena.destination.getPosition());
+        return model.getHero().getPosition().equals(model.getDestination().getPosition());
     }
 
     public boolean gameLost() {
-        return !(canHeroMove(arena.hero.moveUp()) || canHeroMove(arena.hero.moveDown()) ||
-                canHeroMove(arena.hero.moveLeft()) || canHeroMove(arena.hero.moveRight()));
+        return !(canHeroMove(model.getHero().moveUp()) || canHeroMove(model.getHero().moveDown()) ||
+                canHeroMove(model.getHero().moveLeft()) || canHeroMove(model.getHero().moveRight()));
     }
 }

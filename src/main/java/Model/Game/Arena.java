@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
-    public int width;
-    public int height;
-    public Level level;
+    private int width;
+    private int height;
+    private Level level;
 
     // Objects
-    public Hero hero;
-    public Destination destination;
-    public List<Wall> walls;
-    public List<Ice> filled;
-    public List<Coin> coins;
-    public Key key;
-    public Lock lock;
+    private Hero hero;
+    private Destination destination;
+    private List<Wall> walls;
+    private List<Ice> filled;
+    private List<Coin> coins;
+    private Key key;
+    private Lock lock;
 
     public Arena(int width, int height, int level) {
         this.width = width;
@@ -50,6 +50,42 @@ public class Arena {
             }
         }
         return walls;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public List<Ice> getFilled() {
+        return filled;
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public Lock getLock() {
+        return lock;
     }
 
     public Level getLevel() {

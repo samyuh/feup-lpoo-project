@@ -16,8 +16,8 @@ import java.io.IOException;
 
 public class Game {
     ArenaController vAr;
-    public Screen screen;
-    public Arena arena;
+    private Screen screen;
+    private Arena arena;
     final int MAX_LEVELS = 6;
 
     public void setArena(Arena arena) {
