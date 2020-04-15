@@ -31,7 +31,7 @@ public class Game {
             AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, font);
 
             Terminal terminal = new DefaultTerminalFactory().
-                    setInitialTerminalSize(new TerminalSize(150, 50)).setTerminalEmulatorFontConfiguration(config).createTerminal();
+                    setInitialTerminalSize(new TerminalSize(80,24)).setTerminalEmulatorFontConfiguration(config).createTerminal();
 
             this.screen = new TerminalScreen(terminal);
             this.arena = new Arena(80,24,1);
