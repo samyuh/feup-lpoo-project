@@ -10,6 +10,9 @@ public class Coin extends Element {
     public Coin(Position position) {
         super(position);
     }
+    public Position getPosition() {
+        return super.getPosition();
+    }
 
     @Override
     public void draw(TextGraphics graphics) {
