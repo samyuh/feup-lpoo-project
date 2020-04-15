@@ -29,6 +29,11 @@ public class Arena {
     private List<Wall> walls;
     private List<Ice> filled;
     private List<Coin> coins;
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
     private Key key;
     private Lock lock;
     private int points;
@@ -52,6 +57,12 @@ public class Arena {
             }
         }
     }
+    public void removeKey(){
+        this.key = null;
+    }
+    public void removeLock(){
+        this.lock = null;
+    }
 
     public Arena(int width, int height, int level) {
         this.width = width;
@@ -66,10 +77,15 @@ public class Arena {
         createMapLevel();
     }
 
+    public void setLock(Lock lock) {
+        this.lock = lock;
+    }
+
     private void createMapLevel() {
         List<String> mapInfo = level.getMapInfo();
         List<Wall> walls = new ArrayList<>();
         List<Coin> coins = new ArrayList<>();
+
 
         for(int yi = 0; yi < mapInfo.size(); yi++) {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
@@ -80,6 +96,10 @@ public class Arena {
                     this.destination = new Destination(new Position(xi,yi));
                 if(c == 'C')
                     coins.add(new Coin(new Position(xi,yi)));
+                if(c == 'K')
+                    setKey(new Key(new Position(xi,yi)));
+                if(c == 'L')
+                    setLock(new Lock(new Position(xi,yi)));
                 if(c == 'S')
                     this.hero = new Hero(new Position(xi,yi));
 
@@ -99,6 +119,8 @@ public class Arena {
             ice.draw(graphics);
         for (Coin coin : coins)
             coin.draw(graphics);
+        if(this.key != null) key.draw(graphics);
+        if(this.lock != null) lock.draw(graphics);
         hero.draw(graphics);
         //Draw Points (I guess que posso tornar num método, mas esta feature é temporária xD)
         graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
@@ -115,6 +137,8 @@ public class Arena {
             if (ice.getPosition().equals(position))
                 return false;
         }
+        if(lock != null && lock.getPosition().equals(position))
+            return false;
         for (Coin coin : coins){
             if(coin.getPosition().equals(position)){
                 this.points += 10;
@@ -122,6 +146,11 @@ public class Arena {
                 return true;
             }
         }
+        if(key != null && key.getPosition().equals(position)){
+            removeKey();
+            removeLock();
+        }
+
         this.points += 1;
         return true;
     }
@@ -135,6 +164,8 @@ public class Arena {
             if (ice.getPosition().equals(position))
                 return false;
         }
+        if(lock != null && lock.getPosition().equals(position))
+            return false;
         return true;
     }
 
