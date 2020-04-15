@@ -8,11 +8,13 @@ import Elements.Key;
 import Elements.Coin;
 import Elements.Lock;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.terminal.swing.TerminalScrollController;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,24 +31,45 @@ public class Arena {
     private List<Coin> coins;
     private Key key;
     private Lock lock;
+    private int points;
 
     public Level getLevel() {
         return level;
     }
 
+    public void setWalls(List<Wall> walls) {
+        this.walls = walls;
+    }
+
+    public void setCoins(List<Coin> coins) {
+        this.coins = coins;
+    }
+    public void removeCoin(Position position){
+        for(Coin coin : this.coins){
+            if(coin.getPosition().equals(position)){
+                this.coins.remove(coin);
+                break;
+            }
+        }
+    }
+
     public Arena(int width, int height, int level) {
         this.width = width;
         this.height = height;
+        this.points = 0;
 
         // Create a new class for this
         this.level = new Level(level);
-        this.walls = createMapLevel();
+        this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
+        this.coins  = new ArrayList<>();
+        createMapLevel();
     }
 
-    private List<Wall> createMapLevel() {
+    private void createMapLevel() {
         List<String> mapInfo = level.getMapInfo();
         List<Wall> walls = new ArrayList<>();
+        List<Coin> coins = new ArrayList<>();
 
         for(int yi = 0; yi < mapInfo.size(); yi++) {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
@@ -55,26 +78,55 @@ public class Arena {
                     walls.add(new Wall( new Position(xi,yi)));
                 if(c == 'D')
                     this.destination = new Destination(new Position(xi,yi));
+                if(c == 'C')
+                    coins.add(new Coin(new Position(xi,yi)));
                 if(c == 'S')
                     this.hero = new Hero(new Position(xi,yi));
+
             }
         }
-
-        return walls;
+        setWalls(walls);
+        setCoins(coins);
     }
 
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         destination.draw(graphics);
-        hero.draw(graphics);
         for (Wall wall : walls)
             wall.draw(graphics);
         for (Ice ice : filled)
             ice.draw(graphics);
+        for (Coin coin : coins)
+            coin.draw(graphics);
+        hero.draw(graphics);
+        //Draw Points (I guess que posso tornar num método, mas esta feature é temporária xD)
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(20, 0), Integer.toString(this.points) );
     }
 
     public boolean canHeroMove(Position position) {
+        for (Wall wall : walls){
+            if (wall.getPosition().equals(position))
+                return false;
+        }
+        for (Ice ice : filled){
+            if (ice.getPosition().equals(position))
+                return false;
+        }
+        for (Coin coin : coins){
+            if(coin.getPosition().equals(position)){
+                this.points += 10;
+                this.removeCoin(position);
+                return true;
+            }
+        }
+        this.points += 1;
+        return true;
+    }
+
+    public boolean willHeroLose(Position position) {
         for (Wall wall : walls){
             if (wall.getPosition().equals(position))
                 return false;
@@ -87,7 +139,7 @@ public class Arena {
     }
 
     public void moveHero(Position position) {
-        if (canHeroMove(position)) {
+        if (canHeroMove(position)){
             filled.add(new Ice(hero.getPosition()));
             hero.setPosition(position);
         }
@@ -126,7 +178,7 @@ public class Arena {
         return hero.getPosition().equals(destination.getPosition());
     }
     public boolean gameLost() {
-        return !(canHeroMove(hero.moveUp()) || canHeroMove(hero.moveDown()) ||
-                canHeroMove(hero.moveLeft()) || canHeroMove(hero.moveRight()));
+        return !(willHeroLose(hero.moveUp()) || willHeroLose(hero.moveDown()) ||
+                willHeroLose(hero.moveLeft()) || willHeroLose(hero.moveRight()));
     }
 }
