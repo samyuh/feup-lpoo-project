@@ -24,4 +24,4 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 - [] Menu de fim de jogo
     - [] O jogo acaba assim que o jogador completar todos os niveis. É apresentado a pontuação total.
 
-As funcionalidades marcadas encontram-se complemente feitas. Mais funcionalidades serão adicionadas à medida que formos fazendo o jogo.
+As funcionalidades marcadas com [X] encontram-se complemente feitas. Mais funcionalidades serão adicionadas à medida que formos fazendo o jogo.
