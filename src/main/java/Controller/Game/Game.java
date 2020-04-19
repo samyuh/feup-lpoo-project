@@ -18,7 +18,7 @@ public class Game {
     ArenaController vAr;
     private Screen screen;
     private Arena arena;
-    final int MAX_LEVELS = 6;
+    final int MAX_LEVELS = 20;
 
     public void setArena(Arena arena) {
         this.arena = arena;
