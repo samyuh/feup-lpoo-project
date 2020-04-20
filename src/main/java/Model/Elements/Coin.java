@@ -4,6 +4,6 @@ import Model.Game.Position;
 
 public class Coin extends ElementModel {
     public Coin(Position position) {
-        super(position);
+        super("C", "#FFFF33", position);
     }
 }

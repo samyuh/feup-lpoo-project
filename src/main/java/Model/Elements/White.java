@@ -5,6 +5,6 @@ import View.Element.ElementView;
 
 public class White extends ElementModel {
     public White(Position position) {
-        super(position);
+        super("B", "#FFFFFF", position);
     }
 }

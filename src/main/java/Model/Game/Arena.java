@@ -2,6 +2,7 @@ package Model.Game;
 
 import Model.Elements.*;
 
+import javax.lang.model.element.Element;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,6 +110,23 @@ public class Arena {
 
     public List<White> getWhite() { return white; }
 
+    public List<ElementModel> getAll(){
+        List<ElementModel> elements = new ArrayList<>();
+
+
+        elements.addAll(walls);
+        elements.addAll(filled);
+        elements.addAll(coins);
+        elements.addAll(white);
+        if(key != null) elements.add(lock);
+        if(key != null) elements.add(key);
+        elements.add(points);
+        elements.add(hero);
+        elements.add(destination);
+
+        return elements;
+    }
+
     //Set Methods
 
     public void setKey(Key key) {
@@ -154,7 +172,4 @@ public class Arena {
         }
         return false;
     }
-
-
-
 }

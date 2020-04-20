@@ -76,6 +76,8 @@ public class ArenaController {
             case Character:
                 if(key.getCharacter() == 'q')
                     checker = false;
+                else if(key.getCharacter() == 'n')
+                    moveHero(model.getDestination().getPosition());
                 break;
             case EOF:
                 checker = false;
