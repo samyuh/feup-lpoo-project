@@ -13,17 +13,11 @@ public abstract class ElementModel {
         this.position = position;
     }
 
-    public Position getPosition() {
-        return position;
-    }
+    public Position getPosition() { return position; }
 
-    public String getColor() {
-        return color;
-    }
+    public String getColor() { return color; }
 
-    public String getImage() {
-        return image;
-    }
+    public String getImage() { return image; }
 
     public void setPosition(Position position) {
         this.position = position;
