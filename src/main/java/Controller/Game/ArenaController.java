@@ -46,20 +46,7 @@ public class ArenaController {
             if(!model.removeWhite(model.getHero().getPosition()))
                 model.getFilled().add(new Ice(model.getHero().getPosition()));
             model.getHero().setPosition(position);
-
-            if(model.getTeleport1() != null &&  !model.isTeleportUsed()){
-                if(model.getTeleport1().getPosition().equals(position)){
-                    model.getHero().setPosition(model.getTeleport2().getPosition());
-                    model.setTeleportUsed(true);
-
-                }
-                else if(model.getTeleport2().getPosition().equals(position)){
-                    model.getHero().setPosition(model.getTeleport1().getPosition());
-                    model.setTeleportUsed(true);
-                }
-            }
         }
-
     }
 
     public boolean gameWon() {
@@ -89,8 +76,6 @@ public class ArenaController {
             case Character:
                 if(key.getCharacter() == 'q')
                     checker = false;
-                if(key.getCharacter() == 'n')
-                    moveHero(model.getDestination().getPosition());
                 break;
             case EOF:
                 checker = false;

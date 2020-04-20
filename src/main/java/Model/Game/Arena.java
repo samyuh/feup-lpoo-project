@@ -20,9 +20,6 @@ public class Arena {
     private Key key;
     private Lock lock;
     private Points points;
-    private Teleport  teleport1;
-    private Teleport  teleport2;
-    private boolean teleportUsed;
 
 
     public Arena(int width, int height, int level) {
@@ -59,10 +56,6 @@ public class Arena {
                     setKey(new Key(new Position(xi,yi)));
                 if(c == 'L')
                     setLock(new Lock(new Position(xi,yi)));
-                if(c == 'T')
-                    setTeleport1(new Teleport(new Position(xi,yi)));
-                if(c == 'P')
-                    setTeleport2(new Teleport(new Position(xi,yi)));
                 if(c == 'S')
                     this.hero = new Hero(new Position(xi,yi));
                 if(c == 'D')
@@ -116,14 +109,6 @@ public class Arena {
 
     public List<White> getWhite() { return white; }
 
-    public Teleport getTeleport1() { return teleport1; }
-
-    public Teleport getTeleport2() { return teleport2; }
-
-    public boolean isTeleportUsed() { return teleportUsed; }
-
-
-
     //Set Methods
 
     public void setKey(Key key) {
@@ -149,14 +134,6 @@ public class Arena {
     public void setWhite(List<White> white) { this.white = white; }
 
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
-
-    public void setTeleport1(Teleport teleport) { this.teleport1 = teleport; }
-
-    public void setTeleport2(Teleport teleport) { this.teleport2 = teleport; }
-
-    public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
-
-
 
     //Remove Methods
     public boolean removeCoin(Position position){

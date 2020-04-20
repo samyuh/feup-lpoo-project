@@ -1,6 +1,9 @@
 package View.Game;
 
-import Model.Elements.*;
+import Model.Elements.Coin;
+import Model.Elements.Ice;
+import Model.Elements.Wall;
+import Model.Elements.White;
 import Model.Game.Arena;
 import View.Element.*;
 import com.googlecode.lanterna.TerminalPosition;
@@ -23,7 +26,6 @@ public class ArenaView {
         LockView view7 = new LockView();
         PointsView view8 = new PointsView();
         WhiteView view9 = new WhiteView();
-        TeleportView view10 = new TeleportView();
 
 
         for (Wall wall : model.getWalls())
@@ -38,12 +40,7 @@ public class ArenaView {
             view6.draw(model.getKey(), graphics);
         if(model.getLock() != null)
             view7.draw(model.getLock(), graphics);
-        if(model.getTeleport1() != null)
-            view10.draw(model.getTeleport1(), graphics);
-        if(model.getTeleport2() != null)
-            view10.draw(model.getTeleport2(), graphics);
         view8.draw(model.getPoints(),graphics);
-
 
         view1.draw(model.getDestination(), graphics);
         view2.draw(model.getHero(), graphics);
