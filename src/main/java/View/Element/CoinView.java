@@ -8,7 +8,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class CoinView extends ElementView {
-    public void draw(Coin model, TextGraphics graphics) {
+    public void view(ElementModel model, TextGraphics graphics) {
         super.draw(model, "#FFFF33", "C", graphics);
     }
 }

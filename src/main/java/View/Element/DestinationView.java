@@ -8,7 +8,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class DestinationView extends ElementView {
-    public void draw(Destination model, TextGraphics graphics) {
+    public void view(ElementModel model, TextGraphics graphics) {
         super.draw(model, "#e64c4c", "D", graphics);
     }
 }

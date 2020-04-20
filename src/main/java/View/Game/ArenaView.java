@@ -1,9 +1,6 @@
 package View.Game;
 
-import Model.Elements.Coin;
-import Model.Elements.Ice;
-import Model.Elements.Wall;
-import Model.Elements.White;
+import Model.Elements.*;
 import Model.Game.Arena;
 import View.Element.*;
 import com.googlecode.lanterna.TerminalPosition;
@@ -16,10 +13,9 @@ public class ArenaView {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(model.getWidth(), model.getHeight()), ' ');
 
-        // View Methods -> Code Smell
         DestinationView view1 = new DestinationView();
         HeroView view2 = new HeroView();
-        WallView view3 = new WallView();
+        ElementView view3 = new WallView();
         IceView view4 = new IceView();
         CoinView view5 = new CoinView();
         KeyView view6 = new KeyView();
@@ -27,23 +23,21 @@ public class ArenaView {
         PointsView view8 = new PointsView();
         WhiteView view9 = new WhiteView();
 
-
         for (Wall wall : model.getWalls())
-            view3.draw(wall, graphics);
+            view3.view(wall, graphics);
         for (Ice ice : model.getFilled())
-            view4.draw(ice, graphics);
+            view4.view(ice, graphics);
         for (Coin coin : model.getCoins())
-            view5.draw(coin, graphics);
+            view5.view(coin, graphics);
         for (White white : model.getWhite())
-            view9.draw(white,graphics);
+            view9.view(white,graphics);
         if(model.getKey() != null)
-            view6.draw(model.getKey(), graphics);
+            view6.view(model.getKey(), graphics);
         if(model.getLock() != null)
-            view7.draw(model.getLock(), graphics);
-        view8.draw(model.getPoints(),graphics);
+            view7.view(model.getLock(), graphics);
+        view8.view(model.getPoints(),graphics);
 
-        view1.draw(model.getDestination(), graphics);
-        view2.draw(model.getHero(), graphics);
-
+        view1.view(model.getDestination(), graphics);
+        view2.view(model.getHero(), graphics);
     }
 }
