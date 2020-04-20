@@ -4,7 +4,7 @@ import Model.Game.Position;
 
 public class Hero extends ElementModel {
     public Hero(Position position) {
-        super(position);
+        super("H", "#FFFFFF", position);
     }
 
     public Position moveUp() {

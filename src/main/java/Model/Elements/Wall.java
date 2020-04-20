@@ -4,7 +4,7 @@ import Model.Game.Position;
 
 public class Wall extends ElementModel {
     public Wall(Position position) {
-        super(position);
+        super("W", "#FFFFFF", position);
     }
 }
 
