@@ -8,8 +8,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class WhiteView extends ElementView {
     public void draw(White model, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), "B");
+        super.draw(model, "#FFFFFF", "B", graphics);
     }
 }

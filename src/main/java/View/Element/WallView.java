@@ -8,8 +8,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class WallView extends ElementView {
     public void draw(Wall model, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#8abde8"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), "\u2588");
+        super.draw(model, "#8abde8", "\u2588", graphics);
     }
 }

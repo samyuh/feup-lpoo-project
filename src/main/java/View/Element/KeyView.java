@@ -9,8 +9,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class KeyView extends ElementView {
     public void draw(Key model, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#ffbb33"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), "K");
+        super.draw(model, "#ffbb33", "K", graphics);
     }
 }

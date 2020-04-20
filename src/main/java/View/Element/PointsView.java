@@ -10,8 +10,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class PointsView extends ElementView {
     public void draw(Points model, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), Integer.toString(model.getNumber()));
+        super.draw(model, "#000000", Integer.toString(model.getNumber()), graphics);
     }
 }

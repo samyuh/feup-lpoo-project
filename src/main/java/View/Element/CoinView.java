@@ -9,8 +9,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class CoinView extends ElementView {
     public void draw(Coin model, TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), "C");
+        super.draw(model, "#FFFF33", "C", graphics);
     }
 }
