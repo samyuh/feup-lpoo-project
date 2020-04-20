@@ -12,33 +12,7 @@ public class ArenaView {
     public void draw(Arena model, TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(model.getWidth(), model.getHeight()), ' ');
-<<<<<<< Updated upstream
 
-        DestinationView view1 = new DestinationView();
-        HeroView view2 = new HeroView();
-        ElementView view3 = new WallView();
-        IceView view4 = new IceView();
-        CoinView view5 = new CoinView();
-        KeyView view6 = new KeyView();
-        LockView view7 = new LockView();
-        PointsView view8 = new PointsView();
-        WhiteView view9 = new WhiteView();
-
-        for (Wall wall : model.getWalls())
-            view3.view(wall, graphics);
-        for (Ice ice : model.getFilled())
-            view4.view(ice, graphics);
-        for (Coin coin : model.getCoins())
-            view5.view(coin, graphics);
-        for (White white : model.getWhite())
-            view9.view(white,graphics);
-        if(model.getKey() != null)
-            view6.view(model.getKey(), graphics);
-        if(model.getLock() != null)
-            view7.view(model.getLock(), graphics);
-        view8.view(model.getPoints(),graphics);
-=======
-        
         ElementView view = new ElementView();
 
         for (Wall wall : model.getWalls())
@@ -57,9 +31,5 @@ public class ArenaView {
 
         view.draw(model.getDestination(), graphics);
         view.draw(model.getHero(), graphics);
->>>>>>> Stashed changes
-
-        view1.view(model.getDestination(), graphics);
-        view2.view(model.getHero(), graphics);
     }
 }
