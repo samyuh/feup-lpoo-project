@@ -67,14 +67,19 @@ public class LevelController {
 
     public void setLevel(LevelModel levelModel) {
         this.levelModel = levelModel;
+        this.levelInitializer = new LevelInitializer(levelModel, levelModel.getnumlevel());
+        levelInitializer.createMapLevel();
     }
 
     public void run() throws IOException {
         do {
             if(!processCommand(levelView.processKey())) break;
-
+            System.out.println("Here");
             if(gameWon()){
+                System.out.println("Won");
+
                 int levelNumber = levelInitializer.getLevelNumber();
+                System.out.println(levelNumber);
                 if(levelNumber != 15){
                     setLevel(new LevelModel(++levelNumber));
                 }
