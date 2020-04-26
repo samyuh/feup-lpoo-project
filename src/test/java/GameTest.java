@@ -1,5 +1,5 @@
 import Model.Elements.Hero;
-import Model.Level.LevelInitializer;
+import Controller.Level.LevelInitializer;
 
 import Model.Position;
 

@@ -1,4 +1,4 @@
-package Model.Level;
+package Controller.Level;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,5 +1,6 @@
 package Model.Level;
 
+import Controller.Level.LevelInitializer;
 import Model.Elements.*;
 import Model.Position;
 
