@@ -14,11 +14,11 @@ public class LevelController {
 
     private LevelInitializer levelInitializer;
 
-    public LevelController(LevelModel levelModel, LevelView levelView){
+    public LevelController(LevelModel levelModel, LevelView levelView) throws IOException {
         this.levelModel = levelModel;
         this.levelView = levelView;
-        this.levelInitializer = new LevelInitializer(levelModel, levelModel.getnumlevel());
-        levelInitializer.createMapLevel();
+        this.levelInitializer = new LevelInitializer(levelModel);
+        levelInitializer.initLevel(1);
     }
 
     private boolean checkCollisions(Position position) {
@@ -65,10 +65,8 @@ public class LevelController {
                 checkCollisions(levelModel.getHero().moveLeft()) && checkCollisions(levelModel.getHero().moveRight()));
     }
 
-    public void setLevel(LevelModel levelModel) {
-        this.levelModel = levelModel;
-        this.levelInitializer = new LevelInitializer(levelModel, levelModel.getnumlevel());
-        levelInitializer.createMapLevel();
+    public void setLevel(int levelModel) throws IOException {
+        levelInitializer.initLevel(levelModel);
     }
 
     public void run() throws IOException {
@@ -79,9 +77,8 @@ public class LevelController {
                 System.out.println("Won");
 
                 int levelNumber = levelInitializer.getLevelNumber();
-                System.out.println(levelNumber);
                 if(levelNumber != 15){
-                    setLevel(new LevelModel(++levelNumber));
+                    setLevel(++levelNumber);
                 }
                 else{
                     break;

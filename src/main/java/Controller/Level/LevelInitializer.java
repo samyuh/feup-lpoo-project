@@ -13,29 +13,31 @@ import java.util.List;
 
 public class LevelInitializer {
     private List<String> mapElements;
-    private int levelNumber;
     private LevelModel model;
+    private int levelNumber;
 
-    public LevelInitializer(LevelModel model, int levelNumber) {
-        try {
-            this.levelNumber = levelNumber;
-            this.mapElements = readLines(levelNumber);
-            this.model = model;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public LevelInitializer(LevelModel model) {
+        this.model = model;
     }
 
-    public void createMapLevel() {
-        List<String> mapInfo = mapElements;
+    private List<String> readLines() throws IOException {
+        URL resource = LevelInitializer.class.getResource("/rooms/level" + this.levelNumber + ".txt");
+        BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
+        List<String> lines = new ArrayList<>();
+        for (String line; (line = br.readLine()) != null; )
+            lines.add(line);
 
+        return lines;
+    }
+
+    private void loadElements() {
         List<Wall> walls = new ArrayList<>();
         List<Coin> coins = new ArrayList<>();
         List<WhiteIce> frozenIce = new ArrayList<>();
 
-        for(int yi = 0; yi < mapInfo.size(); yi++) {
-            for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
-                char c = mapInfo.get(yi).charAt(xi);
+        for(int yi = 0; yi < this.mapElements.size(); yi++) {
+            for(int xi = 0; xi < this.mapElements.get(yi).length() ; xi++) {
+                char c = this.mapElements.get(yi).charAt(xi);
                 if(c == 'W') walls.add(new Wall( new Position(xi,yi)));
                 if(c == 'C') coins.add(new Coin(new Position(xi,yi)));
                 if(c == 'B') frozenIce.add(new WhiteIce(new Position(xi,yi)));
@@ -45,20 +47,15 @@ public class LevelInitializer {
                 if(c == 'D') model.setDestination(new Destination(new Position(xi,yi)));
             }
         }
-
         model.setWalls(walls);
         model.setCoins(coins);
         model.setFrozenIce(frozenIce);
     }
 
-    private static List<String> readLines(int levelNumber) throws IOException {
-        URL resource = LevelInitializer.class.getResource("/rooms/level" + levelNumber + ".txt");
-        BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
-        List<String> lines = new ArrayList<>();
-        for (String line; (line = br.readLine()) != null; )
-            lines.add(line);
-
-        return lines;
+    public void initLevel(int levelNumber) throws IOException {
+        this.levelNumber = levelNumber;
+        this.mapElements = readLines();
+        loadElements();
     }
 
     public int getLevelNumber() {
