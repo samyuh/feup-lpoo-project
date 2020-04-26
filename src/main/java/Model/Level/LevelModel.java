@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelModel {
-    private LevelInitializer levelInitializer;
-
-    // Objects
     private Hero hero;
     private Destination destination;
     private List<Wall> walls;
@@ -20,6 +17,7 @@ public class LevelModel {
     private Lock lock;
     private Points points;
 
+    private LevelInitializer levelInitializer;
 
     public LevelModel(int level) {
         this.points = new Points(0);
@@ -28,6 +26,7 @@ public class LevelModel {
         this.filled = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.frozenIce = new ArrayList<>();
+
         createMapLevel();
     }
 
@@ -40,23 +39,16 @@ public class LevelModel {
         for(int yi = 0; yi < mapInfo.size(); yi++) {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
                 char c = mapInfo.get(yi).charAt(xi);
-                if(c == 'W')
-                    walls.add(new Wall( new Position(xi,yi)));
-                if(c == 'C')
-                    coins.add(new Coin(new Position(xi,yi)));
-                if(c == 'B')
-                    frozenIce.add(new WhiteIce(new Position(xi,yi)));
-                if(c == 'K')
-                    setKey(new Key(new Position(xi,yi)));
-                if(c == 'L')
-                    setLock(new Lock(new Position(xi,yi)));
-                if(c == 'S')
-                    this.hero = new Hero(new Position(xi,yi));
-                if(c == 'D')
-                    this.destination = new Destination(new Position(xi,yi));
-
+                if(c == 'W') walls.add(new Wall( new Position(xi,yi)));
+                if(c == 'C') coins.add(new Coin(new Position(xi,yi)));
+                if(c == 'B') frozenIce.add(new WhiteIce(new Position(xi,yi)));
+                if(c == 'K') setKey(new Key(new Position(xi,yi)));
+                if(c == 'L') setLock(new Lock(new Position(xi,yi)));
+                if(c == 'S') this.hero = new Hero(new Position(xi,yi));
+                if(c == 'D') this.destination = new Destination(new Position(xi,yi));
             }
         }
+
         setWalls(walls);
         setCoins(coins);
         setFrozenIce(frozenIce);

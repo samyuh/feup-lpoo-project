@@ -8,10 +8,16 @@ import View.ScreenView;
 import java.io.IOException;
 
 public class MainController {
-    public MainController(ScreenView v) throws IOException {
-        LevelView level = new LevelView(v);
-        LevelModel l1 = new LevelModel(1);
-        LevelController lc = new LevelController(l1, level);
-        lc.run();
+    private LevelView levelView;
+    private LevelModel levelModel;
+
+    public MainController(ScreenView gui) {
+        this.levelView = new LevelView(gui);
+        this.levelModel = new LevelModel(1);
+    }
+
+    public void run() throws IOException {
+        LevelController controller = new LevelController(levelModel, levelView);
+        controller.run();
     }
 }

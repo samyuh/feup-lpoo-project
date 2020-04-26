@@ -28,6 +28,7 @@ public class LevelController {
         }
         return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
     }
+
     public boolean canHeroMove(Position position) {
         if (checkCollisions(position)) return false;
         if (levelModel.removeCoin(position)){
@@ -42,7 +43,6 @@ public class LevelController {
         levelModel.addPoints(1);
         return true;
     }
-
 
     public void moveHero(Position position) {
         if (canHeroMove(position)){
@@ -78,9 +78,8 @@ public class LevelController {
                 }
             }
             if(gameLost()) break;
-            levelView.draw(levelModel, levelView.getScreen());
+            levelView.draw(levelModel);
         } while (true);
-        levelView.getScreen().close();
     }
 
     public void processCommand(LevelView.DIRECTION command) {
@@ -96,8 +95,6 @@ public class LevelController {
                 break;
             case RIGHT:
                 moveHero(levelModel.getHero().moveRight());
-                break;
-            default:
                 break;
         }
     }

@@ -20,8 +20,8 @@ public class LevelView {
 
     Screen screen;
 
-    public LevelView(ScreenView v) {
-        this.screen = v.getScreen();
+    public LevelView(ScreenView gui) {
+        this.screen = gui.getScreen();
     }
 
     public DIRECTION processKey() throws IOException {
@@ -34,12 +34,10 @@ public class LevelView {
         }
     }
 
-    public Screen getScreen() { return screen; }
-
-    public void draw(LevelModel levelModel, Screen screen) throws IOException {
-        screen.clear();
+    public void draw(LevelModel levelModel) throws IOException {
+        this.screen.clear();
         drawLevel(levelModel, screen.newTextGraphics());
-        screen.refresh();
+        this.screen.refresh();
     }
 
     public void drawLevel(LevelModel model, TextGraphics graphics) {
