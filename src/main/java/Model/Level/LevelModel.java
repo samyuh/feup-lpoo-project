@@ -17,44 +17,53 @@ public class LevelModel {
     private Key key;
     private Lock lock;
     private Points points;
-
-    private LevelInitializer levelInitializer;
+    private int num;
 
     public LevelModel(int level) {
+        this.num = level;
         this.points = new Points(0);
-        this.levelInitializer = new LevelInitializer(level);
         this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.frozenIce = new ArrayList<>();
-
-        createMapLevel();
     }
 
-    private void createMapLevel() {
-        List<String> mapInfo = levelInitializer.getMapElements();
-        List<Wall> walls = new ArrayList<>();
-        List<Coin> coins = new ArrayList<>();
-        List<WhiteIce> frozenIce = new ArrayList<>();
-
-        for(int yi = 0; yi < mapInfo.size(); yi++) {
-            for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
-                char c = mapInfo.get(yi).charAt(xi);
-                if(c == 'W') walls.add(new Wall( new Position(xi,yi)));
-                if(c == 'C') coins.add(new Coin(new Position(xi,yi)));
-                if(c == 'B') frozenIce.add(new WhiteIce(new Position(xi,yi)));
-                if(c == 'K') setKey(new Key(new Position(xi,yi)));
-                if(c == 'L') setLock(new Lock(new Position(xi,yi)));
-                if(c == 'S') this.hero = new Hero(new Position(xi,yi));
-                if(c == 'D') this.destination = new Destination(new Position(xi,yi));
-            }
-        }
-
-        setWalls(walls);
-        setCoins(coins);
-        setFrozenIce(frozenIce);
+    // --- Set methods
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
+    public void setDestination(Destination destination) {
+        this.destination = destination;
+    }
+
+    public void setWalls(List<Wall> walls) {
+        this.walls = walls;
+    }
+
+    public void setFilled(List<Water> filled) {
+        this.filled = filled;
+    }
+
+    public void setPoints(Points points) {
+        this.points = points;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public void setLock(Lock lock) {
+        this.lock = lock;
+    }
+
+    public void setCoins(List<Coin> coins) {
+        this.coins = coins;
+    }
+
+    public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
+
+    // --- Get methods
     public Hero getHero() {
         return hero;
     }
@@ -103,28 +112,9 @@ public class LevelModel {
         return elements;
     }
 
-    //Set Methods
-    public void setKey(Key key) {
-        this.key = key;
+    public int getnumlevel() {
+        return num;
     }
-
-    public void setLock(Lock lock) {
-        this.lock = lock;
-    }
-
-    public LevelInitializer getLevelInitializer() {
-        return levelInitializer;
-    }
-
-    public void setWalls(List<Wall> walls) {
-        this.walls = walls;
-    }
-
-    public void setCoins(List<Coin> coins) {
-        this.coins = coins;
-    }
-
-    public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
 
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
 

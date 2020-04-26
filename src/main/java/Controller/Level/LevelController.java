@@ -7,15 +7,18 @@ import Model.Position;
 import View.Level.LevelView;
 
 import java.io.IOException;
-import java.util.logging.Level;
 
 public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
 
+    private LevelInitializer levelInitializer;
+
     public LevelController(LevelModel levelModel, LevelView levelView){
         this.levelModel = levelModel;
         this.levelView = levelView;
+        this.levelInitializer = new LevelInitializer(levelModel, levelModel.getnumlevel());
+        levelInitializer.createMapLevel();
     }
 
     private boolean checkCollisions(Position position) {
@@ -71,7 +74,7 @@ public class LevelController {
             if(!processCommand(levelView.processKey())) break;
 
             if(gameWon()){
-                int levelNumber = levelModel.getLevelInitializer().getLevelNumber();
+                int levelNumber = levelInitializer.getLevelNumber();
                 if(levelNumber != 15){
                     setLevel(new LevelModel(++levelNumber));
                 }
