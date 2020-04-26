@@ -7,6 +7,7 @@ import Model.Position;
 import View.Level.LevelView;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class LevelController {
     private LevelModel levelModel;
@@ -67,7 +68,8 @@ public class LevelController {
 
     public void run() throws IOException {
         do {
-            processCommand(levelView.processKey());
+            if(!processCommand(levelView.processKey())) break;
+
             if(gameWon()){
                 int levelNumber = levelModel.getLevelInitializer().getLevelNumber();
                 if(levelNumber != 15){
@@ -82,20 +84,23 @@ public class LevelController {
         } while (true);
     }
 
-    public void processCommand(LevelView.DIRECTION command) {
+    public boolean processCommand(LevelView.DIRECTION command) {
         switch (command) {
             case UP:
                 moveHero(levelModel.getHero().moveUp());
-                break;
+                return true;
             case DOWN:
                 moveHero(levelModel.getHero().moveDown());
-                break;
+                return true;
             case LEFT:
                 moveHero(levelModel.getHero().moveLeft());
-                break;
+                return true;
             case RIGHT:
                 moveHero(levelModel.getHero().moveRight());
-                break;
+                return true;
+            case CLOSE:
+                return false;
         }
+        return false;
     }
 }

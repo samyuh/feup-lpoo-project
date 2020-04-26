@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class LevelView {
-    public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
+    public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE};
 
     Screen screen;
 
@@ -31,6 +31,7 @@ public class LevelView {
             if (key.getKeyType() == KeyType.ArrowRight) return DIRECTION.RIGHT;
             if (key.getKeyType() == KeyType.ArrowDown) return DIRECTION.DOWN;
             if (key.getKeyType() == KeyType.ArrowLeft) return DIRECTION.LEFT;
+            if (key.getKeyType() == KeyType.EOF) return DIRECTION.CLOSE;
         }
     }
 
