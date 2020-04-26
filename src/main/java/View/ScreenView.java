@@ -42,4 +42,8 @@ public class ScreenView {
     public Screen getScreen() {
         return screen;
     }
+
+    public void close() throws IOException {
+        screen.close();
+    }
 }
