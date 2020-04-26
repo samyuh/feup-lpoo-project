@@ -1,4 +1,4 @@
-package Model.Game;
+package Model;
 
 public class Position {
     private int x;

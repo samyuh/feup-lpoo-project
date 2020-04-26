@@ -1,7 +1,7 @@
 import Model.Elements.Hero;
-import Model.Game.Level;
+import Model.Level.LevelInitializer;
 
-import Model.Game.Position;
+import Model.Position;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class GameTest {
     @Test
     public void levelTest(){
-        Level newLevel = new Level(1);
+        LevelInitializer newLevel = new LevelInitializer(1);
         assertEquals(1, newLevel.getLevelNumber());
     }
 

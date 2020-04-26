@@ -1,6 +1,6 @@
 package Model.Elements;
 
-import Model.Game.Position;
+import Model.Position;
 
 public class Lock extends ElementModel {
     public Lock(Position position) {

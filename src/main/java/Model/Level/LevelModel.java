@@ -1,48 +1,41 @@
-package Model.Game;
+package Model.Level;
 
 import Model.Elements.*;
+import Model.Position;
 
-import javax.lang.model.element.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Arena {
-    private int width;
-    private int height;
-    private Level level;
+public class LevelModel {
+    private LevelInitializer levelInitializer;
 
     // Objects
     private Hero hero;
     private Destination destination;
     private List<Wall> walls;
-    private List<Ice> filled;
+    private List<Water> filled;
     private List<Coin> coins;
-    private List<White> white;
+    private List<WhiteIce> frozenIce;
     private Key key;
     private Lock lock;
     private Points points;
 
 
-    public Arena(int width, int height, int level) {
-        this.width = width;
-        this.height = height;
-
+    public LevelModel(int level) {
         this.points = new Points(0);
-        this.level = new Level(level);
+        this.levelInitializer = new LevelInitializer(level);
         this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
         this.coins  = new ArrayList<>();
-        this.white = new ArrayList<>();
+        this.frozenIce = new ArrayList<>();
         createMapLevel();
     }
 
     private void createMapLevel() {
-        List<String> mapInfo = level.getMapInfo();
+        List<String> mapInfo = levelInitializer.getMapElements();
         List<Wall> walls = new ArrayList<>();
         List<Coin> coins = new ArrayList<>();
-        List<White> white = new ArrayList<>();
-
-
+        List<WhiteIce> frozenIce = new ArrayList<>();
 
         for(int yi = 0; yi < mapInfo.size(); yi++) {
             for(int xi = 0; xi < mapInfo.get(yi).length() ; xi++) {
@@ -52,7 +45,7 @@ public class Arena {
                 if(c == 'C')
                     coins.add(new Coin(new Position(xi,yi)));
                 if(c == 'B')
-                    white.add(new White(new Position(xi,yi)));
+                    frozenIce.add(new WhiteIce(new Position(xi,yi)));
                 if(c == 'K')
                     setKey(new Key(new Position(xi,yi)));
                 if(c == 'L')
@@ -66,16 +59,7 @@ public class Arena {
         }
         setWalls(walls);
         setCoins(coins);
-        setWhite(white);
-    }
-
-    //Get Methods
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+        setFrozenIce(frozenIce);
     }
 
     public Hero getHero() {
@@ -90,7 +74,7 @@ public class Arena {
         return walls;
     }
 
-    public List<Ice> getFilled() {
+    public List<Water> getFilled() {
         return filled;
     }
 
@@ -108,16 +92,15 @@ public class Arena {
 
     public Points getPoints() { return points; }
 
-    public List<White> getWhite() { return white; }
+    public List<WhiteIce> getFrozenIce() { return frozenIce; }
 
     public List<ElementModel> getAll(){
         List<ElementModel> elements = new ArrayList<>();
 
-
         elements.addAll(walls);
         elements.addAll(filled);
         elements.addAll(coins);
-        elements.addAll(white);
+        elements.addAll(frozenIce);
         if(key != null) elements.add(lock);
         if(key != null) elements.add(key);
         elements.add(points);
@@ -128,7 +111,6 @@ public class Arena {
     }
 
     //Set Methods
-
     public void setKey(Key key) {
         this.key = key;
     }
@@ -137,8 +119,8 @@ public class Arena {
         this.lock = lock;
     }
 
-    public Level getLevel() {
-        return level;
+    public LevelInitializer getLevelInitializer() {
+        return levelInitializer;
     }
 
     public void setWalls(List<Wall> walls) {
@@ -149,7 +131,7 @@ public class Arena {
         this.coins = coins;
     }
 
-    public void setWhite(List<White> white) { this.white = white; }
+    public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
 
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
 
@@ -163,10 +145,11 @@ public class Arena {
         }
         return false;
     }
+
     public boolean removeWhite(Position position){
-        for(White white : this.white){
-            if(white.getPosition().equals(position)){
-                this.white.remove(white);
+        for(WhiteIce frozenIce : this.frozenIce){
+            if(frozenIce.getPosition().equals(position)){
+                this.frozenIce.remove(frozenIce);
                 return true;
             }
         }

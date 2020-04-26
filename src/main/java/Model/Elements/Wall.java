@@ -1,6 +1,6 @@
 package Model.Elements;
 
-import Model.Game.Position;
+import Model.Position;
 
 public class Wall extends ElementModel {
     public Wall(Position position) {
