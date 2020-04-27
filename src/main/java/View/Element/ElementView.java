@@ -8,7 +8,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class ElementView {
-    public <T extends ElementModel> void draw(T model, TextGraphics graphics) {
+    public void draw(ElementModel model, TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString(model.getColor()));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(model.getPosition().getX(), model.getPosition().getY()), model.getImage());

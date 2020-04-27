@@ -1,6 +1,6 @@
 package Model.Elements;
 
-import Model.Game.Position;
+import Model.Position;
 
 public class Destination extends ElementModel {
     public Destination(Position position) {

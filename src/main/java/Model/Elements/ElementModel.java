@@ -1,6 +1,5 @@
 package Model.Elements;
-import Model.Game.Position;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import Model.Position;
 
 public abstract class ElementModel {
     private Position position;
