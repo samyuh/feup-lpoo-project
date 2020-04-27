@@ -14,7 +14,9 @@ public class LevelController {
 
     private LevelInitializer levelInitializer;
 
-    public LevelController(LevelModel levelModel, LevelView levelView) throws IOException {
+    private int numLevel;
+
+    public LevelController(LevelModel levelModel, LevelView levelView) {
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelInitializer = new LevelInitializer(levelModel);
@@ -65,28 +67,22 @@ public class LevelController {
                 checkCollisions(levelModel.getHero().moveLeft()) && checkCollisions(levelModel.getHero().moveRight()));
     }
 
-    public void setLevel(int level) throws IOException {
+    public void setLevel(int level) {
         levelModel.clearLevel();
         levelInitializer.initLevel(level);
     }
 
     public void run() throws IOException {
         do {
+            levelView.draw(levelModel);
             if(!processCommand(levelView.processKey())) break;
             System.out.println("Here");
             if(gameWon()){
                 System.out.println("Won");
-
-                int levelNumber = levelInitializer.getLevelNumber();
-                if(levelNumber != 15){
-                    setLevel(++levelNumber);
-                }
-                else{
-                    break;
-                }
+                if(numLevel != 15) setLevel(++numLevel);
+                else break;
             }
             if(gameLost()) break;
-            levelView.draw(levelModel);
         } while (true);
     }
 

@@ -1,6 +1,5 @@
 package Model.Level;
 
-import Controller.Level.LevelInitializer;
 import Model.Elements.*;
 import Model.Position;
 
@@ -17,10 +16,8 @@ public class LevelModel {
     private Key key;
     private Lock lock;
     private Points points;
-    private int num;
 
-    public LevelModel(int level) {
-        this.num = level;
+    public LevelModel() {
         this.points = new Points(0);
         this.walls = new ArrayList<>();
         this.filled = new ArrayList<>();
@@ -28,7 +25,6 @@ public class LevelModel {
         this.frozenIce = new ArrayList<>();
     }
 
-    // --- Set methods
     public void setHero(Hero hero) {
         this.hero = hero;
     }
@@ -63,7 +59,6 @@ public class LevelModel {
 
     public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
 
-    // --- Get methods
     public Hero getHero() {
         return hero;
     }
@@ -112,13 +107,8 @@ public class LevelModel {
         return elements;
     }
 
-    public int getnumlevel() {
-        return num;
-    }
-
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
 
-    //Remove Methods
     public boolean removeCoin(Position position){
         for(Coin coin : this.coins){
             if(coin.getPosition().equals(position)){

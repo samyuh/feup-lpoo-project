@@ -61,12 +61,4 @@ public class LevelInitializer {
             e.printStackTrace();
         }
     }
-
-    public int getLevelNumber() {
-        return levelNumber;
-    }
-
-    public List<String> getMapElements() {
-        return this.mapElements;
-    }
 }

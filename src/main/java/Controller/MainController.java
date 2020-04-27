@@ -13,7 +13,7 @@ public class MainController {
 
     public MainController(ScreenView gui) {
         this.levelView = new LevelView(gui);
-        this.levelModel = new LevelModel(1);
+        this.levelModel = new LevelModel();
     }
 
     public void run() throws IOException {
