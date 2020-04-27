@@ -52,10 +52,14 @@ public class LevelInitializer {
         model.setFrozenIce(frozenIce);
     }
 
-    public void initLevel(int levelNumber) throws IOException {
-        this.levelNumber = levelNumber;
-        this.mapElements = readLines();
-        loadElements();
+    public void initLevel(int levelNumber) {
+        try {
+            this.levelNumber = levelNumber;
+            this.mapElements = readLines();
+            loadElements();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLevelNumber() {

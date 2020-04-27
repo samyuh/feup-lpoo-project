@@ -65,8 +65,9 @@ public class LevelController {
                 checkCollisions(levelModel.getHero().moveLeft()) && checkCollisions(levelModel.getHero().moveRight()));
     }
 
-    public void setLevel(int levelModel) throws IOException {
-        levelInitializer.initLevel(levelModel);
+    public void setLevel(int level) throws IOException {
+        levelModel.clearLevel();
+        levelInitializer.initLevel(level);
     }
 
     public void run() throws IOException {

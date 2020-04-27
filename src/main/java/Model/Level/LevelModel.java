@@ -138,4 +138,16 @@ public class LevelModel {
         }
         return false;
     }
+
+    public void clearLevel(){
+        hero = null;
+        destination = null;
+        walls = new ArrayList<>();
+        filled = new ArrayList<>();
+        coins = new ArrayList<>();
+        frozenIce = new ArrayList<>();
+        key = null;
+        lock = null;
+        points = new Points( 0);
+    }
 }
