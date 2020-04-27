@@ -5,11 +5,11 @@ WWWW..W.W....WWW.WW
 W............WWW.WW
 W.W..........W...WW
 W.WWW........W.WWWW
-WLWS.........W....W
+WLWS......P..W....W
 W.WWW.....B..WWWW.W
 W.W.B....W.W.WWW..W
 WB.BBW...W...WWW.WW
-W.W.WW...W....WW..W
+W.W.WW.T.W....WW..W
 W..B.W...W...BBKW.W
 W....WWWWW..WWWWWDW
 WWWWWWWWWWWWWWWWWWW

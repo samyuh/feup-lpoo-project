@@ -1,10 +1,10 @@
 package Model.Elements;
 
-import Model.Game.Position;
+import Model.Position;
 
 public class Hero extends ElementModel {
     public Hero(Position position) {
-        super(position);
+        super("H", "#000000", position);
     }
 
     public Position moveUp() {
