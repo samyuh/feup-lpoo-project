@@ -51,6 +51,6 @@ public class LevelView {
         elements = model.getAll();
 
         for(ElementModel element : elements)
-            view.draw(element,graphics);
+            view.draw(element, graphics);
     }
 }

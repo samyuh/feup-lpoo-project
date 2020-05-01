@@ -1,38 +1,75 @@
 package View;
 
 import Model.Elements.ElementModel;
+import Model.Elements.Hero;
+import Model.Elements.Wall;
+import Model.Level.LevelModel;
 import Model.Position;
-import View.Element.ElementView;
+import View.Level.LevelView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LevelViewTest {
+    List<ElementModel> elementMocks;
+
+    @Before
+    public void startLevel() {
+        elementMocks = new ArrayList<>();
+
+        Position p1 = Mockito.mock(Position.class);
+        Mockito.when(p1.getX()).thenReturn(0);
+        Mockito.when(p1.getY()).thenReturn(0);
+
+        Wall e1 = Mockito.mock(Wall.class);
+        Mockito.when(e1.getImage()).thenReturn("\u2588");
+        Mockito.when(e1.getColor()).thenReturn("#8ABDE8");
+        Mockito.when(e1.getPosition()).thenReturn(p1);
+
+        elementMocks.add(e1);
+
+        Position p2 = Mockito.mock(Position.class);
+        Mockito.when(p2.getX()).thenReturn(1);
+        Mockito.when(p2.getY()).thenReturn(0);
+
+        Hero e2 = Mockito.mock(Hero.class);
+        Mockito.when(e2.getImage()).thenReturn("H");
+        Mockito.when(e2.getColor()).thenReturn("#000000");
+        Mockito.when(e2.getPosition()).thenReturn(p2);
+
+        elementMocks.add(e2);
+    }
+
     @Test
     public void drawTest() {
-        /*
-        TextGraphics graphicsMock = mock(TextGraphics.class);
+        // Create a Stub for Screen
+        Screen scrMock = Mockito.mock(Screen.class);
+        ScreenView screenMock = Mockito.mock(ScreenView.class);
+        Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
 
-        ElementView elementView = new ElementView();
+        // Create a levelMock with the elements that will appear on screen
+        LevelModel levelMock = Mockito.mock(LevelModel.class);
+        Mockito.when(levelMock.getAll()).thenReturn(this.elementMocks);
 
-        Position positionMock = mock(Position.class);
-        when(positionMock.getX()).thenReturn(0);
-        when(positionMock.getY()).thenReturn(0);
+        TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
 
-        ElementModel elementMock = mock(ElementModel.class);
-        when(elementMock.getPosition()).thenReturn(positionMock);
-        when(elementMock.getColor()).thenReturn("#FFBB33");
-        when(elementMock.getImage()).thenReturn("I");
+        LevelView levelView = new LevelView(screenMock);
+        levelView.drawLevel(levelMock, graphicsMock);
 
-        elementView.draw(elementMock, graphicsMock);
+        Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#8ABDE8"));
+        Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(0, 0), "\u2588");
 
-        Mockito.verify(graphicsMock, times(1)).setForegroundColor(TextColor.Factory.fromString("#FFBB33"));
-        Mockito.verify(graphicsMock, times(1)).putString(new TerminalPosition(0, 0), "I");
-        */
+        Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#000000"));
+        Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(1, 0), "H");
+
+        // Continue...
     }
 }
