@@ -1,47 +1,80 @@
 # REPORT - Grupo 70
 
+
 O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*. O jogador deve controlar o personagem de jogo através de inúmeros labirintos, passando pelo número máximo de quadrados antes de o completar. Além disso, ao longo do mapa vão surgindo moedas coletaveis que permitem ao jogador obter uma pontuação mais elevada assim como diversos obstáculos!
 
-# Indice
+- **Universidade**: [FEUP](https://sigarra.up.pt/feup/pt/web_page.Inicial)
+- **Curso**: [MIEIC](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742&pv_ano_lectivo=2019)
+- **Unidade Curricular**: [LPOO](https://sigarra.up.pt/feup/pt/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=420000) (Laboratório de Programação Orientada por Objetos)
+- **Elementos do Grupo**:    
+    - Diogo Samuel Fernandes, up201806250@fe.up.pt
+    - Hugo Guimarães, up201806490@fe.up.pt
 
-1. [Introdução](#introdução)
-2. [Funcionalidades](#funcionalidades)
-3. [Estrutura Geral](#estrutura-geral)
-    - [Arquitetura do Código](#padrão-arquitetural-do-código)
-4. [Design Patterns](#design-patterns)
+# Indíce
+
+1. [Funcionalidades](#funcionalidades)
+2. [Arquitetura do Código](#padrão-arquitetural-do-código)
+3. [Design Patterns](#design-patterns)
     - [Strategy](#strategy)
-5. [Code Smells e Refactoring]
-
-#  Introdução
-
-O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*. O jogador deve controlar o personagem de jogo através de inúmeros labirintos, passando pelo número máximo de quadrados antes de o completar. Além disso, ao longo do mapa vão surgindo moedas coletaveis que permitem ao jogador obter uma pontuação mais elevada assim como diversos obstáculos!
+4. [Code Smells e Refactoring](#code-smells-e-refactoring)
+5. [Unit Tests](#unit-tests)
 
 # Funcionalidades
 
-# Estrutura Geral
-## Padrão Arquitetural do Código
+- [ ] Menu Principal
 
-Para a realização deste projeto, decidimos separar o nosso projeto em três pacotes sendo eles:
+- [x] Os quadrados que o jogador percorre ficam inacessíveis
+  - [x] Os quadrados inacessíveis estão marcados como sendo água
+  - [x] Quando o jogador fica rodeado apenas por água, o mesmo perde
+  - [x] Quanto maior for o número de quadrados que o jogador percorre, maior será a sua pontuação
 
-- Model
-- View
-- Controller
 
-### Model
+- [x] Existem sacos com moedas espalhados pelo nivel.
+  - [x] Capturar um saco com moedas faz aumentar a pontuação do jogador
+  - [ ] Podem existir passagem secretas que levem para zonas com muitos sacos de moedas.
 
-O **Model** contém todos o dados do jogo.
+- [x] A partir de um certo nivel começa a aparecer gelo mais resistente, isto é uma zona em que o jogador pode passar por cima duas vezes. 
 
-### View
+- [ ] Os quadrados verdes correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
 
-O pacote **View** é responsável por toda a interação **Utilizador-Máquina**, ou seja, inicializa o Lanterna e atua como a GUI, sendo responsável pelo desenho e envia as ações do utilizador para o **Controller**.
+- [ ] Menu de fim de jogo
+    - [ ] O jogo acaba assim que o jogador completar todos os niveis. É apresentado a pontuação total.
 
-### Controller
+Com o decorrer do projeto podemos adicionar mais funcionalidades.
 
-O **Controller** é responsável pelo mecanismo do jogo, sendo este 
+# Padrão Arquitetural do Código
 
+Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
+
+- Model - Responsável por armazenar a informação do jogo, como a posição dos diversos elementos em cada nível.
+- View - Responsável por toda a interação **Utilizador-Máquina**, ou seja, inicializa o Lanterna e atua como a GUI, sendo responsável pelo desenho e envia as ações do utilizador para o **Controller**.
+- Controller - é responsável pelo mecanismo do jogo.
 Ou seja, o controlador utiliza os dados existentes no **Model** e altera-os garantindo o cumprimento das regras do jogo. Estes dados depois de processados são desenhos no ecrã pelo **View**.
 
 # Design Patterns
+
+### State
+
+#### Contexto do Problema
+Como o nosso jogo necessita de ter um main menu, um jogo e um menu de final de jogo decidimos implementar o *Design Pattern* State para controlar esta situação.
+
+#### Padrão
+Por este motivo decidimos implementar o *Design Pattern* State para resolver a situação.
+
+#### Implementação
+
+~ Modelo UML
+
+[Main Controller](../src/main/java/Controller/MainController.java)
+[State](../src/main/java/Controller/State/State.java) 
+[StateGame](../src/main/java/Controller/State/StateGame.java) 
+[StateGameOver](../src/main/java/Controller/State/StateGameOver.java) 
+
+#### Consequências
+A aplicação deste Design Pattern irá permitir no decorrer do projeto a criação e mais Menus, como por exemplo Menu Inicial, Menu de instruções, entre outros no decorrer do projeto!
+
+// ------------------------------------------------------------------------------
+-- TO DO 
 ### Strategy
 
 ##### Problema:
@@ -52,5 +85,15 @@ Este Método é também capaz de resolver o problema anterior, porém, de uma ma
 
 Mecanismo chave fechadura: Existência de uma classe **LevelCoin** e outra **LevelKey**. O nosso código seria responsável de chamar um controlador de nivel adequado ao nivel atual. Se Só houvesse coins, chamaríamos o LevelCoin, que não iria verificar as colisões com chave fechadura, gelo branco, etc. Á medida que a complexidade dos níveis iria aumentado, alterávamos o controlador de nivel a utilizar.
 
+### Command
 
+// ------------------------------------------------------------------------------
+
+# Code Smells e Refactoring
+
+### Data Class
+
+Classes que apenas têm informação eg model
+
+# Unit Tests
 

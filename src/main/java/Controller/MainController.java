@@ -1,23 +1,34 @@
 package Controller;
 
-import Controller.Level.LevelController;
-import Model.Level.LevelModel;
-import View.Level.LevelView;
+import Controller.State.State;
+import Controller.State.StateGame;
 import View.ScreenView;
 
 import java.io.IOException;
 
 public class MainController {
-    private LevelView levelView;
-    private LevelModel levelModel;
+    ScreenView gui;
+    private State state;
+    private boolean exit = false;
 
     public MainController(ScreenView gui) {
-        this.levelView = new LevelView(gui);
-        this.levelModel = new LevelModel();
+        this.gui = gui;
+        this.state = new StateGame(this, gui);
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void exit() {
+        this.exit = true;
     }
 
     public void run() throws IOException {
-        LevelController controller = new LevelController(levelModel, levelView);
-        controller.run();
+        while(!exit) {
+            this.state.run();
+        }
     }
+
+
 }
