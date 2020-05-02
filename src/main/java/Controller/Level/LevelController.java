@@ -36,18 +36,22 @@ public class LevelController {
         heroM = new HeroMovement(levelModel.getHero());
     }
 
-    public void run() throws IOException {
-        do {
+    public boolean run() throws IOException {
+        while (true) {
             levelView.draw(levelModel);
-            if(!processCommand(levelView.processKey())) break;
-            System.out.println("Here");
-            if(gameWon()){
-                System.out.println("Won");
-                if(numLevel != 15) setLevel(++numLevel);
-                else break;
+
+            if(!processCommand(levelView.processKey()))
+                return false;
+
+            if(gameWon()) {
+                if(numLevel != 15)
+                    setLevel(++numLevel);
+                else
+                    return true;
             }
-            if(gameLost()) break;
-        } while (true);
+            if(gameLost())
+                return false;
+        }
     }
 
 
