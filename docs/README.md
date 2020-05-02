@@ -23,10 +23,10 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 - [ ] Menu Principal
 
-- [x] Todas as peças que o jogador percorre ficam inacessíveis.
-  - [x] O jogador não pode passar por cima de uma peça de água
-  - [x] Se o jogador ficar rodeado por peças de água, este perde.
-  - [x] Quanto maior for o número de peças de gelo que o jogador passe, maior é a sua pontuação
+- [x] Os quadrados que o jogador percorre ficam inacessíveis
+  - [x] Os quadrados inacessíveis estão marcados como sendo água
+  - [x] Quando o jogador fica rodeado apenas por água, o mesmo perde
+  - [x] Quanto maior for o número de quadrados que o jogador percorre, maior será a sua pontuação
 
 
 - [x] Existem sacos com moedas espalhados pelo nivel.
@@ -35,36 +35,47 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 - [x] A partir de um certo nivel começa a aparecer gelo mais resistente, isto é uma zona em que o jogador pode passar por cima duas vezes. 
 
-- [ ] Quando o jogador passa por cima de um quadrado verde, o mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
+- [ ] Os quadrados verdes correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
 
 - [ ] Menu de fim de jogo
     - [ ] O jogo acaba assim que o jogador completar todos os niveis. É apresentado a pontuação total.
 
+Com o decorrer do projeto podemos adicionar mais funcionalidades.
+
 # Padrão Arquitetural do Código
 
-To structure this project we decided to implement the MVC (Model-View-Controller) architectural pattern. As the name implies this pattern divides the structure of the program in three interconnected parts:
-
-Model: It holds the internal game information, rules and is independent of the user interface
-View: Represents the visualization of the data that model contains.
-Controller: Exists between the view and the model. It listens to events triggered by the view and executes the appropriate reaction to these events. In most cases, the reaction will change the model and its display under view.
-The biggest advantage in the MVC architectural pattern is that it decouples these major components allowing for efficient code reuse and parallel development.
-
 Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
+
 - Model - Responsável por armazenar a informação do jogo, como a posição dos diversos elementos em cada nível.
 - View - Responsável por toda a interação **Utilizador-Máquina**, ou seja, inicializa o Lanterna e atua como a GUI, sendo responsável pelo desenho e envia as ações do utilizador para o **Controller**.
-
 - Controller - é responsável pelo mecanismo do jogo.
 Ou seja, o controlador utiliza os dados existentes no **Model** e altera-os garantindo o cumprimento das regras do jogo. Estes dados depois de processados são desenhos no ecrã pelo **View**.
 
 # Design Patterns
 
+### State
+
+#### Contexto do Problema
+Como o nosso jogo necessita de ter um main menu, um jogo e um menu de final de jogo decidimos implementar o *Design Pattern* State para controlar esta situação.
+
+#### Padrão
+Por este motivo decidimos implementar o *Design Pattern* State para resolver a situação.
+
+#### Implementação
+
+~ Modelo UML
+
+[Main Controller](../src/main/java/Controller/MainController.java)
+[State](../src/main/java/Controller/State/State.java) 
+[StateGame](../src/main/java/Controller/State/StateGame.java) 
+[StateGameOver](../src/main/java/Controller/State/StateGameOver.java) 
+
+#### Consequências
+A aplicação deste Design Pattern irá permitir no decorrer do projeto a criação e mais Menus, como por exemplo Menu Inicial, Menu de instruções, entre outros no decorrer do projeto!
+
+// ------------------------------------------------------------------------------
 -- TO DO 
 ### Strategy
-
-Problem in Context
-The Pattern
-Implementation
-Consequences
 
 ##### Problema:
 
@@ -76,9 +87,13 @@ Mecanismo chave fechadura: Existência de uma classe **LevelCoin** e outra **Lev
 
 ### Command
 
+// ------------------------------------------------------------------------------
+
 # Code Smells e Refactoring
 
 ### Data Class
+
+Classes que apenas têm informação eg model
 
 # Unit Tests
 
