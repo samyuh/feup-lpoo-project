@@ -111,8 +111,6 @@ public class LevelModel {
 
     public boolean removeCoin(Position position){
         for(Coin coin : this.coins) {
-            System.out.println(coin.getPosition().getX() + " " + coin.getPosition().getY());
-            System.out.println(position.getX() + " " + position.getY());
             if (coin.getPosition().equals(position)) {
                 this.coins.remove(coin);
                 return true;
@@ -123,8 +121,6 @@ public class LevelModel {
 
     public boolean removeWhite(Position position){
         for(WhiteIce frozenIce : this.frozenIce){
-            System.out.println(frozenIce.getPosition().getX() + " " + frozenIce.getPosition().getY());
-            System.out.println(position.getX() + " " + position.getY());
             if(frozenIce.getPosition().equals(position)){
                 this.frozenIce.remove(frozenIce);
                 return true;
