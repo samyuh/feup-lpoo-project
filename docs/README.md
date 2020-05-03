@@ -1,7 +1,7 @@
 # REPORT - Grupo 70
 
 
-O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*. O jogador deve controlar o personagem de jogo através de inúmeros labirintos, passando pelo número máximo de quadrados antes de o completar. Além disso, ao longo do mapa vão surgindo moedas coletaveis que permitem ao jogador obter uma pontuação mais elevada assim como diversos obstáculos!
+O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*. O jogador deve controlar o personagem de jogo através de inúmeros labirintos, passando pelo número máximo de quadrados antes de o completar. Além disso, ao longo do mapa vão surgindo moedas coletaveis que permitem ao jogador obter uma pontuação mais elevada, assim como diversos obstáculos!
 
 - **Universidade**: [FEUP](https://sigarra.up.pt/feup/pt/web_page.Inicial)
 - **Curso**: [MIEIC](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742&pv_ano_lectivo=2019)
@@ -33,7 +33,7 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
   - [x] Capturar um saco com moedas faz aumentar a pontuação do jogador
   - [ ] Podem existir passagem secretas que levem para zonas com muitos sacos de moedas.
 
-- [x] A partir de um certo nivel começa a aparecer gelo mais resistente, isto é uma zona em que o jogador pode passar por cima duas vezes. 
+- [x] A partir de um certo nivel começa a aparecer gelo mais resistente, isto é uma zona em que o jogador pode passar por cima duas vezes.
 
 - [ ] Os quadrados verdes correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
 
@@ -66,15 +66,15 @@ Por este motivo decidimos implementar o *Design Pattern* State para resolver a s
 ~ Modelo UML
 
 [Main Controller](../src/main/java/Controller/MainController.java)
-[State](../src/main/java/Controller/State/State.java) 
-[StateGame](../src/main/java/Controller/State/StateGame.java) 
-[StateGameOver](../src/main/java/Controller/State/StateGameOver.java) 
+[State](../src/main/java/Controller/State/State.java)
+[StateGame](../src/main/java/Controller/State/StateGame.java)
+[StateGameOver](../src/main/java/Controller/State/StateGameOver.java)
 
 #### Consequências
 A aplicação deste Design Pattern irá permitir no decorrer do projeto a criação e mais Menus, como por exemplo Menu Inicial, Menu de instruções, entre outros no decorrer do projeto!
 
 // ------------------------------------------------------------------------------
--- TO DO 
+-- TO DO
 ### Strategy
 
 ##### Problema:
@@ -91,9 +91,48 @@ Mecanismo chave fechadura: Existência de uma classe **LevelCoin** e outra **Lev
 
 # Code Smells e Refactoring
 
+Lista de Possíveis Code Smells a mencionar:
+1. Bloaters
+    1. Long Method (Eu não acho que tenhamos, mas quero o teu feedback e pode ser que o código cresca em algum sítio);
+
+    2. Long Class (Para já acho que não temos nenhuma enorme, mas como disse, o código pode crescer);
+
+2. Object-Orientation Abusers
+    1. Switch Statements (De facto temos alguns :-/ )
+    2. Temporary Field (Temos várias variáveis (Key and lock) que ora estão null, ora têm um determinado valor)
+3. Change Preventers (Não identifiquei grande problema, mas é um Code Smell dificil de se ver, a não ser que queriramos alterar algo) Provavelmente 
+4. Dispensables
+5. Couplers
+6. Other Smells
+
 ### Data Class
 
-Classes que apenas têm informação eg model
+As classes que se encontram na pasta **Model** são apenas constituídas por *atributos* e funções *get* e *set*.  
+
+Esta situação é problemática, pois viola o princípio **Tell Don't Ask** da **OOP**.
+
+O princípio pode ser facilmente explicado por esta citação de [Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html).
+
+> Tell-Don't-Ask is a principle that helps people remember that object-orientation is about bundling data with the functions that operate on that data. It reminds us that rather than asking an object for data and acting on that data, we should instead tell an object what to do. This encourages to move behavior into an object to go with the data.
+
+![asdasd](img/MartinFowler.png)
+
+Embora se possa resolver este problema adicionando a lógica do programa às data classes, estaríamos a violar o modelo **MVC**, que requer um **Model** com **Data Classes**. Deste modo, podemos afirmar que este code smell é inerente ao estilo arquitetural que estamos a usar, pelo que não temos planos futuros para o corrigir.
+
+### Dead Code and Speculative Generality
+
+Na classe [Level Model](../src/main/java/Model/Level/LevelModel.java), existem *setters e getters* que não estamos a utilizar, quer por serem funções que utilizamos anteriormente, quer por serem funções que poderemos utilizar no futuro, pois estamos perante uma entrega intermédia do projeto e ainda há muito código por desenvolver que poderá usufruir da manipulação dos atributos do modelo.  
+
+Este code smell é problemático, porque estamos a adicionar linhas de código redundantes cujo único propósito atual é complicar o código.  
+
+Este problema pode ser facilmente resolvido eliminando o **Dead Code**. Contudo, decidimos não o fazer porque, como mencionado anteriormente, estas linha de código podem ser úteis no futuro (*Speculative Generality*)
+
+
+### Message Chains and Inappropriate Intimacy
+
+A classe [Level Controller](../src/main/java/Controller/Level/LevelController.java) incorre no Code Smell **Message Chains**, havendo linhas de código com acesso a Métodos de um objeto do objeto da classe.
+eg: ![MoveHero](img/MoveHero.png)
+
+Este método é problemático, pois dificulta a leitura do código e implica o uso constante de métodos e atributos pertencentes a outras classes (**Feature Envy** and **Inappropriate Intimacy**)
 
 # Unit Tests
-
