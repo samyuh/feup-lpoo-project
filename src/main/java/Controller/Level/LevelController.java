@@ -84,9 +84,9 @@ public class LevelController {
                 levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
 
             if (levelModel.removeCoin(position))
-                levelModel.addPoints(11);
-            else
-                levelModel.addPoints(1);
+                levelModel.addPoints(10);
+
+            levelModel.addPoints(1);
 
             if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
                 levelModel.setKey(null);
