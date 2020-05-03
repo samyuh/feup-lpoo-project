@@ -41,5 +41,10 @@ public class PositionTest {
         assertEquals(elementPos1.getY(), 3);
         assertEquals(elementPos2.getX(), 2);
         assertEquals(elementPos2.getY(), 5);
+
+        Position elementPos3 = new Position(5,7);
+        Position elementPos4 = new Position(5,7);
+
+        assertTrue(elementPos4.equals(elementPos3));
     }
 }

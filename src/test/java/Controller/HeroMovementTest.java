@@ -20,6 +20,7 @@ public class HeroMovementTest {
 
         Hero heroMock = Mockito.mock(Hero.class);
         Mockito.when(heroMock.getPosition()).thenReturn(positionMock);
+
         HeroMovement heroT = new HeroMovement(heroMock);
 
         assertEquals(heroT.moveUp().getX(), 1);

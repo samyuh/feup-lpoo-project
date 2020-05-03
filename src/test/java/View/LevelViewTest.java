@@ -9,15 +9,20 @@ import View.Level.LevelView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeroMovementViewTest {
+import static org.junit.Assert.assertEquals;
+
+public class LevelViewTest {
     List<ElementModel> elementMocks;
 
     @Before
@@ -64,12 +69,51 @@ public class HeroMovementViewTest {
         levelView.drawLevel(levelMock, graphicsMock);
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#336699"));
+
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#8ABDE8"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(0, 0), "\u2588");
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#000000"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(1, 0), "H");
+    }
 
-        // Continue...
+    @Test
+    public void inputTest() throws IOException {
+        // Create a Stub for Screen and keyPressed
+        Screen scrMock = Mockito.mock(Screen.class);
+        ScreenView screenMock = Mockito.mock(ScreenView.class);
+        Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
+
+        KeyStroke keyUp = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyUp.getKeyType()).thenReturn(KeyType.ArrowUp);
+
+        KeyStroke keyRight = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyRight.getKeyType()).thenReturn(KeyType.ArrowRight);
+
+        KeyStroke keyDown = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyDown.getKeyType()).thenReturn(KeyType.ArrowDown);
+
+        KeyStroke keyLeft = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyLeft.getKeyType()).thenReturn(KeyType.ArrowLeft);
+
+        KeyStroke keyEOF = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyEOF.getKeyType()).thenReturn(KeyType.EOF);
+
+        LevelView levelView = new LevelView(screenMock);
+
+        Mockito.when(scrMock.readInput()).thenReturn(keyUp);
+        assertEquals(levelView.processKey(), LevelView.DIRECTION.UP);
+
+        Mockito.when(scrMock.readInput()).thenReturn(keyRight);
+        assertEquals(levelView.processKey(), LevelView.DIRECTION.RIGHT);
+
+        Mockito.when(scrMock.readInput()).thenReturn(keyDown);
+        assertEquals(levelView.processKey(), LevelView.DIRECTION.DOWN);
+
+        Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
+        assertEquals(levelView.processKey(), LevelView.DIRECTION.LEFT);
+
+        Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
+        assertEquals(levelView.processKey(), LevelView.DIRECTION.CLOSE);
     }
 }
