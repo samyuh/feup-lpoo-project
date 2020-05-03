@@ -82,15 +82,17 @@ public class LevelController {
         if (!checkCollisions(position)) {
             if(!levelModel.removeWhite(levelModel.getHero().getPosition()))
                 levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
-            levelModel.getHero().setPosition(position);
 
-            if (levelModel.removeCoin(position)) levelModel.addPoints(10);
-            else levelModel.addPoints(1);
+            if (levelModel.removeCoin(position))
+                levelModel.addPoints(11);
+            else
+                levelModel.addPoints(1);
 
             if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
                 levelModel.setKey(null);
                 levelModel.setLock(null);
             }
+            levelModel.getHero().setPosition(position);
         }
     }
 

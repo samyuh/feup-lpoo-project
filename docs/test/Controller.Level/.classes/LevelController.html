@@ -1,0 +1,236 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LevelController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">Controller.Level</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LevelController (Controller.Level)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LevelController</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    74,6%
+  </span>
+  <span class="absValue">
+    (44/ 59)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LevelController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    90,9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (45/ 60)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package Controller.Level;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import Controller.Element.HeroMovement;
+<i>4</i>&nbsp;import Model.Elements.Wall;
+<i>5</i>&nbsp;import Model.Elements.Water;
+<i>6</i>&nbsp;import Model.Level.LevelModel;
+<i>7</i>&nbsp;import Model.Position;
+<i>8</i>&nbsp;import View.Level.LevelView;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.io.IOException;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public class LevelController {
+<i>13</i>&nbsp;    private LevelModel levelModel;
+<i>14</i>&nbsp;    private LevelView levelView;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    private LevelInitializer levelInitializer;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    private HeroMovement heroM;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    private int levelNum;
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;    public LevelController(LevelModel levelModel, LevelView levelView) {</b>
+<b class="fc"><i>23</i>&nbsp;        this.levelNum = 1;</b>
+<b class="fc"><i>24</i>&nbsp;        this.levelModel = levelModel;</b>
+<b class="fc"><i>25</i>&nbsp;        this.levelView = levelView;</b>
+<b class="fc"><i>26</i>&nbsp;        this.levelInitializer = new LevelInitializer(levelModel);</b>
+<b class="fc"><i>27</i>&nbsp;        levelInitializer.initLevel(levelNum);</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;        heroM = new HeroMovement(levelModel.getHero());</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    public void setLevel(int level) {
+<b class="fc"><i>33</i>&nbsp;        levelNum = level;</b>
+<b class="fc"><i>34</i>&nbsp;        levelModel.clearLevel();</b>
+<b class="fc"><i>35</i>&nbsp;        levelInitializer.initLevel(levelNum);</b>
+<i>36</i>&nbsp;
+<b class="fc"><i>37</i>&nbsp;        heroM = new HeroMovement(levelModel.getHero());</b>
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    public boolean run() throws IOException {
+<i>41</i>&nbsp;        while (true) {
+<b class="nc"><i>42</i>&nbsp;            levelView.draw(levelModel);</b>
+<i>43</i>&nbsp;
+<b class="nc"><i>44</i>&nbsp;            if(!processCommand(levelView.processKey()))</b>
+<b class="nc"><i>45</i>&nbsp;                return false;</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;            if(gameWon()) {</b>
+<b class="nc"><i>48</i>&nbsp;                if(levelNum != 15) {</b>
+<b class="nc"><i>49</i>&nbsp;                    levelNum++;</b>
+<b class="nc"><i>50</i>&nbsp;                    setLevel(levelNum);</b>
+<i>51</i>&nbsp;                }
+<i>52</i>&nbsp;                else
+<b class="nc"><i>53</i>&nbsp;                    return true;</b>
+<i>54</i>&nbsp;            }
+<b class="nc"><i>55</i>&nbsp;            if(gameLost())</b>
+<b class="nc"><i>56</i>&nbsp;                return false;</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public boolean processCommand(LevelView.DIRECTION command) {
+<b class="fc"><i>62</i>&nbsp;        switch (command) {</b>
+<i>63</i>&nbsp;            case UP:
+<b class="fc"><i>64</i>&nbsp;                moveHero(heroM.moveUp());</b>
+<b class="fc"><i>65</i>&nbsp;                return true;</b>
+<i>66</i>&nbsp;            case DOWN:
+<b class="fc"><i>67</i>&nbsp;                moveHero(heroM.moveDown());</b>
+<b class="fc"><i>68</i>&nbsp;                return true;</b>
+<i>69</i>&nbsp;            case LEFT:
+<b class="fc"><i>70</i>&nbsp;                moveHero(heroM.moveLeft());</b>
+<b class="fc"><i>71</i>&nbsp;                return true;</b>
+<i>72</i>&nbsp;            case RIGHT:
+<b class="fc"><i>73</i>&nbsp;                moveHero(heroM.moveRight());</b>
+<b class="fc"><i>74</i>&nbsp;                return true;</b>
+<i>75</i>&nbsp;            case CLOSE:
+<b class="nc"><i>76</i>&nbsp;                return false;</b>
+<i>77</i>&nbsp;        }
+<b class="nc"><i>78</i>&nbsp;        return false;</b>
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    public void moveHero(Position position) {
+<b class="fc"><i>82</i>&nbsp;        if (!checkCollisions(position)) {</b>
+<b class="fc"><i>83</i>&nbsp;            if(!levelModel.removeWhite(levelModel.getHero().getPosition()))</b>
+<b class="fc"><i>84</i>&nbsp;                levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));</b>
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;            if (levelModel.removeCoin(position))</b>
+<b class="nc"><i>87</i>&nbsp;                levelModel.addPoints(11);</b>
+<i>88</i>&nbsp;            else
+<b class="fc"><i>89</i>&nbsp;                levelModel.addPoints(1);</b>
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;            if(levelModel.getKey() != null &amp;&amp; levelModel.getKey().getPosition().equals(position)){</b>
+<b class="nc"><i>92</i>&nbsp;                levelModel.setKey(null);</b>
+<b class="nc"><i>93</i>&nbsp;                levelModel.setLock(null);</b>
+<i>94</i>&nbsp;            }
+<b class="fc"><i>95</i>&nbsp;            levelModel.getHero().setPosition(position);</b>
+<i>96</i>&nbsp;        }
+<b class="fc"><i>97</i>&nbsp;    }</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    private boolean checkCollisions(Position position) {
+<b class="fc"><i>100</i>&nbsp;        for (Wall wall : levelModel.getWalls()){</b>
+<b class="fc"><i>101</i>&nbsp;            if (wall.getPosition().equals(position))</b>
+<b class="fc"><i>102</i>&nbsp;                return true;</b>
+<b class="fc"><i>103</i>&nbsp;        }</b>
+<b class="fc"><i>104</i>&nbsp;        for (Water water : levelModel.getFilled()){</b>
+<b class="fc"><i>105</i>&nbsp;            if (water.getPosition().equals(position))</b>
+<b class="fc"><i>106</i>&nbsp;                return true;</b>
+<b class="fc"><i>107</i>&nbsp;        }</b>
+<b class="fc"><i>108</i>&nbsp;        return levelModel.getLock() != null &amp;&amp; levelModel.getLock().getPosition().equals(position);</b>
+<i>109</i>&nbsp;    }
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;    public boolean gameWon() {
+<b class="fc"><i>112</i>&nbsp;        return heroM.atPosition(levelModel.getDestination().getPosition());</b>
+<i>113</i>&nbsp;    }
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    public boolean gameLost() {
+<b class="fc"><i>116</i>&nbsp;        return (checkCollisions(heroM.moveUp()) &amp;&amp; checkCollisions(heroM.moveDown()) &amp;&amp;</b>
+<b class="fc"><i>117</i>&nbsp;                checkCollisions(heroM.moveLeft()) &amp;&amp; checkCollisions(heroM.moveRight()) &amp;&amp; !gameWon());</b>
+<i>118</i>&nbsp;    }
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;    public HeroMovement getHeroM() {
+<b class="fc"><i>121</i>&nbsp;        return heroM;</b>
+<i>122</i>&nbsp;    }
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    public int getlevelNum() {
+<b class="fc"><i>125</i>&nbsp;        return levelNum;</b>
+<i>126</i>&nbsp;    }
+<i>127</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-03 21:55</div>
+</div>
+</body>
+</html>
