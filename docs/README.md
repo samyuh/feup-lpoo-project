@@ -100,16 +100,16 @@ Lista de Possíveis Code Smells a mencionar:
 2. Object-Orientation Abusers
     1. Switch Statements (De facto temos alguns :-/ )
     2. Temporary Field (Temos várias variáveis (Key and lock) que ora estão null, ora têm um determinado valor)
-3. Change Preventers (Não identifiquei grande problema, mas é um Code Smell dificil de se ver, a não ser que queriramos alterar algo) Provavelmente 
+3. Change Preventers (Não identifiquei grande problema, mas é um Code Smell dificil de se ver, a não ser que queriramos alterar algo)
 4. Dispensables
 5. Couplers
 6. Other Smells
 
 ### Data Class
 
-As classes que se encontram na pasta **Model** são apenas constituídas por *atributos* e funções *get* e *set*.  
+As classes que se encontram em [odel](../src/main/java/Model) são apenas constituídas por atributos e funções *getter* e *setter*.  
 
-Esta situação é problemática, pois viola o princípio **Tell Don't Ask** da **OOP**.
+Esta situação é problemática, pois viola o princípio [*Tell Don't Ask*](https://deviq.com/tell-dont-ask/) da [*OOP*](https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/).
 
 O princípio pode ser facilmente explicado por esta citação de [Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html).
 
@@ -117,7 +117,7 @@ O princípio pode ser facilmente explicado por esta citação de [Martin Fowler]
 
 ![asdasd](img/MartinFowler.png)
 
-Embora se possa resolver este problema adicionando a lógica do programa às data classes, estaríamos a violar o modelo **MVC**, que requer um **Model** com **Data Classes**. Deste modo, podemos afirmar que este code smell é inerente ao estilo arquitetural que estamos a usar, pelo que não temos planos futuros para o corrigir.
+Embora se possa resolver este problema adicionando a *lógica do programa* às data classes (ou seja, usando o [Move Method](https://refactoring.guru/move-method)), estaríamos a violar o modelo **MVC**, que requer um **Model** com **Data Classes**. Deste modo, podemos afirmar que este code smell é inerente ao estilo arquitetural que estamos a usar, pelo que não temos planos futuros para o corrigir.
 
 ### Dead Code and Speculative Generality
 
@@ -125,14 +125,25 @@ Na classe [Level Model](../src/main/java/Model/Level/LevelModel.java), existem *
 
 Este code smell é problemático, porque estamos a adicionar linhas de código redundantes cujo único propósito atual é complicar o código.  
 
-Este problema pode ser facilmente resolvido eliminando o **Dead Code**. Contudo, decidimos não o fazer porque, como mencionado anteriormente, estas linha de código podem ser úteis no futuro (*Speculative Generality*)
+Este problema pode ser facilmente resolvido eliminando o [*Dead Code*](https://refactoring.guru/smells/dead-code). Contudo, decidimos não o fazer porque, como mencionado anteriormente, estas linha de código podem ser úteis no futuro ([*Speculative Generality*](https://refactoring.guru/smells/speculative-generality))
 
 
-### Message Chains and Inappropriate Intimacy
+### Message Chains, Feature ENvy and Inappropriate Intimacy
 
-A classe [Level Controller](../src/main/java/Controller/Level/LevelController.java) incorre no Code Smell **Message Chains**, havendo linhas de código com acesso a Métodos de um objeto do objeto da classe.
+A classe [Level Controller](../src/main/java/Controller/Level/LevelController.java) incorre no Code Smell [*Message Chains*](https://refactoring.guru/smells/message-chains), havendo linhas de código com acesso a Métodos de um objeto do objeto da classe.
 eg: ![MoveHero](img/MoveHero.png)
 
-Este método é problemático, pois dificulta a leitura do código e implica o uso constante de métodos e atributos pertencentes a outras classes (**Feature Envy** and **Inappropriate Intimacy**)
+Este método é problemático, pois dificulta a leitura do código e implica o uso constante de métodos e atributos pertencentes a outras classes ([*Feature Envy*](https://refactoring.guru/smells/feature-envy) and [*Inappropriate Intimacy*](https://refactoring.guru/smells/inappropriate-intimacy))
+
+Uma maneira de resolver estes Code Smells([*Couplers*](https://refactoring.guru/refactoring/smells/couplers)), seria o uso de:
+
+1. [*Move Method*](https://refactoring.guru/move-method), ou seja, o Método a ser utilizado deve ser transportado para a classe onde é de facto chamado eg: Em vez de LevelModel ser responsável por manipular os Elementos, o próprio LevelController poderia fazê-lo.
+
+2. [*Extract Method*](https://refactoring.guru/extract-method) para criar novos métodos que executem a manipulação dos atributos do objeto em causa, melhorando a legibilade do código eg: em vez de `getHero.getPosition()`, `getHeroPosition()`. Esta solução teria uma contrapartida, podendo gerar uma classe com demasiados métodos, o que seria um Code Smell em si;
+
+3. [*Move Field*](https://refactoring.guru/move-field), ou seja, movimentar o atributo em causa para a classe que realmente o usa, evitando a necessidade do uso de *getters* e *setters*. Porém, esta solução iria causar novos problemas, dado que iria alterar as *Data Classes* inerentes ao uso do *MVC*, alterando a arquiterura do nosso programa, podendo até originar uma classe com demasiados atributos, originando um novo *Code Smell*
+
+4. [*Extract Class*](https://refactoring.guru/extract-class) É também possível criar uma nova classe responsável por executar parte do código da classe atual, ou seja, criar vários controladores que façam a gestão de diferentes partes do LevelModel. Combinando este *Refactor* com os anteriores, será possível eliminar problemas de *Coupling* sem originar novos *Code Sells* associados a excesso de dados.
+
 
 # Unit Tests
