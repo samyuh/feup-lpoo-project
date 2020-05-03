@@ -32,7 +32,7 @@ public class LevelController {
     public void setLevel(int level) {
         levelNum = level;
         levelModel.clearLevel();
-        levelInitializer.initLevel(level);
+        levelInitializer.initLevel(levelNum);
 
         heroM = new HeroMovement(levelModel.getHero());
     }
@@ -45,8 +45,10 @@ public class LevelController {
                 return false;
 
             if(gameWon()) {
-                if(levelNum != 15)
+                if(levelNum != 15) {
+                    levelNum++;
                     setLevel(levelNum);
+                }
                 else
                     return true;
             }
