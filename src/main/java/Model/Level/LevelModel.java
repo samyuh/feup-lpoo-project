@@ -110,8 +110,8 @@ public class LevelModel {
     public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
 
     public boolean removeCoin(Position position){
-        for(Coin coin : this.coins){
-            if(coin.getPosition().equals(position)){
+        for(Coin coin : this.coins) {
+            if (coin.getPosition().equals(position)) {
                 this.coins.remove(coin);
                 return true;
             }
