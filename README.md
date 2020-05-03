@@ -12,22 +12,32 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 # Funcionalidades
 
 - [ ] Menu Principal
+    - [ ] Começar um novo jogo
+    - [ ] Escolha de nível
+    - [ ] Sair do jogo
 
-- [x] Todas as peças que o jogador percorre ficam inacessíveis.
-  - [x] O jogador não pode passar por cima de uma peça de água
-  - [x] Se o jogador ficar rodeado por peças de água, este perde.
-  - [x] Quanto maior for o número de peças de gelo que o jogador passe, maior é a sua pontuação
+- [x] Movimento
+    - [x] Sempre que o jogador se movimentar, a sua posição anterior fica inacessível
+    - [x] As posições inacessíveis são transformadas em água
+    - [x] Quando o jogador não se pode movimentar, isto é, quando rodeado por peças de água e por paredes, perde o jogo
 
+- [ ] Menu Pausa
+    - [ ] Recomeçar o nível
+    - [ ] Retornar ao menu principal
 
-- [x] Existem sacos com moedas espalhados pelo nivel.
-  - [x] Capturar um saco com moedas faz aumentar a pontuação do jogador
-  - [ ] Podem existir passagem secretas que levem para zonas com muitos sacos de moedas.
+- [x] Pontuação
+    - [x] Sempre que o jogador percorre um novo quadrado, a sua pontuação incrementa um ponto
+    - [x] Existem moedas espalhadas em determinados niveís
+    - [x] Capturar uma moeda aumenta a pontuação do jogador em dez pontos
 
-- [x] A partir de um certo nivel começa a aparecer gelo mais resistente, isto é uma zona em que o jogador pode passar por cima duas vezes. 
-
-- [ ] Quando o jogador passa por cima de um quadrado verde, o mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
+- [ ] Mecânicas de jogo
+    - [x] Quadrados onde o jogador pode passar por cima duas vezes.
+    - [ ] Quadrados verdes que correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
+    - [ ] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede
+    - [ ] Passagens secretas que levem o jogador para zonas bónus com muitos sacos de moedas.
 
 - [ ] Menu de fim de jogo
-    - [ ] O jogo acaba assim que o jogador completar todos os niveis. É apresentado a pontuação total.
+    - [ ] O jogo acaba assim que o jogador completar todos os niveis ou perder. É apresentado a pontuação total.
+    - [ ] Retornar ao Menu Principal
 
 

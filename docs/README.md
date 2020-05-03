@@ -53,6 +53,8 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 Com o decorrer do projeto poderão ser adicionadas mais funcionalidades
 
+![GameLevel](./images/gameScreenshot.png)
+
 # Padrão Arquitetural do Código
 
 Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
@@ -61,7 +63,7 @@ Para a realização deste projeto, decidimos separar e estruturar o nosso códig
 - O ***View***, que é responsável pela visualização do jogo e por enviar a informação recebida do utilizador, como por exemplo, teclas pressionadas no teclado para o *Controller*.
 - O ***Controller***, que processa a informação recebida pelo *View* e envia comandos ao *Model* para atualizar o seu estado.
 
-![MVC](images/mvc.png)
+![MVC](./images/mvc.png)
 
 Este padrão arquitetural permite uma maior modularidade ao código, facilitando a implementação de novas funcionalidades.
 
@@ -167,7 +169,7 @@ Para resolver este problema podemos seguir os seguintes passos:
 
 Os nossos teste cobrem cerca de 76% do código total. É possível observar a percentagem de testes em cada classe de cada um dos packages principais na seguinte imagem.
 
-![MoveHero](images/testCoverage.png)
+![MoveHero](./images/testCoverage.png)
 
 Para a criação de testes foram utilizados as frameworks ***JUnit*** e ***Mockito***.
 
