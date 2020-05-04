@@ -104,14 +104,8 @@ public class LevelController {
     }
 
     private boolean checkCollisions(Position position) {
-        for (Wall wall : levelModel.getWalls()){
-            if (wall.getPosition().equals(position))
-                return true;
-        }
-        for (Water water : levelModel.getFilled()){
-            if (water.getPosition().equals(position))
-                return true;
-        }
+        if((levelModel.findWall(position)) != null) return true;
+        if((levelModel.findWater(position)) != null) return true;
         return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
     }
 
