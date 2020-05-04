@@ -1,8 +1,8 @@
 package Controller.Level;
 
 import Controller.Element.HeroMovement;
-import Model.Elements.Wall;
-import Model.Elements.Water;
+import Controller.Interact.*;
+import Model.Elements.*;
 import Model.Level.LevelModel;
 import Model.Position;
 import View.Level.LevelView;
@@ -16,6 +16,7 @@ public class LevelController {
     private LevelInitializer levelInitializer;
 
     private HeroMovement heroM;
+
 
     private int levelNum;
 
@@ -45,8 +46,10 @@ public class LevelController {
                 return false;
 
             if(gameWon()) {
-                if(levelNum != 15)
-                    setLevel(levelNum);
+                if (levelNum != 15){
+                    levelNum++;
+                setLevel(levelNum);
+                }
                 else
                     return true;
             }
@@ -78,18 +81,39 @@ public class LevelController {
 
     public void moveHero(Position position) {
         if (!checkCollisions(position)) {
-            if(!levelModel.removeWhite(levelModel.getHero().getPosition()))
-                levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
-            levelModel.getHero().setPosition(position);
+            checkMovement(position).execute();
 
-            if (levelModel.removeCoin(position)) levelModel.addPoints(10);
-            else levelModel.addPoints(1);
-
-            if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
-                levelModel.setKey(null);
-                levelModel.setLock(null);
-            }
         }
+    }
+
+    private CommandInteract checkMovement(Position position){
+        Lock lock = levelModel.getLock();
+        Key key = levelModel.getKey();
+        Editor editor = new Editor(levelModel,position);
+
+        for (Wall wall : levelModel.getWalls()){
+            if (wall.getPosition().equals(position))
+                return new CommandInteractStop(wall,editor);
+        }
+        for (Water water : levelModel.getFilled()){
+            if (water.getPosition().equals(position))
+                return new CommandInteractStop(water,editor);
+        }
+        for (Coin coin : levelModel.getCoins()){
+            if(coin.getPosition().equals(position))
+                return new CommandInteractCoin(coin,editor);
+        }
+        for (WhiteIce ice : levelModel.getFrozenIce()){
+            if (ice.getPosition().equals(position))
+                return new CommandInteractWhiteIce(ice,editor);
+        }
+        if(lock != null && lock.getPosition().equals(position))
+            return new CommandInteractStop(lock,editor);
+        if(key != null && key.getPosition().equals(position))
+            return new CommandInteractKey(key,editor);
+
+        return new CommandInteractNull(null,editor);
+
     }
 
     private boolean checkCollisions(Position position) {
