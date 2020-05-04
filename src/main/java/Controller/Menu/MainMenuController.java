@@ -26,11 +26,11 @@ public class MainMenuController {
     public boolean processCommand(LevelView.DIRECTION command) {
         switch (command) {
             case UP:
-                return true;
+                menuModel.previousAction();
+                return false;
             case DOWN:
-                return true;
-            case LEFT:
-                return true;
+                menuModel.nextAction();
+                return false;
             case RIGHT:
                 return true;
             case CLOSE:

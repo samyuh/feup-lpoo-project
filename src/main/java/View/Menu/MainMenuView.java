@@ -30,12 +30,32 @@ public class MainMenuView {
 
         graphics.putString(2, 1, "FrostBite Penguin Madness", SGR.BOLD);
 
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#120A8F"));
-        graphics.putString(2, 14, "Start Game", SGR.BOLD);
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
-        graphics.putString(2, 15, "Instructions", SGR.BOLD);
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
-        graphics.putString(2, 16, "Exit Game", SGR.BOLD);
+        int n = model.getAction();
+
+        if(n == 0) {
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#120A8F"));
+            graphics.putString(2, 14, "Start Game", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 15, "Instructions", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 16, "Exit Game", SGR.BOLD);
+        }
+        if(n == 1) {
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 14, "Start Game", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#120A8F"));
+            graphics.putString(2, 15, "Instructions", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 16, "Exit Game", SGR.BOLD);
+        }
+        if(n == 2) {
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 14, "Start Game", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
+            graphics.putString(2, 15, "Instructions", SGR.BOLD);
+            graphics.setBackgroundColor(TextColor.Factory.fromString("#120A8F"));
+            graphics.putString(2, 16, "Exit Game", SGR.BOLD);
+        }
 
         screen.refresh();
     }

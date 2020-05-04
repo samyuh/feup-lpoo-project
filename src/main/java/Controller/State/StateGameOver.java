@@ -20,11 +20,8 @@ public class StateGameOver extends State {
     public void run() throws IOException {
         MainMenuModel menuModel = new MainMenuModel();
         GameOverView menuView = new GameOverView(gui);
-
         GameOverController controller = new GameOverController(menuModel, menuView);
-
         controller.run();
-
         mainController.exit();
     }
 }
