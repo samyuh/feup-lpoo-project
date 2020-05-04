@@ -19,6 +19,14 @@ public class MainController {
         this.state = state;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public boolean getExit() {
+        return exit;
+    }
+
     public void exit() {
         this.exit = true;
     }

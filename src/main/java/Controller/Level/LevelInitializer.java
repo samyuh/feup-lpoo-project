@@ -21,7 +21,7 @@ public class LevelInitializer {
     }
 
     private List<String> readLines() throws IOException {
-        URL resource = LevelInitializer.class.getResource("/rooms/level" + this.levelNumber + ".txt");
+        URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + ".txt");
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )

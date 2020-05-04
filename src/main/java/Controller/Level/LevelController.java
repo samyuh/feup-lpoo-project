@@ -17,21 +17,22 @@ public class LevelController {
 
     private HeroMovement heroM;
 
-    private int numLevel;
+    private int levelNum;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
-        this.numLevel = 1;
+        this.levelNum = 1;
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelInitializer = new LevelInitializer(levelModel);
-        levelInitializer.initLevel(numLevel);
+        levelInitializer.initLevel(levelNum);
 
         heroM = new HeroMovement(levelModel.getHero());
     }
 
     public void setLevel(int level) {
+        levelNum = level;
         levelModel.clearLevel();
-        levelInitializer.initLevel(level);
+        levelInitializer.initLevel(levelNum);
 
         heroM = new HeroMovement(levelModel.getHero());
     }
@@ -44,8 +45,10 @@ public class LevelController {
                 return false;
 
             if(gameWon()) {
-                if(numLevel != 15)
-                    setLevel(++numLevel);
+                if(levelNum != 15) {
+                    levelNum++;
+                    setLevel(levelNum);
+                }
                 else
                     return true;
             }
@@ -79,15 +82,17 @@ public class LevelController {
         if (!checkCollisions(position)) {
             if(!levelModel.removeWhite(levelModel.getHero().getPosition()))
                 levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
-            levelModel.getHero().setPosition(position);
 
-            if (levelModel.removeCoin(position)) levelModel.addPoints(10);
-            else levelModel.addPoints(1);
+            if (levelModel.removeCoin(position))
+                levelModel.addPoints(10);
+
+            levelModel.addPoints(1);
 
             if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
                 levelModel.setKey(null);
                 levelModel.setLock(null);
             }
+            levelModel.getHero().setPosition(position);
         }
     }
 
@@ -109,6 +114,14 @@ public class LevelController {
 
     public boolean gameLost() {
         return (checkCollisions(heroM.moveUp()) && checkCollisions(heroM.moveDown()) &&
-                checkCollisions(heroM.moveLeft()) && checkCollisions(heroM.moveRight()));
+                checkCollisions(heroM.moveLeft()) && checkCollisions(heroM.moveRight()) && !gameWon());
+    }
+
+    public HeroMovement getHeroM() {
+        return heroM;
+    }
+
+    public int getlevelNum() {
+        return levelNum;
     }
 }

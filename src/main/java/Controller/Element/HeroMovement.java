@@ -30,7 +30,6 @@ public class HeroMovement {
 
     public boolean atPosition(Position target) {
         return hero.getPosition().equals(target);
-
     }
 
 }
