@@ -90,27 +90,14 @@ public class LevelController {
         Lock lock = levelModel.getLock();
         Key key = levelModel.getKey();
         Editor editor = new Editor(levelModel,position);
+        ElementModel element;
 
-        for (Wall wall : levelModel.getWalls()){
-            if (wall.getPosition().equals(position))
-                return new CommandInteractStop(wall,editor);
-        }
-        for (Water water : levelModel.getFilled()){
-            if (water.getPosition().equals(position))
-                return new CommandInteractStop(water,editor);
-        }
-        for (Coin coin : levelModel.getCoins()){
-            if(coin.getPosition().equals(position))
-                return new CommandInteractCoin(coin,editor);
-        }
-        for (WhiteIce ice : levelModel.getFrozenIce()){
-            if (ice.getPosition().equals(position))
-                return new CommandInteractWhiteIce(ice,editor);
-        }
-        if(lock != null && lock.getPosition().equals(position))
-            return new CommandInteractStop(lock,editor);
-        if(key != null && key.getPosition().equals(position))
-            return new CommandInteractKey(key,editor);
+        if((element = levelModel.findWall(position)) != null) return new CommandInteractStop(element,editor);
+        if((element = levelModel.findWater(position)) != null) return new CommandInteractStop(element,editor);
+        if((element = levelModel.findCoin(position)) != null) return new CommandInteractCoin(element,editor);
+
+        if(lock != null && lock.getPosition().equals(position)) return new CommandInteractStop(lock,editor);
+        if(key != null && key.getPosition().equals(position)) return new CommandInteractKey(key,editor);
 
         return new CommandInteractNull(null,editor);
 

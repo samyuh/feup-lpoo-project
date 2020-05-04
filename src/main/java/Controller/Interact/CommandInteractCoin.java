@@ -10,7 +10,7 @@ import Model.Position;
 public class CommandInteractCoin extends CommandInteract {
 
 
-    public CommandInteractCoin(Coin element, Editor editor) {
+    public CommandInteractCoin(ElementModel element, Editor editor) {
         super(element,editor);
     }
 

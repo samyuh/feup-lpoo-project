@@ -129,6 +129,37 @@ public class LevelModel {
         return false;
     }
 
+    public Wall findWall(Position position){
+        for(Wall wall: this.walls){
+            if(wall.getPosition().equals(position))
+                return wall;
+        }
+        return null;
+    }
+    public Coin findCoin(Position position){
+        for(Coin coin: this.coins){
+            if(coin.getPosition().equals(position))
+                return coin;
+        }
+        return null;
+    }
+
+    public Water findWater(Position position){
+        for(Water water: this.filled){
+            if(water.getPosition().equals(position))
+                return water;
+        }
+        return null;
+    }
+
+    public WhiteIce findWhiteIce(Position position){
+        for(WhiteIce ice: this.frozenIce){
+            if(ice.getPosition().equals(position))
+                return ice;
+        }
+        return null;
+    }
+
     public void clearLevel(){
         hero = null;
         destination = null;
