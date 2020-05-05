@@ -77,8 +77,8 @@ public class LevelModel {
         for(Coin coin: this.coins){
             coin.setInteraction(new CommandInteractCoin(this, coin, coin.getPosition()));
         }
-        for(ToughIce ice: this.toughIce){
-            ice.setInteraction(new CommandInteractIce(this,ice, ice.getPosition()));
+        for(ToughIce toughIce: this.toughIce){
+            toughIce.setInteraction(new CommandInteractToughIce(this,toughIce, toughIce.getPosition()));
         }
         if(lock != null) {
             lock.setInteraction(new CommandInteractStop(this, lock, lock.getPosition()));
@@ -235,6 +235,11 @@ public class LevelModel {
             Water water = new Water(getHero().getPosition());
             water.setInteraction(new CommandInteractStop(this,water,water.getPosition()));
             this.water.add(water);
+        }
+        else{
+            Ice ice = new Ice(getHero().getPosition());
+            ice.setInteraction(new CommandInteractIce(this,ice,ice.getPosition()));
+            this.ice.add(ice);
         }
     }
 
