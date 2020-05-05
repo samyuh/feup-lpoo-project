@@ -82,6 +82,8 @@ public class LevelModel {
         }
         if(lock != null) {
             lock.setInteraction(new CommandInteractStop(this, lock, lock.getPosition()));
+        }
+        if(key != null){
             key.setInteraction(new CommandInteractKey(this,key,key.getPosition()));
         }
         destination.setInteraction(new CommandInteractDestination(this,destination,destination.getPosition()));
@@ -229,8 +231,12 @@ public class LevelModel {
 
     }
     public void addWater(){
-        if(!removeWhite(getHero().getPosition()))
-            getWater().add(new Water(getHero().getPosition()));
+        if(!removeWhite(getHero().getPosition())) {
+            Water water = new Water(getHero().getPosition());
+            water.setInteraction(new CommandInteractStop(this,water,water.getPosition()));
+            getWater().add(water);
+
+        }
     }
 
     public void removeCoin(Coin coin){

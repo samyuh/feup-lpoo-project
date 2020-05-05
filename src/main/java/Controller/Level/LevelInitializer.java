@@ -40,9 +40,9 @@ public class LevelInitializer {
             for(int xi = 0; xi < this.mapElements.get(yi).length() ; xi++) {
                 char c = this.mapElements.get(yi).charAt(xi);
                 if(c == 'W') walls.add(new Wall( new Position(xi,yi)));
+                if(c == '.') ice.add(new Ice(new Position(xi,yi)));
                 if(c == 'C') coins.add(new Coin(new Position(xi,yi)));
                 if(c == 'B') toughIce.add(new ToughIce(new Position(xi,yi)));
-                if(c == '.') ice.add(new Ice(new Position(xi,yi)));
                 if(c == 'K') model.setKey(new Key(new Position(xi,yi)));
                 if(c == 'L') model.setLock(new Lock(new Position(xi,yi)));
                 if(c == 'S') model.setHero(new Hero(new Position(xi,yi)));
