@@ -23,7 +23,7 @@ public class LevelTest {
 
         assertEquals(levelModel.getWalls().size(), 24);
         assertEquals(levelModel.getCoins().size(), 0);
-        assertEquals(levelModel.getFrozenIce().size(), 0);
+        assertEquals(levelModel.getToughIce().size(), 0);
 
         // Finish with all levelModel to ensure that is reading
     }

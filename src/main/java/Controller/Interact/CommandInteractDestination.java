@@ -4,9 +4,9 @@ import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 import Model.Position;
 
-public class CommandInteractNull extends CommandInteract {
-    public CommandInteractNull(LevelModel levelModel, Position editor) {
-        super(levelModel,null, editor);
+public class CommandInteractDestination extends CommandInteract {
+    public CommandInteractDestination(LevelModel m, ElementModel element, Position position) {
+        super(m, element, position);
     }
 
     @Override

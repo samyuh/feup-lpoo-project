@@ -11,9 +11,10 @@ public class LevelModel {
     private Hero hero;
     private Destination destination;
     private List<Wall> walls;
-    private List<Water> filled;
+    private List<Ice> ice;
+    private List<Water> water;
     private List<Coin> coins;
-    private List<WhiteIce> frozenIce;
+    private List<ToughIce> toughIce;
     private Key key;
     private Lock lock;
     private Points points;
@@ -21,9 +22,10 @@ public class LevelModel {
     public LevelModel() {
         this.points = new Points(0);
         this.walls = new ArrayList<>();
-        this.filled = new ArrayList<>();
+        this.ice = new ArrayList<>();
+        this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
-        this.frozenIce = new ArrayList<>();
+        this.toughIce = new ArrayList<>();
     }
 
     public void setHero(Hero hero) {
@@ -38,8 +40,13 @@ public class LevelModel {
         this.walls = walls;
     }
 
-    public void setFilled(List<Water> filled) {
-        this.filled = filled;
+    public void setIce(List<Ice> ice) {
+        this.ice = ice;
+    }
+
+
+    public void setWater(List<Water> water) {
+        this.water = water;
     }
 
     public void setPoints(Points points) {
@@ -58,24 +65,26 @@ public class LevelModel {
         this.coins = coins;
     }
 
-    public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
+    public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
 
     public void setInteractions() {
         for(Wall wall: this.walls){
-                wall.setInteraction(new CommandInteractStop(this, wall, wall.getPosition()));
+            wall.setInteraction(new CommandInteractStop(this, wall, wall.getPosition()));
+        }
+        for(Ice ice: this.ice){
+            ice.setInteraction(new CommandInteractIce(this, ice, ice.getPosition()));
         }
         for(Coin coin: this.coins){
-                coin.setInteraction(new CommandInteractCoin(this, coin, coin.getPosition()));
+            coin.setInteraction(new CommandInteractCoin(this, coin, coin.getPosition()));
         }
-        for(Water water: this.filled){
-                water.setInteraction(new CommandInteractStop(this, water, water.getPosition()));
-        }
-        for(WhiteIce ice: this.frozenIce){
-            ice.setInteraction(new CommandInteractNull(this, ice.getPosition()));
+        for(ToughIce ice: this.toughIce){
+            ice.setInteraction(new CommandInteractIce(this,ice, ice.getPosition()));
         }
         if(lock != null) {
             lock.setInteraction(new CommandInteractStop(this, lock, lock.getPosition()));
+            key.setInteraction(new CommandInteractKey(this,key,key.getPosition()));
         }
+        destination.setInteraction(new CommandInteractDestination(this,destination,destination.getPosition()));
 
     }
 
@@ -91,8 +100,12 @@ public class LevelModel {
         return walls;
     }
 
-    public List<Water> getFilled() {
-        return filled;
+    public List<Ice> getIce() {
+        return ice;
+    }
+
+    public List<Water> getWater() {
+        return water;
     }
 
     public List<Coin> getCoins() {
@@ -109,15 +122,16 @@ public class LevelModel {
 
     public Points getPoints() { return points; }
 
-    public List<WhiteIce> getFrozenIce() { return frozenIce; }
+    public List<ToughIce> getToughIce() { return toughIce; }
 
     public List<ElementModel> getAll(){
         List<ElementModel> elements = new ArrayList<>();
 
         elements.addAll(walls);
-        elements.addAll(filled);
+        elements.addAll(ice);
+        elements.addAll(water);
         elements.addAll(coins);
-        elements.addAll(frozenIce);
+        elements.addAll(toughIce);
         if(key != null) elements.add(lock);
         if(key != null) elements.add(key);
         elements.add(points);
@@ -140,9 +154,9 @@ public class LevelModel {
     }
 
     public boolean removeWhite(Position position){
-        for(WhiteIce frozenIce : this.frozenIce){
+        for(ToughIce frozenIce : this.toughIce){
             if(frozenIce.getPosition().equals(position)){
-                this.frozenIce.remove(frozenIce);
+                this.toughIce.remove(frozenIce);
                 return true;
             }
         }
@@ -158,7 +172,7 @@ public class LevelModel {
     }
 
     public boolean findWater(Position position){
-        for(Water water: this.filled){
+        for(Water water: this.water){
             if(water.getPosition().equals(position))
                 return true;
         }
@@ -170,15 +184,19 @@ public class LevelModel {
             if(wall.getPosition().equals(position))
                 return wall;
         }
+        for(Ice ice: this.ice){
+            if(ice.getPosition().equals(position))
+                return ice;
+        }
         for(Coin coin: this.coins){
             if(coin.getPosition().equals(position))
                 return coin;
         }
-        for(Water water: this.filled){
+        for(Water water: this.water){
             if(water.getPosition().equals(position))
                 return water;
         }
-        for(WhiteIce ice: this.frozenIce){
+        for(ToughIce ice: this.toughIce){
             if(ice.getPosition().equals(position))
                 return ice;
         }
@@ -186,16 +204,16 @@ public class LevelModel {
             if(lock.getPosition().equals(position))
                 return lock;
         }
-        return null;
+        return destination;
     }
 
     public void clearLevel(){
         hero = null;
         destination = null;
         walls = new ArrayList<>();
-        filled = new ArrayList<>();
+        water = new ArrayList<>();
         coins = new ArrayList<>();
-        frozenIce = new ArrayList<>();
+        toughIce = new ArrayList<>();
         key = null;
         lock = null;
         points = new Points( 0);
@@ -208,17 +226,18 @@ public class LevelModel {
     public void removeKeyLock(){
         setKey(null);
         setLock(null);
+
     }
     public void addWater(){
         if(!removeWhite(getHero().getPosition()))
-            getFilled().add(new Water(getHero().getPosition()));
+            getWater().add(new Water(getHero().getPosition()));
     }
 
     public void removeCoin(Coin coin){
         getCoins().remove(coin);
     }
 
-    public void removeWhiteIce(WhiteIce whiteIce){
-        getFrozenIce().remove(whiteIce);
+    public void removeWhiteIce(ToughIce toughIce){
+        getToughIce().remove(toughIce);
     }
 }

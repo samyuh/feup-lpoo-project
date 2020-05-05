@@ -2,8 +2,8 @@ package Model.Elements;
 
 import Model.Position;
 
-public class WhiteIce extends ElementModel {
-    public WhiteIce(Position position) {
+public class ToughIce extends ElementModel {
+    public ToughIce(Position position) {
         super("B", "#FFFFFF", position);
     }
 }

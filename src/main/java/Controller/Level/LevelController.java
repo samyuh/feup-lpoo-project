@@ -86,9 +86,8 @@ public class LevelController {
     private CommandInteract checkMovement(Position position){
         ElementModel element = levelModel.find(position);
 
-        if(element != null) return element.getInteraction();
+        return element.getInteraction();
 
-        return new CommandInteractNull(levelModel, position);
     }
 
     private boolean checkCollisions(Position position) {

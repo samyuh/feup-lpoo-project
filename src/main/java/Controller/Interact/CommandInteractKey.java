@@ -17,6 +17,7 @@ public class CommandInteractKey extends CommandInteract {
     public void execute() {
         m.removeKeyLock();
         m.addWater();
+        m.move(position);
         m.addPoints(1);
     }
 }
