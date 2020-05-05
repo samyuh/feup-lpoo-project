@@ -50,6 +50,8 @@ public class LevelInitializer {
         model.setWalls(walls);
         model.setCoins(coins);
         model.setFrozenIce(frozenIce);
+
+        model.setInteractions();
     }
 
     public void initLevel(int levelNumber) {

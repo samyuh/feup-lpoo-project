@@ -80,32 +80,20 @@ public class LevelController {
     }
 
     public void moveHero(Position position) {
-        if (!checkCollisions(position)) {
-            checkMovement(position).execute();
-
-        }
+        checkMovement(position).execute();
     }
 
     private CommandInteract checkMovement(Position position){
-        Lock lock = levelModel.getLock();
-        Key key = levelModel.getKey();
-        Editor editor = new Editor(levelModel,position);
-        ElementModel element;
+        ElementModel element = levelModel.find(position);
 
-        if((element = levelModel.findWall(position)) != null) return new CommandInteractStop(element,editor);
-        if((element = levelModel.findWater(position)) != null) return new CommandInteractStop(element,editor);
-        if((element = levelModel.findCoin(position)) != null) return new CommandInteractCoin(element,editor);
+        if(element != null) return element.getInteraction();
 
-        if(lock != null && lock.getPosition().equals(position)) return new CommandInteractStop(lock,editor);
-        if(key != null && key.getPosition().equals(position)) return new CommandInteractKey(key,editor);
-
-        return new CommandInteractNull(null,editor);
-
+        return new CommandInteractNull(levelModel, position);
     }
 
     private boolean checkCollisions(Position position) {
-        if((levelModel.findWall(position)) != null) return true;
-        if((levelModel.findWater(position)) != null) return true;
+        if(levelModel.findWall(position)) return true;
+        if(levelModel.findWater(position)) return true;
         return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
     }
 

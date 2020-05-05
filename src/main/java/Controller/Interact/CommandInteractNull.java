@@ -5,14 +5,14 @@ import Model.Level.LevelModel;
 import Model.Position;
 
 public class CommandInteractNull extends CommandInteract {
-    public CommandInteractNull(ElementModel elementModel, Editor editor) {
-        super(null,editor);
+    public CommandInteractNull(LevelModel levelModel, Position editor) {
+        super(levelModel,null, editor);
     }
 
     @Override
     public void execute() {
-        editor.addWater();
-        editor.move();
-        editor.addPoints(1);
+        m.addWater();
+        m.move(position);
+        m.addPoints(1);
     }
 }

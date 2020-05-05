@@ -1,5 +1,6 @@
 package Model.Level;
 
+import Controller.Interact.*;
 import Model.Elements.*;
 import Model.Position;
 
@@ -58,6 +59,22 @@ public class LevelModel {
     }
 
     public void setFrozenIce(List<WhiteIce> frozenIce) { this.frozenIce = frozenIce; }
+
+    public void setInteractions() {
+        for(Wall wall: this.walls){
+                wall.setInteraction(new CommandInteractStop(this, wall, wall.getPosition()));
+        }
+        for(Coin coin: this.coins){
+                coin.setInteraction(new CommandInteractCoin(this, coin, coin.getPosition()));
+        }
+        for(Water water: this.filled){
+                water.setInteraction(new CommandInteractStop(this, water, water.getPosition()));
+        }
+        for(WhiteIce ice: this.frozenIce){
+            ice.setInteraction(new CommandInteractNull(this, ice.getPosition()));
+        }
+
+    }
 
     public Hero getHero() {
         return hero;
@@ -129,30 +146,35 @@ public class LevelModel {
         return false;
     }
 
-    public Wall findWall(Position position){
+    public boolean findWall(Position position){
+        for(Wall wall: this.walls){
+            if(wall.getPosition().equals(position))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean findWater(Position position){
+        for(Water water: this.filled){
+            if(water.getPosition().equals(position))
+                return true;
+        }
+        return false;
+    }
+
+    public ElementModel find(Position position) {
         for(Wall wall: this.walls){
             if(wall.getPosition().equals(position))
                 return wall;
         }
-        return null;
-    }
-    public Coin findCoin(Position position){
         for(Coin coin: this.coins){
             if(coin.getPosition().equals(position))
                 return coin;
         }
-        return null;
-    }
-
-    public Water findWater(Position position){
         for(Water water: this.filled){
             if(water.getPosition().equals(position))
                 return water;
         }
-        return null;
-    }
-
-    public WhiteIce findWhiteIce(Position position){
         for(WhiteIce ice: this.frozenIce){
             if(ice.getPosition().equals(position))
                 return ice;
@@ -170,5 +192,26 @@ public class LevelModel {
         key = null;
         lock = null;
         points = new Points( 0);
+    }
+
+    public void move(Position position){
+        getHero().setPosition(position);
+    }
+
+    public void removeKeyLock(){
+        setKey(null);
+        setLock(null);
+    }
+    public void addWater(){
+        if(!removeWhite(getHero().getPosition()))
+            getFilled().add(new Water(getHero().getPosition()));
+    }
+
+    public void removeCoin(Coin coin){
+        getCoins().remove(coin);
+    }
+
+    public void removeWhiteIce(WhiteIce whiteIce){
+        getFrozenIce().remove(whiteIce);
     }
 }

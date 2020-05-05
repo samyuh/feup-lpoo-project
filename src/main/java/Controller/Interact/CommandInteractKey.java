@@ -9,14 +9,14 @@ import Model.Position;
 
 public class CommandInteractKey extends CommandInteract {
 
-    public CommandInteractKey(Key element, Editor editor) {
-        super(element,editor);
+    public CommandInteractKey(LevelModel m,Key element, Position editor) {
+        super(m,element,editor);
     }
 
     @Override
     public void execute() {
-        editor.removeKeyLock();
-        editor.addWater();
-        editor.addPoints(1);
+        m.removeKeyLock();
+        m.addWater();
+        m.addPoints(1);
     }
 }

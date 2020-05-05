@@ -10,16 +10,15 @@ import Model.Position;
 public class CommandInteractCoin extends CommandInteract {
 
 
-    public CommandInteractCoin(ElementModel element, Editor editor) {
-        super(element,editor);
+    public CommandInteractCoin(LevelModel m, ElementModel element, Position editor) {
+        super(m, element,editor);
     }
-
 
     @Override
     public void execute() {
-        editor.removeCoin((Coin) element);
-        editor.addWater();
-        editor.move();
-        editor.addPoints(10);
+        m.removeCoin((Coin) element);
+        m.addWater();
+        m.move(position);
+        m.addPoints(10);
     }
 }
