@@ -19,8 +19,7 @@ public class GameOverController {
     public boolean run() throws IOException {
         while(true) {
             menuView.draw(menuModel);
-            if (processCommand(menuView.processKey()))
-                return true;
+            return processCommand(menuView.processKey());
         }
     }
 
@@ -33,7 +32,7 @@ public class GameOverController {
             case LEFT:
                 return true;
             case RIGHT:
-                return true;
+                return false;
             case CLOSE:
                 return false;
         }

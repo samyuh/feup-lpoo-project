@@ -21,7 +21,7 @@ public class StateGameOver extends State {
         MainMenuModel menuModel = new MainMenuModel();
         GameOverView menuView = new GameOverView(gui);
         GameOverController controller = new GameOverController(menuModel, menuView);
-        controller.run();
-        mainController.exit();
+        if(!controller.run())
+            mainController.exit();
     }
 }

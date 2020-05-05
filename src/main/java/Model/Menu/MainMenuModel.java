@@ -8,7 +8,10 @@ public class MainMenuModel {
     }
 
     public void previousAction() {
-        optionNum = (optionNum - 1) % 3;
+        if(optionNum != 0)
+            optionNum--;
+        else
+            optionNum = 2;
     }
 
     public void nextAction() {

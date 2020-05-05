@@ -18,8 +18,15 @@ public class MainMenuController {
     public boolean run() throws IOException {
         while(true) {
             menuView.draw(menuModel);
-            if (processCommand(menuView.processKey()))
-                return true;
+            if (processCommand(menuView.processKey())) {
+                if(menuModel.getAction() == 0) {
+                    return true;
+                }
+                else if(menuModel.getAction() == 1){
+                    return true;
+                }
+                return false;
+            }
         }
     }
 
@@ -34,7 +41,7 @@ public class MainMenuController {
             case RIGHT:
                 return true;
             case CLOSE:
-                return false;
+                return true;
         }
         return false;
     }

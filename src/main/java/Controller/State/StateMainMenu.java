@@ -22,5 +22,7 @@ public class StateMainMenu extends State {
 
         if(controller.run())
             mainController.setState(new StateGame(mainController, gui));
+        else
+            mainController.exit();
     }
 }
