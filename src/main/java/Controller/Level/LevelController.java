@@ -73,6 +73,12 @@ public class LevelController {
             case RIGHT:
                 moveHero(heroM.moveRight());
                 return true;
+            case NEXT:
+                this.levelModel.getHero().setPosition(levelModel.getDestination().getPosition());
+                return true;
+            case RESTART:
+                this.levelModel.clearLevel();
+                return true;
             case CLOSE:
                 return false;
         }
