@@ -234,16 +234,19 @@ public class LevelModel {
         if(!removeWhite(getHero().getPosition())) {
             Water water = new Water(getHero().getPosition());
             water.setInteraction(new CommandInteractStop(this,water,water.getPosition()));
-            getWater().add(water);
-
+            this.water.add(water);
         }
     }
 
     public void removeCoin(Coin coin){
-        getCoins().remove(coin);
+        this.coins.remove(coin);
     }
 
-    public void removeWhiteIce(ToughIce toughIce){
-        getToughIce().remove(toughIce);
+    public void removeToughIce(ToughIce toughIce){
+        this.toughIce.remove(toughIce);
+    }
+
+    public void removeIce(Ice ice){
+        this.ice.remove(ice);
     }
 }

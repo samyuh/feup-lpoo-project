@@ -85,7 +85,6 @@ public class LevelController {
 
     private CommandInteract checkMovement(Position position){
         ElementModel element = levelModel.find(position);
-
         return element.getInteraction();
 
     }
