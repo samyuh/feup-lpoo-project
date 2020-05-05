@@ -73,6 +73,9 @@ public class LevelModel {
         for(WhiteIce ice: this.frozenIce){
             ice.setInteraction(new CommandInteractNull(this, ice.getPosition()));
         }
+        if(lock != null) {
+            lock.setInteraction(new CommandInteractStop(this, lock, lock.getPosition()));
+        }
 
     }
 
@@ -178,6 +181,10 @@ public class LevelModel {
         for(WhiteIce ice: this.frozenIce){
             if(ice.getPosition().equals(position))
                 return ice;
+        }
+        if(lock != null) {
+            if(lock.getPosition().equals(position))
+                return lock;
         }
         return null;
     }
