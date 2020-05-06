@@ -77,7 +77,7 @@ public class LevelController {
                 this.levelModel.getHero().setPosition(levelModel.getDestination().getPosition());
                 return true;
             case RESTART:
-                this.levelModel.clearLevel();
+                this.setLevel(this.levelNum);
                 return true;
             case CLOSE:
                 return false;
