@@ -18,6 +18,11 @@ public class LevelModel {
     private Key key;
     private Lock lock;
     private Points points;
+    private Teleport teleport1;
+    private Teleport teleport2;
+    boolean teleportUsed;
+
+
 
     public LevelModel() {
         this.points = new Points(0);
@@ -26,6 +31,7 @@ public class LevelModel {
         this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
+        this.teleportUsed = false;
     }
 
     public void setHero(Hero hero) {
@@ -43,7 +49,6 @@ public class LevelModel {
     public void setIce(List<Ice> ice) {
         this.ice = ice;
     }
-
 
     public void setWater(List<Water> water) {
         this.water = water;
@@ -67,6 +72,12 @@ public class LevelModel {
 
     public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
 
+    public void setTeleport1(Teleport teleport1) { this.teleport1 = teleport1; }
+
+    public void setTeleport2(Teleport teleport2) { this.teleport2 = teleport2; }
+
+    public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
+
     public void setInteractions() {
         for(Wall wall: this.walls){
             wall.setInteraction(new CommandInteractStop(this, wall, wall.getPosition()));
@@ -87,6 +98,12 @@ public class LevelModel {
             key.setInteraction(new CommandInteractKey(this,key,key.getPosition()));
         }
         destination.setInteraction(new CommandInteractDestination(this,destination,destination.getPosition()));
+        if(teleport1 != null){
+            teleport1.setInteraction((new CommandInteractTeleport(this,teleport1,teleport1.getPosition())));
+        }
+        if(teleport2 != null){
+            teleport2.setInteraction((new CommandInteractTeleport(this,teleport2,teleport2.getPosition())));
+        }
 
     }
 
@@ -126,6 +143,12 @@ public class LevelModel {
 
     public List<ToughIce> getToughIce() { return toughIce; }
 
+    public Teleport getTeleport1() { return teleport1; }
+
+    public Teleport getTeleport2() { return teleport2; }
+
+    public boolean isTeleportUsed() { return teleportUsed; }
+
     public List<ElementModel> getAll(){
         List<ElementModel> elements = new ArrayList<>();
 
@@ -136,6 +159,8 @@ public class LevelModel {
         elements.addAll(toughIce);
         if(key != null) elements.add(lock);
         if(key != null) elements.add(key);
+        if(teleport1 != null) elements.add(teleport1);
+        if(teleport2 != null) elements.add(teleport2);
         elements.add(points);
         elements.add(hero);
         elements.add(destination);
@@ -202,11 +227,23 @@ public class LevelModel {
             if(ice.getPosition().equals(position))
                 return ice;
         }
+        if(key != null) {
+            if(key.getPosition().equals(position))
+                return key;
+        }
         if(lock != null) {
             if(lock.getPosition().equals(position))
                 return lock;
         }
-        return destination;
+        if(teleport1 != null){
+            if(teleport1.getPosition().equals(position))
+                return teleport1;
+            if(teleport2.getPosition().equals(position))
+                return teleport2;
+        }
+        if(destination.getPosition().equals(position))
+            return destination;
+        return null;
     }
 
     public void clearLevel(){
@@ -218,6 +255,9 @@ public class LevelModel {
         toughIce = new ArrayList<>();
         key = null;
         lock = null;
+        teleport1 = null;
+        teleport2 = null;
+        teleportUsed = false;
         points = new Points( 0);
     }
 
@@ -226,10 +266,11 @@ public class LevelModel {
     }
 
     public void removeKeyLock(){
+        this.addIce(lock.getPosition());
         setKey(null);
         setLock(null);
-
     }
+
     public void addWater(){
         if(!removeWhite(getHero().getPosition())) {
             Water water = new Water(getHero().getPosition());
@@ -237,10 +278,14 @@ public class LevelModel {
             this.water.add(water);
         }
         else{
-            Ice ice = new Ice(getHero().getPosition());
-            ice.setInteraction(new CommandInteractIce(this,ice,ice.getPosition()));
-            this.ice.add(ice);
+            this.addIce(hero.getPosition());
         }
+    }
+
+    public void addIce(Position position){
+        Ice ice = new Ice(position);
+        ice.setInteraction(new CommandInteractIce(this,ice,ice.getPosition()));
+        this.ice.add(ice);
     }
 
     public void removeCoin(Coin coin){
@@ -253,5 +298,13 @@ public class LevelModel {
 
     public void removeIce(Ice ice){
         this.ice.remove(ice);
+    }
+
+    public Position getTeleportPosition(Teleport teleport) {
+        if(teleport.getPosition().equals(teleport1.getPosition())){
+            return teleport2.getPosition();
+        }
+        else
+            return teleport1.getPosition();
     }
 }

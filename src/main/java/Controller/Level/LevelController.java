@@ -98,6 +98,8 @@ public class LevelController {
     private boolean checkCollisions(Position position) {
         if(levelModel.findWall(position)) return true;
         if(levelModel.findWater(position)) return true;
+        if(levelModel.isTeleportUsed() && levelModel.getTeleport1().getPosition().equals(position)) return true;
+        if(levelModel.isTeleportUsed() && levelModel.getTeleport2().getPosition().equals(position)) return true;
         return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
     }
 

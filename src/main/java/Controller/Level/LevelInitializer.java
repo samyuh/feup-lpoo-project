@@ -47,6 +47,9 @@ public class LevelInitializer {
                 if(c == 'L') model.setLock(new Lock(new Position(xi,yi)));
                 if(c == 'S') model.setHero(new Hero(new Position(xi,yi)));
                 if(c == 'D') model.setDestination(new Destination(new Position(xi,yi)));
+                if(c == 'T') model.setTeleport1(new Teleport( new Position(xi,yi)));
+                if(c == 'P') model.setTeleport2(new Teleport( new Position(xi,yi)));
+
             }
         }
         model.setWalls(walls);
