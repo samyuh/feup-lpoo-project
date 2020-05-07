@@ -3,6 +3,7 @@ package View.Level;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 import View.Element.ElementView;
+import View.KeyHandler;
 import View.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -16,23 +17,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class LevelView {
-    public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE};
-
     Screen screen;
 
     public LevelView(ScreenView gui) {
         this.screen = gui.getScreen();
     }
 
-    public DIRECTION processKey() throws IOException {
-        while (true) {
-            KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.ArrowUp) return DIRECTION.UP;
-            if (key.getKeyType() == KeyType.ArrowRight) return DIRECTION.RIGHT;
-            if (key.getKeyType() == KeyType.ArrowDown) return DIRECTION.DOWN;
-            if (key.getKeyType() == KeyType.ArrowLeft) return DIRECTION.LEFT;
-            if (key.getKeyType() == KeyType.EOF) return DIRECTION.CLOSE;
-        }
+    public KeyHandler.DIRECTION handler() throws IOException {
+        KeyHandler k = new KeyHandler();
+        return k.processKey(screen);
     }
 
     public void draw(LevelModel levelModel) throws IOException {

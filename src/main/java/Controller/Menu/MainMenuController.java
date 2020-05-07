@@ -1,7 +1,7 @@
 package Controller.Menu;
 
 import Model.Menu.MainMenuModel;
-import View.Level.LevelView;
+import View.KeyHandler;
 import View.Menu.MainMenuView;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class MainMenuController {
     public boolean run() throws IOException {
         while(true) {
             menuView.draw(menuModel);
-            if (processCommand(menuView.processKey())) {
+            if (processCommand(menuView.handler())) {
                 if(menuModel.getAction() == 0) {
                     return true;
                 }
@@ -30,7 +30,7 @@ public class MainMenuController {
         }
     }
 
-    public boolean processCommand(LevelView.DIRECTION command) {
+    public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
                 menuModel.previousAction();

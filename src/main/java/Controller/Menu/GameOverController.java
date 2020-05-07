@@ -1,9 +1,9 @@
 package Controller.Menu;
 
 import Model.Menu.MainMenuModel;
+import View.KeyHandler;
 import View.Level.LevelView;
 import View.Menu.GameOverView;
-import View.Menu.MainMenuView;
 
 import java.io.IOException;
 
@@ -19,11 +19,11 @@ public class GameOverController {
     public boolean run() throws IOException {
         while(true) {
             menuView.draw(menuModel);
-            return processCommand(menuView.processKey());
+            return processCommand(menuView.handler());
         }
     }
 
-    public boolean processCommand(LevelView.DIRECTION command) {
+    public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
                 return true;

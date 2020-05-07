@@ -5,6 +5,7 @@ import Model.Elements.Wall;
 import Model.Elements.Water;
 import Model.Level.LevelModel;
 import Model.Position;
+import View.KeyHandler;
 import View.Level.LevelView;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class LevelController {
         while (true) {
             levelView.draw(levelModel);
 
-            if(!processCommand(levelView.processKey()))
+            if(!processCommand(levelView.handler()))
                 return false;
 
             if(gameWon()) {
@@ -58,7 +59,7 @@ public class LevelController {
     }
 
 
-    public boolean processCommand(LevelView.DIRECTION command) {
+    public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
                 moveHero(heroM.moveUp());
