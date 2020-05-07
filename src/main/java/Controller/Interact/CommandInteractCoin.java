@@ -1,17 +1,12 @@
 package Controller.Interact;
 
-import Controller.Element.HeroMovement;
 import Model.Elements.Coin;
 import Model.Elements.ElementModel;
-import Model.Elements.Hero;
 import Model.Level.LevelModel;
-import Model.Position;
 
 public class CommandInteractCoin extends CommandInteract {
-
-
-    public CommandInteractCoin(LevelModel m, ElementModel element, Position editor) {
-        super(m, element,editor);
+    public CommandInteractCoin(LevelModel m, ElementModel element) {
+        super(m, element);
     }
 
     @Override

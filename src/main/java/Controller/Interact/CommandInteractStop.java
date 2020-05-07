@@ -9,8 +9,8 @@ import Model.Position;
 
 public class CommandInteractStop extends CommandInteract {
 
-    public CommandInteractStop(LevelModel m, ElementModel element, Position editor) {
-        super(m, element, editor);
+    public CommandInteractStop(LevelModel m, ElementModel element) {
+        super(m, element);
     }
 
     @Override

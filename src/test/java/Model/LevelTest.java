@@ -52,7 +52,7 @@ public class LevelTest {
         testM.removeCoin(this.pCoin1);
         Assert.assertEquals(testM.getCoins().isEmpty(), true);
 
-        testM.removeWhite(this.pFrozenIce1);
+        testM.removeToughIce(this.pFrozenIce1);
         Assert.assertEquals(testM.getToughIce().isEmpty(), true);
 
         // testM.clearlevel() -- To Do

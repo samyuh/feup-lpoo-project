@@ -9,8 +9,8 @@ import Model.Position;
 
 public class CommandInteractKey extends CommandInteract {
 
-    public CommandInteractKey(LevelModel m,Key element, Position editor) {
-        super(m,element,editor);
+    public CommandInteractKey(LevelModel m,Key element) {
+        super(m,element);
     }
 
     @Override

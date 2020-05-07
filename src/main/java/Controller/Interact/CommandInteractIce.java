@@ -7,8 +7,8 @@ import Model.Position;
 
 public class CommandInteractIce extends CommandInteract {
 
-    public CommandInteractIce(LevelModel m, ElementModel element, Position position) {
-        super(m, element, position);
+    public CommandInteractIce(LevelModel m, ElementModel element) {
+        super(m, element);
     }
 
     @Override

@@ -6,8 +6,8 @@ import Model.Level.LevelModel;
 import Model.Position;
 
 public class CommandInteractTeleport extends CommandInteract{
-    public CommandInteractTeleport(LevelModel m, ElementModel element, Position position) {
-        super(m, element, position);
+    public CommandInteractTeleport(LevelModel m, ElementModel element) {
+        super(m, element);
     }
 
     @Override

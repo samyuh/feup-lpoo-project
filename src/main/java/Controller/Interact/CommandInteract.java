@@ -9,10 +9,10 @@ public abstract class CommandInteract {
     protected ElementModel element;
     protected Position position;
 
-    protected CommandInteract(LevelModel m, ElementModel element, Position position){
+    protected CommandInteract(LevelModel m, ElementModel element){
         this.m = m;
         this.element = element;
-        this.position = position;
+        this.position = element.getPosition();
     }
 
     public abstract void execute();

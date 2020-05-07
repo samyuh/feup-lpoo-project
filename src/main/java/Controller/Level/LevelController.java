@@ -17,7 +17,6 @@ public class LevelController {
 
     private HeroMovement heroM;
 
-
     private int levelNum;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
@@ -96,11 +95,8 @@ public class LevelController {
     }
 
     private boolean checkCollisions(Position position) {
-        if(levelModel.findWall(position)) return true;
-        if(levelModel.findWater(position)) return true;
-        if(levelModel.isTeleportUsed() && levelModel.getTeleport1().getPosition().equals(position)) return true;
-        if(levelModel.isTeleportUsed() && levelModel.getTeleport2().getPosition().equals(position)) return true;
-        return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
+        if (checkMovement(position).getClass() == CommandInteractStop.class) return true;
+        return false;
     }
 
     public boolean gameWon() {
@@ -108,8 +104,9 @@ public class LevelController {
     }
 
     public boolean gameLost() {
-        return (checkCollisions(heroM.moveUp()) && checkCollisions(heroM.moveDown()) &&
-                checkCollisions(heroM.moveLeft()) && checkCollisions(heroM.moveRight()) && !gameWon());
+        return checkCollisions(heroM.moveUp()) && checkCollisions(heroM.moveDown()) &&
+                checkCollisions(heroM.moveLeft()) && checkCollisions(heroM.moveRight()) &&
+                !gameWon();
     }
 
     public HeroMovement getHeroM() {

@@ -5,8 +5,8 @@ import Model.Level.LevelModel;
 import Model.Position;
 
 public class CommandInteractDestination extends CommandInteract {
-    public CommandInteractDestination(LevelModel m, ElementModel element, Position position) {
-        super(m, element, position);
+    public CommandInteractDestination(LevelModel m, ElementModel element) {
+        super(m, element);
     }
 
     @Override

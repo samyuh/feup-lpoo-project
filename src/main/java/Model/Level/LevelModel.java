@@ -22,8 +22,6 @@ public class LevelModel {
     private Teleport teleport2;
     boolean teleportUsed;
 
-
-
     public LevelModel() {
         this.points = new Points(0);
         this.walls = new ArrayList<>();
@@ -80,31 +78,30 @@ public class LevelModel {
 
     public void setInteractions() {
         for(Wall wall: this.walls){
-            wall.setInteraction(new CommandInteractStop(this, wall, wall.getPosition()));
+            wall.setInteraction(new CommandInteractStop(this, wall));
         }
         for(Ice ice: this.ice){
-            ice.setInteraction(new CommandInteractIce(this, ice, ice.getPosition()));
+            ice.setInteraction(new CommandInteractIce(this, ice));
         }
         for(Coin coin: this.coins){
-            coin.setInteraction(new CommandInteractCoin(this, coin, coin.getPosition()));
+            coin.setInteraction(new CommandInteractCoin(this, coin));
         }
         for(ToughIce toughIce: this.toughIce){
-            toughIce.setInteraction(new CommandInteractToughIce(this,toughIce, toughIce.getPosition()));
+            toughIce.setInteraction(new CommandInteractToughIce(this,toughIce));
         }
         if(lock != null) {
-            lock.setInteraction(new CommandInteractStop(this, lock, lock.getPosition()));
+            lock.setInteraction(new CommandInteractStop(this, lock));
         }
         if(key != null){
-            key.setInteraction(new CommandInteractKey(this,key,key.getPosition()));
+            key.setInteraction(new CommandInteractKey(this,key));
         }
-        destination.setInteraction(new CommandInteractDestination(this,destination,destination.getPosition()));
+        destination.setInteraction(new CommandInteractDestination(this,destination));
         if(teleport1 != null){
-            teleport1.setInteraction((new CommandInteractTeleport(this,teleport1,teleport1.getPosition())));
+            teleport1.setInteraction((new CommandInteractTeleport(this,teleport1)));
         }
         if(teleport2 != null){
-            teleport2.setInteraction((new CommandInteractTeleport(this,teleport2,teleport2.getPosition())));
+            teleport2.setInteraction((new CommandInteractTeleport(this,teleport2)));
         }
-
     }
 
     public Hero getHero() {
@@ -180,7 +177,7 @@ public class LevelModel {
         return false;
     }
 
-    public boolean removeWhite(Position position){
+    public boolean removeToughIce(Position position){
         for(ToughIce frozenIce : this.toughIce){
             if(frozenIce.getPosition().equals(position)){
                 this.toughIce.remove(frozenIce);
@@ -215,6 +212,10 @@ public class LevelModel {
             if(ice.getPosition().equals(position))
                 return ice;
         }
+        for(ToughIce ice: this.toughIce){
+            if(ice.getPosition().equals(position))
+                return ice;
+        }
         for(Coin coin: this.coins){
             if(coin.getPosition().equals(position))
                 return coin;
@@ -222,10 +223,6 @@ public class LevelModel {
         for(Water water: this.water){
             if(water.getPosition().equals(position))
                 return water;
-        }
-        for(ToughIce ice: this.toughIce){
-            if(ice.getPosition().equals(position))
-                return ice;
         }
         if(key != null) {
             if(key.getPosition().equals(position))
@@ -272,9 +269,9 @@ public class LevelModel {
     }
 
     public void addWater(){
-        if(!removeWhite(getHero().getPosition())) {
+        if(!removeToughIce(getHero().getPosition())) {
             Water water = new Water(getHero().getPosition());
-            water.setInteraction(new CommandInteractStop(this,water,water.getPosition()));
+            water.setInteraction(new CommandInteractStop(this, water));
             this.water.add(water);
         }
         else{
@@ -284,7 +281,7 @@ public class LevelModel {
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
-        ice.setInteraction(new CommandInteractIce(this,ice,ice.getPosition()));
+        ice.setInteraction(new CommandInteractIce(this, ice));
         this.ice.add(ice);
     }
 
