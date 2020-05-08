@@ -9,18 +9,18 @@ import View.ScreenView;
 import java.io.IOException;
 
 public class StateGame extends State {
-    public StateGame(MainController mainController, ScreenView gui) {
-        super(mainController, gui);
+    public StateGame(MainController mainController) {
+        super(mainController);
 
     }
 
     public void run() throws IOException {
-        LevelView levelView = new LevelView(gui);
+        LevelView levelView = new LevelView(mainController.getGui());
         LevelModel levelModel = new LevelModel();
 
         LevelController controller = new LevelController(levelModel, levelView);
 
         if(!controller.run())
-            mainController.setState(new StateGameOver(mainController, gui));
+            mainController.setState(new StateGameOver(mainController));
     }
 }

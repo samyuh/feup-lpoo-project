@@ -1,25 +1,26 @@
 package Controller.Menu;
 
-import Model.Menu.MainMenuModel;
+import Model.Menu.MenuModel;
 import View.KeyHandler;
-import View.Menu.MainMenuView;
+import View.Menu.MenuView;
 
 import java.io.IOException;
 
-public class MainMenuController {
-    private MainMenuModel menuModel;
-    private MainMenuView menuView;
+public class MenuController {
+    private MenuModel menuModel;
+    private MenuView menuView;
 
-    public MainMenuController(MainMenuModel menuModel, MainMenuView menuView) {
+    public MenuController(MenuModel menuModel, MenuView menuView) {
         this.menuModel = menuModel;
         this.menuView = menuView;
     }
 
-    public boolean run() throws IOException {
+    public void run() throws IOException {
         while(true) {
             menuView.draw(menuModel);
             if (processCommand(menuView.handler())) {
-                return menuModel.getAction().execute();
+                menuModel.getAction().execute();
+                return;
             }
         }
     }

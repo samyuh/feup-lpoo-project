@@ -9,9 +9,9 @@ public class OptionModel {
     Position position;
     CommandOption opt;
     
-    public OptionModel(String name, String color, Position p, CommandOption opt) {
+    public OptionModel(String name, Position p, CommandOption opt) {
         this.name = name;
-        this.color = color;
+        this.color = "#000077";
         this.position = p;
         this.opt = opt;
     }
@@ -24,10 +24,6 @@ public class OptionModel {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public Position getPosition() {
         return position;
     }
@@ -35,4 +31,8 @@ public class OptionModel {
     public CommandOption getCommandOption() {
         return opt;
     }
+
+    public void resetColor() {this.color = "#000077"; }
+
+    public void selectedColor() {this.color = "#120A8F"; }
 }

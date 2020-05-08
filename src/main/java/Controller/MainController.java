@@ -6,15 +6,18 @@ import View.ScreenView;
 import java.io.IOException;
 
 public class MainController {
-    ScreenView gui;
+    private ScreenView gui;
     private State state;
     private boolean exit = false;
 
     public MainController(ScreenView gui) {
         this.gui = gui;
-        this.state = new StateMainMenu(this, gui);
+        this.state = new StateMainMenu(this);
     }
 
+    public ScreenView getGui() {
+        return gui;
+    }
     public void setState(State state) {
         this.state = state;
     }

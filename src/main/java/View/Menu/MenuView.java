@@ -1,6 +1,6 @@
 package View.Menu;
 
-import Model.Menu.MainMenuModel;
+import Model.Menu.MenuModel;
 import Model.Option.OptionModel;
 import View.KeyHandler;
 import View.Option.OptionView;
@@ -15,10 +15,10 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 import java.util.List;
 
-public class MainMenuView {
+public class MenuView {
     Screen screen;
 
-    public MainMenuView(ScreenView gui) {
+    public MenuView(ScreenView gui) {
         this.screen = gui.getScreen();
     }
 
@@ -27,7 +27,7 @@ public class MainMenuView {
         return k.processKey(screen);
     }
 
-    public void draw(MainMenuModel model) throws IOException {
+    public void draw(MenuModel model) throws IOException {
         screen.clear();
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
@@ -36,7 +36,6 @@ public class MainMenuView {
         graphics.putString(2, 1, "FrostBite Penguin Madness", SGR.BOLD);
 
         OptionView optionView = new OptionView();
-
         List<OptionModel> op = model.getOption();
 
         for(OptionModel option : op)

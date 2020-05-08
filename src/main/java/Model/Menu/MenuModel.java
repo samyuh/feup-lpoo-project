@@ -9,16 +9,16 @@ import Model.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenuModel {
+public class MenuModel {
     private int optionNum;
     private List<OptionModel> op;
 
-    public MainMenuModel() {
+    public MenuModel(List<OptionModel> op) {
         optionNum = 0;
-        this.op = new ArrayList<>();
-        this.op.add(new OptionModel("Start", "#120A8F", new Position(2, 14), new CommandOptionNewGame()));
-        this.op.add(new OptionModel("Instructions", "#000077", new Position(2, 15), new CommandOptionNewGame()));
-        this.op.add(new OptionModel("Exit", "#000077", new Position(2, 16), new CommandOptionExit()));
+        this.op = op;
+
+        resetColor();
+        updateColor();
     }
 
     public List<OptionModel> getOption() {
@@ -27,29 +27,26 @@ public class MainMenuModel {
 
     public void previousAction() {
         if(optionNum != 0) optionNum--;
-        else optionNum = 2;
+        else optionNum = op.size() - 1;
 
         resetColor();
-
         updateColor();
     }
 
     public void nextAction() {
-        optionNum = (optionNum + 1) % 3;
+        optionNum = (optionNum + 1) % op.size();
 
         resetColor();
-
         updateColor();
     }
 
     public void resetColor() {
-        op.get(0).setColor("#000077");
-        op.get(1).setColor("#000077");
-        op.get(2).setColor("#000077");
+        for(OptionModel option : op)
+            option.resetColor();
     }
 
     public void updateColor() {
-        op.get(optionNum).setColor("#120A8F");
+        op.get(optionNum).selectedColor();
     }
 
     public CommandOption getAction() {

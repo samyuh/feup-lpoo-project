@@ -1,8 +1,14 @@
 package Controller.CommandOption;
 
+import Controller.MainController;
+
 public class CommandOptionExit extends CommandOption {
+    public CommandOptionExit(MainController mainController) {
+        super(mainController);
+    }
+
     @Override
-    public boolean execute() {
-        return false;
+    public void execute() {
+        mainController.exit();
     }
 }
