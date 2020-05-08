@@ -14,6 +14,8 @@ public class CommandInteractTeleport extends CommandInteract{
     public void execute() {
         if(m.isTeleportUsed()) return;
         m.addWater();
+        m.move(position);
+        m.addWater();
         position = m.getTeleportPosition((Teleport)element);
         m.move(position);
         m.setTeleportUsed(true);

@@ -15,6 +15,6 @@ public class CommandInteractStop extends CommandInteract {
 
     @Override
     public void execute() {
-        // if Wall or ice is found, nothing should be done
+        // if wall, water, or used teleport is found, nothing should be done
     }
 }
