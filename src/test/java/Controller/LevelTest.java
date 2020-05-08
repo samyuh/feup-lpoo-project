@@ -5,6 +5,7 @@ import Controller.Level.LevelController;
 import Controller.Level.LevelInitializer;
 import Model.Level.LevelModel;
 import Model.Position;
+import View.KeyHandler;
 import View.Level.LevelView;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -43,34 +44,34 @@ public class LevelTest {
         Position finish1 = new Position(9, 1);
 
         assertTrue(heroMTest1.atPosition(start1));
-        levelC.processCommand(LevelView.DIRECTION.UP);
+        levelC.processCommand(KeyHandler.DIRECTION.UP);
         assertTrue(heroMTest1.atPosition(start1));
 
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
 
         assertFalse(levelC.gameWon());
         assertFalse(levelC.gameLost());
 
         assertTrue(heroMTest1.atPosition(intermediate1));
-        levelC.processCommand(LevelView.DIRECTION.LEFT);
+        levelC.processCommand(KeyHandler.DIRECTION.LEFT);
         assertTrue(heroMTest1.atPosition(intermediate1));
-        levelC.processCommand(LevelView.DIRECTION.UP);
+        levelC.processCommand(KeyHandler.DIRECTION.UP);
         assertTrue(heroMTest1.atPosition(intermediate1));
-        levelC.processCommand(LevelView.DIRECTION.DOWN);
+        levelC.processCommand(KeyHandler.DIRECTION.DOWN);
         assertTrue(heroMTest1.atPosition(intermediate1));
 
         assertFalse(levelC.gameWon());
         assertFalse(levelC.gameLost());
 
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
         assertTrue(heroMTest1.atPosition(finish1));
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
         assertTrue(heroMTest1.atPosition(finish1));
 
         assertTrue(levelC.gameWon());
@@ -86,12 +87,12 @@ public class LevelTest {
         Position finish2 = new Position(12, 5);
 
         assertTrue(heroMTest2.atPosition(start2));
-        levelC.processCommand(LevelView.DIRECTION.DOWN);
-        levelC.processCommand(LevelView.DIRECTION.DOWN);
-        levelC.processCommand(LevelView.DIRECTION.DOWN);
-        levelC.processCommand(LevelView.DIRECTION.LEFT);
-        levelC.processCommand(LevelView.DIRECTION.DOWN);
-        levelC.processCommand(LevelView.DIRECTION.RIGHT);
+        levelC.processCommand(KeyHandler.DIRECTION.DOWN);
+        levelC.processCommand(KeyHandler.DIRECTION.DOWN);
+        levelC.processCommand(KeyHandler.DIRECTION.DOWN);
+        levelC.processCommand(KeyHandler.DIRECTION.LEFT);
+        levelC.processCommand(KeyHandler.DIRECTION.DOWN);
+        levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
         assertTrue(heroMTest2.atPosition(finish2));
 
         assertFalse(levelC.gameWon());

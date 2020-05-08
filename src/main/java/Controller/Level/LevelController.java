@@ -5,6 +5,7 @@ import Controller.Interact.*;
 import Model.Elements.*;
 import Model.Level.LevelModel;
 import Model.Position;
+import View.KeyHandler;
 import View.Level.LevelView;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class LevelController {
     public void setLevel(int level) {
         levelNum = level;
         levelModel.clearLevel();
-        levelInitializer.initLevel(level);
+        levelInitializer.initLevel(levelNum);
 
         heroM = new HeroMovement(levelModel.getHero());
     }
@@ -41,8 +42,7 @@ public class LevelController {
         while (true) {
             levelView.draw(levelModel);
 
-            if(!processCommand(levelView.processKey()))
-                return false;
+            if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
                 if (levelNum != 15){
@@ -52,13 +52,13 @@ public class LevelController {
                 else
                     return true;
             }
-            if(gameLost())
-                return false;
+
+            if (gameLost()) return false;
         }
     }
 
 
-    public boolean processCommand(LevelView.DIRECTION command) {
+    public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
                 moveHero(heroM.moveUp());
@@ -81,7 +81,7 @@ public class LevelController {
             case CLOSE:
                 return false;
         }
-        return false;
+        return true;
     }
 
     public void moveHero(Position position) {
