@@ -1,8 +1,10 @@
 package Model.Level;
 
 import Controller.Interact.*;
+import Model.Drawable.Drawable;
 import Model.Elements.*;
 import Model.Position;
+import Model.Drawable.Score;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,14 @@ public class LevelModel {
     private List<ToughIce> toughIce;
     private Key key;
     private Lock lock;
-    private Points points;
+    private Score score;
     private Teleport teleport1;
     private Teleport teleport2;
     boolean teleportUsed;
     private Box box;
 
     public LevelModel() {
-        this.points = new Points(0);
+        this.score = new Score(0);
         this.walls = new ArrayList<>();
         this.ice = new ArrayList<>();
         this.water = new ArrayList<>();
@@ -55,8 +57,8 @@ public class LevelModel {
         this.water = water;
     }
 
-    public void setPoints(Points points) {
-        this.points = points;
+    public void setScore(Score score) {
+        this.score = score;
     }
 
     public void setKey(Key key) {
@@ -144,7 +146,7 @@ public class LevelModel {
         return lock;
     }
 
-    public Points getPoints() { return points; }
+    public Score getScore() { return score; }
 
     public List<ToughIce> getToughIce() { return toughIce; }
 
@@ -156,27 +158,27 @@ public class LevelModel {
 
     public void getBox(Box box) { this.box = box; }
 
-    public List<ElementModel> getAll(){
-        List<ElementModel> elements = new ArrayList<>();
+    public List<Drawable> getAll(){
+        List<Drawable> drawables = new ArrayList<>();
 
-        elements.addAll(walls);
-        elements.addAll(ice);
-        elements.addAll(water);
-        elements.addAll(coins);
-        elements.addAll(toughIce);
-        if(lock != null) elements.add(lock);
-        if(key != null) elements.add(key);
-        if(teleport1 != null) elements.add(teleport1);
-        if(teleport2 != null) elements.add(teleport2);
-        if(box != null) elements.add(box);
-        elements.add(points);
-        elements.add(puffle);
-        elements.add(destination);
+        drawables.addAll(walls);
+        drawables.addAll(ice);
+        drawables.addAll(water);
+        drawables.addAll(coins);
+        drawables.addAll(toughIce);
+        if(lock != null) drawables.add(lock);
+        if(key != null) drawables.add(key);
+        if(teleport1 != null) drawables.add(teleport1);
+        if(teleport2 != null) drawables.add(teleport2);
+        if(box != null) drawables.add(box);
+        drawables.add(puffle);
+        drawables.add(destination);
+        drawables.add(score);
 
-        return elements;
+        return drawables;
     }
 
-    public void addPoints(int number){ this.points = new Points( this.points.getNumber() + number); }
+    public void addScore(int number){ this.score = new Score( this.score.getPoints() + number); }
 
     public boolean removeCoin(Position position){
         for(Coin coin : this.coins) {
@@ -272,7 +274,7 @@ public class LevelModel {
         teleport1 = null;
         teleport2 = null;
         teleportUsed = false;
-        points = new Points( 0);
+        score = new Score( 0);
     }
 
     public int moveBox(DIRECTION boxDirection) {

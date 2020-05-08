@@ -14,6 +14,6 @@ public class InteractKey extends Interact {
         m.removeKeyLock();
         m.addWater();
         m.move(position);
-        m.addPoints(1);
+        m.addScore(1);
     }
 }

@@ -1,5 +1,6 @@
 package View.Level;
 
+import Model.Drawable.Drawable;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 import View.Element.ElementView;
@@ -39,11 +40,11 @@ public class LevelView {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         ElementView view = new ElementView();
+        List<Drawable> drawables;
 
-        List<ElementModel> elements;
-        elements = model.getAll();
+        drawables = model.getAll();
 
-        for(ElementModel element : elements)
+        for(Drawable element : drawables)
             view.draw(element, graphics);
     }
 }

@@ -14,6 +14,6 @@ public class InteractCoin extends Interact {
         m.removeCoin((Coin) element);
         m.addWater();
         m.move(position);
-        m.addPoints(10);
+        m.addScore(10);
     }
 }

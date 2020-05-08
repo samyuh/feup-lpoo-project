@@ -12,6 +12,6 @@ public class InteractDestination extends Interact {
     public void execute() {
         m.addWater();
         m.move(position);
-        m.addPoints(1);
+        m.addScore(1);
     }
 }

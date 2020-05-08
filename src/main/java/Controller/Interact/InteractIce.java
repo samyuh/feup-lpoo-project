@@ -15,6 +15,6 @@ public class InteractIce extends Interact {
         m.removeIce((Ice) element);
         m.addWater();
         m.move(position);
-        m.addPoints(1);
+        m.addScore(1);
     }
 }
