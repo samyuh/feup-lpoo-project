@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.Element.HeroMovement;
+import Controller.Element.PuffleMovement;
 import Controller.Level.LevelController;
 import Controller.Level.LevelInitializer;
 import Model.Level.LevelModel;
@@ -36,7 +36,7 @@ public class LevelTest {
         LevelController levelC = new LevelController(levelModel, levelView);
 
         // Win First Level Test
-        HeroMovement heroMTest1 = levelC.getHeroM();
+        PuffleMovement heroMTest1 = levelC.getPuffleMovement();
         assertEquals(levelC.getlevelNum(),1);
 
         Position start1 = new Position(1, 1);
@@ -81,7 +81,7 @@ public class LevelTest {
         levelC.setLevel(3);
         assertEquals(levelC.getlevelNum(),3);
 
-        HeroMovement heroMTest2 = levelC.getHeroM();
+        PuffleMovement heroMTest2 = levelC.getPuffleMovement();
 
         Position start2 = new Position(12, 1);
         Position finish2 = new Position(12, 5);

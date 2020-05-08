@@ -1,9 +1,9 @@
 package Model.Elements;
-import Controller.Interact.CommandInteract;
+import Controller.Interact.Interact;
 import Model.Position;
 
 public abstract class ElementModel {
-    private CommandInteract command;
+    private Interact command;
     private Position position;
     private String image;
     private String color;
@@ -24,11 +24,11 @@ public abstract class ElementModel {
         this.position = position;
     }
 
-    public void setInteraction(CommandInteract command) {
+    public void setInteraction(Interact command) {
         this.command = command;
     }
 
-    public CommandInteract getInteraction() {
+    public Interact getInteraction() {
         return command;
     }
 }

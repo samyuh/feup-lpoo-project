@@ -4,8 +4,8 @@ import Model.Elements.Coin;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 
-public class CommandInteractCoin extends CommandInteract {
-    public CommandInteractCoin(LevelModel m, ElementModel element) {
+public class InteractCoin extends Interact {
+    public InteractCoin(LevelModel m, ElementModel element) {
         super(m, element);
     }
 

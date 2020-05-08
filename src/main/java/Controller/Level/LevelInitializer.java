@@ -45,7 +45,7 @@ public class LevelInitializer {
                 if(c == 'B') toughIce.add(new ToughIce(new Position(xi,yi)));
                 if(c == 'K') model.setKey(new Key(new Position(xi,yi)));
                 if(c == 'L') model.setLock(new Lock(new Position(xi,yi)));
-                if(c == 'S') model.setHero(new Hero(new Position(xi,yi)));
+                if(c == 'S') model.setPuffle(new Puffle(new Position(xi,yi)));
                 if(c == 'D') model.setDestination(new Destination(new Position(xi,yi)));
                 if(c == 'T') model.setTeleport1(new Teleport( new Position(xi,yi)));
                 if(c == 'P') model.setTeleport2(new Teleport( new Position(xi,yi)));

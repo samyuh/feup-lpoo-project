@@ -1,6 +1,6 @@
 package Model.Menu;
 
-import Controller.CommandOption.CommandOption;
+import Controller.Option.Option;
 import Model.Option.OptionModel;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class MenuModel {
         op.get(optionNum).selectedColor();
     }
 
-    public CommandOption getAction() {
+    public Option getAction() {
         return op.get(optionNum).getCommandOption();
     }
 }

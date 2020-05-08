@@ -4,15 +4,15 @@ package Controller.Interact;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 
-public class CommandInteractBox extends CommandInteract{
-    public CommandInteractBox(LevelModel m, ElementModel element) {
+public class InteractBox extends Interact {
+    public InteractBox(LevelModel m, ElementModel element) {
         super(m, element);
     }
 
     @Override
     public void execute() {
         if(m.moveBox(m.findBoxDirection()) == 0) {
-            element.setInteraction(new CommandInteractStop(m, element));
+            element.setInteraction(new InteractStop(m, element));
         }
         else{ ;
             m.addWater();

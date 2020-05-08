@@ -1,11 +1,11 @@
-package Controller.CommandOption;
+package Controller.Option;
 
 import Controller.MainController;
 
-public abstract class CommandOption {
+public abstract class Option {
     MainController mainController;
 
-    public CommandOption(MainController mainController) {
+    public Option(MainController mainController) {
         this.mainController = mainController;
     }
 

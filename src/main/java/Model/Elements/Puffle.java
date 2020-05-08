@@ -2,8 +2,8 @@ package Model.Elements;
 
 import Model.Position;
 
-public class Hero extends ElementModel {
-    public Hero(Position position) {
+public class Puffle extends ElementModel {
+    public Puffle(Position position) {
         super("⬤", "#ff0422", position);
     }
 }

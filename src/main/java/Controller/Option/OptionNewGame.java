@@ -1,10 +1,10 @@
-package Controller.CommandOption;
+package Controller.Option;
 
 import Controller.MainController;
 import Controller.State.StateGame;
 
-public class CommandOptionNewGame extends CommandOption {
-    public CommandOptionNewGame(MainController mainController) {
+public class OptionNewGame extends Option {
+    public OptionNewGame(MainController mainController) {
         super(mainController);
     }
 

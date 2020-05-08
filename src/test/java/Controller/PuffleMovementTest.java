@@ -1,7 +1,7 @@
 package Controller;
 
-import Controller.Element.HeroMovement;
-import Model.Elements.Hero;
+import Controller.Element.PuffleMovement;
+import Model.Elements.Puffle;
 import Model.Position;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class HeroMovementTest {
+public class PuffleMovementTest {
 
     @Test
     public void elementsTest() {
@@ -18,10 +18,10 @@ public class HeroMovementTest {
         Mockito.when(positionMock.getX()).thenReturn(1);
         Mockito.when(positionMock.getY()).thenReturn(1);
 
-        Hero heroMock = Mockito.mock(Hero.class);
-        Mockito.when(heroMock.getPosition()).thenReturn(positionMock);
+        Puffle puffleMock = Mockito.mock(Puffle.class);
+        Mockito.when(puffleMock.getPosition()).thenReturn(positionMock);
 
-        HeroMovement heroT = new HeroMovement(heroMock);
+        PuffleMovement heroT = new PuffleMovement(puffleMock);
 
         assertEquals(heroT.moveUp().getX(), 1);
         assertEquals(heroT.moveUp().getY(), 0);

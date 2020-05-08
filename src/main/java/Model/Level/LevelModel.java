@@ -10,7 +10,7 @@ import java.util.List;
 import static Model.Level.LevelModel.DIRECTION.UP;
 
 public class LevelModel {
-    private Hero hero;
+    private Puffle puffle;
     private Destination destination;
     private List<Wall> walls;
     private List<Ice> ice;
@@ -35,8 +35,8 @@ public class LevelModel {
         this.teleportUsed = false;
     }
 
-    public void setHero(Hero hero) {
-        this.hero = hero;
+    public void setPuffle(Puffle puffle) {
+        this.puffle = puffle;
     }
 
     public void setDestination(Destination destination) {
@@ -83,37 +83,37 @@ public class LevelModel {
 
     public void setInteractions() {
         for(Wall wall: this.walls){
-            wall.setInteraction(new CommandInteractStop(this, wall));
+            wall.setInteraction(new InteractStop(this, wall));
         }
         for(Ice ice: this.ice){
-            ice.setInteraction(new CommandInteractIce(this, ice));
+            ice.setInteraction(new InteractIce(this, ice));
         }
         for(Coin coin: this.coins){
-            coin.setInteraction(new CommandInteractCoin(this, coin));
+            coin.setInteraction(new InteractCoin(this, coin));
         }
         for(ToughIce toughIce: this.toughIce){
-            toughIce.setInteraction(new CommandInteractToughIce(this,toughIce));
+            toughIce.setInteraction(new InteractToughIce(this,toughIce));
         }
         if(lock != null) {
-            lock.setInteraction(new CommandInteractStop(this, lock));
+            lock.setInteraction(new InteractStop(this, lock));
         }
         if(key != null){
-            key.setInteraction(new CommandInteractKey(this,key));
+            key.setInteraction(new InteractKey(this,key));
         }
-        destination.setInteraction(new CommandInteractDestination(this,destination));
+        destination.setInteraction(new InteractDestination(this,destination));
         if(teleport1 != null){
-            teleport1.setInteraction(new CommandInteractTeleport(this,teleport1));
+            teleport1.setInteraction(new InteractTeleport(this,teleport1));
         }
         if(teleport2 != null){
-            teleport2.setInteraction(new CommandInteractTeleport(this,teleport2));
+            teleport2.setInteraction(new InteractTeleport(this,teleport2));
         }
         if(box != null){
-            box.setInteraction(new CommandInteractBox(this,box));
+            box.setInteraction(new InteractBox(this,box));
         }
     }
 
-    public Hero getHero() {
-        return hero;
+    public Puffle getPuffle() {
+        return puffle;
     }
 
     public Destination getDestination() {
@@ -170,7 +170,7 @@ public class LevelModel {
         if(teleport2 != null) elements.add(teleport2);
         if(box != null) elements.add(box);
         elements.add(points);
-        elements.add(hero);
+        elements.add(puffle);
         elements.add(destination);
 
         return elements;
@@ -261,7 +261,7 @@ public class LevelModel {
     }
 
     public void clearLevel(){
-        hero = null;
+        puffle = null;
         destination = null;
         walls = new ArrayList<>();
         water = new ArrayList<>();
@@ -311,7 +311,7 @@ public class LevelModel {
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT,RESTART};
     public DIRECTION findBoxDirection(){
         Position boxPosition  = box.getPosition();
-        Position heroPosition  = hero.getPosition();
+        Position heroPosition  = puffle.getPosition();
         if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
         if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
         if(boxPosition.getY() - heroPosition.getY() == 1) return DIRECTION.DOWN;
@@ -319,7 +319,7 @@ public class LevelModel {
     }
 
     public void move(Position position){
-        getHero().setPosition(position);
+        getPuffle().setPosition(position);
     }
 
     public void removeKeyLock(){
@@ -329,19 +329,19 @@ public class LevelModel {
     }
 
     public void addWater(){
-        if(!removeToughIce(getHero().getPosition())) {
-            Water water = new Water(getHero().getPosition());
-            water.setInteraction(new CommandInteractStop(this, water));
+        if(!removeToughIce(getPuffle().getPosition())) {
+            Water water = new Water(getPuffle().getPosition());
+            water.setInteraction(new InteractStop(this, water));
             this.water.add(water);
         }
         else{
-            this.addIce(hero.getPosition());
+            this.addIce(puffle.getPosition());
         }
     }
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
-        ice.setInteraction(new CommandInteractIce(this, ice));
+        ice.setInteraction(new InteractIce(this, ice));
         this.ice.add(ice);
     }
 

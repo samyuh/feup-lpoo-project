@@ -1,15 +1,11 @@
 package Controller.Interact;
 
-import Controller.Element.HeroMovement;
-import Model.Elements.ElementModel;
-import Model.Elements.Hero;
 import Model.Elements.Key;
 import Model.Level.LevelModel;
-import Model.Position;
 
-public class CommandInteractKey extends CommandInteract {
+public class InteractKey extends Interact {
 
-    public CommandInteractKey(LevelModel m,Key element) {
+    public InteractKey(LevelModel m, Key element) {
         super(m,element);
     }
 

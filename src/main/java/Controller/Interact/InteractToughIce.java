@@ -2,10 +2,10 @@ package Controller.Interact;
 
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
-import Model.Position;
 
-public class CommandInteractDestination extends CommandInteract {
-    public CommandInteractDestination(LevelModel m, ElementModel element) {
+public class InteractToughIce extends Interact {
+
+    public InteractToughIce(LevelModel m, ElementModel element) {
         super(m, element);
     }
 

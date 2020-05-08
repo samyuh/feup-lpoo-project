@@ -1,15 +1,11 @@
 package Controller.Interact;
 
-import Controller.Element.HeroMovement;
 import Model.Elements.ElementModel;
-import Model.Elements.Hero;
-import Model.Elements.Wall;
 import Model.Level.LevelModel;
-import Model.Position;
 
-public class CommandInteractStop extends CommandInteract {
+public class InteractStop extends Interact {
 
-    public CommandInteractStop(LevelModel m, ElementModel element) {
+    public InteractStop(LevelModel m, ElementModel element) {
         super(m, element);
     }
 

@@ -3,10 +3,9 @@ package Controller.Interact;
 import Model.Elements.ElementModel;
 import Model.Elements.Teleport;
 import Model.Level.LevelModel;
-import Model.Position;
 
-public class CommandInteractTeleport extends CommandInteract{
-    public CommandInteractTeleport(LevelModel m, ElementModel element) {
+public class InteractTeleport extends Interact {
+    public InteractTeleport(LevelModel m, ElementModel element) {
         super(m, element);
     }
 
