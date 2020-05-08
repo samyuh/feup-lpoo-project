@@ -11,6 +11,7 @@ public class InteractBox extends Interact {
 
     @Override
     public void execute() {
+        position = element.getPosition();
         if(m.moveBox(m.findBoxDirection()) == 0) {
             element.setInteraction(new InteractStop(m, element));
         }

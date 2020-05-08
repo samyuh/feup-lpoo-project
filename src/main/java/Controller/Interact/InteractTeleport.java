@@ -18,6 +18,8 @@ public class InteractTeleport extends Interact {
         position = m.getTeleportPosition((Teleport)element);
         m.move(position);
         m.setTeleportUsed(true);
+        m.getTeleport1().setColor("#0000ff");
+        m.getTeleport2().setColor("#0000ff");
         m.addPoints(1);
     }
 }

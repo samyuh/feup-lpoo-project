@@ -281,22 +281,26 @@ public class LevelModel {
         while(true){
             switch (boxDirection){
                 case RIGHT:
-                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return count;
+                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY())) ||
+                       findWater(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return count;
                     box.setPosition(new Position(box.getPosition().getX() + 1,box.getPosition().getY()));
                     count++;
                     break;
                 case LEFT:
-                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return count;
+                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY())) ||
+                       findWater(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return count;
                     box.setPosition(new Position(box.getPosition().getX() - 1,box.getPosition().getY()));
                     count++;
                     break;
                 case UP:
-                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return count;
+                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1)) ||
+                       findWater(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return count;
                     box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() - 1));
                     count++;
                     break;
                 case DOWN:
-                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY() + 1))) return count;
+                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() + 1)) ||
+                       findWater(new Position(box.getPosition().getX(),box.getPosition().getY() + 1))) return count;
                     box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() + 1));
                     count++;
                     break;
@@ -320,6 +324,8 @@ public class LevelModel {
 
     public void move(Position position){
         getPuffle().setPosition(position);
+        // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
+        if(box != null) box.setInteraction(new InteractBox(this,box));
     }
 
     public void removeKeyLock(){
@@ -329,11 +335,13 @@ public class LevelModel {
     }
 
     public void addWater(){
+        // If there is no toughIce below the hero
         if(!removeToughIce(getPuffle().getPosition())) {
             Water water = new Water(getPuffle().getPosition());
             water.setInteraction(new InteractStop(this, water));
             this.water.add(water);
         }
+        //If there is toughIce below the hero
         else{
             this.addIce(puffle.getPosition());
         }

@@ -20,6 +20,8 @@ public abstract class ElementModel {
 
     public String getImage() { return image; }
 
+    public void setColor(String color) {this.color = color;}
+
     public void setPosition(Position position) {
         this.position = position;
     }

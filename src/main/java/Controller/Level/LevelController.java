@@ -95,8 +95,7 @@ public class LevelController {
     }
 
     private boolean checkCollisions(Position position) {
-        if (checkMovement(position).getClass() == InteractStop.class) return true;
-        return false;
+        return checkMovement(position).getClass() == InteractStop.class;
     }
 
     public boolean gameWon() {
