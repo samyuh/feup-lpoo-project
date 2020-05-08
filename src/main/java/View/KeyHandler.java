@@ -12,7 +12,7 @@ public class KeyHandler {
 
     public KeyHandler() {}
 
-    public DIRECTION processKey(Screen screen) throws IOException {
+    public static DIRECTION processKey(Screen screen) throws IOException {
         while (true) {
             KeyStroke key = screen.readInput();
             if (key.getKeyType() == KeyType.ArrowUp) return DIRECTION.UP;

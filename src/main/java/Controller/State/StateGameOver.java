@@ -28,7 +28,7 @@ public class StateGameOver extends State {
         MenuModel menuModel = new MenuModel(op);
         MenuView menuView = new MenuView(mainController.getGui());
 
-        MenuController controller = new MenuController(menuModel, menuView);
+        MenuController controller = new MenuController(mainController, menuModel, menuView);
 
         controller.run();
     }

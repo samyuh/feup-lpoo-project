@@ -42,19 +42,17 @@ public class LevelController {
         while (true) {
             levelView.draw(levelModel);
 
-            if(!processCommand(levelView.handler()))
-                return false;
+            if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
-                if(levelNum != 15) {
+                if(levelNum != 5) {
                     levelNum++;
                     setLevel(levelNum);
                 }
-                else
-                    return true;
+                else return true;
             }
-            if(gameLost())
-                return false;
+
+            if (gameLost()) return false;
         }
     }
 
@@ -76,7 +74,7 @@ public class LevelController {
             case CLOSE:
                 return false;
         }
-        return false;
+        return true;
     }
 
     public void moveHero(Position position) {

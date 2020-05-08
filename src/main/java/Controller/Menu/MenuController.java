@@ -1,5 +1,6 @@
 package Controller.Menu;
 
+import Controller.MainController;
 import Model.Menu.MenuModel;
 import View.KeyHandler;
 import View.Menu.MenuView;
@@ -9,35 +10,35 @@ import java.io.IOException;
 public class MenuController {
     private MenuModel menuModel;
     private MenuView menuView;
+    private MainController mainController;
 
-    public MenuController(MenuModel menuModel, MenuView menuView) {
+    public MenuController(MainController mainController, MenuModel menuModel, MenuView menuView) {
+        this.mainController = mainController;
         this.menuModel = menuModel;
         this.menuView = menuView;
     }
-
     public void run() throws IOException {
-        while(true) {
+        do {
             menuView.draw(menuModel);
-            if (processCommand(menuView.handler())) {
-                menuModel.getAction().execute();
-                return;
-            }
-        }
+        } while (processCommand(menuView.handler()));
     }
 
     public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
                 menuModel.previousAction();
-                return false;
+                return true;
             case DOWN:
                 menuModel.nextAction();
-                return false;
+                return true;
             case RIGHT:
-                return true;
+                menuModel.getAction().execute();
+                return false;
             case CLOSE:
-                return true;
+                mainController.exit();
+                return false;
         }
-        return false;
+        return true;
     }
 }
+

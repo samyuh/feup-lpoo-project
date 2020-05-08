@@ -11,7 +11,6 @@ import java.io.IOException;
 public class StateGame extends State {
     public StateGame(MainController mainController) {
         super(mainController);
-
     }
 
     public void run() throws IOException {
@@ -20,7 +19,10 @@ public class StateGame extends State {
 
         LevelController controller = new LevelController(levelModel, levelView);
 
-        if(!controller.run())
+        if(controller.run())
+            mainController.setState(new StateMainMenu(mainController)); // You finished the game!
+        else
             mainController.setState(new StateGameOver(mainController));
+
     }
 }
