@@ -13,17 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateGameOver extends State {
-
-    public StateGameOver(MainController mainController) {
+public class StateMainMenu extends State {
+    public StateMainMenu(MainController mainController) {
         super(mainController);
     }
 
     @Override
     public void run() throws IOException {
         List<OptionModel> op = new ArrayList<>();
-        op.add(new OptionModel("Game Over", new Position(2, 15), new CommandOptionExit(mainController)));
-        op.add(new OptionModel("Restart", new Position(2, 16), new CommandOptionNewGame(mainController)));
+        op.add(new OptionModel("Start", new Position(2, 14), new CommandOptionNewGame(mainController)));
+        op.add(new OptionModel("Instructions", new Position(2, 15), new CommandOptionNewGame(mainController)));
+        op.add(new OptionModel("Exit", new Position(2, 16), new CommandOptionExit(mainController)));
 
         MenuModel menuModel = new MenuModel(op);
         MenuView menuView = new MenuView(mainController.getGui());

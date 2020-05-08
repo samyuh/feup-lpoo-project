@@ -1,21 +1,23 @@
 package Controller;
 
-import Controller.State.State;
-import Controller.State.StateGame;
+import Controller.State.*;
 import View.ScreenView;
 
 import java.io.IOException;
 
 public class MainController {
-    ScreenView gui;
+    private ScreenView gui;
     private State state;
     private boolean exit = false;
 
     public MainController(ScreenView gui) {
         this.gui = gui;
-        this.state = new StateGame(this, gui);
+        this.state = new StateMainMenu(this);
     }
 
+    public ScreenView getGui() {
+        return gui;
+    }
     public void setState(State state) {
         this.state = state;
     }
@@ -32,7 +34,7 @@ public class MainController {
         this.exit = true;
     }
 
-    public void run() throws IOException {
+    public void run() throws IOException, InterruptedException {
         while(!exit) {
             this.state.run();
         }

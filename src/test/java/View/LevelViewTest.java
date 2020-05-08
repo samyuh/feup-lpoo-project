@@ -102,18 +102,18 @@ public class LevelViewTest {
         LevelView levelView = new LevelView(screenMock);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyUp);
-        assertEquals(levelView.processKey(), LevelView.DIRECTION.UP);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.UP);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyRight);
-        assertEquals(levelView.processKey(), LevelView.DIRECTION.RIGHT);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.RIGHT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyDown);
-        assertEquals(levelView.processKey(), LevelView.DIRECTION.DOWN);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.DOWN);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
-        assertEquals(levelView.processKey(), LevelView.DIRECTION.LEFT);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.LEFT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
-        assertEquals(levelView.processKey(), LevelView.DIRECTION.CLOSE);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.CLOSE);
     }
 }
