@@ -279,7 +279,6 @@ public class LevelModel {
         int count;
         count = 0;
         while(true){
-            System.out.println(count);
             switch (boxDirection){
                 case RIGHT:
                     if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return count;
