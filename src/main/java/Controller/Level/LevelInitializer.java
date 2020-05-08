@@ -49,7 +49,7 @@ public class LevelInitializer {
                 if(c == 'D') model.setDestination(new Destination(new Position(xi,yi)));
                 if(c == 'T') model.setTeleport1(new Teleport( new Position(xi,yi)));
                 if(c == 'P') model.setTeleport2(new Teleport( new Position(xi,yi)));
-                if(c == 'B') model.setBox(new Box( new Position(xi,yi)));
+                if(c == 'Y') model.setBox(new Box( new Position(xi,yi)));
 
 
             }

@@ -102,10 +102,10 @@ public class LevelModel {
         }
         destination.setInteraction(new CommandInteractDestination(this,destination));
         if(teleport1 != null){
-            teleport1.setInteraction((new CommandInteractTeleport(this,teleport1)));
+            teleport1.setInteraction(new CommandInteractTeleport(this,teleport1));
         }
         if(teleport2 != null){
-            teleport2.setInteraction((new CommandInteractTeleport(this,teleport2)));
+            teleport2.setInteraction(new CommandInteractTeleport(this,teleport2));
         }
         if(box != null){
             box.setInteraction(new CommandInteractBox(this,box));
@@ -219,13 +219,9 @@ public class LevelModel {
             if(wall.getPosition().equals(position))
                 return wall;
         }
-        for(Ice ice: this.ice){
-            if(ice.getPosition().equals(position))
-                return ice;
-        }
-        for(ToughIce ice: this.toughIce){
-            if(ice.getPosition().equals(position))
-                return ice;
+        for(ToughIce toughIce: this.toughIce){
+            if(toughIce.getPosition().equals(position))
+                return toughIce;
         }
         for(Coin coin: this.coins){
             if(coin.getPosition().equals(position))
@@ -249,10 +245,17 @@ public class LevelModel {
             if(teleport2.getPosition().equals(position))
                 return teleport2;
         }
-        if(box != null && box.getPosition().equals(position))
-            return box;
+        if(box != null)
+            if (box.getPosition().equals(position)){
+                return box;
+            }
+
         if(destination.getPosition().equals(position))
-            return destination;
+             return destination;
+        for(Ice ice: this.ice){
+            if(ice.getPosition().equals(position))
+                return ice;
+        }
 
         return null;
     }
@@ -272,27 +275,34 @@ public class LevelModel {
         points = new Points( 0);
     }
 
-    public void moveBox(DIRECTION boxDirection) {
+    public int moveBox(DIRECTION boxDirection) {
+        int count;
+        count = 0;
         while(true){
+            System.out.println(count);
             switch (boxDirection){
                 case RIGHT:
-                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return;
+                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return count;
                     box.setPosition(new Position(box.getPosition().getX() + 1,box.getPosition().getY()));
+                    count++;
                     break;
                 case LEFT:
-                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return;
+                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return count;
                     box.setPosition(new Position(box.getPosition().getX() - 1,box.getPosition().getY()));
+                    count++;
                     break;
                 case UP:
-                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return;
+                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return count;
                     box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() - 1));
+                    count++;
                     break;
                 case DOWN:
-                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY() + 1))) return;
+                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY() + 1))) return count;
                     box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() + 1));
+                    count++;
                     break;
                 default:
-                    System.out.println("Fuck");
+                    return count;
             }
         }
 
@@ -305,7 +315,7 @@ public class LevelModel {
         Position heroPosition  = hero.getPosition();
         if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
         if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
-        if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.DOWN;
+        if(boxPosition.getY() - heroPosition.getY() == 1) return DIRECTION.DOWN;
         return UP;
     }
 
