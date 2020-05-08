@@ -1,12 +1,8 @@
 package Model.Menu;
 
 import Controller.CommandOption.CommandOption;
-import Controller.CommandOption.CommandOptionExit;
-import Controller.CommandOption.CommandOptionNewGame;
 import Model.Option.OptionModel;
-import Model.Position;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MenuModel {
