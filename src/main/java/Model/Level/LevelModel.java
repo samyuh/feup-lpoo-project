@@ -7,6 +7,8 @@ import Model.Position;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Model.Level.LevelModel.DIRECTION.UP;
+
 public class LevelModel {
     private Hero hero;
     private Destination destination;
@@ -21,6 +23,7 @@ public class LevelModel {
     private Teleport teleport1;
     private Teleport teleport2;
     boolean teleportUsed;
+    private Box box;
 
     public LevelModel() {
         this.points = new Points(0);
@@ -76,6 +79,8 @@ public class LevelModel {
 
     public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
+    public void setBox(Box box) { this.box = box; }
+
     public void setInteractions() {
         for(Wall wall: this.walls){
             wall.setInteraction(new CommandInteractStop(this, wall));
@@ -101,6 +106,9 @@ public class LevelModel {
         }
         if(teleport2 != null){
             teleport2.setInteraction((new CommandInteractTeleport(this,teleport2)));
+        }
+        if(box != null){
+            box.setInteraction(new CommandInteractBox(this,box));
         }
     }
 
@@ -146,6 +154,8 @@ public class LevelModel {
 
     public boolean isTeleportUsed() { return teleportUsed; }
 
+    public void getBox(Box box) { this.box = box; }
+
     public List<ElementModel> getAll(){
         List<ElementModel> elements = new ArrayList<>();
 
@@ -154,10 +164,11 @@ public class LevelModel {
         elements.addAll(water);
         elements.addAll(coins);
         elements.addAll(toughIce);
-        if(key != null) elements.add(lock);
+        if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
         if(teleport1 != null) elements.add(teleport1);
         if(teleport2 != null) elements.add(teleport2);
+        if(box != null) elements.add(box);
         elements.add(points);
         elements.add(hero);
         elements.add(destination);
@@ -238,8 +249,11 @@ public class LevelModel {
             if(teleport2.getPosition().equals(position))
                 return teleport2;
         }
+        if(box != null && box.getPosition().equals(position))
+            return box;
         if(destination.getPosition().equals(position))
             return destination;
+
         return null;
     }
 
@@ -256,6 +270,43 @@ public class LevelModel {
         teleport2 = null;
         teleportUsed = false;
         points = new Points( 0);
+    }
+
+    public void moveBox(DIRECTION boxDirection) {
+        while(true){
+            switch (boxDirection){
+                case RIGHT:
+                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return;
+                    box.setPosition(new Position(box.getPosition().getX() + 1,box.getPosition().getY()));
+                    break;
+                case LEFT:
+                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return;
+                    box.setPosition(new Position(box.getPosition().getX() - 1,box.getPosition().getY()));
+                    break;
+                case UP:
+                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return;
+                    box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() - 1));
+                    break;
+                case DOWN:
+                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY() + 1))) return;
+                    box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() + 1));
+                    break;
+                default:
+                    System.out.println("Fuck");
+            }
+        }
+
+
+    }
+
+    public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT,RESTART};
+    public DIRECTION findBoxDirection(){
+        Position boxPosition  = box.getPosition();
+        Position heroPosition  = hero.getPosition();
+        if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
+        if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
+        if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.DOWN;
+        return UP;
     }
 
     public void move(Position position){
