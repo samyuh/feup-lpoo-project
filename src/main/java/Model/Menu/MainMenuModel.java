@@ -1,25 +1,27 @@
 package Model.Menu;
 
-import Model.Option;
+import Controller.CommandOption.CommandOption;
+import Controller.CommandOption.CommandOptionExit;
+import Controller.CommandOption.CommandOptionNewGame;
+import Model.Option.OptionModel;
 import Model.Position;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenuModel {
     private int optionNum;
-    private List<Option> op;
+    private List<OptionModel> op;
 
     public MainMenuModel() {
         optionNum = 0;
         this.op = new ArrayList<>();
-        this.op.add(new Option("Start", "#120A8F", new Position(2, 14)));
-        this.op.add(new Option("Instructions", "#000077", new Position(2, 15)));
-        this.op.add(new Option("Exit", "#000077", new Position(2, 16)));
+        this.op.add(new OptionModel("Start", "#120A8F", new Position(2, 14), new CommandOptionNewGame()));
+        this.op.add(new OptionModel("Instructions", "#000077", new Position(2, 15), new CommandOptionNewGame()));
+        this.op.add(new OptionModel("Exit", "#000077", new Position(2, 16), new CommandOptionExit()));
     }
 
-    public List<Option> getOption() {
+    public List<OptionModel> getOption() {
         return op;
     }
 
@@ -50,7 +52,7 @@ public class MainMenuModel {
         op.get(optionNum).setColor("#120A8F");
     }
 
-    public int getAction() {
-        return optionNum;
+    public CommandOption getAction() {
+        return op.get(optionNum).getCommandOption();
     }
 }

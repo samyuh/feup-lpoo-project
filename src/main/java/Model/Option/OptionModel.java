@@ -1,13 +1,19 @@
-package Model;
+package Model.Option;
 
-public class Option {
+import Controller.CommandOption.CommandOption;
+import Model.Position;
+
+public class OptionModel {
     String name;
     String color;
     Position position;
-    public Option(String name, String color, Position p) {
+    CommandOption opt;
+    
+    public OptionModel(String name, String color, Position p, CommandOption opt) {
         this.name = name;
         this.color = color;
         this.position = p;
+        this.opt = opt;
     }
 
     public String getName() {
@@ -26,5 +32,7 @@ public class Option {
         return position;
     }
 
-
+    public CommandOption getCommandOption() {
+        return opt;
+    }
 }

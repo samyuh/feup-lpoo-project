@@ -19,13 +19,7 @@ public class MainMenuController {
         while(true) {
             menuView.draw(menuModel);
             if (processCommand(menuView.handler())) {
-                if(menuModel.getAction() == 0) {
-                    return true;
-                }
-                else if(menuModel.getAction() == 1){
-                    return true;
-                }
-                return false;
+                return menuModel.getAction().execute();
             }
         }
     }
