@@ -45,7 +45,7 @@ public class LevelController {
             if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
-                if (levelNum != 15){
+                if (levelNum != 19){
                     levelNum++;
                 setLevel(levelNum);
                 }

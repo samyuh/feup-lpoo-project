@@ -4,6 +4,6 @@ import Model.Position;
 
 public class Hero extends ElementModel {
     public Hero(Position position) {
-        super("H", "#000000", position);
+        super("⬤", "#ff0422", position);
     }
 }

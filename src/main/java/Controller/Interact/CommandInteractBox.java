@@ -12,7 +12,6 @@ public class CommandInteractBox extends CommandInteract{
     @Override
     public void execute() {
         if(m.moveBox(m.findBoxDirection()) == 0) {
-            System.out.println("BLock");
             element.setInteraction(new CommandInteractStop(m, element));
         }
         else{ ;
