@@ -66,7 +66,7 @@ public class LevelInitializer {
         try {
             this.levelNumber = levelNumber;
             this.mapElements = readLines();
-            this.model.setLevelOptions(new LevelOptions( new Score(0), new CurrentLevel(this.levelNumber)));
+            this.model.setLevelOptions(new LevelOptions(new CurrentLevel(this.levelNumber)));
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();

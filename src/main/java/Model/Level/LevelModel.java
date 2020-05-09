@@ -37,7 +37,7 @@ public class LevelModel {
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.teleportUsed = false;
-        this.levelOptions = new LevelOptions(new Score(0),new CurrentLevel(1));
+        this.levelOptions = new LevelOptions(new CurrentLevel(1));
     }
 
     public void setPuffle(Puffle puffle) {
@@ -160,7 +160,7 @@ public class LevelModel {
         return drawables;
     }
 
-    public void addScore(int number){ this.levelOptions.setScore(new Score(this.levelOptions.getScore().getPoints() + number)); }
+    public void addScore(int number){ this.levelOptions.addScore(number);}
 
     public boolean removeCoin(Position position){
         for(Coin coin : this.coins) {
@@ -256,7 +256,7 @@ public class LevelModel {
         teleport1 = null;
         teleport2 = null;
         teleportUsed = false;
-        levelOptions = new LevelOptions(new Score(0), new CurrentLevel(this.levelOptions.getCurrentLevel().getLevelNumber()));
+        levelOptions = new LevelOptions(new CurrentLevel(this.levelOptions.getCurrentLevel().getLevelNumber()));
     }
 
     public int moveBox(DIRECTION boxDirection) {

@@ -4,6 +4,7 @@ import Model.Drawable.CurrentLevel;
 import Model.Drawable.Score;
 
 public class LevelOptions {
+    private int maxScores[] = {12,19,25,43,41,41,66,82,93,208,132,138,128,131,227,181,161,179,172,172};
     private Score score;
     private CurrentLevel currentLevel;
 
@@ -11,8 +12,8 @@ public class LevelOptions {
         return score;
     }
 
-    public void setScore(Score score) {
-        this.score = score;
+    public void addScore(int number) {
+        this.score.addPoints(number);
     }
 
     public CurrentLevel getCurrentLevel() {
@@ -23,8 +24,8 @@ public class LevelOptions {
         this.currentLevel = currentLevel;
     }
 
-    public LevelOptions(Score score, CurrentLevel currentLevel) {
-        this.score = score;
+    public LevelOptions(CurrentLevel currentLevel) {
+        this.score = new Score(maxScores[currentLevel.getLevelNumber()-1]);
         this.currentLevel = currentLevel;
     }
 }
