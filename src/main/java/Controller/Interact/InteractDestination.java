@@ -1,17 +1,18 @@
 package Controller.Interact;
 
+import Controller.Level.LevelController;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 
 public class InteractDestination extends Interact {
-    public InteractDestination(LevelModel m, ElementModel element) {
-        super(m, element);
+    public InteractDestination(ElementModel element) {
+        super(element);
     }
 
     @Override
-    public void execute() {
+    public void execute(LevelController model) {
         model.addWater();
         model.move(position);
-        model.addPoints(1);
+        //model.addPoints(1);
     }
 }

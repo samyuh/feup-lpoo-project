@@ -1,16 +1,17 @@
 package Controller.Interact;
 
+import Controller.Level.LevelController;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 
 public class InteractStop extends Interact {
 
-    public InteractStop(LevelModel m, ElementModel element) {
-        super(m, element);
+    public InteractStop(ElementModel element) {
+        super(element);
     }
 
     @Override
-    public void execute() {
+    public void execute(LevelController model) {
         // if wall, water, or used teleport is found, nothing should be done
     }
 }

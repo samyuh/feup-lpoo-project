@@ -1,16 +1,18 @@
 package Controller.Interact;
 
 
+import Controller.Level.LevelController;
 import Model.Elements.ElementModel;
 import Model.Level.LevelModel;
 
 public class InteractBox extends Interact {
-    public InteractBox(LevelModel m, ElementModel element) {
-        super(m, element);
+    public InteractBox(ElementModel element) {
+        super(element);
     }
 
     @Override
-    public void execute() {
+    public void execute(LevelController model) {
+        /*
         if(model.moveBox(model.findBoxDirection()) == 0) {
             element.setInteraction(new InteractStop(model, element));
         }
@@ -19,5 +21,6 @@ public class InteractBox extends Interact {
             model.move(position);
             model.addPoints(1);
         }
+        */
     }
 }

@@ -56,7 +56,6 @@ public class LevelInitializer {
         model.setIce(ice);
         model.setCoins(coins);
         model.setToughIce(toughIce);
-        model.setInteractions();
     }
 
     public void initLevel(int levelNumber) {
