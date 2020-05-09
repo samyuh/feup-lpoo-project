@@ -1,13 +1,16 @@
 package Model.Level;
 
 import Controller.Interact.*;
+import Model.Drawable.CurrentLevel;
 import Model.Drawable.Drawable;
 import Model.Elements.*;
+import Model.Drawable.LevelOptions;
 import Model.Position;
 import Model.Drawable.Score;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static Model.Level.LevelModel.DIRECTION.UP;
 
@@ -21,20 +24,20 @@ public class LevelModel {
     private List<ToughIce> toughIce;
     private Key key;
     private Lock lock;
-    private Score score;
     private Teleport teleport1;
     private Teleport teleport2;
     boolean teleportUsed;
     private Box box;
+    private LevelOptions levelOptions;
 
     public LevelModel() {
-        this.score = new Score(0);
         this.walls = new ArrayList<>();
         this.ice = new ArrayList<>();
         this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.teleportUsed = false;
+        this.levelOptions = new LevelOptions(new Score(0),new CurrentLevel(1));
     }
 
     public void setPuffle(Puffle puffle) {
@@ -57,21 +60,11 @@ public class LevelModel {
         this.water = water;
     }
 
-    public void setScore(Score score) {
-        this.score = score;
-    }
+    public void setKey(Key key) { this.key = key; }
 
-    public void setKey(Key key) {
-        this.key = key;
-    }
+    public void setLock(Lock lock) { this.lock = lock; }
 
-    public void setLock(Lock lock) {
-        this.lock = lock;
-    }
-
-    public void setCoins(List<Coin> coins) {
-        this.coins = coins;
-    }
+    public void setCoins(List<Coin> coins) { this.coins = coins; }
 
     public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
 
@@ -82,6 +75,8 @@ public class LevelModel {
     public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
     public void setBox(Box box) { this.box = box; }
+
+    public void setLevelOptions(LevelOptions levelOptions) { this.levelOptions = levelOptions; }
 
     public void setInteractions() {
         for(Wall wall: this.walls){
@@ -118,35 +113,19 @@ public class LevelModel {
         return puffle;
     }
 
-    public Destination getDestination() {
-        return destination;
-    }
+    public Destination getDestination() { return destination; }
 
-    public List<Wall> getWalls() {
-        return walls;
-    }
+    public List<Wall> getWalls() { return walls; }
 
-    public List<Ice> getIce() {
-        return ice;
-    }
+    public List<Ice> getIce() { return ice; }
 
-    public List<Water> getWater() {
-        return water;
-    }
+    public List<Water> getWater() { return water; }
 
-    public List<Coin> getCoins() {
-        return coins;
-    }
+    public List<Coin> getCoins() { return coins; }
 
-    public Key getKey() {
-        return key;
-    }
+    public Key getKey() { return key; }
 
-    public Lock getLock() {
-        return lock;
-    }
-
-    public Score getScore() { return score; }
+    public Lock getLock() { return lock; }
 
     public List<ToughIce> getToughIce() { return toughIce; }
 
@@ -156,7 +135,9 @@ public class LevelModel {
 
     public boolean isTeleportUsed() { return teleportUsed; }
 
-    public void getBox(Box box) { this.box = box; }
+    public Box getBox(Box box) { return this.box; }
+
+    public LevelOptions getLevelOptions() { return this.levelOptions; }
 
     public List<Drawable> getAll(){
         List<Drawable> drawables = new ArrayList<>();
@@ -171,14 +152,15 @@ public class LevelModel {
         if(teleport1 != null) drawables.add(teleport1);
         if(teleport2 != null) drawables.add(teleport2);
         if(box != null) drawables.add(box);
+        drawables.add(levelOptions.getCurrentLevel());
+        drawables.add(levelOptions.getScore());
         drawables.add(puffle);
         drawables.add(destination);
-        drawables.add(score);
 
         return drawables;
     }
 
-    public void addScore(int number){ this.score = new Score( this.score.getPoints() + number); }
+    public void addScore(int number){ this.levelOptions.setScore(new Score(this.levelOptions.getScore().getPoints() + number)); }
 
     public boolean removeCoin(Position position){
         for(Coin coin : this.coins) {
@@ -274,7 +256,7 @@ public class LevelModel {
         teleport1 = null;
         teleport2 = null;
         teleportUsed = false;
-        score = new Score( 0);
+        levelOptions = new LevelOptions(new Score(0), new CurrentLevel(this.levelOptions.getCurrentLevel().getLevelNumber()));
     }
 
     public int moveBox(DIRECTION boxDirection) {
@@ -355,9 +337,7 @@ public class LevelModel {
         this.ice.add(ice);
     }
 
-    public void removeCoin(Coin coin){
-        this.coins.remove(coin);
-    }
+    public void removeCoin(Coin coin){ this.coins.remove(coin); }
 
     public void removeToughIce(ToughIce toughIce){
         this.toughIce.remove(toughIce);
