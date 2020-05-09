@@ -1,15 +1,15 @@
 package Model.Option;
 
-import Controller.CommandOption.CommandOption;
+import Controller.Option.Option;
 import Model.Position;
 
 public class OptionModel {
     String name;
     String color;
     Position position;
-    CommandOption opt;
+    Option opt;
     
-    public OptionModel(String name, Position p, CommandOption opt) {
+    public OptionModel(String name, Position p, Option opt) {
         this.name = name;
         this.color = "#000077";
         this.position = p;
@@ -28,7 +28,7 @@ public class OptionModel {
         return position;
     }
 
-    public CommandOption getCommandOption() {
+    public Option getCommandOption() {
         return opt;
     }
 

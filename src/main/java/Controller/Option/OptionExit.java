@@ -1,9 +1,9 @@
-package Controller.CommandOption;
+package Controller.Option;
 
 import Controller.MainController;
 
-public class CommandOptionExit extends CommandOption {
-    public CommandOptionExit(MainController mainController) {
+public class OptionExit extends Option {
+    public OptionExit(MainController mainController) {
         super(mainController);
     }
 

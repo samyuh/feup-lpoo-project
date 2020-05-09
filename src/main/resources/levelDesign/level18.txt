@@ -8,7 +8,7 @@ WWWWWWW........W..W
 WWWD..W........W..W
 WWWWWLW...........W
 WWWWWBB...W.....W.W
-W...B.....W.......W
+W...B.....W.....Y.W
 W.WWB.W...........W
 W.WWBB..........W.W
 W...B.WW..WW..W...W

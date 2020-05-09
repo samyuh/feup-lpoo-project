@@ -6,7 +6,7 @@ W.........BBBB.W.DW
 W.....BBBCB....WWWW
 W.....B.BBB.......W
 W.....B...........W
-WWBBB.......B.....W
+WWBBBY......B.....W
 WKBBBB............W
 W..W..........WW..W
 W.............WWWWW

@@ -1,7 +1,9 @@
 package Model.Elements;
+import Controller.Interact.Interact;
 import Model.Position;
 
 public abstract class ElementModel {
+    private Interact command;
     private Position position;
     private String image;
     private String color;
@@ -18,7 +20,17 @@ public abstract class ElementModel {
 
     public String getImage() { return image; }
 
+    public void setColor(String color) {this.color = color;}
+
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setInteraction(Interact command) {
+        this.command = command;
+    }
+
+    public Interact getInteraction() {
+        return command;
     }
 }

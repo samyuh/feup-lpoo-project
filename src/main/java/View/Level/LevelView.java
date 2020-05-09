@@ -35,7 +35,7 @@ public class LevelView {
     }
 
     public void drawLevel(LevelModel model, TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         ElementView view = new ElementView();

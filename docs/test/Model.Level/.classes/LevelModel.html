@@ -166,7 +166,7 @@
 <i>7</i>&nbsp;import java.util.List;
 <i>8</i>&nbsp;
 <i>9</i>&nbsp;public class LevelModel {
-<i>10</i>&nbsp;    private Hero hero;
+<i>10</i>&nbsp;    private Hero puffle;
 <i>11</i>&nbsp;    private Destination destination;
 <i>12</i>&nbsp;    private List&lt;Wall&gt; walls;
 <i>13</i>&nbsp;    private List&lt;Water&gt; filled;
@@ -184,8 +184,8 @@
 <b class="fc"><i>25</i>&nbsp;        this.frozenIce = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>26</i>&nbsp;    }</b>
 <i>27</i>&nbsp;
-<i>28</i>&nbsp;    public void setHero(Hero hero) {
-<b class="fc"><i>29</i>&nbsp;        this.hero = hero;</b>
+<i>28</i>&nbsp;    public void setHero(Hero puffle) {
+<b class="fc"><i>29</i>&nbsp;        this.puffle = puffle;</b>
 <b class="fc"><i>30</i>&nbsp;    }</b>
 <i>31</i>&nbsp;
 <i>32</i>&nbsp;    public void setDestination(Destination destination) {
@@ -219,7 +219,7 @@
 <b class="fc"><i>60</i>&nbsp;    public void setFrozenIce(List&lt;WhiteIce&gt; frozenIce) { this.frozenIce = frozenIce; }</b>
 <i>61</i>&nbsp;
 <i>62</i>&nbsp;    public Hero getHero() {
-<b class="fc"><i>63</i>&nbsp;        return hero;</b>
+<b class="fc"><i>63</i>&nbsp;        return puffle;</b>
 <i>64</i>&nbsp;    }
 <i>65</i>&nbsp;
 <i>66</i>&nbsp;    public Destination getDestination() {
@@ -260,7 +260,7 @@
 <b class="nc"><i>101</i>&nbsp;        if(key != null) elements.add(lock);</b>
 <b class="nc"><i>102</i>&nbsp;        if(key != null) elements.add(key);</b>
 <b class="nc"><i>103</i>&nbsp;        elements.add(points);</b>
-<b class="nc"><i>104</i>&nbsp;        elements.add(hero);</b>
+<b class="nc"><i>104</i>&nbsp;        elements.add(puffle);</b>
 <b class="nc"><i>105</i>&nbsp;        elements.add(destination);</b>
 <i>106</i>&nbsp;
 <b class="nc"><i>107</i>&nbsp;        return elements;</b>
@@ -289,7 +289,7 @@
 <i>130</i>&nbsp;    }
 <i>131</i>&nbsp;
 <i>132</i>&nbsp;    public void clearLevel(){
-<b class="fc"><i>133</i>&nbsp;        hero = null;</b>
+<b class="fc"><i>133</i>&nbsp;        puffle = null;</b>
 <b class="fc"><i>134</i>&nbsp;        destination = null;</b>
 <b class="fc"><i>135</i>&nbsp;        walls = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>136</i>&nbsp;        filled = new ArrayList&lt;&gt;();</b>

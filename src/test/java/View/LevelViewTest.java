@@ -1,7 +1,7 @@
 package View;
 
 import Model.Elements.ElementModel;
-import Model.Elements.Hero;
+import Model.Elements.Puffle;
 import Model.Elements.Wall;
 import Model.Level.LevelModel;
 import Model.Position;
@@ -44,7 +44,7 @@ public class LevelViewTest {
         Mockito.when(p2.getX()).thenReturn(1);
         Mockito.when(p2.getY()).thenReturn(0);
 
-        Hero e2 = Mockito.mock(Hero.class);
+        Puffle e2 = Mockito.mock(Puffle.class);
         Mockito.when(e2.getImage()).thenReturn("H");
         Mockito.when(e2.getColor()).thenReturn("#000000");
         Mockito.when(e2.getPosition()).thenReturn(p2);

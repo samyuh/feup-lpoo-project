@@ -74,36 +74,36 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package Controller.Element;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import Model.Elements.Hero;
+<i>3</i>&nbsp;import Model.Elements.Puffle;
 <i>4</i>&nbsp;import Model.Elements.Wall;
 <i>5</i>&nbsp;import Model.Elements.Water;
 <i>6</i>&nbsp;import Model.Position;
 <i>7</i>&nbsp;
 <i>8</i>&nbsp;public class HeroMovement {
-<i>9</i>&nbsp;    Hero hero;
+<i>9</i>&nbsp;    Hero puffle;
 <i>10</i>&nbsp;
 <b class="fc"><i>11</i>&nbsp;    public HeroMovement(Hero h) {</b>
-<b class="fc"><i>12</i>&nbsp;        this.hero = h;</b>
+<b class="fc"><i>12</i>&nbsp;        this.puffle = h;</b>
 <b class="fc"><i>13</i>&nbsp;    }</b>
 <i>14</i>&nbsp;
 <i>15</i>&nbsp;    public Position moveUp() {
-<b class="fc"><i>16</i>&nbsp;        return new Position(hero.getPosition().getX(), hero.getPosition().getY() - 1);</b>
+<b class="fc"><i>16</i>&nbsp;        return new Position(puffle.getPosition().getX(), puffle.getPosition().getY() - 1);</b>
 <i>17</i>&nbsp;    }
 <i>18</i>&nbsp;
 <i>19</i>&nbsp;    public Position moveDown() {
-<b class="fc"><i>20</i>&nbsp;        return new Position(hero.getPosition().getX(), hero.getPosition().getY() + 1);</b>
+<b class="fc"><i>20</i>&nbsp;        return new Position(puffle.getPosition().getX(), puffle.getPosition().getY() + 1);</b>
 <i>21</i>&nbsp;    }
 <i>22</i>&nbsp;
 <i>23</i>&nbsp;    public Position moveRight() {
-<b class="fc"><i>24</i>&nbsp;        return new Position(hero.getPosition().getX() + 1, hero.getPosition().getY());</b>
+<b class="fc"><i>24</i>&nbsp;        return new Position(puffle.getPosition().getX() + 1, puffle.getPosition().getY());</b>
 <i>25</i>&nbsp;    }
 <i>26</i>&nbsp;
 <i>27</i>&nbsp;    public Position moveLeft() {
-<b class="fc"><i>28</i>&nbsp;        return new Position(hero.getPosition().getX() - 1, hero.getPosition().getY());</b>
+<b class="fc"><i>28</i>&nbsp;        return new Position(puffle.getPosition().getX() - 1, puffle.getPosition().getY());</b>
 <i>29</i>&nbsp;    }
 <i>30</i>&nbsp;
 <i>31</i>&nbsp;    public boolean atPosition(Position target) {
-<b class="fc"><i>32</i>&nbsp;        return hero.getPosition().equals(target);</b>
+<b class="fc"><i>32</i>&nbsp;        return puffle.getPosition().equals(target);</b>
 <i>33</i>&nbsp;    }
 <i>34</i>&nbsp;
 <i>35</i>&nbsp;}

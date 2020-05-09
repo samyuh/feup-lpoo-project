@@ -13,7 +13,7 @@ import java.util.List;
 public class LevelTest {
     LevelModel testM;
     private List<Coin> coins;
-    private List<WhiteIce> frozenIce;
+    private List<ToughIce> frozenIce;
     private Position pCoin1;
     private Position pFrozenIce1;
 
@@ -35,14 +35,14 @@ public class LevelTest {
         Mockito.when(pFrozenIce1.getX()).thenReturn(1);
         Mockito.when(pFrozenIce1.getY()).thenReturn(1);
 
-        WhiteIce i1 = Mockito.mock(WhiteIce.class);
+        ToughIce i1 = Mockito.mock(ToughIce.class);
         Mockito.when(i1.getPosition()).thenReturn(pFrozenIce1);
 
         frozenIce.add(i1);
 
         this.testM = new LevelModel();
         testM.setCoins(coins);
-        testM.setFrozenIce(frozenIce);
+        testM.setToughIce(frozenIce);
 
         // Set other things
     }
@@ -52,8 +52,8 @@ public class LevelTest {
         testM.removeCoin(this.pCoin1);
         Assert.assertEquals(testM.getCoins().isEmpty(), true);
 
-        testM.removeWhite(this.pFrozenIce1);
-        Assert.assertEquals(testM.getFrozenIce().isEmpty(), true);
+        testM.removeToughIce(this.pFrozenIce1);
+        Assert.assertEquals(testM.getToughIce().isEmpty(), true);
 
         // testM.clearlevel() -- To Do
     }

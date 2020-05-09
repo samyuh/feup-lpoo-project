@@ -1,7 +1,7 @@
 package Controller.State;
 
-import Controller.CommandOption.CommandOptionExit;
-import Controller.CommandOption.CommandOptionNewGame;
+import Controller.Option.OptionExit;
+import Controller.Option.OptionNewGame;
 import Controller.MainController;
 import Controller.Menu.MenuController;
 import Model.Menu.MenuModel;
@@ -22,8 +22,8 @@ public class StateGameOver extends State {
     @Override
     public void run() throws IOException {
         List<OptionModel> op = new ArrayList<>();
-        op.add(new OptionModel("Game Over", new Position(2, 15), new CommandOptionExit(mainController)));
-        op.add(new OptionModel("Restart", new Position(2, 16), new CommandOptionNewGame(mainController)));
+        op.add(new OptionModel("Game Over", new Position(2, 15), new OptionExit(mainController)));
+        op.add(new OptionModel("Restart", new Position(2, 16), new OptionNewGame(mainController)));
 
         MenuModel menuModel = new MenuModel(op);
         MenuView menuView = new MenuView(mainController.getGui());

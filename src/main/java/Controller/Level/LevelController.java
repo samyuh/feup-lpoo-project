@@ -1,8 +1,8 @@
 package Controller.Level;
 
-import Controller.Element.HeroMovement;
-import Model.Elements.Wall;
-import Model.Elements.Water;
+import Controller.Element.PuffleMovement;
+import Controller.Interact.*;
+import Model.Elements.*;
 import Model.Level.LevelModel;
 import Model.Position;
 import View.KeyHandler;
@@ -16,7 +16,7 @@ public class LevelController {
 
     private LevelInitializer levelInitializer;
 
-    private HeroMovement heroM;
+    private PuffleMovement puffleMovement;
 
     private int levelNum;
 
@@ -27,7 +27,7 @@ public class LevelController {
         this.levelInitializer = new LevelInitializer(levelModel);
         levelInitializer.initLevel(levelNum);
 
-        heroM = new HeroMovement(levelModel.getHero());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
     public void setLevel(int level) {
@@ -35,7 +35,7 @@ public class LevelController {
         levelModel.clearLevel();
         levelInitializer.initLevel(levelNum);
 
-        heroM = new HeroMovement(levelModel.getHero());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
     public boolean run() throws IOException {
@@ -45,11 +45,12 @@ public class LevelController {
             if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
-                if(levelNum != 5) {
+                if (levelNum != 19){
                     levelNum++;
-                    setLevel(levelNum);
+                setLevel(levelNum);
                 }
-                else return true;
+                else
+                    return true;
             }
 
             if (gameLost()) return false;
@@ -60,16 +61,22 @@ public class LevelController {
     public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                moveHero(heroM.moveUp());
+                moveHero(puffleMovement.moveUp());
                 return true;
             case DOWN:
-                moveHero(heroM.moveDown());
+                moveHero(puffleMovement.moveDown());
                 return true;
             case LEFT:
-                moveHero(heroM.moveLeft());
+                moveHero(puffleMovement.moveLeft());
                 return true;
             case RIGHT:
-                moveHero(heroM.moveRight());
+                moveHero(puffleMovement.moveRight());
+                return true;
+            case NEXT:
+                this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
+                return true;
+            case RESTART:
+                this.setLevel(this.levelNum);
                 return true;
             case CLOSE:
                 return false;
@@ -78,46 +85,31 @@ public class LevelController {
     }
 
     public void moveHero(Position position) {
-        if (!checkCollisions(position)) {
-            if(!levelModel.removeWhite(levelModel.getHero().getPosition()))
-                levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
+        checkMovement(position).execute();
+    }
 
-            if (levelModel.removeCoin(position))
-                levelModel.addPoints(10);
+    private Interact checkMovement(Position position){
+        ElementModel element = levelModel.find(position);
+        return element.getInteraction();
 
-            levelModel.addPoints(1);
-
-            if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
-                levelModel.setKey(null);
-                levelModel.setLock(null);
-            }
-            levelModel.getHero().setPosition(position);
-        }
     }
 
     private boolean checkCollisions(Position position) {
-        for (Wall wall : levelModel.getWalls()){
-            if (wall.getPosition().equals(position))
-                return true;
-        }
-        for (Water water : levelModel.getFilled()){
-            if (water.getPosition().equals(position))
-                return true;
-        }
-        return levelModel.getLock() != null && levelModel.getLock().getPosition().equals(position);
+        return checkMovement(position).getClass() == InteractStop.class;
     }
 
     public boolean gameWon() {
-        return heroM.atPosition(levelModel.getDestination().getPosition());
+        return puffleMovement.atPosition(levelModel.getDestination().getPosition());
     }
 
     public boolean gameLost() {
-        return (checkCollisions(heroM.moveUp()) && checkCollisions(heroM.moveDown()) &&
-                checkCollisions(heroM.moveLeft()) && checkCollisions(heroM.moveRight()) && !gameWon());
+        return checkCollisions(puffleMovement.moveUp()) && checkCollisions(puffleMovement.moveDown()) &&
+                checkCollisions(puffleMovement.moveLeft()) && checkCollisions(puffleMovement.moveRight()) &&
+                !gameWon();
     }
 
-    public HeroMovement getHeroM() {
-        return heroM;
+    public PuffleMovement getPuffleMovement() {
+        return puffleMovement;
     }
 
     public int getlevelNum() {
