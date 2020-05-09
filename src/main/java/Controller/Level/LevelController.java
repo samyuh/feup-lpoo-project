@@ -173,50 +173,50 @@ public class LevelController {
     }
 
     public void removeKeyLock(){
-        this.addIce(levelModel.lock.getPosition());
+        this.addIce(levelModel.getLock().getPosition());
         levelModel.setKey(null);
         levelModel.setLock(null);
     }
 
     public void addWater(){
         // If there is no toughIce below the hero
-        if(!removeToughIce(levelModel.puffle.getPosition())) {
+        if(!removeToughIce(levelModel.getPuffle().getPosition())) {
             Water water = new Water(levelModel.getPuffle().getPosition());
             water.setInteraction(new InteractStop(water));
-            levelModel.water.add(water);
+            levelModel.getWater().add(water);
         }
         //If there is toughIce below the hero
         else{
-            this.addIce(levelModel.puffle.getPosition());
+            this.addIce(levelModel.getPuffle().getPosition());
         }
     }
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
         ice.setInteraction(new InteractIce(ice));
-        levelModel.ice.add(ice);
+        levelModel.getIce().add(ice);
     }
 
     public void removeCoin(Coin coin){
-        levelModel.coins.remove(coin);
+        levelModel.getCoins().remove(coin);
     }
 
     public void removeIce(Ice ice){
-        levelModel.ice.remove(ice);
+        levelModel.getIce().remove(ice);
     }
 
     public Position getTeleportPosition(Teleport teleport) {
-        if(teleport.getPosition().equals(levelModel.teleport1.getPosition())){
-            return levelModel.teleport2.getPosition();
+        if(teleport.getPosition().equals(levelModel.getTeleport1().getPosition())){
+            return levelModel.getTeleport2().getPosition();
         }
         else
-            return levelModel.teleport1.getPosition();
+            return levelModel.getTeleport1().getPosition();
     }
 
     public boolean removeToughIce(Position position){
-        for(ToughIce frozenIce : levelModel.toughIce){
+        for(ToughIce frozenIce : levelModel.getToughIce()){
             if(frozenIce.getPosition().equals(position)){
-                levelModel.toughIce.remove(frozenIce);
+                levelModel.getToughIce().remove(frozenIce);
                 return true;
             }
         }

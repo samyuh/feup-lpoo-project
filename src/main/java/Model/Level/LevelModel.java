@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelModel {
-    public Puffle puffle;
+    private Puffle puffle;
     private Destination destination;
     private List<Wall> walls;
-    public List<Ice> ice;
-    public List<Water> water;
-    public List<Coin> coins;
-    public List<ToughIce> toughIce;
+    private List<Ice> ice;
+    private List<Water> water;
+    private List<Coin> coins;
+    private List<ToughIce> toughIce;
     private Key key;
-    public Lock lock;
+    private Lock lock;
     private Points points;
-    public Teleport teleport1;
-    public Teleport teleport2;
+    private Teleport teleport1;
+    private Teleport teleport2;
     boolean teleportUsed;
     private Box box;
 
