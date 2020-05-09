@@ -12,9 +12,9 @@ public class InteractIce extends Interact {
 
     @Override
     public void execute() {
-        m.removeIce((Ice) element);
-        m.addWater();
-        m.move(position);
-        m.addPoints(1);
+        model.removeIce((Ice) element);
+        model.addWater();
+        model.move(position);
+        model.addPoints(1);
     }
 }

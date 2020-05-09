@@ -35,7 +35,7 @@ public class LevelViewTest {
 
         Wall e1 = Mockito.mock(Wall.class);
         Mockito.when(e1.getImage()).thenReturn("\u2588");
-        Mockito.when(e1.getColor()).thenReturn("#8ABDE8");
+        Mockito.when(e1.getColor()).thenReturn("#0065c6");
         Mockito.when(e1.getPosition()).thenReturn(p1);
 
         elementMocks.add(e1);
@@ -68,9 +68,9 @@ public class LevelViewTest {
         LevelView levelView = new LevelView(screenMock);
         levelView.drawLevel(levelMock, graphicsMock);
 
-        Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
 
-        Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#8ABDE8"));
+        Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#0065c6"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(0, 0), "\u2588");
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#000000"));

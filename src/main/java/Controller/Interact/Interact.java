@@ -5,12 +5,12 @@ import Model.Level.LevelModel;
 import Model.Position;
 
 public abstract class Interact {
-    LevelModel m;
+    LevelModel model;
     protected ElementModel element;
     protected Position position;
 
-    protected Interact(LevelModel m, ElementModel element){
-        this.m = m;
+    protected Interact(LevelModel model, ElementModel element){
+        this.model = model;
         this.element = element;
         this.position = element.getPosition();
     }

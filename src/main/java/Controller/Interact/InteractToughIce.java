@@ -11,8 +11,8 @@ public class InteractToughIce extends Interact {
 
     @Override
     public void execute() {
-        m.addWater();
-        m.move(position);
-        m.addPoints(1);
+        model.addWater();
+        model.move(position);
+        model.addPoints(1);
     }
 }

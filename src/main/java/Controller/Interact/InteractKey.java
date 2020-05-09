@@ -11,9 +11,9 @@ public class InteractKey extends Interact {
 
     @Override
     public void execute() {
-        m.removeKeyLock();
-        m.addWater();
-        m.move(position);
-        m.addPoints(1);
+        model.removeKeyLock();
+        model.addWater();
+        model.move(position);
+        model.addPoints(1);
     }
 }

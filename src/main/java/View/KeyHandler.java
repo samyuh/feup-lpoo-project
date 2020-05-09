@@ -13,7 +13,7 @@ public class KeyHandler {
 
     public KeyHandler() {}
 
-    public DIRECTION processKey(Screen screen) throws IOException {
+    public static DIRECTION processKey(Screen screen) throws IOException {
         while (true) {
             KeyStroke key = screen.readInput();
             if (key.getKeyType() == KeyType.ArrowUp) return DIRECTION.UP;
@@ -21,10 +21,10 @@ public class KeyHandler {
             if (key.getKeyType() == KeyType.ArrowDown) return DIRECTION.DOWN;
             if (key.getKeyType() == KeyType.ArrowLeft) return DIRECTION.LEFT;
             if (key.getKeyType() == KeyType.EOF) return DIRECTION.CLOSE;
-            if (key.getKeyType() == KeyType.Character){
-            if(key.getCharacter().equals('n')) return DIRECTION.NEXT;
-            if(key.getCharacter().equals('r')) return DIRECTION.RESTART;
-            if(key.getCharacter().equals('q')) return DIRECTION.CLOSE;
+            if (key.getKeyType() == KeyType.Character) {
+                if(key.getCharacter().equals('n')) return DIRECTION.NEXT;
+                if(key.getCharacter().equals('r')) return DIRECTION.RESTART;
+                if(key.getCharacter().equals('q')) return DIRECTION.CLOSE;
             }
         }
     }

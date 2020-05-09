@@ -11,9 +11,9 @@ public class InteractCoin extends Interact {
 
     @Override
     public void execute() {
-        m.removeCoin((Coin) element);
-        m.addWater();
-        m.move(position);
-        m.addPoints(10);
+        model.removeCoin((Coin) element);
+        model.addWater();
+        model.move(position);
+        model.addPoints(10);
     }
 }

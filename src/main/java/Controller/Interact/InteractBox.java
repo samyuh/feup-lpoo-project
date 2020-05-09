@@ -11,15 +11,13 @@ public class InteractBox extends Interact {
 
     @Override
     public void execute() {
-        position = element.getPosition();
-        if(m.moveBox(m.findBoxDirection()) == 0) {
-            element.setInteraction(new InteractStop(m, element));
+        if(model.moveBox(model.findBoxDirection()) == 0) {
+            element.setInteraction(new InteractStop(model, element));
         }
         else{ ;
-            m.addWater();
-            m.move(position);
-            m.addPoints(1);
+            model.addWater();
+            model.move(position);
+            model.addPoints(1);
         }
-
     }
 }

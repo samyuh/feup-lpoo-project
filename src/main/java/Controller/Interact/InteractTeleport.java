@@ -11,15 +11,15 @@ public class InteractTeleport extends Interact {
 
     @Override
     public void execute() {
-        if(m.isTeleportUsed()) return;
-        m.addWater();
-        m.move(position);
-        m.addWater();
-        position = m.getTeleportPosition((Teleport)element);
-        m.move(position);
-        m.setTeleportUsed(true);
-        m.getTeleport1().setColor("#0000ff");
-        m.getTeleport2().setColor("#0000ff");
-        m.addPoints(1);
+        if(model.isTeleportUsed()) return;
+        model.addWater();
+        model.move(position);
+        model.addWater();
+        position = model.getTeleportPosition((Teleport) element);
+        model.move(position);
+        model.setTeleportUsed(true);
+        model.getTeleport1().setColor("#0000ff");
+        model.getTeleport2().setColor("#0000ff");
+        model.addPoints(1);
     }
 }
