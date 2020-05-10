@@ -2,7 +2,7 @@ package view.level;
 
 import model.drawable.Drawable;
 import model.level.LevelModel;
-import view.element.ElementView;
+import view.DrawableView;
 import view.KeyHandler;
 import view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
@@ -36,7 +36,7 @@ public class LevelView {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
-        ElementView view = new ElementView();
+        DrawableView view = new DrawableView();
         List<Drawable> drawables;
 
         drawables = model.getAll();

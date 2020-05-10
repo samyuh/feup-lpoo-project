@@ -1,15 +1,15 @@
-package model.option;
+package model.menu;
 
-import controller.option.Option;
+import controller.menu.option.Option;
 import model.Position;
 
-public class OptionModel {
+public class MenuOption {
     String name;
     String color;
     Position position;
     Option opt;
     
-    public OptionModel(String name, Position p, Option opt) {
+    public MenuOption(String name, Position p, Option opt) {
         this.name = name;
         this.color = "#000077";
         this.position = p;

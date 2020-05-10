@@ -1,13 +1,14 @@
-package model.drawable;
+package model.drawable.levelheader;
 
 import model.Position;
+import model.drawable.Drawable;
 
-public class Score extends Drawable{
+public class LevelScore extends Drawable {
     private int points;
     private int maxPoints;
 
-    public Score(int maxPoints) {
-        super(0 + "/" + maxPoints ,"#000000",new Position(12,0));
+    public LevelScore(int maxPoints) {
+        super(0 + "/" + maxPoints,"#000000", new Position(12,0));
         this.points = 0;
         this.maxPoints = maxPoints;
     }

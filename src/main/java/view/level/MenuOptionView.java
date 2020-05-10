@@ -1,13 +1,14 @@
-package view.option;
+package view.level;
 
-import model.option.OptionModel;
+import model.menu.MenuOption;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class OptionView {
-    public void draw(OptionModel model, TextGraphics graphics) {
+public class MenuOptionView {
+    public void draw(MenuOption model, TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString(model.getColor()));
+        graphics.enableModifiers(SGR.BOLD);
         graphics.putString(model.getPosition().getX(), model.getPosition().getY(), model.getName(), SGR.BOLD);
     }
 }

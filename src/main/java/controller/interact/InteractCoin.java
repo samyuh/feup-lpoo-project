@@ -1,8 +1,8 @@
 package controller.interact;
 
 import controller.level.LevelUpdateModel;
-import model.elements.Coin;
-import model.elements.ElementModel;
+import model.drawable.element.Coin;
+import model.drawable.element.ElementModel;
 
 public class InteractCoin extends Interact {
     public InteractCoin(ElementModel element) {

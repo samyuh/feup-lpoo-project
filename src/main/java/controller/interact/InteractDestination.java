@@ -1,7 +1,7 @@
 package controller.interact;
 
 import controller.level.LevelUpdateModel;
-import model.elements.ElementModel;
+import model.drawable.element.ElementModel;
 
 public class InteractDestination extends Interact {
     public InteractDestination(ElementModel element) {

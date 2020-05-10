@@ -1,9 +1,9 @@
 package view.menu;
 
 import model.menu.MenuModel;
-import model.option.OptionModel;
+import model.menu.MenuOption;
 import view.KeyHandler;
-import view.option.OptionView;
+import view.level.MenuOptionView;
 import view.ScreenView;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
@@ -35,10 +35,10 @@ public class MenuView {
 
         graphics.putString(2, 1, "FrostBite Penguin Madness", SGR.BOLD);
 
-        OptionView optionView = new OptionView();
-        List<OptionModel> op = model.getOption();
+        MenuOptionView optionView = new MenuOptionView();
+        List<MenuOption> op = model.getOption();
 
-        for(OptionModel option : op)
+        for(MenuOption option : op)
             optionView.draw(option, graphics);
 
         screen.refresh();

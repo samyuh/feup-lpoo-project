@@ -2,8 +2,8 @@ package controller.level;
 
 import controller.element.PuffleMovement;
 import controller.interact.*;
-import model.drawable.CurrentLevel;
-import model.elements.*;
+import model.drawable.levelheader.LevelCurrent;
+import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 import view.KeyHandler;
@@ -21,24 +21,24 @@ public class LevelController {
 
     private PuffleMovement puffleMovement;
 
-    private CurrentLevel currentLevel;
+    private LevelCurrent levelCurrent;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
-        this.currentLevel = new CurrentLevel(1);
+        this.levelCurrent = new LevelCurrent(1);
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelInitializer = new LevelInitializer(levelModel);
-        levelInitializer.initLevel(currentLevel.getLevelNumber());
+        levelInitializer.initLevel(levelCurrent.getLevelNumber());
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
         this.update = new LevelUpdateModel(levelModel);
     }
 
-    public void setLevel(CurrentLevel levelNumber) {
-        currentLevel = levelNumber;
+    public void setLevel(LevelCurrent levelNumber) {
+        levelCurrent = levelNumber;
         levelModel.clearLevel();
-        levelInitializer.initLevel(currentLevel.getLevelNumber());
+        levelInitializer.initLevel(levelCurrent.getLevelNumber());
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
@@ -50,9 +50,9 @@ public class LevelController {
             if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
-                if (currentLevel.getLevelNumber() != 19){
-                    currentLevel.increment();
-                    setLevel(currentLevel);
+                if (levelCurrent.getLevelNumber() != 19){
+                    levelCurrent.increment();
+                    setLevel(levelCurrent);
                 }
                 else
                     return true;
@@ -81,7 +81,7 @@ public class LevelController {
                 this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
                 return true;
             case RESTART:
-                this.setLevel(this.currentLevel);
+                this.setLevel(this.levelCurrent);
                 return true;
             case CLOSE:
                 return false;
@@ -117,6 +117,6 @@ public class LevelController {
     }
 
     public int getlevelNum() {
-        return currentLevel.getLevelNumber();
+        return levelCurrent.getLevelNumber();
     }
 }

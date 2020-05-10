@@ -1,4 +1,4 @@
-package controller.option;
+package controller.menu.option;
 
 import controller.MainController;
 import controller.state.StateGame;

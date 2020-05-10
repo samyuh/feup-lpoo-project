@@ -1,9 +1,8 @@
 package model.level;
 
-import model.drawable.CurrentLevel;
+import model.drawable.levelheader.LevelCurrent;
 import model.drawable.Drawable;
-import model.elements.*;
-import model.drawable.LevelOptions;
+import model.drawable.element.*;
 import model.Position;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class LevelModel {
     private Teleport teleport2;
     boolean teleportUsed;
     private Box box;
-    private LevelOptions levelOptions;
+    private LevelHeaderModel levelHeaderModel;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -32,7 +31,7 @@ public class LevelModel {
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.teleportUsed = false;
-        this.levelOptions = new LevelOptions(new CurrentLevel(1));
+        this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1));
     }
 
     // -- SET
@@ -75,7 +74,7 @@ public class LevelModel {
         System.out.println("Box here");
         this.box = box; }
 
-    public void setLevelOptions(LevelOptions levelOptions) { this.levelOptions = levelOptions; }
+    public void setLevelHeaderModel(LevelHeaderModel levelHeaderModel) { this.levelHeaderModel = levelHeaderModel; }
     // -- Get Functions
 
     public Puffle getPuffle() {
@@ -106,7 +105,7 @@ public class LevelModel {
 
     public boolean getTeleportUsed() { return teleportUsed; }
 
-    public LevelOptions getLevelOptions() { return this.levelOptions; }
+    public LevelHeaderModel getLevelHeaderModel() { return this.levelHeaderModel; }
 
     public List<Drawable> getAll(){
         List<Drawable> drawables = new ArrayList<>();
@@ -121,8 +120,8 @@ public class LevelModel {
         if(teleport1 != null) drawables.add(teleport1);
         if(teleport2 != null) drawables.add(teleport2);
         if(box != null) drawables.add(box);
-        drawables.add(levelOptions.getCurrentLevel());
-        drawables.add(levelOptions.getScore());
+        drawables.add(levelHeaderModel.getLevelCurrent());
+        drawables.add(levelHeaderModel.getLevelScore());
         drawables.add(puffle);
         drawables.add(destination);
 
@@ -188,6 +187,6 @@ public class LevelModel {
         teleport1 = null;
         teleport2 = null;
         teleportUsed = false;
-        levelOptions = new LevelOptions(new CurrentLevel(this.levelOptions.getCurrentLevel().getLevelNumber()));
+        levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()));
     }
 }

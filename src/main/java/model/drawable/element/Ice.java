@@ -1,4 +1,4 @@
-package model.elements;
+package model.drawable.element;
 
 import controller.interact.InteractIce;
 import model.Position;

@@ -2,7 +2,7 @@ package controller.interact;
 
 
 import controller.level.LevelUpdateModel;
-import model.elements.ElementModel;
+import model.drawable.element.ElementModel;
 
 public class InteractBox extends Interact {
     public InteractBox(ElementModel element) {

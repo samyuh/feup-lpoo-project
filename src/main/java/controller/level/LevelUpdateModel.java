@@ -4,7 +4,7 @@ import controller.interact.Interact;
 import controller.interact.InteractBox;
 import controller.interact.InteractIce;
 import controller.interact.InteractStop;
-import model.elements.*;
+import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
@@ -29,7 +29,7 @@ public class LevelUpdateModel {
     public void addWater() {
     }
 
-    public void addScore(int number){ levelModel.getLevelOptions().addScore(number);}
+    public void addScore(int number){ levelModel.getLevelHeaderModel().addScore(number);}
 
     // BOX
 

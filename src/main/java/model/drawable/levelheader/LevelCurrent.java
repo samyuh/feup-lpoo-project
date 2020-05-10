@@ -1,14 +1,13 @@
-package model.drawable;
+package model.drawable.levelheader;
 
 import model.Position;
+import model.drawable.Drawable;
 
-public class CurrentLevel extends Drawable {
-
+public class LevelCurrent extends Drawable {
     private int levelNumber;
 
-
-    public CurrentLevel(int levelNumber) {
-        super("LEVEL " + levelNumber,"#000000",new Position(2,0));
+    public LevelCurrent(int levelNumber) {
+        super("LEVEL " + levelNumber,"#000000", new Position(2,0));
         this.levelNumber = levelNumber;
     }
 

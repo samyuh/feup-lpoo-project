@@ -1,8 +1,8 @@
 package controller.interact;
 
 import controller.level.LevelUpdateModel;
-import model.elements.ElementModel;
-import model.elements.Ice;
+import model.drawable.element.ElementModel;
+import model.drawable.element.Ice;
 
 public class InteractIce extends Interact {
 

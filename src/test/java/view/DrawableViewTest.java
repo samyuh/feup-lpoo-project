@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 
 
 
-public class ElementViewTest {
+public class DrawableViewTest {
     @Test
     public void drawTest() {
         TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);

@@ -1,15 +1,14 @@
 package model.menu;
 
-import controller.option.Option;
-import model.option.OptionModel;
+import controller.menu.option.Option;
 
 import java.util.List;
 
 public class MenuModel {
     private int optionNum;
-    private List<OptionModel> op;
+    private List<MenuOption> op;
 
-    public MenuModel(List<OptionModel> op) {
+    public MenuModel(List<MenuOption> op) {
         optionNum = 0;
         this.op = op;
 
@@ -17,7 +16,7 @@ public class MenuModel {
         updateColor();
     }
 
-    public List<OptionModel> getOption() {
+    public List<MenuOption> getOption() {
         return op;
     }
 
@@ -37,7 +36,7 @@ public class MenuModel {
     }
 
     public void resetColor() {
-        for(OptionModel option : op)
+        for(MenuOption option : op)
             option.resetColor();
     }
 

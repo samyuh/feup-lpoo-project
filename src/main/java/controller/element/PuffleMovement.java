@@ -1,6 +1,6 @@
 package controller.element;
 
-import model.elements.Puffle;
+import model.drawable.element.Puffle;
 import model.Position;
 
 public class PuffleMovement {

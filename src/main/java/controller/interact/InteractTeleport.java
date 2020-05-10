@@ -1,8 +1,8 @@
 package controller.interact;
 
 import controller.level.LevelUpdateModel;
-import model.elements.ElementModel;
-import model.elements.Teleport;
+import model.drawable.element.ElementModel;
+import model.drawable.element.Teleport;
 
 public class InteractTeleport extends Interact {
     public InteractTeleport(ElementModel element) {

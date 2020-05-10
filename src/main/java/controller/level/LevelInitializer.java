@@ -1,8 +1,8 @@
 package controller.level;
 
-import model.drawable.CurrentLevel;
-import model.drawable.LevelOptions;
-import model.elements.*;
+import model.drawable.levelheader.LevelCurrent;
+import model.level.LevelHeaderModel;
+import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
@@ -64,7 +64,7 @@ public class LevelInitializer {
         try {
             this.levelNumber = levelNumber;
             this.mapElements = readLines();
-            this.model.setLevelOptions(new LevelOptions(new CurrentLevel(this.levelNumber)));
+            this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber)));
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();

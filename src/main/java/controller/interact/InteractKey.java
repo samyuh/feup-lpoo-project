@@ -1,7 +1,7 @@
 package controller.interact;
 
 import controller.level.LevelUpdateModel;
-import model.elements.Key;
+import model.drawable.element.Key;
 
 public class InteractKey extends Interact {
 
