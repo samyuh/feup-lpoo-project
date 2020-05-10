@@ -1,9 +1,8 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.ElementModel;
 import Model.Elements.Ice;
-import Model.Level.LevelModel;
 
 public class InteractIce extends Interact {
 
@@ -12,9 +11,9 @@ public class InteractIce extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
+    public void execute(LevelUpdateModel model) {
         model.removeIce((Ice) element);
-        model.addWater();
+        model.meltIce();
         model.move(position);
         //model.addPoints(1);
     }

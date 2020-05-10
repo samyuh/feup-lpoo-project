@@ -1,8 +1,7 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.ElementModel;
-import Model.Level.LevelModel;
 
 public class InteractDestination extends Interact {
     public InteractDestination(ElementModel element) {
@@ -10,8 +9,8 @@ public class InteractDestination extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
-        model.addWater();
+    public void execute(LevelUpdateModel model) {
+        model.meltIce();
         model.move(position);
         //model.addPoints(1);
     }

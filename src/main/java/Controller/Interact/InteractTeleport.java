@@ -1,9 +1,8 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.ElementModel;
 import Model.Elements.Teleport;
-import Model.Level.LevelModel;
 
 public class InteractTeleport extends Interact {
     public InteractTeleport(ElementModel element) {
@@ -11,18 +10,17 @@ public class InteractTeleport extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
-        /*
+    public void execute(LevelUpdateModel model) {
         if(model.isTeleportUsed()) return;
-        model.addWater();
+        System.out.println("Not Used");
+        model.meltIce();
         model.move(position);
-        model.addWater();
+        model.meltIce();
         position = model.getTeleportPosition((Teleport) element);
         model.move(position);
         model.setTeleportUsed(true);
         model.getTeleport1().setColor("#0000ff");
         model.getTeleport2().setColor("#0000ff");
-        model.addPoints(1);
-        */
+        //model.addPoints(1);
     }
 }

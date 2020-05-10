@@ -1,8 +1,7 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.ElementModel;
-import Model.Level.LevelModel;
 import Model.Position;
 
 public abstract class Interact {
@@ -14,5 +13,5 @@ public abstract class Interact {
         this.position = element.getPosition();
     }
 
-    public abstract void execute(LevelController model);
+    public abstract void execute(LevelUpdateModel model);
 }

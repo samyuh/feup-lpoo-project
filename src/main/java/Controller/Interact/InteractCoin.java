@@ -1,9 +1,8 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.Coin;
 import Model.Elements.ElementModel;
-import Model.Level.LevelModel;
 
 public class InteractCoin extends Interact {
     public InteractCoin(ElementModel element) {
@@ -11,9 +10,9 @@ public class InteractCoin extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
+    public void execute(LevelUpdateModel model) {
         model.removeCoin((Coin) element);
-        model.addWater();
+        model.meltIce();
         model.move(position);
         //model.addPoints(10);
     }

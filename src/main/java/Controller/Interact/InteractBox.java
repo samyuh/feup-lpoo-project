@@ -1,9 +1,8 @@
 package Controller.Interact;
 
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.ElementModel;
-import Model.Level.LevelModel;
 
 public class InteractBox extends Interact {
     public InteractBox(ElementModel element) {
@@ -11,13 +10,12 @@ public class InteractBox extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
-
+    public void execute(LevelUpdateModel model) {
         if(model.moveBox(model.findBoxDirection()) == 0) {
             element.setInteraction(new InteractStop(element));
         }
-        else{ ;
-            model.addWater();
+        else {
+            model.meltIce();
             model.move(position);
             //model.addPoints(1);
         }

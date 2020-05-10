@@ -1,8 +1,7 @@
 package Controller.Interact;
 
-import Controller.Level.LevelController;
+import Controller.Level.LevelUpdateModel;
 import Model.Elements.Key;
-import Model.Level.LevelModel;
 
 public class InteractKey extends Interact {
 
@@ -11,9 +10,9 @@ public class InteractKey extends Interact {
     }
 
     @Override
-    public void execute(LevelController model) {
+    public void execute(LevelUpdateModel model) {
         model.removeKeyLock();
-        model.addWater();
+        model.meltIce();
         model.move(position);
         //model.addPoints(1);
     }
