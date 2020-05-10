@@ -117,54 +117,47 @@ public class LevelController {
     }
 
     /// -- Spaguetti
-/*
     public int moveBox(DIRECTION boxDirection) {
         int count;
         count = 0;
         while(true){
             switch (boxDirection){
                 case RIGHT:
-                    if(findWall(new Position(box.getPosition().getX() + 1,box.getPosition().getY())) ||
-                            findWater(new Position(box.getPosition().getX() + 1,box.getPosition().getY()))) return count;
-                    box.setPosition(new Position(box.getPosition().getX() + 1,box.getPosition().getY()));
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()))) return count;
+                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()));
                     count++;
                     break;
                 case LEFT:
-                    if(findWall(new Position(box.getPosition().getX() - 1,box.getPosition().getY())) ||
-                            findWater(new Position(box.getPosition().getX() - 1,box.getPosition().getY()))) return count;
-                    box.setPosition(new Position(box.getPosition().getX() - 1,box.getPosition().getY()));
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()))) return count;
+                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()));
                     count++;
                     break;
                 case UP:
-                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() - 1)) ||
-                            findWater(new Position(box.getPosition().getX(),box.getPosition().getY() - 1))) return count;
-                    box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() - 1));
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1))) return count;
+                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1));
                     count++;
                     break;
                 case DOWN:
-                    if(findWall(new Position(box.getPosition().getX(),box.getPosition().getY() + 1)) ||
-                            findWater(new Position(box.getPosition().getX(),box.getPosition().getY() + 1))) return count;
-                    box.setPosition(new Position(box.getPosition().getX(),box.getPosition().getY() + 1));
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1))) return count;
+                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1));
                     count++;
                     break;
                 default:
                     return count;
             }
         }
-
-
     }
 
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT,RESTART};
     public DIRECTION findBoxDirection(){
-        Position boxPosition  = box.getPosition();
-        Position heroPosition  = puffle.getPosition();
+        Position boxPosition  = levelModel.getBox().getPosition();
+        Position heroPosition = levelModel.getPuffle().getPosition();
         if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
         if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
         if(boxPosition.getY() - heroPosition.getY() == 1) return DIRECTION.DOWN;
-        return UP;
+        return DIRECTION.UP;
     }
-    */
+
 
     public void move(Position position) {
         levelModel.getPuffle().setPosition(position);

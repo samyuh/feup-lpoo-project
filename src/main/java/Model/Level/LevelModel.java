@@ -79,7 +79,9 @@ public class LevelModel {
 
     public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
-    public void setBox(Box box) { this.box = box; }
+    public void setBox(Box box) {
+        System.out.println("Box here");
+        this.box = box; }
 
     // -- Get Functions
 
@@ -123,7 +125,7 @@ public class LevelModel {
 
     public Teleport getTeleport2() { return teleport2; }
 
-    public void getBox(Box box) { this.box = box; }
+    public Box getBox() { return box; }
 
     public boolean getTeleportUsed() { return teleportUsed; }
 

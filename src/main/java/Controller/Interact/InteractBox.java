@@ -12,15 +12,15 @@ public class InteractBox extends Interact {
 
     @Override
     public void execute(LevelController model) {
-        /*
+
         if(model.moveBox(model.findBoxDirection()) == 0) {
-            element.setInteraction(new InteractStop(model, element));
+            element.setInteraction(new InteractStop(element));
         }
         else{ ;
             model.addWater();
             model.move(position);
-            model.addPoints(1);
+            //model.addPoints(1);
         }
-        */
+
     }
 }
