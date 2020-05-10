@@ -1,7 +1,9 @@
 package Model.Level;
 
-import Controller.Interact.*;
+import Model.Drawable.CurrentLevel;
+import Model.Drawable.Drawable;
 import Model.Elements.*;
+import Model.Drawable.LevelOptions;
 import Model.Position;
 
 import java.util.ArrayList;
@@ -17,20 +19,20 @@ public class LevelModel {
     private List<ToughIce> toughIce;
     private Key key;
     private Lock lock;
-    private Points points;
     private Teleport teleport1;
     private Teleport teleport2;
     boolean teleportUsed;
     private Box box;
+    private LevelOptions levelOptions;
 
     public LevelModel() {
-        this.points = new Points(0);
         this.walls = new ArrayList<>();
         this.ice = new ArrayList<>();
         this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.teleportUsed = false;
+        this.levelOptions = new LevelOptions(new CurrentLevel(1));
     }
 
     // -- SET
@@ -55,21 +57,11 @@ public class LevelModel {
         this.water = water;
     }
 
-    public void setPoints(Points points) {
-        this.points = points;
-    }
+    public void setKey(Key key) { this.key = key; }
 
-    public void setKey(Key key) {
-        this.key = key;
-    }
+    public void setLock(Lock lock) { this.lock = lock; }
 
-    public void setLock(Lock lock) {
-        this.lock = lock;
-    }
-
-    public void setCoins(List<Coin> coins) {
-        this.coins = coins;
-    }
+    public void setCoins(List<Coin> coins) { this.coins = coins; }
 
     public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
 
@@ -83,41 +75,26 @@ public class LevelModel {
         System.out.println("Box here");
         this.box = box; }
 
+    public void setLevelOptions(LevelOptions levelOptions) { this.levelOptions = levelOptions; }
     // -- Get Functions
 
     public Puffle getPuffle() {
         return puffle;
     }
 
-    public Destination getDestination() {
-        return destination;
-    }
+    public Destination getDestination() { return destination; }
 
-    public List<Wall> getWalls() {
-        return walls;
-    }
+    public List<Wall> getWalls() { return walls; }
 
-    public List<Ice> getIce() {
-        return ice;
-    }
+    public List<Ice> getIce() { return ice; }
 
-    public List<Water> getWater() {
-        return water;
-    }
+    public List<Water> getWater() { return water; }
 
-    public List<Coin> getCoins() {
-        return coins;
-    }
+    public List<Coin> getCoins() { return coins; }
 
-    public Key getKey() {
-        return key;
-    }
+    public Key getKey() { return key; }
 
-    public Lock getLock() {
-        return lock;
-    }
-
-    public Points getPoints() { return points; }
+    public Lock getLock() { return lock; }
 
     public List<ToughIce> getToughIce() { return toughIce; }
 
@@ -129,27 +106,29 @@ public class LevelModel {
 
     public boolean getTeleportUsed() { return teleportUsed; }
 
-    // --- Misc
+    public LevelOptions getLevelOptions() { return this.levelOptions; }
 
-    public List<ElementModel> getAll(){
-        List<ElementModel> elements = new ArrayList<>();
+    public List<Drawable> getAll(){
+        List<Drawable> drawables = new ArrayList<>();
 
-        elements.addAll(walls);
-        elements.addAll(ice);
-        elements.addAll(water);
-        elements.addAll(coins);
-        elements.addAll(toughIce);
-        if(lock != null) elements.add(lock);
-        if(key != null) elements.add(key);
-        if(teleport1 != null) elements.add(teleport1);
-        if(teleport2 != null) elements.add(teleport2);
-        if(box != null) elements.add(box);
-        elements.add(points);
-        elements.add(puffle);
-        elements.add(destination);
+        drawables.addAll(walls);
+        drawables.addAll(ice);
+        drawables.addAll(water);
+        drawables.addAll(coins);
+        drawables.addAll(toughIce);
+        if(lock != null) drawables.add(lock);
+        if(key != null) drawables.add(key);
+        if(teleport1 != null) drawables.add(teleport1);
+        if(teleport2 != null) drawables.add(teleport2);
+        if(box != null) drawables.add(box);
+        drawables.add(levelOptions.getCurrentLevel());
+        drawables.add(levelOptions.getScore());
+        drawables.add(puffle);
+        drawables.add(destination);
 
-        return elements;
+        return drawables;
     }
+
 
     public ElementModel find(Position position) {
         for(Wall wall: this.walls){
@@ -209,6 +188,6 @@ public class LevelModel {
         teleport1 = null;
         teleport2 = null;
         teleportUsed = false;
-        points = new Points( 0);
+        levelOptions = new LevelOptions(new CurrentLevel(this.levelOptions.getCurrentLevel().getLevelNumber()));
     }
 }

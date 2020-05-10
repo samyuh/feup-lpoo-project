@@ -26,6 +26,11 @@ public class LevelUpdateModel {
         if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
+    public void addWater() {
+    }
+
+    public void addScore(int number){ levelModel.getLevelOptions().addScore(number);}
+
     // BOX
 
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};

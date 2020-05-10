@@ -1,17 +1,14 @@
 package Model.Elements;
 import Controller.Interact.Interact;
+import Model.Drawable.Drawable;
 import Model.Position;
 
-public abstract class ElementModel {
+public abstract class ElementModel extends Drawable {
     private Interact command;
-    private Position position;
-    private String image;
-    private String color;
+
 
     public ElementModel(String image, String color, Position position) {
-        this.image = image;
-        this.color = color;
-        this.position = position;
+        super(image,color,position);
     }
 
     public Position getPosition() { return position; }

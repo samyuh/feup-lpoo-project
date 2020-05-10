@@ -14,10 +14,10 @@ public class InteractBox extends Interact {
         if(model.moveBox(model.findBoxDirection()) == 0) {
             element.setInteraction(new InteractStop(element));
         }
-        else {
+        else{
             model.meltIce();
             model.move(position);
-            //model.addPoints(1);
+            model.addScore(1);
         }
 
     }

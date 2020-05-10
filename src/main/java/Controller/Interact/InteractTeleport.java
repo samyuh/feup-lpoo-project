@@ -12,15 +12,14 @@ public class InteractTeleport extends Interact {
     @Override
     public void execute(LevelUpdateModel model) {
         if(model.isTeleportUsed()) return;
-        System.out.println("Not Used");
         model.meltIce();
         model.move(position);
         model.meltIce();
-        position = model.getTeleportPosition((Teleport) element);
+        position = model.getTeleportPosition((Teleport)element);
         model.move(position);
         model.setTeleportUsed(true);
         model.getTeleport1().setColor("#0000ff");
         model.getTeleport2().setColor("#0000ff");
-        //model.addPoints(1);
+        model.addScore(1);
     }
 }

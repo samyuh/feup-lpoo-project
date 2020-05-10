@@ -2,6 +2,7 @@ package Controller.Level;
 
 import Controller.Element.PuffleMovement;
 import Controller.Interact.*;
+import Model.Drawable.CurrentLevel;
 import Model.Elements.*;
 import Model.Level.LevelModel;
 import Model.Position;
@@ -20,24 +21,24 @@ public class LevelController {
 
     private PuffleMovement puffleMovement;
 
-    private int levelNum;
+    private CurrentLevel currentLevel;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
-        this.levelNum = 1;
+        this.currentLevel = new CurrentLevel(1);
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelInitializer = new LevelInitializer(levelModel);
-        levelInitializer.initLevel(levelNum);
+        levelInitializer.initLevel(currentLevel.getLevelNumber());
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
         this.update = new LevelUpdateModel(levelModel);
     }
 
-    public void setLevel(int level) {
-        levelNum = level;
+    public void setLevel(CurrentLevel levelNumber) {
+        currentLevel = levelNumber;
         levelModel.clearLevel();
-        levelInitializer.initLevel(levelNum);
+        levelInitializer.initLevel(currentLevel.getLevelNumber());
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
@@ -49,9 +50,9 @@ public class LevelController {
             if(!processCommand(levelView.handler())) return false;
 
             if(gameWon()) {
-                if (levelNum != 19){
-                    levelNum++;
-                setLevel(levelNum);
+                if (currentLevel.getLevelNumber() != 19){
+                    currentLevel.increment();
+                    setLevel(currentLevel);
                 }
                 else
                     return true;
@@ -80,7 +81,7 @@ public class LevelController {
                 this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
                 return true;
             case RESTART:
-                this.setLevel(this.levelNum);
+                this.setLevel(this.currentLevel);
                 return true;
             case CLOSE:
                 return false;
@@ -95,7 +96,6 @@ public class LevelController {
     private Interact checkMovement(Position position){
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
-
     }
 
     private boolean checkCollisions(Position position) {
@@ -117,6 +117,6 @@ public class LevelController {
     }
 
     public int getlevelNum() {
-        return levelNum;
+        return currentLevel.getLevelNumber();
     }
 }

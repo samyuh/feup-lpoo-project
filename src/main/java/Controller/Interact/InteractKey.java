@@ -14,6 +14,6 @@ public class InteractKey extends Interact {
         model.removeKeyLock();
         model.meltIce();
         model.move(position);
-        //model.addPoints(1);
+        model.addScore(1);
     }
 }

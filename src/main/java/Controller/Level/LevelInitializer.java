@@ -1,5 +1,8 @@
 package Controller.Level;
 
+import Model.Drawable.CurrentLevel;
+import Model.Drawable.LevelOptions;
+import Model.Drawable.Score;
 import Model.Elements.*;
 import Model.Level.LevelModel;
 import Model.Position;
@@ -39,17 +42,17 @@ public class LevelInitializer {
         for(int yi = 0; yi < this.mapElements.size(); yi++) {
             for(int xi = 0; xi < this.mapElements.get(yi).length() ; xi++) {
                 char c = this.mapElements.get(yi).charAt(xi);
-                if(c == 'W') walls.add(new Wall( new Position(xi,yi)));
-                if(c == '.') ice.add(new Ice(new Position(xi,yi)));
-                if(c == 'C') coins.add(new Coin(new Position(xi,yi)));
-                if(c == 'B') toughIce.add(new ToughIce(new Position(xi,yi)));
-                if(c == 'K') model.setKey(new Key(new Position(xi,yi)));
-                if(c == 'L') model.setLock(new Lock(new Position(xi,yi)));
-                if(c == 'S') model.setPuffle(new Puffle(new Position(xi,yi)));
-                if(c == 'D') model.setDestination(new Destination(new Position(xi,yi)));
-                if(c == 'T') model.setTeleport1(new Teleport( new Position(xi,yi)));
-                if(c == 'P') model.setTeleport2(new Teleport( new Position(xi,yi)));
-                if(c == 'Y') model.setBox(new Box( new Position(xi,yi)));
+                if(c == 'W') walls.add(new Wall( new Position(xi + 2,yi+2)));
+                if(c == '.') ice.add(new Ice(new Position(xi + 2,yi+2)));
+                if(c == 'C') coins.add(new Coin(new Position(xi + 2,yi+2)));
+                if(c == 'B') toughIce.add(new ToughIce(new Position(xi + 2,yi+2)));
+                if(c == 'K') model.setKey(new Key(new Position(xi + 2,yi+2)));
+                if(c == 'L') model.setLock(new Lock(new Position(xi + 2,yi+2)));
+                if(c == 'S') model.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
+                if(c == 'D') model.setDestination(new Destination(new Position(xi + 2,yi+2)));
+                if(c == 'T') model.setTeleport1(new Teleport( new Position(xi + 2,yi+2)));
+                if(c == 'P') model.setTeleport2(new Teleport( new Position(xi + 2,yi+2)));
+                if(c == 'Y') model.setBox(new Box( new Position(xi + 2,yi+2)));
             }
         }
         model.setWalls(walls);
@@ -62,6 +65,7 @@ public class LevelInitializer {
         try {
             this.levelNumber = levelNumber;
             this.mapElements = readLines();
+            this.model.setLevelOptions(new LevelOptions(new CurrentLevel(this.levelNumber)));
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();

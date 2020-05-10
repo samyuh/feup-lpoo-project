@@ -13,6 +13,6 @@ public class InteractToughIce extends Interact {
     public void execute(LevelUpdateModel model) {
         model.meltIce();
         model.move(position);
-        //model.addPoints(1);
+        model.addScore(1);
     }
 }
