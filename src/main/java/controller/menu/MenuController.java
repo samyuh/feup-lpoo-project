@@ -2,7 +2,7 @@ package controller.menu;
 
 import controller.MainController;
 import model.menu.MenuModel;
-import view.KeyHandler;
+import view.handler.KeyHandler;
 import view.menu.MenuView;
 
 import java.io.IOException;

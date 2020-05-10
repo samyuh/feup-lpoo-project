@@ -4,29 +4,37 @@ import model.Position;
 
 public abstract class Drawable {
     protected String image;
-    protected String color;
-    protected String colorBackground;
+    private String colorForeground;
+    private String colorBackground;
+    protected Position position;
 
-    public Drawable(String image, String color, Position position) {
+    public Drawable(String image, String colorForeground, String colorBackground, Position position) {
         this.image = image;
-        this.color = color;
+        this.colorForeground = colorForeground;
+        this.colorBackground = colorBackground;
         this.position = position;
     }
-
-    public void setColor(String color) {this.color = color;}
 
     public String getImage() {
         return image;
     }
 
     public String getColor() {
-        return color;
+        return colorForeground;
+    }
+
+    public void setColor(String color) {this.colorForeground = color;}
+
+    public String getColorBackground() {
+        return colorBackground;
+    }
+
+    public void setColorBackground(String colorBackground) {
+        this.colorBackground = colorBackground;
     }
 
     public Position getPosition() {
         return position;
     }
-
-    protected Position position;
 
 }

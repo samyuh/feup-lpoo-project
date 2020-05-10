@@ -1,4 +1,4 @@
-package view;
+package view.handler;
 
 
 import com.googlecode.lanterna.input.KeyStroke;

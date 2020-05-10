@@ -5,7 +5,7 @@ import controller.menu.option.OptionNewGame;
 import controller.MainController;
 import controller.menu.MenuController;
 import model.menu.MenuModel;
-import model.menu.MenuOption;
+import model.drawable.menu.MenuOption;
 import model.Position;
 import view.menu.MenuView;
 

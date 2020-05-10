@@ -7,7 +7,7 @@ public class LevelCurrent extends Drawable {
     private int levelNumber;
 
     public LevelCurrent(int levelNumber) {
-        super("LEVEL " + levelNumber,"#000000", new Position(2,0));
+        super("LEVEL " + levelNumber,"#000000", "#8dc5f0", new Position(2,0));
         this.levelNumber = levelNumber;
     }
 

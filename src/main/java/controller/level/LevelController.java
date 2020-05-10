@@ -6,7 +6,7 @@ import model.drawable.levelheader.LevelCurrent;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
-import view.KeyHandler;
+import view.handler.KeyHandler;
 import view.level.LevelView;
 
 import java.io.IOException;

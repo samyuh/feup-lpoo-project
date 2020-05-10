@@ -3,7 +3,7 @@ package view.level;
 import model.drawable.Drawable;
 import model.level.LevelModel;
 import view.DrawableView;
-import view.KeyHandler;
+import view.handler.KeyHandler;
 import view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -28,20 +28,19 @@ public class LevelView {
 
     public void draw(LevelModel levelModel) throws IOException {
         this.screen.clear();
-        drawLevel(levelModel, screen.newTextGraphics());
-        this.screen.refresh();
-    }
+        TextGraphics graphics = screen.newTextGraphics();
 
-    public void drawLevel(LevelModel model, TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
         List<Drawable> drawables;
 
-        drawables = model.getAll();
+        drawables = levelModel.getAll();
 
         for(Drawable element : drawables)
             view.draw(element, graphics);
+
+        this.screen.refresh();
     }
 }

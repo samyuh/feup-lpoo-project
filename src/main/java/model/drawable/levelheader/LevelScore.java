@@ -8,7 +8,7 @@ public class LevelScore extends Drawable {
     private int maxPoints;
 
     public LevelScore(int maxPoints) {
-        super(0 + "/" + maxPoints,"#000000", new Position(12,0));
+        super(0 + "/" + maxPoints,"#000000", "#8dc5f0", new Position(12,0));
         this.points = 0;
         this.maxPoints = maxPoints;
     }
