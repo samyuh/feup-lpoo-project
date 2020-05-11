@@ -110,7 +110,6 @@ public class LevelUpdateModel {
     public void removeKeyLock() {
         levelModel.setKey(null);
         levelModel.setLock(null);
-        addIce(levelModel.getLock().getPosition());
     }
 
     // COIN
