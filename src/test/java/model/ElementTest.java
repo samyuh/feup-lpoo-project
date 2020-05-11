@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Model.Elements.Destination;
-import Model.Elements.ElementModel;
+import model.drawable.element.Destination;
+import model.drawable.element.ElementModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

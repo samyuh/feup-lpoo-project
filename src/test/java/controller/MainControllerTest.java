@@ -1,12 +1,10 @@
-package Controller;
+package controller;
 
-import Controller.State.StateGame;
-import Controller.State.StateGameOver;
-import Controller.State.StateMainMenu;
-import View.ScreenView;
 import com.googlecode.lanterna.screen.Screen;
+import controller.state.StateMainMenu;
 import org.junit.Test;
 import org.mockito.Mockito;
+import view.ScreenView;
 
 import java.io.IOException;
 
