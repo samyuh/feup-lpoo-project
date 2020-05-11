@@ -1,5 +1,6 @@
 package model.level;
 
+import controller.element.BoxMovement;
 import model.drawable.levelheader.LevelCurrent;
 import model.drawable.Drawable;
 import model.drawable.element.*;
@@ -23,6 +24,7 @@ public class LevelModel {
     boolean teleportUsed;
     private Box box;
     private LevelHeaderModel levelHeaderModel;
+    private BoxMovement boxMovement;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -70,8 +72,17 @@ public class LevelModel {
 
     public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
+    public BoxMovement getBoxMovement() {
+        return boxMovement;
+    }
+
+    public void setBoxMovement(BoxMovement boxMovement) {
+        this.boxMovement = boxMovement;
+    }
+
     public void setBox(Box box) {
         System.out.println("Box here");
+        boxMovement = new BoxMovement(box);
         this.box = box; }
 
     public void setLevelHeaderModel(LevelHeaderModel levelHeaderModel) { this.levelHeaderModel = levelHeaderModel; }

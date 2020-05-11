@@ -1,5 +1,6 @@
 package controller.level;
 
+import controller.element.BoxMovement;
 import controller.interact.Interact;
 import controller.interact.InteractBox;
 import controller.interact.InteractIce;
@@ -32,12 +33,7 @@ public class LevelUpdateModel {
 
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
     public DIRECTION findBoxDirection(){
-        Position boxPosition  = levelModel.getBox().getPosition();
-        Position heroPosition = levelModel.getPuffle().getPosition();
-        if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
-        if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
-        if(boxPosition.getY() - heroPosition.getY() == 1) return DIRECTION.DOWN;
-        return DIRECTION.UP;
+        return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
     }
 
     private Interact checkMovement(Position position){
@@ -46,37 +42,17 @@ public class LevelUpdateModel {
 
     }
 
-    private boolean checkCollisions(Position position) {
+    private boolean checkCollisions(Position position){
         return checkMovement(position).getClass() == InteractStop.class;
     }
 
-    public boolean moveBox(DIRECTION boxDirection) {
+    public boolean moveBox() {
         boolean canMove = false;
+        DIRECTION boxDirection = this.findBoxDirection();
         while(true) {
-            switch (boxDirection){
-                case RIGHT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()));
-                    canMove = true;
-                    break;
-                case LEFT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()));
-                    canMove = true;
-                    break;
-                case UP:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1));
-                    canMove = true;
-                    break;
-                case DOWN:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1));
-                    canMove = true;
-                    break;
-                default:
-                    return canMove;
-            }
+            if(checkCollisions(levelModel.getBoxMovement().moveDirection(boxDirection))) return canMove;
+            levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
+            canMove = true;
         }
     }
 
