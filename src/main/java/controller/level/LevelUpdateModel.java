@@ -27,7 +27,7 @@ public class LevelUpdateModel {
         if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
-    public void addScore(int number){ levelModel.getLevelHeaderModel().addScore(number);}
+    public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
 
     // BOX
 

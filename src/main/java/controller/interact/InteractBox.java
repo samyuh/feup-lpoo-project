@@ -17,7 +17,7 @@ public class InteractBox extends Interact {
         else{
             model.meltIce();
             model.move(position);
-            model.addScore(1);
+            model.addScore(1,1);
         }
     }
 }

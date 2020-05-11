@@ -14,31 +14,30 @@ import java.io.IOException;
 public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
-
     private LevelUpdateModel update;
-
     private LevelInitializer levelInitializer;
-
     private PuffleMovement puffleMovement;
-
     private LevelCurrent levelCurrent;
+    private int globalPoints;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
         this.levelCurrent = new LevelCurrent(1);
         this.levelModel = levelModel;
         this.levelView = levelView;
-        this.levelInitializer = new LevelInitializer(levelModel);
-        levelInitializer.initLevel(levelCurrent.getLevelNumber());
+        this.levelInitializer = new LevelInitializer(levelModel,globalPoints);
+        levelInitializer.initLevel(levelCurrent.getLevelNumber(),false);
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
         this.update = new LevelUpdateModel(levelModel);
+
+        this.globalPoints = 0;
     }
 
-    public void setLevel(LevelCurrent levelNumber) {
+    public void setLevel(LevelCurrent levelNumber, boolean restart) {
         levelCurrent = levelNumber;
         levelModel.clearLevel();
-        levelInitializer.initLevel(levelCurrent.getLevelNumber());
+        levelInitializer.initLevel(levelCurrent.getLevelNumber(), restart);
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
@@ -52,7 +51,7 @@ public class LevelController {
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){
                     levelCurrent.increment();
-                    setLevel(levelCurrent);
+                    setLevel(levelCurrent,false);
                 }
                 else
                     return true;
@@ -81,7 +80,7 @@ public class LevelController {
                 this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
                 return true;
             case RESTART:
-                this.setLevel(this.levelCurrent);
+                this.setLevel(this.levelCurrent,true);
                 return true;
             case CLOSE:
                 return false;

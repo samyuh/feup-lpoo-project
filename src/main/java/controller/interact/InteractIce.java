@@ -15,6 +15,6 @@ public class InteractIce extends Interact {
         model.removeIce((Ice) element);
         model.meltIce();
         model.move(position);
-        model.addScore(1);
+        model.addScore(1,1);
     }
 }

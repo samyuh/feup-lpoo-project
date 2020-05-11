@@ -17,9 +17,11 @@ public class LevelInitializer {
     private List<String> mapElements;
     private LevelModel model;
     private int levelNumber;
+    private int globalScore;
 
-    public LevelInitializer(LevelModel model) {
+    public LevelInitializer(LevelModel model, int globalScore) {
         this.model = model;
+        this.globalScore = globalScore;
     }
 
     private List<String> readLines() throws IOException {
@@ -61,11 +63,12 @@ public class LevelInitializer {
         model.setToughIce(toughIce);
     }
 
-    public void initLevel(int levelNumber) {
+    public void initLevel(int levelNumber, boolean restart) {
         try {
+            if(!restart) this.globalScore = this.model.getLevelHeaderModel().getGlobalScore().getPoints();
             this.levelNumber = levelNumber;
             this.mapElements = readLines();
-            this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber)));
+            this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber),globalScore));
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();

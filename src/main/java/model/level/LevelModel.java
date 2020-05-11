@@ -34,7 +34,7 @@ public class LevelModel {
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.teleportUsed = false;
-        this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1));
+        this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
 
     // -- SET
@@ -134,6 +134,7 @@ public class LevelModel {
         if(boxFinalSquare != null) drawables.add(boxFinalSquare);
         drawables.add(levelHeaderModel.getLevelCurrent());
         drawables.add(levelHeaderModel.getLevelScore());
+        drawables.add(levelHeaderModel.getGlobalScore());
         drawables.add(puffle);
         drawables.add(destination);
 
@@ -204,6 +205,6 @@ public class LevelModel {
         teleport2 = null;
         boxFinalSquare = null;
         teleportUsed = false;
-        levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()));
+        levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()),this.levelHeaderModel.getGlobalScore().getPoints());
     }
 }
