@@ -1,7 +1,7 @@
 
 
-import Controller.MainController;
-import View.ScreenView;
+import controller.MainController;
+import view.ScreenView;
 
 import java.io.IOException;
 
