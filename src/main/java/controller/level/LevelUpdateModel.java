@@ -108,6 +108,7 @@ public class LevelUpdateModel {
 
     // KEY LOCK
     public void removeKeyLock() {
+        addIce(levelModel.getLock().getPosition());
         levelModel.setKey(null);
         levelModel.setLock(null);
     }
