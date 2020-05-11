@@ -25,6 +25,7 @@ public class LevelModel {
     private Box box;
     private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
+    private BoxFinalSquare boxFinalSquare;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -72,16 +73,11 @@ public class LevelModel {
 
     public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
-    public BoxMovement getBoxMovement() {
-        return boxMovement;
-    }
+    public void setBoxFinalSquare(BoxFinalSquare boxFinalSquare) { this.boxFinalSquare = boxFinalSquare; }
 
-    public void setBoxMovement(BoxMovement boxMovement) {
-        this.boxMovement = boxMovement;
-    }
+    public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
 
     public void setBox(Box box) {
-        System.out.println("Box here");
         boxMovement = new BoxMovement(box);
         this.box = box; }
 
@@ -118,6 +114,10 @@ public class LevelModel {
 
     public LevelHeaderModel getLevelHeaderModel() { return this.levelHeaderModel; }
 
+    public BoxFinalSquare getBoxFinalSquare() { return boxFinalSquare; }
+
+    public BoxMovement getBoxMovement() { return boxMovement; }
+
     public List<Drawable> getAll(){
         List<Drawable> drawables = new ArrayList<>();
 
@@ -131,6 +131,7 @@ public class LevelModel {
         if(teleport1 != null) drawables.add(teleport1);
         if(teleport2 != null) drawables.add(teleport2);
         if(box != null) drawables.add(box);
+        if(boxFinalSquare != null) drawables.add(boxFinalSquare);
         drawables.add(levelHeaderModel.getLevelCurrent());
         drawables.add(levelHeaderModel.getLevelScore());
         drawables.add(puffle);
@@ -175,6 +176,10 @@ public class LevelModel {
             if (box.getPosition().equals(position)){
                 return box;
             }
+        if( boxFinalSquare != null){
+            if(boxFinalSquare.getPosition().equals(position))
+                return boxFinalSquare;
+        }
 
         if(destination.getPosition().equals(position))
              return destination;
@@ -197,6 +202,7 @@ public class LevelModel {
         lock = null;
         teleport1 = null;
         teleport2 = null;
+        boxFinalSquare = null;
         teleportUsed = false;
         levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()));
     }

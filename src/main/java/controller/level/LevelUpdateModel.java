@@ -96,6 +96,9 @@ public class LevelUpdateModel {
 
     // MELT
     public void meltIce(){
+        // If there is a BoxFinalSquare below, no water or ice Should be added
+        if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
+
         // If there is no toughIce below the hero
         if(!removeToughIce(levelModel.getPuffle().getPosition())) {
             Water water = new Water(levelModel.getPuffle().getPosition());
@@ -126,5 +129,9 @@ public class LevelUpdateModel {
             }
         }
         return false;
+    }
+
+    public boolean isOnBoxFinalSquare(Position position){
+        return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
 }
