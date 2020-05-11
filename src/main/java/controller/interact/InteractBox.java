@@ -11,7 +11,7 @@ public class InteractBox extends Interact {
 
     @Override
     public void execute(LevelUpdateModel model) {
-        if(model.moveBox(model.findBoxDirection()) == 0) {
+        if(!model.moveBox(model.findBoxDirection())) {
             element.setInteraction(new InteractStop(element));
         }
         else{

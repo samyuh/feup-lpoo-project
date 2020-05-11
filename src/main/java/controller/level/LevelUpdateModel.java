@@ -20,13 +20,10 @@ public class LevelUpdateModel {
 
     // MOVE
 
-    public void move(Position position) {
+    public void move(Position position) {   
         levelModel.getPuffle().setPosition(position);
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
         if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
-    }
-
-    public void addWater() {
     }
 
     public void addScore(int number){ levelModel.getLevelHeaderModel().addScore(number);}
@@ -53,33 +50,32 @@ public class LevelUpdateModel {
         return checkMovement(position).getClass() == InteractStop.class;
     }
 
-    public int moveBox(DIRECTION boxDirection) {
-        int count;
-        count = 0;
+    public boolean moveBox(DIRECTION boxDirection) {
+        boolean canMove = false;
         while(true) {
             switch (boxDirection){
                 case RIGHT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()))) return count;
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()))) return canMove;
                     levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()));
-                    count++;
+                    canMove = true;
                     break;
                 case LEFT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()))) return count;
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()))) return canMove;
                     levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()));
-                    count++;
+                    canMove = true;
                     break;
                 case UP:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1))) return count;
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1))) return canMove;
                     levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1));
-                    count++;
+                    canMove = true;
                     break;
                 case DOWN:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1))) return count;
+                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1))) return canMove;
                     levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1));
-                    count++;
+                    canMove = true;
                     break;
                 default:
-                    return count;
+                    return canMove;
             }
         }
     }
