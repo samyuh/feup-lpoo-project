@@ -20,12 +20,12 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 4. [Code Smells e Refactoring](#code-smells-e-refactoring)
 5. [Unit Tests](#unit-tests)
 
-# Funcionalidades
+## Funcionalidades
 
-- [ ] Menu Principal
-    - [ ] Começar um novo jogo
-    - [ ] Escolha de nível
-    - [ ] Sair do jogo
+- [x] Menu Principal
+    - [x] Começar um novo jogo
+    - [x] Escolha de nível
+    - [x] Sair do jogo
 
 - [x] Movimento
     - [x] Sempre que o jogador se movimentar, a sua posição anterior fica inacessível
@@ -41,15 +41,15 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
     - [x] Existem moedas espalhadas em determinados niveís
     - [x] Capturar uma moeda aumenta a pontuação do jogador em dez pontos
 
-- [ ] Mecânicas de jogo
+- [x] Mecânicas de jogo
     - [x] Quadrados onde o jogador pode passar por cima duas vezes.
-    - [ ] Quadrados verdes que correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
-    - [ ] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede
+    - [x] Quadrados verdes que correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
+    - [x] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede
     - [ ] Passagens secretas que levem o jogador para zonas bónus com muitos sacos de moedas.
 
-- [ ] Menu de fim de jogo
+- [x] Menu de fim de jogo
     - [ ] O jogo acaba assim que o jogador completar todos os niveis ou perder. É apresentado a pontuação total.
-    - [ ] Retornar ao Menu Principal
+    - [x] Retornar ao Menu Principal
 
 Com o decorrer do projeto poderão ser adicionadas mais funcionalidades
 
@@ -84,10 +84,10 @@ De forma a conseguir ter diversos estados diferentes no nosso projeto, decidimos
 ![State](images/StateUML.png)
 
 ##### Ficheiros
-- [Main Controller](../src/main/java/Controller/MainController.java)
-- [State](../src/main/java/Controller/State/State.java)
-- [StateGame](../src/main/java/Controller/State/StateGame.java)
-- [StateGameOver](../src/main/java/Controller/State/StateGameOver.java)
+- [Main Controller](../src/main/java/controller/MainController.java)
+- [State](../src/main/java/controller/state/State.java)
+- [StateGame](../src/main/java/controller/state/StateGame.java)
+- [StateGameOver](../src/main/java/controller/state/StateGameOver.java)
 
 #### Consequências
 A aplicação deste *Design Pattern* irá permitir um maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
@@ -95,6 +95,7 @@ A aplicação deste *Design Pattern* irá permitir um maior modularidade ao cód
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35)
 
 ## Command
+### Interações Jogador - Elemento
 #### Problema
 Sempre que o utilizador pressiona uma tecla para mover a posição do jogador, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o jogador causou um *Code Smell* devido ao elevado número de *If Statements* que podem ser resolvidos.
 
@@ -102,10 +103,41 @@ Sempre que o utilizador pressiona uma tecla para mover a posição do jogador, v
 Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes interações de cada *Element* com o jogador em diferentes classes, evitando assim o *Code Smell*.
 
 #### Implementação
-Ainda não está implementado. Iremos começar a implementar este *Design Pattern* na branch Command.
+##### Diagrama UML
+![Command Option](images/CommandInteractUML.png)
+
+##### Ficheiros
+- [Interact](../src/main/java/controller/interact/Interact.java)
+- [InteractBox](../src/main/java/controller/interact/InteractBox.java)
+- [InteractCoin](../src/main/java/controller/interact/InteractCoin.java)
+- [InteractDestination](../src/main/java/controller/interact/InteractDestination.java)
+- [InteractIce](../src/main/java/controller/interact/InteractIce.java)
+- [InteractKey](../src/main/java/controller/interact/InteractKey.java)
+- [InteractStop](../src/main/java/controller/interact/InteractStop.java)
+- [InteractTeleport](../src/main/java/controller/interact/InteractTeleport.java)
+- [InteractToughIce](../src/main/java/controller/interact/InteractToughIce.java)
 
 #### Consequências
 A implementação deste *Design Pattern* irá permitir uma fácil e rápida implementação de novos objetos que tenham algum tipo de interação com o jogador.
+
+### Opções dos menus
+#### Problema
+A escolha de usar o command para fazer as várias opções do menu foi simples, uma vez que o próprio nome do *Design Pattern* diz aquilo que vai efetuar. Assim, escolhemos o *Command* para ser responsável pelas diferentes opções existentes no menu principal.
+
+#### Padrão
+Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes opções do jogador nos diferentes menus existentes ao longo do jogo.
+
+#### Implementação
+##### Diagrama UML
+![Command Interact](images/CommandInteractUML.png)
+
+##### Ficheiros
+- [Option](../src/main/java/controller/menu/Option.java)
+- [OptionExit](../src/main/java/controller/menu/OptionExit.java)
+- [OptionNewGame](../src/main/java/controller/menu/OptionNewGame.java)
+
+#### Consequências
+A implementação deste *Design Pattern* irá permitir uma fácil e rápida implementação de novos comandos para os menus presentes no nosso jogo.
 
 > Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
