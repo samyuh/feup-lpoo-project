@@ -21,7 +21,6 @@ public class HelpView extends GeneralView {
         this.model = model;
     }
 
-
     public void draw() throws IOException {
         screen.clear();
 

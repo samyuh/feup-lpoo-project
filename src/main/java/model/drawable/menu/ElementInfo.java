@@ -1,4 +1,4 @@
-package model.drawable;
+package model.drawable.menu;
 
 import model.Position;
 import model.drawable.Drawable;

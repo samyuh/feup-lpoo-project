@@ -18,6 +18,7 @@ public class HelpController {
         this.helpModel = helpModel;
         this.helpView = helpView;
     }
+
     public void run() throws IOException {
         do {
             helpView.draw();

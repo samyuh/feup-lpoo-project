@@ -20,7 +20,7 @@ public class MenuOption extends Drawable {
         setColorBackground("#000077");
     }
 
-    public void selectedColor() {
+    public void highlightedColor() {
         setColorBackground("#120A8F");
     }
 }

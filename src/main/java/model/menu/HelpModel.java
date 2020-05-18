@@ -2,7 +2,7 @@ package model.menu;
 
 import model.Position;
 import model.drawable.Drawable;
-import model.drawable.ElementInfo;
+import model.drawable.menu.ElementInfo;
 import model.drawable.element.*;
 
 import java.util.ArrayList;
@@ -11,13 +11,12 @@ import java.util.List;
 public class HelpModel {
     List<Drawable> elements;
 
-
     public HelpModel() {
         elements = new ArrayList<>();
         initElements();
     }
 
-    public void initElements() {
+    private void initElements() {
         elements.add(new Puffle(new Position(2, 4)));
         elements.add(new ElementInfo( " Your Puffle!", "#ffffff", "#000077", new Position(3, 4)));
         elements.add(new Box(new Position(2, 6)));
@@ -42,7 +41,6 @@ public class HelpModel {
         elements.add(new ElementInfo( " Double Ice", "#ffffff", "#000077", new Position(17, 12)));
         elements.add(new Wall(new Position(16, 14)));
         elements.add(new ElementInfo( " Wall", "#ffffff", "#000077", new Position(17, 14)));
-
         elements.add(new ElementInfo( "Continue", "#ffffff", "#120A8F", new Position(2, 16)));
     }
 

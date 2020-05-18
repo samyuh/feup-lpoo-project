@@ -21,6 +21,10 @@ public class MenuModel {
         return option;
     }
 
+    public Option getAction() {
+        return option.get(optionNum).getCommandOption();
+    }
+
     public void previousAction() {
         if(optionNum != 0) optionNum--;
         else optionNum = option.size() - 1;
@@ -36,16 +40,12 @@ public class MenuModel {
         updateColor();
     }
 
-    public void resetColor() {
+    private void resetColor() {
         for(MenuOption option : option)
             option.resetColor();
     }
 
-    public void updateColor() {
-        option.get(optionNum).selectedColor();
-    }
-
-    public Option getAction() {
-        return option.get(optionNum).getCommandOption();
+    private void updateColor() {
+        option.get(optionNum).highlightedColor();
     }
 }
