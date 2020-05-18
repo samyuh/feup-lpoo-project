@@ -2,33 +2,26 @@ package view.level;
 
 import model.drawable.Drawable;
 import model.level.LevelModel;
-import view.DrawableView;
-import view.handler.KeyHandler;
+import view.drawable.DrawableView;
+import view.GeneralView;
 import view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 import java.util.List;
 
-public class LevelView {
-    Screen screen;
+public class LevelView extends GeneralView {
+    LevelModel levelModel;
 
-    public LevelView(ScreenView gui) {
-        this.screen = gui.getScreen();
+    public LevelView(ScreenView gui, LevelModel levelModel) {
+        super(gui.getScreen());
+        this.levelModel = levelModel;
     }
 
-    public KeyHandler.DIRECTION handler() throws IOException {
-        KeyHandler k = new KeyHandler();
-        return k.processKey(screen);
-    }
-
-    public void draw(LevelModel levelModel) throws IOException {
+    public void draw() throws IOException {
         this.screen.clear();
-        TextGraphics graphics = screen.newTextGraphics();
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');

@@ -26,7 +26,7 @@ public class StateGameOver extends State {
         op.add(new MenuOption("Restart", new Position(2, 16), new OptionNewGame(mainController)));
 
         MenuModel menuModel = new MenuModel(op);
-        MenuView menuView = new MenuView(mainController.getGui());
+        MenuView menuView = new MenuView(mainController.getGui(), menuModel);
 
         MenuController controller = new MenuController(mainController, menuModel, menuView);
 

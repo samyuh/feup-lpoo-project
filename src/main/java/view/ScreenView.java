@@ -12,7 +12,6 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class ScreenView {
     private int width;
@@ -28,7 +27,7 @@ public class ScreenView {
             File file = new File(this.getClass().getResource("/font/square.ttf").getFile());
 
             // Costum Font
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(35f);
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(28f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
 

@@ -44,7 +44,7 @@ public class LevelController {
 
     public boolean run() throws IOException {
         while (true) {
-            levelView.draw(levelModel);
+            levelView.draw();
 
             if(!processCommand(levelView.handler())) return false;
 

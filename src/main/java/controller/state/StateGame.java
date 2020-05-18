@@ -13,8 +13,9 @@ public class StateGame extends State {
     }
 
     public void run() throws IOException {
-        LevelView levelView = new LevelView(mainController.getGui());
         LevelModel levelModel = new LevelModel();
+        LevelView levelView = new LevelView(mainController.getGui(), levelModel);
+
 
         LevelController controller = new LevelController(levelModel, levelView);
 
