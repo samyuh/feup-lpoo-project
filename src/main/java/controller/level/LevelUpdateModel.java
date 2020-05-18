@@ -45,6 +45,7 @@ public class LevelUpdateModel {
     public boolean moveBox() {
         boolean canMove = false;
         DIRECTION boxDirection = this.findBoxDirection();
+        System.out.println(boxDirection);
         while(true) {
             if(checkCollisions(levelModel.getBoxMovement().moveDirection(boxDirection))) return canMove;
             levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
