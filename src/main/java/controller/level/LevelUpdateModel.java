@@ -25,6 +25,11 @@ public class LevelUpdateModel {
 
     public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
 
+    public void startSecretLevel() {
+
+    }
+
+
     // BOX
 
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
@@ -86,9 +91,14 @@ public class LevelUpdateModel {
     }
     // INVISIBLE WALL
     public void removeInvisibleWall(InvisibleWall invisibleWall){
+        /*
         Wall wall = new Wall(invisibleWall.getPosition());
         levelModel.getWalls().add(wall);
         levelModel.getInvisibleWalls().remove(invisibleWall);
+
+         */
+
+        invisibleWall.setInteraction(new InteractStop(invisibleWall));
     }
 
     public boolean isSecretFound(){
@@ -96,6 +106,10 @@ public class LevelUpdateModel {
     }
     public void setSecretFound(boolean secretFound){
         levelModel.setSecretFound(secretFound);
+    }
+
+    public void secretLevel() {
+
     }
 
     // COIN

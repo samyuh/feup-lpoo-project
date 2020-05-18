@@ -19,6 +19,7 @@ public class LevelModel {
     private List<Water> water;
     private List<Coin> coins;
     private List<ToughIce> toughIce;
+    private List<InvisibleWall> invisibleWalls;
     private Key key;
     private Lock lock;
     private Teleport teleport1;
@@ -28,7 +29,7 @@ public class LevelModel {
     private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
-    private List<InvisibleWall> invisibleWalls;
+    private SecretDestination secretDestination;
     private boolean secretFound;
 
     public LevelModel() {
@@ -39,6 +40,7 @@ public class LevelModel {
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
         this.teleportUsed = false;
+        this.secretFound = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
 
@@ -86,6 +88,8 @@ public class LevelModel {
 
     public void setSecretFound(boolean secretFound) { this.secretFound = secretFound; }
 
+    public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
+
     public void setBox(Box box) {
         boxMovement = new BoxMovement(box);
         this.box = box; }
@@ -129,6 +133,8 @@ public class LevelModel {
 
     public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
 
+    public SecretDestination getSecretDestination() { return secretDestination; }
+
     public boolean isSecretFound() { return secretFound; }
 
     // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
@@ -152,13 +158,14 @@ public class LevelModel {
         if(teleport1 != null) elements.add(teleport1);
         if(teleport2 != null) elements.add(teleport2);
         if(boxFinalSquare != null) elements.add(boxFinalSquare);
-        elements.addAll(coins);
+        if(secretDestination != null) elements.add(secretDestination);
         elements.addAll(walls);
-        elements.addAll(toughIce);
-        elements.addAll(ice);
-        elements.addAll(water);
         elements.addAll(invisibleWalls);
         elements.add(destination);
+        elements.addAll(coins);
+        elements.addAll(toughIce);
+        elements.addAll(water);
+        elements.addAll(ice);
 
         return elements;
     }
@@ -176,11 +183,11 @@ public class LevelModel {
 
     }
 
-    public void clearLevel(){
+    public void clearLevel(boolean clearWater){
         puffle = null;
         destination = null;
         walls = new ArrayList<>();
-        water = new ArrayList<>();
+        if(clearWater) water = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
         key = null;
@@ -189,6 +196,7 @@ public class LevelModel {
         teleport2 = null;
         boxFinalSquare = null;
         teleportUsed = false;
+        secretFound = false;
         levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()),this.levelHeaderModel.getGlobalScore().getPoints());
     }
 

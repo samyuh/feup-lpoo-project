@@ -11,7 +11,6 @@ public class InteractInvisibleWall extends Interact {
 
     @Override
     public void execute(LevelUpdateModel model) {
-
         if(!model.isSecretFound()){
             model.meltIce();
             model.setSecretFound(true);

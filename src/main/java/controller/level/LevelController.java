@@ -10,6 +10,7 @@ import view.handler.KeyHandler;
 import view.level.LevelView;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LevelController {
     private LevelModel levelModel;
@@ -36,9 +37,8 @@ public class LevelController {
 
     public void setLevel(LevelCurrent levelNumber, boolean restart) {
         levelCurrent = levelNumber;
-        levelModel.clearLevel();
+        levelModel.clearLevel(true);
         levelInitializer.initLevel(levelCurrent.getLevelNumber(), restart);
-
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
@@ -55,6 +55,13 @@ public class LevelController {
                 }
                 else
                     return true;
+            }
+
+            if(levelCurrent.getLevelNumber() == 19 && secretLevelFound()){
+                levelModel.clearLevel(false);
+                levelInitializer.initLevel(20, false);
+                puffleMovement = new PuffleMovement(levelModel.getPuffle());
+
             }
 
             if (gameLost()) return false;
@@ -104,6 +111,8 @@ public class LevelController {
     public boolean gameWon() {
         return puffleMovement.atPosition(levelModel.getDestination().getPosition());
     }
+
+    public boolean secretLevelFound(){ return puffleMovement.atPosition(levelModel.getSecretDestination().getPosition()); }
 
     public boolean gameLost() {
         return checkCollisions(puffleMovement.moveUp()) && checkCollisions(puffleMovement.moveDown()) &&
