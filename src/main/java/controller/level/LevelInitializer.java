@@ -55,6 +55,7 @@ public class LevelInitializer {
                 if(c == 'P') model.setTeleport2(new Teleport( new Position(xi + 2,yi+2)));
                 if(c == 'Y') model.setBox(new Box( new Position(xi + 2,yi+2)));
                 if(c == 'F') model.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
+                if(c == 'I') model.setInvisibleWall(new InvisibleWall( new Position(xi + 2,yi+2)));
             }
         }
         model.setWalls(walls);

@@ -26,6 +26,7 @@ public class LevelModel {
     private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
+    private InvisibleWall invisibleWall;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -77,6 +78,8 @@ public class LevelModel {
 
     public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
 
+    public void setInvisibleWall(InvisibleWall invisibleWall) { this.invisibleWall = invisibleWall; }
+
     public void setBox(Box box) {
         boxMovement = new BoxMovement(box);
         this.box = box; }
@@ -118,6 +121,8 @@ public class LevelModel {
 
     public BoxMovement getBoxMovement() { return boxMovement; }
 
+    public InvisibleWall getInvisibleWall() { return invisibleWall; }
+
     public List<Drawable> getAll(){
         List<Drawable> drawables = new ArrayList<>();
 
@@ -132,6 +137,7 @@ public class LevelModel {
         if(teleport2 != null) drawables.add(teleport2);
         if(box != null) drawables.add(box);
         if(boxFinalSquare != null) drawables.add(boxFinalSquare);
+        if(invisibleWall != null) drawables.add(invisibleWall);
         drawables.add(levelHeaderModel.getLevelCurrent());
         drawables.add(levelHeaderModel.getLevelScore());
         drawables.add(levelHeaderModel.getGlobalScore());
@@ -143,6 +149,17 @@ public class LevelModel {
 
 
     public ElementModel find(Position position) {
+        List<Drawable> everyone = new ArrayList<>();
+        everyone = getAll();
+
+        for( Drawable element : everyone){
+            if(element.getPosition().equals(position))
+                return (ElementModel) element;
+        }
+        return null;
+
+
+        /*
         for(Wall wall: this.walls){
             if(wall.getPosition().equals(position))
                 return wall;
@@ -184,12 +201,19 @@ public class LevelModel {
 
         if(destination.getPosition().equals(position))
              return destination;
+        if(invisibleWall != null){
+            if(invisibleWall.getPosition().equals(position))
+                return invisibleWall;
+        }
         for(Ice ice: this.ice){
             if(ice.getPosition().equals(position))
                 return ice;
         }
 
+        System.out.println("error");
         return null;
+
+         */
     }
 
     public void clearLevel(){
@@ -206,5 +230,10 @@ public class LevelModel {
         boxFinalSquare = null;
         teleportUsed = false;
         levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()),this.levelHeaderModel.getGlobalScore().getPoints());
+    }
+
+    public void addWall(Position position) {
+        Wall wall = new Wall(position);
+        this.walls.add(wall);
     }
 }

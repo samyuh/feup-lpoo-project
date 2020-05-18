@@ -16,9 +16,6 @@ public class LevelUpdateModel {
         this.levelModel = levelModel;
     }
 
-
-    /// -- Spaguetti
-
     // MOVE
 
     public void move(Position position) {   
@@ -88,11 +85,18 @@ public class LevelUpdateModel {
         levelModel.setKey(null);
         levelModel.setLock(null);
     }
+    // INVISIBLE WALL
+    public void removeInvisibleWall(){
+        addIce(levelModel.getPuffle().getPosition());
+        levelModel.addWall(levelModel.getInvisibleWall().getPosition());
+        levelModel.setInvisibleWall(null);
+    }
 
     // COIN
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
     }
+
 
     // MELT
     public void meltIce(){
@@ -131,6 +135,7 @@ public class LevelUpdateModel {
         return false;
     }
 
+    // BOX FINAL SQUARE
     public boolean isOnBoxFinalSquare(Position position){
         return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
