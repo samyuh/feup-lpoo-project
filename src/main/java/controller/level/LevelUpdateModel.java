@@ -1,6 +1,5 @@
 package controller.level;
 
-import controller.element.BoxMovement;
 import controller.interact.Interact;
 import controller.interact.InteractBox;
 import controller.interact.InteractIce;
@@ -86,10 +85,17 @@ public class LevelUpdateModel {
         levelModel.setLock(null);
     }
     // INVISIBLE WALL
-    public void removeInvisibleWall(){
-        addIce(levelModel.getPuffle().getPosition());
-        levelModel.addWall(levelModel.getInvisibleWall().getPosition());
-        levelModel.setInvisibleWall(null);
+    public void removeInvisibleWall(InvisibleWall invisibleWall){
+        Wall wall = new Wall(invisibleWall.getPosition());
+        levelModel.getWalls().add(wall);
+        levelModel.getInvisibleWalls().remove(invisibleWall);
+    }
+
+    public boolean isSecretFound(){
+        return levelModel.isSecretFound();
+    }
+    public void setSecretFound(boolean secretFound){
+        levelModel.setSecretFound(secretFound);
     }
 
     // COIN
@@ -100,6 +106,7 @@ public class LevelUpdateModel {
 
     // MELT
     public void meltIce(){
+
         // If there is a BoxFinalSquare below, no water or ice Should be added
         if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
 

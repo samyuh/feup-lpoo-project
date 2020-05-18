@@ -39,6 +39,7 @@ public class LevelInitializer {
         List<Coin> coins = new ArrayList<>();
         List<ToughIce> toughIce = new ArrayList<>();
         List<Ice> ice = new ArrayList<>();
+        List<InvisibleWall> invisibleWalls = new ArrayList<>();
 
         for(int yi = 0; yi < this.mapElements.size(); yi++) {
             for(int xi = 0; xi < this.mapElements.get(yi).length() ; xi++) {
@@ -47,6 +48,7 @@ public class LevelInitializer {
                 if(c == '.') ice.add(new Ice(new Position(xi + 2,yi+2)));
                 if(c == 'C') coins.add(new Coin(new Position(xi + 2,yi+2)));
                 if(c == 'B') toughIce.add(new ToughIce(new Position(xi + 2,yi+2)));
+                if(c == 'I') invisibleWalls.add(new InvisibleWall( new Position(xi+2,yi+2)));
                 if(c == 'K') model.setKey(new Key(new Position(xi + 2,yi+2)));
                 if(c == 'L') model.setLock(new Lock(new Position(xi + 2,yi+2)));
                 if(c == 'S') model.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
@@ -55,13 +57,13 @@ public class LevelInitializer {
                 if(c == 'P') model.setTeleport2(new Teleport( new Position(xi + 2,yi+2)));
                 if(c == 'Y') model.setBox(new Box( new Position(xi + 2,yi+2)));
                 if(c == 'F') model.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
-                if(c == 'I') model.setInvisibleWall(new InvisibleWall( new Position(xi + 2,yi+2)));
             }
         }
         model.setWalls(walls);
         model.setIce(ice);
         model.setCoins(coins);
         model.setToughIce(toughIce);
+        model.setInvisibleWalls(invisibleWalls);
     }
 
     public void initLevel(int levelNumber, boolean restart) {

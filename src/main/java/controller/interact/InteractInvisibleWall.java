@@ -2,6 +2,7 @@ package controller.interact;
 
 import controller.level.LevelUpdateModel;
 import model.drawable.element.ElementModel;
+import model.drawable.element.InvisibleWall;
 
 public class InteractInvisibleWall extends Interact {
     public InteractInvisibleWall(ElementModel element) {
@@ -10,7 +11,13 @@ public class InteractInvisibleWall extends Interact {
 
     @Override
     public void execute(LevelUpdateModel model) {
-        model.removeInvisibleWall();
+
+        if(!model.isSecretFound()){
+            model.meltIce();
+            model.setSecretFound(true);
+        }
+        model.removeInvisibleWall((InvisibleWall) element);
         model.move(position);
+        model.addScore(1,1);
     }
 }

@@ -21,12 +21,13 @@ public class LevelModel {
     private Lock lock;
     private Teleport teleport1;
     private Teleport teleport2;
-    boolean teleportUsed;
+    private boolean teleportUsed;
     private Box box;
     private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
-    private InvisibleWall invisibleWall;
+    private List<InvisibleWall> invisibleWalls;
+    private boolean secretFound;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -34,6 +35,7 @@ public class LevelModel {
         this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
+        this.invisibleWalls = new ArrayList<>();
         this.teleportUsed = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
@@ -78,7 +80,9 @@ public class LevelModel {
 
     public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
 
-    public void setInvisibleWall(InvisibleWall invisibleWall) { this.invisibleWall = invisibleWall; }
+    public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
+
+    public void setSecretFound(boolean secretFound) { this.secretFound = secretFound; }
 
     public void setBox(Box box) {
         boxMovement = new BoxMovement(box);
@@ -121,7 +125,9 @@ public class LevelModel {
 
     public BoxMovement getBoxMovement() { return boxMovement; }
 
-    public InvisibleWall getInvisibleWall() { return invisibleWall; }
+    public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
+
+    public boolean isSecretFound() { return secretFound; }
 
     public List<Drawable> getAll(){
         List<Drawable> drawables = new ArrayList<>();
@@ -131,13 +137,13 @@ public class LevelModel {
         drawables.addAll(water);
         drawables.addAll(coins);
         drawables.addAll(toughIce);
+        drawables.addAll(invisibleWalls);
         if(lock != null) drawables.add(lock);
         if(key != null) drawables.add(key);
         if(teleport1 != null) drawables.add(teleport1);
         if(teleport2 != null) drawables.add(teleport2);
         if(box != null) drawables.add(box);
         if(boxFinalSquare != null) drawables.add(boxFinalSquare);
-        if(invisibleWall != null) drawables.add(invisibleWall);
         drawables.add(levelHeaderModel.getLevelCurrent());
         drawables.add(levelHeaderModel.getLevelScore());
         drawables.add(levelHeaderModel.getGlobalScore());
@@ -149,71 +155,13 @@ public class LevelModel {
 
 
     public ElementModel find(Position position) {
-        List<Drawable> everyone = new ArrayList<>();
-        everyone = getAll();
+        List<Drawable> everyone = getAll();
 
         for( Drawable element : everyone){
             if(element.getPosition().equals(position))
                 return (ElementModel) element;
         }
         return null;
-
-
-        /*
-        for(Wall wall: this.walls){
-            if(wall.getPosition().equals(position))
-                return wall;
-        }
-        for(ToughIce toughIce: this.toughIce){
-            if(toughIce.getPosition().equals(position))
-                return toughIce;
-        }
-        for(Coin coin: this.coins){
-            if(coin.getPosition().equals(position))
-                return coin;
-        }
-        for(Water water: this.water){
-            if(water.getPosition().equals(position))
-                return water;
-        }
-        if(key != null) {
-            if(key.getPosition().equals(position))
-                return key;
-        }
-        if(lock != null) {
-            if(lock.getPosition().equals(position))
-                return lock;
-        }
-        if(teleport1 != null){
-            if(teleport1.getPosition().equals(position))
-                return teleport1;
-            if(teleport2.getPosition().equals(position))
-                return teleport2;
-        }
-        if(box != null)
-            if (box.getPosition().equals(position)){
-                return box;
-            }
-        if( boxFinalSquare != null){
-            if(boxFinalSquare.getPosition().equals(position))
-                return boxFinalSquare;
-        }
-
-        if(destination.getPosition().equals(position))
-             return destination;
-        if(invisibleWall != null){
-            if(invisibleWall.getPosition().equals(position))
-                return invisibleWall;
-        }
-        for(Ice ice: this.ice){
-            if(ice.getPosition().equals(position))
-                return ice;
-        }
-
-        System.out.println("error");
-        return null;
-
-         */
     }
 
     public void clearLevel(){

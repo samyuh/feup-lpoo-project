@@ -94,6 +94,7 @@ public class LevelController {
 
     private Interact checkMovement(Position position){
         ElementModel element = levelModel.find(position);
+        System.out.println(element);
         return element.getInteraction();
     }
 
