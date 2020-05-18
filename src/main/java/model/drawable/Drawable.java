@@ -19,11 +19,11 @@ public abstract class Drawable {
         return image;
     }
 
-    public String getColor() {
+    public String getColorForeground() {
         return colorForeground;
     }
 
-    public void setColor(String color) {this.colorForeground = color;}
+    public void setColorForeground(String color) {this.colorForeground = color;}
 
     public String getColorBackground() {
         return colorBackground;
@@ -36,5 +36,4 @@ public abstract class Drawable {
     public Position getPosition() {
         return position;
     }
-
 }
