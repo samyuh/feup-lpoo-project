@@ -7,6 +7,8 @@ import model.drawable.element.*;
 import model.Position;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class LevelModel {
@@ -129,46 +131,33 @@ public class LevelModel {
 
     public boolean isSecretFound() { return secretFound; }
 
+    // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
     public List<Drawable> getAll(){
         List<Drawable> drawables = getElements();
-
-        drawables.addAll(walls);
-        drawables.addAll(ice);
-        drawables.addAll(water);
-        drawables.addAll(coins);
-        drawables.addAll(toughIce);
-        drawables.addAll(invisibleWalls);
-        if(lock != null) drawables.add(lock);
-        if(key != null) drawables.add(key);
-        if(teleport1 != null) drawables.add(teleport1);
-        if(teleport2 != null) drawables.add(teleport2);
-        if(box != null) drawables.add(box);
-        if(boxFinalSquare != null) drawables.add(boxFinalSquare);
+        Collections.reverse(drawables);
         drawables.add(levelHeaderModel.getLevelCurrent());
         drawables.add(levelHeaderModel.getLevelScore());
         drawables.add(levelHeaderModel.getGlobalScore());
-        drawables.add(puffle);
-        drawables.add(destination);
-
         return drawables;
     }
 
+    // List of elements(as Drawables) ordered by gamePlay processing data order
     public List<Drawable> getElements(){
         List<Drawable> elements = new ArrayList<>();
 
+        elements.add(puffle);
         if(box != null) elements.add(box);
         if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
         if(teleport1 != null) elements.add(teleport1);
         if(teleport2 != null) elements.add(teleport2);
         if(boxFinalSquare != null) elements.add(boxFinalSquare);
+        elements.addAll(coins);
         elements.addAll(walls);
         elements.addAll(toughIce);
-        elements.addAll(coins);
         elements.addAll(ice);
         elements.addAll(water);
         elements.addAll(invisibleWalls);
-        elements.add(puffle);
         elements.add(destination);
 
         return elements;
@@ -184,63 +173,6 @@ public class LevelModel {
                 return (ElementModel) element;
         }
         return null;
-
-        /*
-        for(Wall wall: this.walls){
-            if(wall.getPosition().equals(position))
-                return wall;
-        }
-        for(ToughIce toughIce: this.toughIce){
-            if(toughIce.getPosition().equals(position))
-                return toughIce;
-        }
-        for(Coin coin: this.coins){
-            if(coin.getPosition().equals(position))
-                return coin;
-        }
-        for(Water water: this.water){
-            if(water.getPosition().equals(position))
-                return water;
-        }
-        for(InvisibleWall invisibleWall: this.invisibleWalls){
-            if(invisibleWall.getPosition().equals(position))
-                return invisibleWall;
-        }
-        if(key != null) {
-            if(key.getPosition().equals(position))
-                return key;
-        }
-        if(lock != null) {
-            if(lock.getPosition().equals(position))
-                return lock;
-        }
-        if(teleport1 != null){
-            if(teleport1.getPosition().equals(position))
-                return teleport1;
-            if(teleport2.getPosition().equals(position))
-                return teleport2;
-        }
-        if(box != null)
-            if (box.getPosition().equals(position)){
-                return box;
-            }
-        if( boxFinalSquare != null){
-            if(boxFinalSquare.getPosition().equals(position))
-                return boxFinalSquare;
-        }
-
-        if(destination.getPosition().equals(position))
-             return destination;
-
-        for(Ice ice: this.ice){
-            if(ice.getPosition().equals(position))
-                return ice;
-        }
-
-        System.out.println("error");
-        return null;
-
-         */
 
     }
 
