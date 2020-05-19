@@ -54,19 +54,19 @@ public class LevelFacade {
 
     // --- Teleport Methods -- //
     public ElementModel getTeleport1() {
-        return levelModel.getTeleport1();
+        return levelModel.getTeleports().get(0);
     }
 
     public ElementModel getTeleport2() {
-        return levelModel.getTeleport2();
+        return levelModel.getTeleports().get(1);
     }
 
     public Position getTeleportPosition(Teleport teleport) {
-        if(teleport.getPosition().equals(levelModel.getTeleport1().getPosition())){
-            return levelModel.getTeleport2().getPosition();
+        if(teleport.getPosition().equals(getTeleport1().getPosition())){
+            return getTeleport2().getPosition();
         }
         else
-            return levelModel.getTeleport1().getPosition();
+            return getTeleport1().getPosition();
     }
 
     // --- Remove Key -- //
