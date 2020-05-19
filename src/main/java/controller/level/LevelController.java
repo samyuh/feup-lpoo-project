@@ -42,12 +42,17 @@ public class LevelController {
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
+    public void startSecret(LevelCurrent levelNumber) {
+        levelCurrent = levelNumber;
+        levelModel.clearLevel(false);
+        levelInitializer.initSecretLevel(levelCurrent.getLevelNumber());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+    }
+
     public void run() throws IOException {
         do {
-            if (levelCurrent.getLevelNumber() == 19 && secretLevelFound()){
-                levelInitializer.initSecretLevel(levelCurrent.getLevelNumber(), false);
-                puffleMovement = new PuffleMovement(levelModel.getPuffle());
-            }
+            if (levelCurrent.getLevelNumber() == 19 && secretLevelFound())
+                startSecret(levelCurrent);
 
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){

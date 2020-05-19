@@ -24,18 +24,7 @@ public class LevelInitializer {
         this.globalScore = globalScore;
     }
 
-    private List<String> readLines() throws IOException {
-        URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + ".txt");
-        BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
-        List<String> lines = new ArrayList<>();
-        for (String line; (line = br.readLine()) != null; )
-            lines.add(line);
-
-        return lines;
-    }
-
-    private List<String> readLinesSecret() throws IOException {
-        URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + "secret.txt");
+    private List<String> readLines(URL resource) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )
@@ -80,21 +69,22 @@ public class LevelInitializer {
     public void initLevel(int levelNumber, boolean restart) {
         try {
             if(!restart) this.globalScore = this.model.getLevelHeaderModel().getGlobalScore().getPoints();
-            this.levelNumber = levelNumber;
-            this.mapElements = readLines();
             this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber),globalScore));
+
+            URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + ".txt");
+            this.levelNumber = levelNumber;
+            this.mapElements = readLines(resource);
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void initSecretLevel(int levelNumber, boolean restart) {
+    public void initSecretLevel(int levelNumber) {
         try {
-            if(!restart) this.globalScore = this.model.getLevelHeaderModel().getGlobalScore().getPoints();
+            URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + "secret.txt");
             this.levelNumber = levelNumber;
-            this.mapElements = readLinesSecret();
-            this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber),globalScore));
+            this.mapElements = readLines(resource);
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();
