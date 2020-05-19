@@ -56,24 +56,13 @@ public class LevelUpdateModel {
 
     // TELEPORT
 
-    public boolean isTeleportUsed() {
-        return levelModel.getTeleportUsed();
-    }
 
     public void setTeleportUsed(boolean b) {
-        levelModel.setTeleportUsed(b);
         List<Teleport> teleports = getTeleports();
         for(Teleport teleport :teleports){
             teleport.setColorForeground("#0000ff");
+            teleport.setInteraction(new InteractStop(teleport));
         }
-    }
-
-    public ElementModel getTeleport1() {
-        return levelModel.getTeleport1();
-    }
-
-    public ElementModel getTeleport2() {
-        return levelModel.getTeleport2();
     }
 
     public List<Teleport> getTeleports() { return levelModel.getTeleports();}

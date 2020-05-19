@@ -24,9 +24,6 @@ public class LevelModel {
     private List<Teleport> teleports;
     private Key key;
     private Lock lock;
-    private Teleport teleport1;
-    private Teleport teleport2;
-    private boolean teleportUsed;
     private Box box;
     private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
@@ -42,7 +39,6 @@ public class LevelModel {
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
         this.teleports = new ArrayList<>();
-        this.teleportUsed = false;
         this.secretFound = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
@@ -76,12 +72,6 @@ public class LevelModel {
     public void setCoins(List<Coin> coins) { this.coins = coins; }
 
     public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
-
-    public void setTeleport1(Teleport teleport1) { this.teleport1 = teleport1; }
-
-    public void setTeleport2(Teleport teleport2) { this.teleport2 = teleport2; }
-
-    public void setTeleportUsed(boolean teleportUsed) { this.teleportUsed = teleportUsed; }
 
     public void setBoxFinalSquare(BoxFinalSquare boxFinalSquare) { this.boxFinalSquare = boxFinalSquare; }
 
@@ -122,13 +112,7 @@ public class LevelModel {
 
     public List<ToughIce> getToughIce() { return toughIce; }
 
-    public Teleport getTeleport1() { return teleport1; }
-
-    public Teleport getTeleport2() { return teleport2; }
-
     public Box getBox() { return box; }
-
-    public boolean getTeleportUsed() { return teleportUsed; }
 
     public LevelHeaderModel getLevelHeaderModel() { return this.levelHeaderModel; }
 
@@ -202,10 +186,7 @@ public class LevelModel {
         teleports = new ArrayList<>();
         key = null;
         lock = null;
-        teleport1 = null;
-        teleport2 = null;
         boxFinalSquare = null;
-        teleportUsed = false;
         secretFound = false;
     }
 

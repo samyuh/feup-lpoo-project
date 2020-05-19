@@ -11,7 +11,6 @@ public class InteractTeleport extends Interact {
 
     @Override
     public void execute(LevelUpdateModel model) {
-        if(model.isTeleportUsed()) return;
         model.meltIce();
         model.move(position);
         model.meltIce();
