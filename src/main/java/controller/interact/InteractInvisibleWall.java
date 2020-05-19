@@ -15,7 +15,8 @@ public class InteractInvisibleWall extends Interact {
             model.meltIce();
             model.setSecretFound(true);
         }
-        model.removeInvisibleWall((InvisibleWall) element);
+
+        element.setInteraction(new InteractStop(element));
         model.move(position);
         model.addScore(1,1);
     }
