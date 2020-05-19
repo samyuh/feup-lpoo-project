@@ -28,14 +28,11 @@ public class MenuView extends GeneralView {
 
         DrawableView view = new DrawableView();
 
-        List<Drawable> elements = model.getTextBoxes();
-        for(Drawable element : elements)
-            view.draw(element, graphics);
+        List<Drawable> drawables = model.getTextBoxes();
+        drawables.addAll(model.getOption());
 
-        List<MenuOption> options = model.getOption();
-
-        for(Drawable option : options)
-            view.draw(option, graphics);
+        for(Drawable drawable : drawables)
+            view.draw(drawable, graphics);
 
         screen.refresh();
     }

@@ -9,10 +9,10 @@ public class LevelHeaderModel {
     private LevelCurrent levelCurrent;
     private GlobalScore globalScore;
 
-    private int maxScores[] = {12, 19, 25, 43, 41, 41, 66, 82, 93, 208, 132,
-            138, 128, 131, 227, 181, 161, 179, 172, 172};
-
     public LevelHeaderModel(LevelCurrent levelCurrent, int globalScore) {
+        int[] maxScores = {12, 19, 25, 43, 41, 41, 66, 82, 93, 204, 132,
+                138, 128, 131, 227, 181, 161, 179, 172, 172};
+
         this.levelScore = new LevelScore(maxScores[levelCurrent.getLevelNumber()-1]);
         this.levelCurrent = levelCurrent;
         this.globalScore =  new GlobalScore(globalScore);
@@ -22,8 +22,8 @@ public class LevelHeaderModel {
         return levelScore;
     }
 
-    public void addScore(int levelpoints, int globalPoints){
-        this.levelScore.addPoints(levelpoints);
+    public void addScore(int levelPoints, int globalPoints){
+        this.levelScore.addPoints(levelPoints);
         this.globalScore.addPoints(globalPoints);
     }
 

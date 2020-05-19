@@ -27,9 +27,7 @@ public class LevelView extends GeneralView {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
-        List<Drawable> drawables;
-
-        drawables = levelModel.getAll();
+        List<Drawable> drawables = levelModel.getAll();
 
         for(Drawable element : drawables)
             view.draw(element, graphics);
