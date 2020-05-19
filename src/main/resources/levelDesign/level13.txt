@@ -3,7 +3,7 @@
   W..W...B..BBW
   W.......WW..W
  WW.WWW.......WW
- W.BW.WWWWWBBB.W
+ W.BWFWWWWWBBB.W
  WW.W......B..WW
   W.W.WW.C.BBBW
 WWW.W.W......BW
