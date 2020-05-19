@@ -30,7 +30,6 @@ public class LevelModel {
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
     private SecretDestination secretDestination;
-    private boolean secretFound;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -40,7 +39,6 @@ public class LevelModel {
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
         this.teleportUsed = false;
-        this.secretFound = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
 
@@ -85,8 +83,6 @@ public class LevelModel {
     public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
 
     public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
-
-    public void setSecretFound(boolean secretFound) { this.secretFound = secretFound; }
 
     public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
 
@@ -134,8 +130,6 @@ public class LevelModel {
     public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
 
     public SecretDestination getSecretDestination() { return secretDestination; }
-
-    public boolean isSecretFound() { return secretFound; }
 
     // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
     public List<Drawable> getAll(){
@@ -199,8 +193,6 @@ public class LevelModel {
         teleport2 = null;
         boxFinalSquare = null;
         teleportUsed = false;
-        secretFound = false;
-
     }
 
     public void addWall(Position position) {

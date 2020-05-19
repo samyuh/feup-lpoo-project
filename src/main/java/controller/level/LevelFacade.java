@@ -10,9 +10,11 @@ import model.Position;
 
 public class LevelFacade {
     LevelModel levelModel;
+    private boolean secretFound;
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
+        this.secretFound = false;
     }
 
     // MOVE
@@ -92,11 +94,11 @@ public class LevelFacade {
 
     // Secret
     public boolean isSecretFound(){
-        return levelModel.isSecretFound();
+        return secretFound;
     }
 
-    public void setSecretFound(boolean secretFound){
-        levelModel.setSecretFound(secretFound);
+    public void setSecretFound(){
+        secretFound = true;
     }
 
     // COIN
@@ -121,6 +123,12 @@ public class LevelFacade {
         }
     }
 
+    public void addWater(Position position) {
+        Water water = new Water(position);
+        water.setInteraction(new InteractStop(water));
+        levelModel.getWater().add(water);
+    }
+
     public void addIce(Position position){
         Ice ice = new Ice(position);
         ice.setInteraction(new InteractIce(ice));
@@ -129,6 +137,10 @@ public class LevelFacade {
 
     public void removeIce(Ice ice) {
         levelModel.getIce().remove(ice);
+    }
+
+    public void removeToughIce(ToughIce ice) {
+        levelModel.getToughIce().remove(ice);
     }
 
     public boolean removeToughIce(Position position){

@@ -15,7 +15,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
     public void execute(LevelController controller, LevelFacade facade) {
         if(!facade.isSecretFound()){
             facade.meltIce();
-            facade.setSecretFound(true);
+            facade.setSecretFound();
         }
 
         element.setInteraction(new InteractStop(element));
