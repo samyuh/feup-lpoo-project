@@ -12,6 +12,6 @@ public class InteractDestination extends Interact {
     public void execute(LevelUpdateModel model) {
         model.meltIce();
         model.move(position);
-        model.addScore(1);
+        model.addScore(1,1);
     }
 }

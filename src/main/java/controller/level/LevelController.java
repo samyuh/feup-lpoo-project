@@ -14,74 +14,79 @@ import java.io.IOException;
 public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
-
     private LevelUpdateModel update;
-
     private LevelInitializer levelInitializer;
-
     private PuffleMovement puffleMovement;
-
     private LevelCurrent levelCurrent;
+    private int globalPoints;
 
     public LevelController(LevelModel levelModel, LevelView levelView) {
         this.levelCurrent = new LevelCurrent(1);
         this.levelModel = levelModel;
         this.levelView = levelView;
-        this.levelInitializer = new LevelInitializer(levelModel);
-        levelInitializer.initLevel(levelCurrent.getLevelNumber());
+        this.levelInitializer = new LevelInitializer(levelModel,globalPoints);
+        levelInitializer.initLevel(levelCurrent.getLevelNumber(),false);
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
         this.update = new LevelUpdateModel(levelModel);
+
+        this.globalPoints = 0;
     }
 
-    public void setLevel(LevelCurrent levelNumber) {
+    public void setLevel(LevelCurrent levelNumber, boolean restart) {
         levelCurrent = levelNumber;
-        levelModel.clearLevel();
-        levelInitializer.initLevel(levelCurrent.getLevelNumber());
-
+        levelModel.clearLevel(true);
+        levelInitializer.initLevel(levelCurrent.getLevelNumber(), restart);
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
-    public boolean run() throws IOException {
-        while (true) {
-            levelView.draw(levelModel);
+    public void startSecret(LevelCurrent levelNumber) {
+        levelCurrent = levelNumber;
+        levelModel.clearLevel(false);
+        levelInitializer.initSecretLevel(levelCurrent.getLevelNumber());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+    }
 
-            if(!processCommand(levelView.handler())) return false;
+    public void run() throws IOException {
+        do {
+            if (levelCurrent.getLevelNumber() == 19 && secretLevelFound())
+                startSecret(levelCurrent);
 
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){
                     levelCurrent.increment();
-                    setLevel(levelCurrent);
+                    setLevel(levelCurrent,false);
                 }
-                else
-                    return true;
+                else break;
             }
 
-            if (gameLost()) return false;
-        }
+            if (gameLost()) break;
+
+            levelView.draw(levelModel);
+        } while(processCommand(levelView.handler()));
     }
 
 
     public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                moveHero(puffleMovement.moveUp());
+                executeMovement(puffleMovement.moveUp());
                 return true;
             case DOWN:
-                moveHero(puffleMovement.moveDown());
+                executeMovement(puffleMovement.moveDown());
                 return true;
             case LEFT:
-                moveHero(puffleMovement.moveLeft());
+                executeMovement(puffleMovement.moveLeft());
                 return true;
             case RIGHT:
-                moveHero(puffleMovement.moveRight());
+                executeMovement(puffleMovement.moveRight());
                 return true;
             case NEXT:
                 this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
                 return true;
             case RESTART:
-                this.setLevel(this.levelCurrent);
+                this.setLevel(this.levelCurrent,true);
                 return true;
             case CLOSE:
                 return false;
@@ -89,7 +94,7 @@ public class LevelController {
         return true;
     }
 
-    public void moveHero(Position position) {
+    public void executeMovement(Position position) {
         checkMovement(position).execute(update);
     }
 
@@ -106,17 +111,11 @@ public class LevelController {
         return puffleMovement.atPosition(levelModel.getDestination().getPosition());
     }
 
+    public boolean secretLevelFound(){ return puffleMovement.atPosition(levelModel.getSecretDestination().getPosition()); }
+
     public boolean gameLost() {
         return checkCollisions(puffleMovement.moveUp()) && checkCollisions(puffleMovement.moveDown()) &&
                 checkCollisions(puffleMovement.moveLeft()) && checkCollisions(puffleMovement.moveRight()) &&
                 !gameWon();
-    }
-
-    public PuffleMovement getPuffleMovement() {
-        return puffleMovement;
-    }
-
-    public int getlevelNum() {
-        return levelCurrent.getLevelNumber();
     }
 }

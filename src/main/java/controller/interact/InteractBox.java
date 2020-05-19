@@ -11,13 +11,13 @@ public class InteractBox extends Interact {
 
     @Override
     public void execute(LevelUpdateModel model) {
-        if(!model.moveBox(model.findBoxDirection())) {
+        if(!model.moveBox()){
             element.setInteraction(new InteractStop(element));
         }
         else{
             model.meltIce();
             model.move(position);
-            model.addScore(1);
+            model.addScore(1,1);
         }
 
     }

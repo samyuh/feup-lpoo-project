@@ -14,6 +14,6 @@ public class InteractCoin extends Interact {
         model.removeCoin((Coin) element);
         model.meltIce();
         model.move(position);
-        model.addScore(10);
+        model.addScore(1,10);
     }
 }

@@ -20,6 +20,6 @@ public class InteractTeleport extends Interact {
         model.setTeleportUsed(true);
         model.getTeleport1().setColor("#0000ff");
         model.getTeleport2().setColor("#0000ff");
-        model.addScore(1);
+        model.addScore(1,1);
     }
 }

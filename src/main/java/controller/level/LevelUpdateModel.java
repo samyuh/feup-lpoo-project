@@ -15,29 +15,21 @@ public class LevelUpdateModel {
         this.levelModel = levelModel;
     }
 
-
-    /// -- Spaguetti
-
     // MOVE
-
     public void move(Position position) {   
         levelModel.getPuffle().setPosition(position);
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
         if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
-    public void addScore(int number){ levelModel.getLevelHeaderModel().addScore(number);}
+    public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
+
 
     // BOX
 
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
     public DIRECTION findBoxDirection(){
-        Position boxPosition  = levelModel.getBox().getPosition();
-        Position heroPosition = levelModel.getPuffle().getPosition();
-        if(boxPosition.getX() - heroPosition.getX() == 1) return DIRECTION.RIGHT;
-        if(boxPosition.getX() - heroPosition.getX() == -1) return DIRECTION.LEFT;
-        if(boxPosition.getY() - heroPosition.getY() == 1) return DIRECTION.DOWN;
-        return DIRECTION.UP;
+        return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
     }
 
     private Interact checkMovement(Position position){
@@ -46,37 +38,17 @@ public class LevelUpdateModel {
 
     }
 
-    private boolean checkCollisions(Position position) {
+    private boolean checkCollisions(Position position){
         return checkMovement(position).getClass() == InteractStop.class;
     }
 
-    public boolean moveBox(DIRECTION boxDirection) {
+    public boolean moveBox() {
         boolean canMove = false;
+        DIRECTION boxDirection = this.findBoxDirection();
         while(true) {
-            switch (boxDirection){
-                case RIGHT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() + 1,levelModel.getBox().getPosition().getY()));
-                    canMove = true;
-                    break;
-                case LEFT:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX() - 1,levelModel.getBox().getPosition().getY()));
-                    canMove = true;
-                    break;
-                case UP:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() - 1));
-                    canMove = true;
-                    break;
-                case DOWN:
-                    if(checkCollisions(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1))) return canMove;
-                    levelModel.getBox().setPosition(new Position(levelModel.getBox().getPosition().getX(),levelModel.getBox().getPosition().getY() + 1));
-                    canMove = true;
-                    break;
-                default:
-                    return canMove;
-            }
+            if(checkCollisions(levelModel.getBoxMovement().moveDirection(boxDirection))) return canMove;
+            levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
+            canMove = true;
         }
     }
 
@@ -113,13 +85,26 @@ public class LevelUpdateModel {
         levelModel.setLock(null);
     }
 
+    // Secret
+    public boolean isSecretFound(){
+        return levelModel.isSecretFound();
+    }
+
+    public void setSecretFound(boolean secretFound){
+        levelModel.setSecretFound(secretFound);
+    }
+
     // COIN
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
     }
 
+
     // MELT
-    public void meltIce(){
+    public void meltIce() {
+        // If there is a BoxFinalSquare below, no water or ice Should be added
+        if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
+
         // If there is no toughIce below the hero
         if(!removeToughIce(levelModel.getPuffle().getPosition())) {
             Water water = new Water(levelModel.getPuffle().getPosition());
@@ -150,5 +135,10 @@ public class LevelUpdateModel {
             }
         }
         return false;
+    }
+
+    // BOX FINAL SQUARE
+    public boolean isOnBoxFinalSquare(Position position){
+        return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
 }

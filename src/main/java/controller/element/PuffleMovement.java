@@ -3,31 +3,9 @@ package controller.element;
 import model.drawable.element.Puffle;
 import model.Position;
 
-public class PuffleMovement {
-    Puffle puffle;
+public class PuffleMovement extends Movement {
 
     public PuffleMovement(Puffle h) {
-        this.puffle = h;
+        super(h);
     }
-
-    public Position moveUp() {
-        return new Position(puffle.getPosition().getX(), puffle.getPosition().getY() - 1);
-    }
-
-    public Position moveDown() {
-        return new Position(puffle.getPosition().getX(), puffle.getPosition().getY() + 1);
-    }
-
-    public Position moveRight() {
-        return new Position(puffle.getPosition().getX() + 1, puffle.getPosition().getY());
-    }
-
-    public Position moveLeft() {
-        return new Position(puffle.getPosition().getX() - 1, puffle.getPosition().getY());
-    }
-
-    public boolean atPosition(Position target) {
-        return puffle.getPosition().equals(target);
-    }
-
 }
