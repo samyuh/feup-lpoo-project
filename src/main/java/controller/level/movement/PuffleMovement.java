@@ -1,7 +1,6 @@
-package controller.element;
+package controller.level.movement;
 
 import model.drawable.element.Puffle;
-import model.Position;
 
 public class PuffleMovement extends Movement {
 

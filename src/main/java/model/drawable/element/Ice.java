@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractIce;
+import controller.level.interact.ice.InteractIce;
 import model.Position;
 
 public class Ice extends ElementModel {

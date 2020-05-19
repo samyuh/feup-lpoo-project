@@ -1,6 +1,6 @@
 package controller;
 
-import controller.element.PuffleMovement;
+import controller.level.movement.PuffleMovement;
 import controller.level.LevelController;
 import controller.level.LevelInitializer;
 import model.Position;

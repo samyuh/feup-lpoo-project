@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractToughIce;
+import controller.level.interact.ice.InteractToughIce;
 import model.Position;
 
 public class ToughIce extends ElementModel {

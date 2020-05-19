@@ -1,11 +1,11 @@
-package controller.element;
+package controller.level.movement;
 
 import model.Position;
 import model.drawable.element.Box;
 import model.drawable.element.Puffle;
 
-import static controller.level.LevelUpdateModel.*;
-import static controller.level.LevelUpdateModel.DIRECTION.*;
+import static controller.level.LevelFacade.*;
+import static controller.level.LevelFacade.DIRECTION.*;
 
 public class BoxMovement extends Movement{
 

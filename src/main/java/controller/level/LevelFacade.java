@@ -1,17 +1,17 @@
 package controller.level;
 
-import controller.interact.Interact;
-import controller.interact.InteractBox;
-import controller.interact.InteractIce;
-import controller.interact.InteractStop;
+import controller.level.interact.Interact;
+import controller.level.interact.box.InteractBox;
+import controller.level.interact.ice.InteractIce;
+import controller.level.interact.level.InteractStop;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
-public class LevelUpdateModel {
+public class LevelFacade {
     LevelModel levelModel;
 
-    public LevelUpdateModel(LevelModel levelModel) {
+    public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
 
@@ -50,6 +50,11 @@ public class LevelUpdateModel {
             levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
             canMove = true;
         }
+    }
+
+    // BOX FINAL SQUARE
+    public boolean isOnBoxFinalSquare(Position position){
+        return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
 
     // TELEPORT
@@ -102,7 +107,6 @@ public class LevelUpdateModel {
 
     // MELT
     public void meltIce() {
-        // If there is a BoxFinalSquare below, no water or ice Should be added
         if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
 
         // If there is no toughIce below the hero
@@ -135,10 +139,5 @@ public class LevelUpdateModel {
             }
         }
         return false;
-    }
-
-    // BOX FINAL SQUARE
-    public boolean isOnBoxFinalSquare(Position position){
-        return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
 }

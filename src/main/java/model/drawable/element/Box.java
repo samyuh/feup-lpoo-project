@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractBox;
+import controller.level.interact.box.InteractBox;
 import model.Position;
 
 public class Box extends ElementModel {
