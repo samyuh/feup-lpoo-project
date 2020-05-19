@@ -1,4 +1,4 @@
-package model.level;
+package model.level.header;
 
 import jdk.nashorn.internal.objects.Global;
 import model.drawable.levelheader.GlobalScore;

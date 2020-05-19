@@ -18,8 +18,8 @@ public class InteractTeleport extends Interact {
         position = model.getTeleportPosition((Teleport)element);
         model.move(position);
         model.setTeleportUsed(true);
-        model.getTeleport1().setColor("#0000ff");
-        model.getTeleport2().setColor("#0000ff");
+        model.getTeleport1().setColorForeground("#0000ff");
+        model.getTeleport2().setColorForeground("#0000ff");
         model.addScore(1,1);
     }
 }

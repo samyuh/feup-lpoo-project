@@ -3,7 +3,6 @@ package controller.element;
 import model.Position;
 import model.drawable.element.ElementModel;
 
-
 public class Movement {
     protected ElementModel element;
 

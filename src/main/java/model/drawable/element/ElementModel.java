@@ -6,8 +6,8 @@ import model.Position;
 public abstract class ElementModel extends Drawable {
     private Interact command;
 
-    public ElementModel(String image, String color, Position position) {
-        super(image,color, "#8dc5f0", position);
+    public ElementModel(String image, String colorForeground, Position position) {
+        super(image, colorForeground, "#8dc5f0", position);
     }
 
     public Position getPosition() { return position; }

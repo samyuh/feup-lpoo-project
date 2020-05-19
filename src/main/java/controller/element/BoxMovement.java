@@ -1,6 +1,5 @@
 package controller.element;
 
-import controller.level.LevelUpdateModel;
 import model.Position;
 import model.drawable.element.Box;
 import model.drawable.element.Puffle;

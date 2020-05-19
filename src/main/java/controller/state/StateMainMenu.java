@@ -1,6 +1,7 @@
 package controller.state;
 
 import controller.menu.option.OptionExit;
+import controller.menu.option.OptionHelp;
 import controller.menu.option.OptionNewGame;
 import controller.MainController;
 import controller.menu.MenuController;
@@ -22,11 +23,11 @@ public class StateMainMenu extends State {
     public void run() throws IOException {
         List<MenuOption> op = new ArrayList<>();
         op.add(new MenuOption("Start", new Position(2, 14), new OptionNewGame(mainController)));
-        op.add(new MenuOption("Instructions", new Position(2, 15), new OptionNewGame(mainController)));
+        op.add(new MenuOption("Instructions", new Position(2, 15), new OptionHelp(mainController)));
         op.add(new MenuOption("Exit", new Position(2, 16), new OptionExit(mainController)));
 
         MenuModel menuModel = new MenuModel(op);
-        MenuView menuView = new MenuView(mainController.getGui());
+        MenuView menuView = new MenuView(mainController.getGui(), menuModel);
 
         MenuController controller = new MenuController(mainController, menuModel, menuView);
 

@@ -5,6 +5,7 @@ import model.drawable.levelheader.LevelCurrent;
 import model.drawable.Drawable;
 import model.drawable.element.*;
 import model.Position;
+import model.level.header.LevelHeaderModel;
 
 import java.util.ArrayList;
 import java.util.Collection;

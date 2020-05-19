@@ -41,7 +41,7 @@ public class LevelController {
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
-    public void startSecret(LevelCurrent levelNumber) {
+    public void setLevelSecret(LevelCurrent levelNumber) {
         levelCurrent = levelNumber;
         levelModel.clearLevel(false);
         levelInitializer.initSecretLevel(levelCurrent.getLevelNumber());
@@ -51,7 +51,7 @@ public class LevelController {
     public void run() throws IOException {
         do {
             if (levelCurrent.getLevelNumber() == 19 && secretLevelFound())
-                startSecret(levelCurrent);
+                setLevelSecret(levelCurrent);
 
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){
@@ -63,7 +63,7 @@ public class LevelController {
 
             if (gameLost()) break;
 
-            levelView.draw(levelModel);
+            levelView.draw();
         } while(processCommand(levelView.handler()));
     }
 

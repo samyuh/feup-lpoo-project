@@ -19,7 +19,7 @@ public class MenuController {
     }
     public void run() throws IOException {
         do {
-            menuView.draw(menuModel);
+            menuView.draw();
         } while (processCommand(menuView.handler()));
     }
 

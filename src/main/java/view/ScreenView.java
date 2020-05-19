@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class ScreenView {
@@ -22,8 +23,15 @@ public class ScreenView {
         try {
             this.width = width;
             this.height = height;
-            Font font = new Font(Font.MONOSPACED, Font.PLAIN, 30);
-            AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, font);
+
+            File file = new File(this.getClass().getResource("/font/square.ttf").getFile());
+
+            // Costum Font
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(28f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+
+            AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, customFont);
 
             Terminal terminal = new DefaultTerminalFactory()
                     .setInitialTerminalSize(new TerminalSize(this.width,this.height))
@@ -33,7 +41,7 @@ public class ScreenView {
             this.screen.setCursorPosition(null);   // we don't need a cursor
             this.screen.startScreen();             // screens must be started
             this.screen.doResizeIfNecessary();     // resize screen if necessary
-        } catch (IOException e) {
+        } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
     }
