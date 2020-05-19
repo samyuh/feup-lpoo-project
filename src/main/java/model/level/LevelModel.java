@@ -183,11 +183,13 @@ public class LevelModel {
 
     }
 
-    public void clearLevel(boolean clearWater){
+    public void clearLevel(boolean clearWater) {
+        if(clearWater) {
+            water = new ArrayList<>();
+        }
         puffle = null;
         destination = null;
         walls = new ArrayList<>();
-        if(clearWater) water = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
         key = null;

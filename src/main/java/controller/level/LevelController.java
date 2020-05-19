@@ -42,30 +42,25 @@ public class LevelController {
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
-    public boolean run() throws IOException {
-        while (true) {
-            levelView.draw(levelModel);
-
-            if(!processCommand(levelView.handler())) return false;
+    public void run() throws IOException {
+        do {
+            if (levelCurrent.getLevelNumber() == 19 && secretLevelFound()){
+                levelInitializer.initSecretLevel(levelCurrent.getLevelNumber(), false);
+                puffleMovement = new PuffleMovement(levelModel.getPuffle());
+            }
 
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){
                     levelCurrent.increment();
                     setLevel(levelCurrent,false);
                 }
-                else
-                    return true;
+                else break;
             }
 
-            if(levelCurrent.getLevelNumber() == 19 && secretLevelFound()){
-                levelModel.clearLevel(false);
-                levelInitializer.initLevel(20, false);
-                puffleMovement = new PuffleMovement(levelModel.getPuffle());
+            if (gameLost()) break;
 
-            }
-
-            if (gameLost()) return false;
-        }
+            levelView.draw(levelModel);
+        } while(processCommand(levelView.handler()));
     }
 
 

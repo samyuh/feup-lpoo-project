@@ -26,7 +26,7 @@ public class LevelUpdateModel {
     public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
 
     public void startSecretLevel() {
-
+        levelModel.clearLevel(false);
     }
 
 
@@ -109,7 +109,7 @@ public class LevelUpdateModel {
     }
 
     public void secretLevel() {
-
+        levelModel.clearLevel(false);
     }
 
     // COIN
