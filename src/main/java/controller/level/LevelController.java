@@ -15,8 +15,8 @@ import java.io.IOException;
 public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
-    private LevelFacade levelFacade;
     private LevelBuilder levelBuilder;
+    private LevelFacade levelFacade;
     private PuffleMovement puffleMovement;
     private LevelCurrent levelCurrent;
     private int globalPoints;
@@ -26,27 +26,29 @@ public class LevelController {
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelBuilder = new LevelBuilder(levelModel,globalPoints);
-        levelBuilder.initLevel(levelCurrent.getLevelNumber(),false);
+        this.levelBuilder.initLevel(levelCurrent.getLevelNumber(),false);
 
-        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
         this.levelFacade = new LevelFacade(levelModel);
 
         this.globalPoints = 0;
     }
 
-    public void setLevel(LevelCurrent levelNumber, boolean restart) {
-        levelCurrent = levelNumber;
-        levelModel.clearLevel(true);
-        levelBuilder.initLevel(levelCurrent.getLevelNumber(), restart);
-        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+    public void setLevel(LevelCurrent CurrentLevel, boolean restart) {
+        this.levelCurrent = CurrentLevel;
+        this.levelModel.clearLevel(true);
+        this.levelBuilder.initLevel(levelCurrent.getLevelNumber(), restart);
+        this.levelFacade = new LevelFacade(levelModel);
+        this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
     public void setLevelSecret(LevelCurrent levelNumber) {
-        levelCurrent = levelNumber;
-        levelModel.clearLevel(false);
-        levelBuilder.initSecretLevel(levelCurrent.getLevelNumber());
-        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.levelCurrent = levelNumber;
+        this.levelModel.clearLevel(false);
+        this.levelBuilder.initSecretLevel(levelCurrent.getLevelNumber());
+        this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.levelFacade = new LevelFacade(levelModel);
     }
 
     public void run() throws IOException {
@@ -111,6 +113,4 @@ public class LevelController {
     public void secretLevel() {
         setLevelSecret(levelCurrent);
     }
-
-
 }

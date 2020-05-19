@@ -11,6 +11,8 @@ import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
+import java.util.List;
+
 public class LevelFacade {
     LevelModel levelModel;
     Strategy meltStrategy;
@@ -53,20 +55,15 @@ public class LevelFacade {
     }
 
     // --- Teleport Methods -- //
-    public ElementModel getTeleport1() {
-        return levelModel.getTeleports().get(0);
-    }
-
-    public ElementModel getTeleport2() {
-        return levelModel.getTeleports().get(1);
+    public List<Teleport> getTeleport() {
+        return levelModel.getTeleports();
     }
 
     public Position getTeleportPosition(Teleport teleport) {
-        if(teleport.getPosition().equals(getTeleport1().getPosition())){
-            return getTeleport2().getPosition();
-        }
+        if(teleport.getPosition().equals(getTeleport().get(0).getPosition()))
+            return getTeleport().get(1).getPosition();
         else
-            return getTeleport1().getPosition();
+            return getTeleport().get(0).getPosition();
     }
 
     // --- Remove Key -- //
@@ -87,12 +84,6 @@ public class LevelFacade {
 
 
     // --- Melt Ice Methods -- //
-    public void meltPreviousIce() {
-        Position pufflePos = levelModel.getPuffle().getPosition();
-
-        meltStrategy.execute(pufflePos);
-    }
-
     public void addWater(Position position) {
         Water water = new Water(position);
         water.setInteraction(new InteractStop(water));
@@ -114,6 +105,12 @@ public class LevelFacade {
     }
 
     // -- Change Melt Ice Strategy -- //
+    public void meltPreviousIce() {
+        Position pufflePos = levelModel.getPuffle().getPosition();
+
+        meltStrategy.execute(pufflePos);
+    }
+
     public void setStrategy(Strategy strategy) {
         this.meltStrategy = strategy;
     }

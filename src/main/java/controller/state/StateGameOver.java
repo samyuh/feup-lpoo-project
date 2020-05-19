@@ -4,7 +4,7 @@ import controller.menu.option.OptionExit;
 import controller.menu.option.OptionNewGame;
 import controller.MainController;
 import controller.menu.MenuController;
-import model.menu.MenuModel;
+import model.menu.MainMenuModel;
 import model.drawable.menu.MenuOption;
 import model.Position;
 import view.menu.MenuView;
@@ -22,13 +22,13 @@ public class StateGameOver extends State {
     @Override
     public void run() throws IOException {
         List<MenuOption> op = new ArrayList<>();
-        op.add(new MenuOption("Game Over", new Position(2, 15), new OptionExit(mainController)));
-        op.add(new MenuOption("Restart", new Position(2, 16), new OptionNewGame(mainController)));
+        op.add(new MenuOption("Restart", new Position(2, 15), new OptionNewGame(mainController)));
+        op.add(new MenuOption("Game Over", new Position(2, 16), new OptionExit(mainController)));
 
-        MenuModel menuModel = new MenuModel(op);
-        MenuView menuView = new MenuView(mainController.getGui(), menuModel);
+        MainMenuModel MainMenuModel = new MainMenuModel(op);
+        MenuView menuView = new MenuView(mainController.getGui(), MainMenuModel);
 
-        MenuController controller = new MenuController(mainController, menuModel, menuView);
+        MenuController controller = new MenuController(mainController, MainMenuModel, menuView);
 
         controller.run();
     }

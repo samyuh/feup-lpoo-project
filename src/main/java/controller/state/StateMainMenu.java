@@ -5,7 +5,7 @@ import controller.menu.option.OptionHelp;
 import controller.menu.option.OptionNewGame;
 import controller.MainController;
 import controller.menu.MenuController;
-import model.menu.MenuModel;
+import model.menu.MainMenuModel;
 import model.drawable.menu.MenuOption;
 import model.Position;
 import view.menu.MenuView;
@@ -26,10 +26,10 @@ public class StateMainMenu extends State {
         op.add(new MenuOption("Instructions", new Position(2, 15), new OptionHelp(mainController)));
         op.add(new MenuOption("Exit", new Position(2, 16), new OptionExit(mainController)));
 
-        MenuModel menuModel = new MenuModel(op);
-        MenuView menuView = new MenuView(mainController.getGui(), menuModel);
+        MainMenuModel MainMenuModel = new MainMenuModel(op);
+        MenuView menuView = new MenuView(mainController.getGui(), MainMenuModel);
 
-        MenuController controller = new MenuController(mainController, menuModel, menuView);
+        MenuController controller = new MenuController(mainController, MainMenuModel, menuView);
 
         controller.run();
     }

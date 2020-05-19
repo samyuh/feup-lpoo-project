@@ -1,7 +1,7 @@
 package controller.level;
 
 import model.drawable.levelheader.LevelCurrent;
-import model.level.header.LevelHeaderModel;
+import model.level.LevelHeaderModel;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
