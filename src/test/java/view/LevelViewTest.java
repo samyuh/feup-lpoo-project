@@ -1,20 +1,22 @@
-package View;
+package view;
 
-import Model.Elements.ElementModel;
-import Model.Elements.Puffle;
-import Model.Elements.Wall;
-import Model.Level.LevelModel;
-import Model.Position;
-import View.Level.LevelView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import model.Position;
+import model.drawable.Drawable;
+import model.drawable.element.ElementModel;
+import model.drawable.element.Puffle;
+import model.drawable.element.Wall;
+import model.level.LevelModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import view.handler.KeyHandler;
+import view.level.LevelView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class LevelViewTest {
-    List<ElementModel> elementMocks;
+    List<Drawable> elementMocks;
 
     @Before
     public void startLevel() {
@@ -66,7 +68,11 @@ public class LevelViewTest {
         TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
 
         LevelView levelView = new LevelView(screenMock);
-        levelView.drawLevel(levelMock, graphicsMock);
+        try {
+            levelView.draw(levelMock);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
 
