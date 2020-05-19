@@ -1,8 +1,8 @@
-package Controller;
+package controller;
 
-import Controller.Element.PuffleMovement;
-import Model.Elements.Puffle;
-import Model.Position;
+import controller.element.PuffleMovement;
+import model.Position;
+import model.drawable.element.Puffle;
 import org.junit.Test;
 import org.mockito.Mockito;
 

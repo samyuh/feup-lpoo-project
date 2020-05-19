@@ -10,7 +10,6 @@ import view.handler.KeyHandler;
 import view.level.LevelView;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LevelController {
     private LevelModel levelModel;
@@ -42,46 +41,46 @@ public class LevelController {
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
-    public boolean run() throws IOException {
-        while (true) {
-            levelView.draw(levelModel);
+    public void startSecret(LevelCurrent levelNumber) {
+        levelCurrent = levelNumber;
+        levelModel.clearLevel(false);
+        levelInitializer.initSecretLevel(levelCurrent.getLevelNumber());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
+    }
 
-            if(!processCommand(levelView.handler())) return false;
+    public void run() throws IOException {
+        do {
+            if (levelCurrent.getLevelNumber() == 19 && secretLevelFound())
+                startSecret(levelCurrent);
 
             if(gameWon()) {
                 if (levelCurrent.getLevelNumber() != 19){
                     levelCurrent.increment();
                     setLevel(levelCurrent,false);
                 }
-                else
-                    return true;
+                else break;
             }
 
-            if(levelCurrent.getLevelNumber() == 19 && secretLevelFound()){
-                levelModel.clearLevel(false);
-                levelInitializer.initLevel(20, false);
-                puffleMovement = new PuffleMovement(levelModel.getPuffle());
+            if (gameLost()) break;
 
-            }
-
-            if (gameLost()) return false;
-        }
+            levelView.draw(levelModel);
+        } while(processCommand(levelView.handler()));
     }
 
 
     public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                moveHero(puffleMovement.moveUp());
+                executeMovement(puffleMovement.moveUp());
                 return true;
             case DOWN:
-                moveHero(puffleMovement.moveDown());
+                executeMovement(puffleMovement.moveDown());
                 return true;
             case LEFT:
-                moveHero(puffleMovement.moveLeft());
+                executeMovement(puffleMovement.moveLeft());
                 return true;
             case RIGHT:
-                moveHero(puffleMovement.moveRight());
+                executeMovement(puffleMovement.moveRight());
                 return true;
             case NEXT:
                 this.levelModel.getPuffle().setPosition(levelModel.getDestination().getPosition());
@@ -95,7 +94,7 @@ public class LevelController {
         return true;
     }
 
-    public void moveHero(Position position) {
+    public void executeMovement(Position position) {
         checkMovement(position).execute(update);
     }
 
@@ -118,13 +117,5 @@ public class LevelController {
         return checkCollisions(puffleMovement.moveUp()) && checkCollisions(puffleMovement.moveDown()) &&
                 checkCollisions(puffleMovement.moveLeft()) && checkCollisions(puffleMovement.moveRight()) &&
                 !gameWon();
-    }
-
-    public PuffleMovement getPuffleMovement() {
-        return puffleMovement;
-    }
-
-    public int getlevelNum() {
-        return levelCurrent.getLevelNumber();
     }
 }

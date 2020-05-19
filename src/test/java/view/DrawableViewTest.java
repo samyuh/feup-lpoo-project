@@ -1,15 +1,14 @@
-package View;
+package view;
 
-import Model.Elements.ElementModel;
-import Model.Position;
-import View.Element.ElementView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import model.Position;
+import model.drawable.element.ElementModel;
 import org.junit.Test;
 import org.mockito.Mockito;
-
+import view.DrawableView;
 
 
 public class DrawableViewTest {
@@ -17,7 +16,7 @@ public class DrawableViewTest {
     public void drawTest() {
         TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
 
-        ElementView elementView = new ElementView();
+        DrawableView elementView = new DrawableView();
 
         Position positionMock = Mockito.mock(Position.class);
         Mockito.when(positionMock.getX()).thenReturn(0);

@@ -183,11 +183,14 @@ public class LevelModel {
 
     }
 
-    public void clearLevel(boolean clearWater){
+    public void clearLevel(boolean clearWater) {
+        if(clearWater) {
+            water = new ArrayList<>();
+            levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()), this.levelHeaderModel.getGlobalScore().getPoints());
+        }
         puffle = null;
         destination = null;
         walls = new ArrayList<>();
-        if(clearWater) water = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
         key = null;
@@ -197,7 +200,7 @@ public class LevelModel {
         boxFinalSquare = null;
         teleportUsed = false;
         secretFound = false;
-        levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()),this.levelHeaderModel.getGlobalScore().getPoints());
+
     }
 
     public void addWall(Position position) {

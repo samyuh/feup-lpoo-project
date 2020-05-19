@@ -13,6 +13,5 @@ public class InteractSecretDestination extends Interact {
     public void execute(LevelUpdateModel model) {
         model.move(position);
         model.addScore(1,1);
-        model.startSecretLevel();
     }
 }

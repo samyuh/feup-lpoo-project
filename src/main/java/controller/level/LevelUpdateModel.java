@@ -16,7 +16,6 @@ public class LevelUpdateModel {
     }
 
     // MOVE
-
     public void move(Position position) {   
         levelModel.getPuffle().setPosition(position);
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
@@ -24,10 +23,6 @@ public class LevelUpdateModel {
     }
 
     public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
-
-    public void startSecretLevel() {
-
-    }
 
 
     // BOX
@@ -89,27 +84,14 @@ public class LevelUpdateModel {
         levelModel.setKey(null);
         levelModel.setLock(null);
     }
-    // INVISIBLE WALL
-    public void removeInvisibleWall(InvisibleWall invisibleWall){
-        /*
-        Wall wall = new Wall(invisibleWall.getPosition());
-        levelModel.getWalls().add(wall);
-        levelModel.getInvisibleWalls().remove(invisibleWall);
 
-         */
-
-        invisibleWall.setInteraction(new InteractStop(invisibleWall));
-    }
-
+    // Secret
     public boolean isSecretFound(){
         return levelModel.isSecretFound();
     }
+
     public void setSecretFound(boolean secretFound){
         levelModel.setSecretFound(secretFound);
-    }
-
-    public void secretLevel() {
-
     }
 
     // COIN
@@ -119,8 +101,7 @@ public class LevelUpdateModel {
 
 
     // MELT
-    public void meltIce(){
-
+    public void meltIce() {
         // If there is a BoxFinalSquare below, no water or ice Should be added
         if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
 
