@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractKey;
+import controller.level.interact.items.InteractKey;
 import model.Position;
 
 public class Key extends ElementModel {

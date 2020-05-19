@@ -1,7 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractInvisibleWall;
-import controller.interact.InteractStop;
+import controller.level.interact.level.InteractInvisibleWall;
 import model.Position;
 
 public class InvisibleWall extends ElementModel {

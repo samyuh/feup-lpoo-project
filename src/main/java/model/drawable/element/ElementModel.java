@@ -1,5 +1,5 @@
 package model.drawable.element;
-import controller.interact.Interact;
+import controller.level.interact.Interact;
 import model.drawable.Drawable;
 import model.Position;
 

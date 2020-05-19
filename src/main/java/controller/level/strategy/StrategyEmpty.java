@@ -3,18 +3,15 @@ package controller.level.strategy;
 import controller.level.LevelFacade;
 import model.Position;
 
-import java.util.logging.Level;
-
-public class StrategyRegular implements Strategy {
+public class StrategyEmpty implements Strategy {
     LevelFacade facade;
 
-    public StrategyRegular(LevelFacade facade) {
+    public StrategyEmpty(LevelFacade facade) {
         this.facade = facade;
     }
-    
+
     @Override
     public void execute(Position pufflePos) {
-        facade.removeIce(pufflePos);
-        facade.addWater(pufflePos);
+        // When Puffle goes trough special blocks, like invisible walls
     }
 }

@@ -1,7 +1,7 @@
 package controller.level.strategy;
 
-import controller.level.LevelController;
+import model.Position;
 
-public abstract class Strategy {
-    public abstract void execute();
+public interface Strategy {
+    void execute(Position pufflePos);
 }

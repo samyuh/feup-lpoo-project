@@ -1,6 +1,6 @@
 package controller;
 
-import controller.element.PuffleMovement;
+import controller.level.movement.PuffleMovement;
 import model.Position;
 import model.drawable.element.Puffle;
 import org.junit.Test;

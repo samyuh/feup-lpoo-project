@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractCoin;
+import controller.level.interact.items.InteractCoin;
 import model.Position;
 
 public class Coin extends ElementModel {

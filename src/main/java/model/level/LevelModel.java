@@ -1,6 +1,6 @@
 package model.level;
 
-import controller.element.BoxMovement;
+import controller.level.movement.BoxMovement;
 import model.drawable.levelheader.LevelCurrent;
 import model.drawable.Drawable;
 import model.drawable.element.*;
@@ -8,7 +8,6 @@ import model.Position;
 import model.level.header.LevelHeaderModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class LevelModel {
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
     private SecretDestination secretDestination;
-    private boolean secretFound;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
@@ -39,7 +37,6 @@ public class LevelModel {
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
         this.teleports = new ArrayList<>();
-        this.secretFound = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
     }
 
@@ -79,8 +76,6 @@ public class LevelModel {
 
     public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
 
-    public void setSecretFound(boolean secretFound) { this.secretFound = secretFound; }
-
     public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
 
     public void setBox(Box box) {
@@ -90,6 +85,12 @@ public class LevelModel {
     public void setLevelHeaderModel(LevelHeaderModel levelHeaderModel) { this.levelHeaderModel = levelHeaderModel; }
 
     public void setTeleports(List<Teleport> teleports) { this.teleports = teleports; }
+
+    public void addWall(Position position) {
+        Wall wall = new Wall(position);
+        this.walls.add(wall);
+    }
+
     // -- Get Functions
 
     public Puffle getPuffle() {
@@ -123,8 +124,6 @@ public class LevelModel {
     public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
 
     public SecretDestination getSecretDestination() { return secretDestination; }
-
-    public boolean isSecretFound() { return secretFound; }
 
     public List<Teleport> getTeleports() { return teleports; }
 
@@ -187,11 +186,5 @@ public class LevelModel {
         key = null;
         lock = null;
         boxFinalSquare = null;
-        secretFound = false;
-    }
-
-    public void addWall(Position position) {
-        Wall wall = new Wall(position);
-        this.walls.add(wall);
     }
 }
