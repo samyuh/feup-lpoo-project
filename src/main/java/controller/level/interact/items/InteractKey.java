@@ -14,10 +14,12 @@ public class InteractKey extends Interact<Key> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
-        facade.removeKeyLock();
         facade.meltPreviousIce();
+
         facade.move(position);
         facade.addScore(1,1);
+
+        facade.removeKeyLock();
 
         facade.setStrategy(new StrategyRegular(facade));
     }

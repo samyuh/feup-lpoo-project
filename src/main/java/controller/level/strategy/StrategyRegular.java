@@ -11,6 +11,7 @@ public class StrategyRegular implements Strategy {
     public StrategyRegular(LevelFacade facade) {
         this.facade = facade;
     }
+    
     @Override
     public void execute(Position pufflePos) {
         facade.removeIce(pufflePos);

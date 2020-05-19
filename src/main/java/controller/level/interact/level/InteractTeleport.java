@@ -4,6 +4,7 @@ import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
 import controller.level.strategy.StrategyRegular;
+import model.Position;
 import model.drawable.element.Teleport;
 
 public class InteractTeleport extends Interact<Teleport> {
@@ -13,18 +14,19 @@ public class InteractTeleport extends Interact<Teleport> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
-        if(facade.isTeleportUsed()) {
-            element.setInteraction(new InteractStop(element));
-        }
         facade.meltPreviousIce();
+
         facade.move(position);
-        facade.meltPreviousIce();
-        position = facade.getTeleportPosition(element);
-        facade.move(position);
-        facade.setTeleportUsed(true);
+        facade.addScore(1, 1);
+
+        Position p2 = facade.getTeleportPosition(element);
+        facade.move(p2);
+
+        facade.getTeleport1().setInteraction(new InteractStop(facade.getTeleport1()));
+        facade.getTeleport2().setInteraction(new InteractStop(facade.getTeleport2()));
+
         facade.getTeleport1().setColorForeground("#0000ff");
         facade.getTeleport2().setColorForeground("#0000ff");
-        facade.addScore(1,1);
 
         facade.setStrategy(new StrategyRegular(facade));
     }

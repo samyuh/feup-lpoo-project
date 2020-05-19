@@ -7,6 +7,7 @@ import controller.level.strategy.StrategyEmpty;
 import model.drawable.element.BoxFinalSquare;
 
 public class InteractBoxFinalSquare extends Interact<BoxFinalSquare> {
+
     public InteractBoxFinalSquare(BoxFinalSquare element) {
         super(element);
     }
@@ -14,6 +15,7 @@ public class InteractBoxFinalSquare extends Interact<BoxFinalSquare> {
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
+
         facade.move(position);
 
         facade.setStrategy(new StrategyEmpty(facade));

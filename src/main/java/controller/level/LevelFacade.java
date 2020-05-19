@@ -4,6 +4,7 @@ import controller.level.interact.Interact;
 import controller.level.interact.box.InteractBox;
 import controller.level.interact.ice.InteractIce;
 import controller.level.interact.level.InteractStop;
+import controller.level.movement.BoxMovement;
 import controller.level.strategy.Strategy;
 import controller.level.strategy.StrategyRegular;
 import model.drawable.element.*;
@@ -12,16 +13,15 @@ import model.Position;
 
 public class LevelFacade {
     LevelModel levelModel;
-    Strategy move;
-    private boolean secretFound;
+    Strategy meltStrategy;
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
-        this.secretFound = false;
-        this.move = new StrategyRegular(this);
+        this.meltStrategy = new StrategyRegular(this);
     }
 
-    // MOVE
+    // -- Refactor Box please bellow -- //
+    // --- Move --- //
     public void move(Position position) {   
         levelModel.getPuffle().setPosition(position);
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
@@ -29,24 +29,22 @@ public class LevelFacade {
     }
 
     // --- Box Methods -- //
-    public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
-    public DIRECTION findBoxDirection(){
+    public BoxMovement.ORIENTATION findBoxDirection() {
         return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
     }
 
-    private Interact checkMovement(Position position){
+    private Interact checkMovement(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
-
     }
 
-    private boolean checkCollisions(Position position){
+    private boolean checkCollisions(Position position) {
         return checkMovement(position).getClass() == InteractStop.class;
     }
 
     public boolean moveBox() {
         boolean canMove = false;
-        DIRECTION boxDirection = this.findBoxDirection();
+        BoxMovement.ORIENTATION boxDirection = this.findBoxDirection();
         while(true) {
             if(checkCollisions(levelModel.getBoxMovement().moveDirection(boxDirection))) return canMove;
             levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
@@ -54,19 +52,7 @@ public class LevelFacade {
         }
     }
 
-    public boolean isOnBoxFinalSquare(Position position){
-        return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
-    }
-
     // --- Teleport Methods -- //
-    public boolean isTeleportUsed() {
-        return levelModel.getTeleportUsed();
-    }
-
-    public void setTeleportUsed(boolean b) {
-        levelModel.setTeleportUsed(b);
-    }
-
     public ElementModel getTeleport1() {
         return levelModel.getTeleport1();
     }
@@ -90,15 +76,6 @@ public class LevelFacade {
         levelModel.setLock(null);
     }
 
-    // --- Secret Level -- //
-    public boolean isSecretFound(){
-        return secretFound;
-    }
-
-    public void setSecretFound(){
-        secretFound = true;
-    }
-
     // --- Coin and Score -- //
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
@@ -113,7 +90,7 @@ public class LevelFacade {
     public void meltPreviousIce() {
         Position pufflePos = levelModel.getPuffle().getPosition();
 
-        move.execute(pufflePos);
+        meltStrategy.execute(pufflePos);
     }
 
     public void addWater(Position position) {
@@ -136,8 +113,8 @@ public class LevelFacade {
         return levelModel.getToughIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
     }
 
-    // -- Test
-    public void setStrategy(Strategy st) {
-        this.move = st;
+    // -- Change Melt Ice Strategy -- //
+    public void setStrategy(Strategy strategy) {
+        this.meltStrategy = strategy;
     }
 }

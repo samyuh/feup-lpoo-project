@@ -13,14 +13,12 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
-        if(!facade.isSecretFound()){
-            facade.setSecretFound();
-        }
-
         facade.meltPreviousIce();
-        element.setInteraction(new InteractStop(element));
+
         facade.move(position);
         facade.addScore(1,1);
+
+        element.setInteraction(new InteractStop(element));
 
         facade.setStrategy(new StrategyEmpty(facade));
     }

@@ -12,6 +12,6 @@ public class StrategyEmpty implements Strategy {
 
     @Override
     public void execute(Position pufflePos) {
-
+        // When Puffle goes trough special blocks, like invisible walls
     }
 }

@@ -15,8 +15,11 @@ public class InteractSecretDestination extends Interact<SecretDestination> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
+        facade.meltPreviousIce();
+
         facade.move(position);
         facade.addScore(1,1);
+
         controller.secretLevel();
 
         facade.setStrategy(new StrategyRegular(facade));

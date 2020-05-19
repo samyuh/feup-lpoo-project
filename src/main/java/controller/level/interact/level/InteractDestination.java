@@ -14,8 +14,10 @@ public class InteractDestination extends Interact<Destination> {
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
+
         facade.move(position);
         facade.addScore(1,1);
+
         controller.gameWon();
 
         facade.setStrategy(new StrategyRegular(facade));
