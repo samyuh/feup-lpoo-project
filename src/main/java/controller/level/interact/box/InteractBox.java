@@ -5,6 +5,7 @@ import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
 import controller.level.interact.level.InteractStop;
+import controller.level.strategy.StrategyRegular;
 import model.drawable.element.Box;
 
 public class InteractBox extends Interact<Box> {
@@ -15,7 +16,7 @@ public class InteractBox extends Interact<Box> {
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
         if(facade.moveBox()) {
-            facade.meltIce();
+            facade.meltPreviousIce();
             facade.move(position);
             facade.addScore(1,1);
             element.setInteraction(new InteractBox(element));
@@ -23,5 +24,7 @@ public class InteractBox extends Interact<Box> {
         else {
             element.setInteraction(new InteractStop(element));
         }
+
+        facade.setStrategy(new StrategyRegular(facade));
     }
 }

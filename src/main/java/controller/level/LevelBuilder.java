@@ -13,19 +13,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelInitializer {
+public class LevelBuilder {
     private List<String> mapElements;
     private LevelModel model;
     private int levelNumber;
     private int globalScore;
 
-    public LevelInitializer(LevelModel model, int globalScore) {
+    public LevelBuilder(LevelModel model, int globalScore) {
         this.model = model;
         this.globalScore = globalScore;
     }
 
     private List<String> readLines(String fileName) throws IOException {
-        URL resource = LevelInitializer.class.getResource(fileName);
+        URL resource = LevelBuilder.class.getResource(fileName);
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )

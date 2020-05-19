@@ -3,8 +3,8 @@ package controller.level.interact.items;
 import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
+import controller.level.strategy.StrategyRegular;
 import model.drawable.element.Coin;
-import model.drawable.element.ElementModel;
 
 public class InteractCoin extends Interact<Coin> {
     public InteractCoin(Coin element) {
@@ -14,8 +14,10 @@ public class InteractCoin extends Interact<Coin> {
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
         facade.removeCoin(element);
-        facade.meltIce();
+        facade.meltPreviousIce();
         facade.move(position);
         facade.addScore(1,10);
+
+        facade.setStrategy(new StrategyRegular(facade));
     }
 }

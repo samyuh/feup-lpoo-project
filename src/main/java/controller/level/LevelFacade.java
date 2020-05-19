@@ -4,18 +4,21 @@ import controller.level.interact.Interact;
 import controller.level.interact.box.InteractBox;
 import controller.level.interact.ice.InteractIce;
 import controller.level.interact.level.InteractStop;
-import controller.level.movement.PuffleMovement;
+import controller.level.strategy.Strategy;
+import controller.level.strategy.StrategyRegular;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
 public class LevelFacade {
     LevelModel levelModel;
+    Strategy move;
     private boolean secretFound;
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
         this.secretFound = false;
+        this.move = new StrategyRegular(this);
     }
 
     // MOVE
@@ -107,18 +110,10 @@ public class LevelFacade {
 
 
     // --- Melt Ice Methods -- //
-    public void meltIce() {
+    public void meltPreviousIce() {
         Position pufflePos = levelModel.getPuffle().getPosition();
 
-        if(isOnBoxFinalSquare(pufflePos)) return;
-
-        if (removeToughIce(pufflePos)) {
-            addIce(pufflePos);
-        }
-        else {
-            removeIce(pufflePos);
-            addWater(pufflePos);
-        }
+        move.execute(pufflePos);
     }
 
     public void addWater(Position position) {
@@ -139,5 +134,10 @@ public class LevelFacade {
 
     public boolean removeToughIce(Position position){
         return levelModel.getToughIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
+    }
+
+    // -- Test
+    public void setStrategy(Strategy st) {
+        this.move = st;
     }
 }

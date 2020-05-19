@@ -3,6 +3,7 @@ package controller.level.interact.level;
 import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
+import controller.level.strategy.StrategyRegular;
 import model.drawable.element.Destination;
 import model.drawable.element.ElementModel;
 import model.drawable.element.SecretDestination;
@@ -17,5 +18,7 @@ public class InteractSecretDestination extends Interact<SecretDestination> {
         facade.move(position);
         facade.addScore(1,1);
         controller.secretLevel();
+
+        facade.setStrategy(new StrategyRegular(facade));
     }
 }

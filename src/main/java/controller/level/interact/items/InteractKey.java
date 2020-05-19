@@ -3,6 +3,7 @@ package controller.level.interact.items;
 import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
+import controller.level.strategy.StrategyRegular;
 import model.drawable.element.Key;
 
 public class InteractKey extends Interact<Key> {
@@ -14,8 +15,10 @@ public class InteractKey extends Interact<Key> {
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
         facade.removeKeyLock();
-        facade.meltIce();
+        facade.meltPreviousIce();
         facade.move(position);
         facade.addScore(1,1);
+
+        facade.setStrategy(new StrategyRegular(facade));
     }
 }

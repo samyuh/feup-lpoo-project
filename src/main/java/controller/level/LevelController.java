@@ -1,6 +1,5 @@
 package controller.level;
 
-import controller.level.interact.box.InteractBox;
 import controller.level.movement.PuffleMovement;
 import controller.level.interact.*;
 import controller.level.interact.level.InteractStop;
@@ -17,7 +16,7 @@ public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
     private LevelFacade levelFacade;
-    private LevelInitializer levelInitializer;
+    private LevelBuilder levelBuilder;
     private PuffleMovement puffleMovement;
     private LevelCurrent levelCurrent;
     private int globalPoints;
@@ -26,8 +25,8 @@ public class LevelController {
         this.levelCurrent = new LevelCurrent(1);
         this.levelModel = levelModel;
         this.levelView = levelView;
-        this.levelInitializer = new LevelInitializer(levelModel,globalPoints);
-        levelInitializer.initLevel(levelCurrent.getLevelNumber(),false);
+        this.levelBuilder = new LevelBuilder(levelModel,globalPoints);
+        levelBuilder.initLevel(levelCurrent.getLevelNumber(),false);
 
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
 
@@ -39,14 +38,14 @@ public class LevelController {
     public void setLevel(LevelCurrent levelNumber, boolean restart) {
         levelCurrent = levelNumber;
         levelModel.clearLevel(true);
-        levelInitializer.initLevel(levelCurrent.getLevelNumber(), restart);
+        levelBuilder.initLevel(levelCurrent.getLevelNumber(), restart);
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
     public void setLevelSecret(LevelCurrent levelNumber) {
         levelCurrent = levelNumber;
         levelModel.clearLevel(false);
-        levelInitializer.initSecretLevel(levelCurrent.getLevelNumber());
+        levelBuilder.initSecretLevel(levelCurrent.getLevelNumber());
         puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
