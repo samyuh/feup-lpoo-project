@@ -1,5 +1,5 @@
 WWWWWWWWWWWWWWWWWWW
-W........WBBWBB...W
+WK......WBBWBB...W
 W.W.......BBBB.W..W
 W...W.....BBBB.WLWW
 W.........BBBB.W.DW
@@ -7,7 +7,7 @@ W.....BBBCB....WWWW
 W.....B.BBB.......W
 W.....B...........W
 WWBBBY......B.....W
-WKBBBB............W
+WFBBBB............W
 W..W..........WW..W
 W.............WWWWW
 W.W.WSW.W.........W
