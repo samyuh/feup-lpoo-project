@@ -4,6 +4,7 @@ import controller.level.interact.Interact;
 import controller.level.interact.box.InteractBox;
 import controller.level.interact.ice.InteractIce;
 import controller.level.interact.level.InteractStop;
+import controller.level.movement.PuffleMovement;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
@@ -24,11 +25,7 @@ public class LevelFacade {
         if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
-    public void addScore(int levelPoints, int globalPoints){ levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);}
-
-
-    // BOX
-
+    // --- Box Methods -- //
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
     public DIRECTION findBoxDirection(){
         return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
@@ -54,13 +51,11 @@ public class LevelFacade {
         }
     }
 
-    // BOX FINAL SQUARE
     public boolean isOnBoxFinalSquare(Position position){
         return (levelModel.getBoxFinalSquare() != null && levelModel.getBoxFinalSquare().getPosition().equals(position));
     }
 
-    // TELEPORT
-
+    // --- Teleport Methods -- //
     public boolean isTeleportUsed() {
         return levelModel.getTeleportUsed();
     }
@@ -85,14 +80,14 @@ public class LevelFacade {
             return levelModel.getTeleport1().getPosition();
     }
 
-    // KEY LOCK
+    // --- Remove Key -- //
     public void removeKeyLock() {
         addIce(levelModel.getLock().getPosition());
         levelModel.setKey(null);
         levelModel.setLock(null);
     }
 
-    // Secret
+    // --- Secret Level -- //
     public boolean isSecretFound(){
         return secretFound;
     }
@@ -101,25 +96,28 @@ public class LevelFacade {
         secretFound = true;
     }
 
-    // COIN
+    // --- Coin and Score -- //
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
     }
 
+    public void addScore(int levelPoints, int globalPoints) {
+        levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);
+    }
 
-    // MELT
+
+    // --- Melt Ice Methods -- //
     public void meltIce() {
-        if(isOnBoxFinalSquare(levelModel.getPuffle().getPosition())) return;
+        Position pufflePos = levelModel.getPuffle().getPosition();
 
-        // If there is no toughIce below the hero
-        if(!removeToughIce(levelModel.getPuffle().getPosition())) {
-            Water water = new Water(levelModel.getPuffle().getPosition());
-            water.setInteraction(new InteractStop(water));
-            levelModel.getWater().add(water);
+        if(isOnBoxFinalSquare(pufflePos)) return;
+
+        if (removeToughIce(pufflePos)) {
+            addIce(pufflePos);
         }
-        //If there is toughIce below the hero
-        else{
-            addIce(levelModel.getPuffle().getPosition());
+        else {
+            removeIce(pufflePos);
+            addWater(pufflePos);
         }
     }
 
@@ -135,21 +133,11 @@ public class LevelFacade {
         levelModel.getIce().add(ice);
     }
 
-    public void removeIce(Ice ice) {
-        levelModel.getIce().remove(ice);
-    }
-
-    public void removeToughIce(ToughIce ice) {
-        levelModel.getToughIce().remove(ice);
+    public void removeIce(Position position) {
+        levelModel.getIce().removeIf(ice -> ice.getPosition().equals(position));
     }
 
     public boolean removeToughIce(Position position){
-        for(ToughIce frozenIce : levelModel.getToughIce()){
-            if(frozenIce.getPosition().equals(position)){
-                levelModel.getToughIce().remove(frozenIce);
-                return true;
-            }
-        }
-        return false;
+        return levelModel.getToughIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
     }
 }

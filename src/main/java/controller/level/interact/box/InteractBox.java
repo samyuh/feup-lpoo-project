@@ -4,6 +4,7 @@ package controller.level.interact.box;
 import controller.level.interact.Interact;
 import controller.level.LevelController;
 import controller.level.LevelFacade;
+import controller.level.interact.level.InteractStop;
 import model.drawable.element.Box;
 
 public class InteractBox extends Interact<Box> {
@@ -18,6 +19,9 @@ public class InteractBox extends Interact<Box> {
             facade.move(position);
             facade.addScore(1,1);
             element.setInteraction(new InteractBox(element));
+        }
+        else {
+            element.setInteraction(new InteractStop(element));
         }
     }
 }

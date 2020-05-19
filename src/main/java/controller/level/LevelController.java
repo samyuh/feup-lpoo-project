@@ -1,5 +1,6 @@
 package controller.level;
 
+import controller.level.interact.box.InteractBox;
 import controller.level.movement.PuffleMovement;
 import controller.level.interact.*;
 import controller.level.interact.level.InteractStop;
@@ -93,7 +94,7 @@ public class LevelController {
     }
 
     private boolean checkCollisions(Position position) {
-        return checkMovement(position).getClass() == InteractStop.class;
+        return (checkMovement(position).getClass() == InteractStop.class);
     }
 
     public boolean gameLost() {
@@ -111,4 +112,6 @@ public class LevelController {
     public void secretLevel() {
         setLevelSecret(levelCurrent);
     }
+
+
 }

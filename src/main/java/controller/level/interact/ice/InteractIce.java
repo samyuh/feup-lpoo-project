@@ -14,7 +14,6 @@ public class InteractIce extends Interact<Ice> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
-        facade.removeIce(element);
         facade.meltIce();
         facade.move(position);
         facade.addScore(1,1);
