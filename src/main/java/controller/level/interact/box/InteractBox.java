@@ -22,8 +22,6 @@ public class InteractBox extends Interact<Box> {
             facade.move(position);
             facade.addScore(1,1);
 
-            element.setInteraction(new InteractBox(element));
-
             facade.setStrategy(new StrategyRegular(facade));
         }
         else {
