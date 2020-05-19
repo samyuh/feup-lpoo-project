@@ -8,6 +8,8 @@ import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
 
+import java.util.List;
+
 public class LevelUpdateModel {
     LevelModel levelModel;
 
@@ -60,6 +62,10 @@ public class LevelUpdateModel {
 
     public void setTeleportUsed(boolean b) {
         levelModel.setTeleportUsed(b);
+        List<Teleport> teleports = getTeleports();
+        for(Teleport teleport :teleports){
+            teleport.setColorForeground("#0000ff");
+        }
     }
 
     public ElementModel getTeleport1() {
@@ -70,12 +76,15 @@ public class LevelUpdateModel {
         return levelModel.getTeleport2();
     }
 
+    public List<Teleport> getTeleports() { return levelModel.getTeleports();}
+
+
     public Position getTeleportPosition(Teleport teleport) {
-        if(teleport.getPosition().equals(levelModel.getTeleport1().getPosition())){
-            return levelModel.getTeleport2().getPosition();
+        if(teleport.getPosition().equals(levelModel.getTeleports().get(0).getPosition())){
+            return levelModel.getTeleports().get(1).getPosition();
         }
         else
-            return levelModel.getTeleport1().getPosition();
+            return levelModel.getTeleports().get(0).getPosition();
     }
 
     // KEY LOCK

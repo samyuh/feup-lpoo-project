@@ -21,6 +21,7 @@ public class LevelModel {
     private List<Coin> coins;
     private List<ToughIce> toughIce;
     private List<InvisibleWall> invisibleWalls;
+    private List<Teleport> teleports;
     private Key key;
     private Lock lock;
     private Teleport teleport1;
@@ -40,6 +41,7 @@ public class LevelModel {
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
+        this.teleports = new ArrayList<>();
         this.teleportUsed = false;
         this.secretFound = false;
         this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
@@ -96,6 +98,8 @@ public class LevelModel {
         this.box = box; }
 
     public void setLevelHeaderModel(LevelHeaderModel levelHeaderModel) { this.levelHeaderModel = levelHeaderModel; }
+
+    public void setTeleports(List<Teleport> teleports) { this.teleports = teleports; }
     // -- Get Functions
 
     public Puffle getPuffle() {
@@ -138,6 +142,8 @@ public class LevelModel {
 
     public boolean isSecretFound() { return secretFound; }
 
+    public List<Teleport> getTeleports() { return teleports; }
+
     // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
     public List<Drawable> getAll(){
         List<Drawable> drawables = getElements();
@@ -156,10 +162,9 @@ public class LevelModel {
         if(box != null) elements.add(box);
         if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
-        if(teleport1 != null) elements.add(teleport1);
-        if(teleport2 != null) elements.add(teleport2);
         if(boxFinalSquare != null) elements.add(boxFinalSquare);
         if(secretDestination != null) elements.add(secretDestination);
+        elements.addAll(teleports);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
         elements.add(destination);
@@ -194,6 +199,7 @@ public class LevelModel {
         walls = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
+        teleports = new ArrayList<>();
         key = null;
         lock = null;
         teleport1 = null;
@@ -201,7 +207,6 @@ public class LevelModel {
         boxFinalSquare = null;
         teleportUsed = false;
         secretFound = false;
-
     }
 
     public void addWall(Position position) {
