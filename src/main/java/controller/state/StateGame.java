@@ -19,10 +19,8 @@ public class StateGame extends State {
 
         LevelController controller = new LevelController(levelModel, levelView);
 
-        if(controller.run())
-            mainController.setState(new StateMainMenu(mainController)); // You finished the game!
-        else
-            mainController.setState(new StateGameOver(mainController));
+        controller.run();
 
+        mainController.setState(new StateGameOver(mainController));
     }
 }

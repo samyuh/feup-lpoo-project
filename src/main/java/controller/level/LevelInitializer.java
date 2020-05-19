@@ -24,8 +24,8 @@ public class LevelInitializer {
         this.globalScore = globalScore;
     }
 
-    private List<String> readLines() throws IOException {
-        URL resource = LevelInitializer.class.getResource("/levelDesign/level" + this.levelNumber + ".txt");
+    private List<String> readLines(String fileName) throws IOException {
+        URL resource = LevelInitializer.class.getResource(fileName);
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
         for (String line; (line = br.readLine()) != null; )
@@ -57,6 +57,7 @@ public class LevelInitializer {
                 if(c == 'P') model.setTeleport2(new Teleport( new Position(xi + 2,yi+2)));
                 if(c == 'Y') model.setBox(new Box( new Position(xi + 2,yi+2)));
                 if(c == 'F') model.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
+                if(c == 'Q') model.setSecretDestination(new SecretDestination( new Position(xi + 2,yi+2)));
             }
         }
         model.setWalls(walls);
@@ -70,8 +71,18 @@ public class LevelInitializer {
         try {
             if(!restart) this.globalScore = this.model.getLevelHeaderModel().getGlobalScore().getPoints();
             this.levelNumber = levelNumber;
-            this.mapElements = readLines();
+            this.mapElements = readLines("/levelDesign/level" + this.levelNumber + ".txt");
             this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber),globalScore));
+            loadElements();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initSecretLevel(int levelNumber) {
+        try {
+            this.levelNumber = levelNumber;
+            this.mapElements = readLines("/levelDesign/level" + this.levelNumber + "secret.txt");
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();
