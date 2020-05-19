@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractBoxFinalSquare;
+import controller.level.interact.box.InteractBoxFinalSquare;
 import model.Position;
 
 public class BoxFinalSquare extends ElementModel {

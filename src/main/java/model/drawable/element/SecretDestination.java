@@ -1,8 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractDestination;
-import controller.interact.InteractSecretDestination;
-import controller.interact.InteractStop;
+import controller.level.interact.level.InteractSecretDestination;
 import model.Position;
 
 public class SecretDestination extends ElementModel {

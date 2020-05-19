@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractStop;
+import controller.level.interact.level.InteractStop;
 import model.Position;
 
 public class Lock extends ElementModel {

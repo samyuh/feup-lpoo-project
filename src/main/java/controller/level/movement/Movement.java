@@ -1,9 +1,9 @@
-package controller.element;
+package controller.level.movement;
 
 import model.Position;
 import model.drawable.element.ElementModel;
 
-public class Movement {
+public abstract class Movement {
     protected ElementModel element;
 
     public Movement(ElementModel element) {

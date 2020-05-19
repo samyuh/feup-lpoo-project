@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractTeleport;
+import controller.level.interact.level.InteractTeleport;
 import model.Position;
 
 public class Teleport extends ElementModel{

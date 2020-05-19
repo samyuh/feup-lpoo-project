@@ -1,8 +1,8 @@
 package controller;
 
-import controller.element.PuffleMovement;
+import controller.level.movement.PuffleMovement;
 import controller.level.LevelController;
-import controller.level.LevelInitializer;
+import controller.level.LevelBuilder;
 import model.Position;
 import model.level.LevelModel;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class LevelTest {
     @Test
     public void initLevelTest() {
         LevelModel levelModel = new LevelModel();
-        LevelInitializer levelInit = new LevelInitializer(levelModel);
+        LevelBuilder levelInit = new LevelBuilder(levelModel);
 
         levelInit.initLevel(1);
 

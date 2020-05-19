@@ -1,6 +1,6 @@
 package model.drawable.element;
 
-import controller.interact.InteractDestination;
+import controller.level.interact.level.InteractDestination;
 import model.Position;
 
 public class Destination extends ElementModel {
