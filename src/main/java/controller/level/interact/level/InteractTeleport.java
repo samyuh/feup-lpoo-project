@@ -7,6 +7,8 @@ import controller.level.strategy.StrategyRegular;
 import model.Position;
 import model.drawable.element.Teleport;
 
+import java.util.List;
+
 public class InteractTeleport extends Interact<Teleport> {
     public InteractTeleport(Teleport element) {
         super(element);
@@ -17,16 +19,17 @@ public class InteractTeleport extends Interact<Teleport> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1, 1);
+        controller.addScore(1, 1);
 
         Position p2 = facade.getTeleportPosition(element);
         facade.move(p2);
 
-        facade.getTeleport1().setInteraction(new InteractStop(facade.getTeleport1()));
-        facade.getTeleport2().setInteraction(new InteractStop(facade.getTeleport2()));
+        List<Teleport> tp = facade.getTeleport();
 
-        facade.getTeleport1().setColorForeground("#0000ff");
-        facade.getTeleport2().setColorForeground("#0000ff");
+        for(Teleport teleport : tp) {
+            teleport.setInteraction(new InteractStop(tp.get(0)));
+            teleport.setColorForeground("#0000ff");
+        }
 
         facade.setStrategy(new StrategyRegular(facade));
     }

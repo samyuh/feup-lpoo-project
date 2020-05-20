@@ -20,7 +20,8 @@ public class InteractBox extends Interact<Box> {
             facade.meltPreviousIce();
 
             facade.move(position);
-            facade.addScore(1,1);
+
+            controller.addScore(1,1);
 
             facade.setStrategy(new StrategyRegular(facade));
         }

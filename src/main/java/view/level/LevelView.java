@@ -1,6 +1,7 @@
 package view.level;
 
 import model.drawable.Drawable;
+import model.level.LevelHeaderModel;
 import model.level.LevelModel;
 import view.drawable.DrawableView;
 import view.GeneralView;
@@ -14,10 +15,12 @@ import java.util.List;
 
 public class LevelView extends GeneralView {
     LevelModel levelModel;
+    LevelHeaderModel headerModel;
 
-    public LevelView(ScreenView gui, LevelModel levelModel) {
+    public LevelView(ScreenView gui, LevelModel levelModel, LevelHeaderModel headerModel) {
         super(gui.getScreen());
         this.levelModel = levelModel;
+        this.headerModel = headerModel;
     }
 
     public void draw() throws IOException {
@@ -27,9 +30,8 @@ public class LevelView extends GeneralView {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
-        List<Drawable> drawables;
-
-        drawables = levelModel.getAll();
+        List<Drawable> drawables = levelModel.getAll();
+        drawables.addAll(headerModel.getAll());
 
         for(Drawable element : drawables)
             view.draw(element, graphics);

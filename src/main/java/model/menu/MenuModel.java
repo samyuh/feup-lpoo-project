@@ -1,28 +1,25 @@
 package model.menu;
 
 import controller.menu.option.Option;
+import model.drawable.Drawable;
 import model.drawable.menu.MenuOption;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MenuModel {
-    private int optionNum;
-    private List<MenuOption> option;
+public abstract class MenuModel {
+    protected int optionNum;
+    protected List<MenuOption> option;
+    protected List<Drawable> textBoxes;
 
-    public MenuModel(List<MenuOption> option) {
+    MenuModel(List<MenuOption> option) {
         optionNum = 0;
         this.option = option;
 
+        this.textBoxes = new ArrayList<>();
+
         resetColor();
         updateColor();
-    }
-
-    public List<MenuOption> getOption() {
-        return option;
-    }
-
-    public Option getAction() {
-        return option.get(optionNum).getCommandOption();
     }
 
     public void previousAction() {
@@ -48,4 +45,18 @@ public class MenuModel {
     private void updateColor() {
         option.get(optionNum).highlightedColor();
     }
+
+    public List<MenuOption> getOption() {
+        return option;
+    }
+
+    public Option getAction() {
+        return option.get(optionNum).getCommandOption();
+    }
+
+    public List<Drawable> getTextBoxes() {
+        return textBoxes;
+    }
+
+    protected abstract void initTextBoxes();
 }

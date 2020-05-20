@@ -16,7 +16,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1,1);
+        controller.addScore(1,1);
 
         element.setInteraction(new InteractStop(element));
 

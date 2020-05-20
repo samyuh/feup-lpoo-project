@@ -1,7 +1,5 @@
 package controller.level;
 
-import model.drawable.levelheader.LevelCurrent;
-import model.level.header.LevelHeaderModel;
 import model.drawable.element.*;
 import model.level.LevelModel;
 import model.Position;
@@ -15,13 +13,11 @@ import java.util.List;
 
 public class LevelBuilder {
     private List<String> mapElements;
-    private LevelModel model;
+    private LevelModel levelModel;
     private int levelNumber;
-    private int globalScore;
 
-    public LevelBuilder(LevelModel model, int globalScore) {
-        this.model = model;
-        this.globalScore = globalScore;
+    public LevelBuilder(LevelModel levelModel) {
+        this.levelModel = levelModel;
     }
 
     private List<String> readLines(String fileName) throws IOException {
@@ -40,6 +36,7 @@ public class LevelBuilder {
         List<ToughIce> toughIce = new ArrayList<>();
         List<Ice> ice = new ArrayList<>();
         List<InvisibleWall> invisibleWalls = new ArrayList<>();
+        List<Teleport> teleports = new ArrayList<>();
 
         for(int yi = 0; yi < this.mapElements.size(); yi++) {
             for(int xi = 0; xi < this.mapElements.get(yi).length() ; xi++) {
@@ -49,30 +46,28 @@ public class LevelBuilder {
                 if(c == 'C') coins.add(new Coin(new Position(xi + 2,yi+2)));
                 if(c == 'B') toughIce.add(new ToughIce(new Position(xi + 2,yi+2)));
                 if(c == 'I') invisibleWalls.add(new InvisibleWall( new Position(xi+2,yi+2)));
-                if(c == 'K') model.setKey(new Key(new Position(xi + 2,yi+2)));
-                if(c == 'L') model.setLock(new Lock(new Position(xi + 2,yi+2)));
-                if(c == 'S') model.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
-                if(c == 'D') model.setDestination(new Destination(new Position(xi + 2,yi+2)));
-                if(c == 'T') model.setTeleport1(new Teleport( new Position(xi + 2,yi+2)));
-                if(c == 'P') model.setTeleport2(new Teleport( new Position(xi + 2,yi+2)));
-                if(c == 'Y') model.setBox(new Box( new Position(xi + 2,yi+2)));
-                if(c == 'F') model.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
-                if(c == 'Q') model.setSecretDestination(new SecretDestination( new Position(xi + 2,yi+2)));
+                if(c == 'T') teleports.add(new Teleport( new Position(xi + 2,yi+2)));
+                if(c == 'K') levelModel.setKey(new Key(new Position(xi + 2,yi+2)));
+                if(c == 'L') levelModel.setLock(new Lock(new Position(xi + 2,yi+2)));
+                if(c == 'S') levelModel.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
+                if(c == 'D') levelModel.setDestination(new Destination(new Position(xi + 2,yi+2)));
+                if(c == 'Y') levelModel.setBox(new Box( new Position(xi + 2,yi+2)));
+                if(c == 'F') levelModel.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
+                if(c == 'Q') levelModel.setSecretDestination(new SecretDestination( new Position(xi + 2,yi+2)));
             }
         }
-        model.setWalls(walls);
-        model.setIce(ice);
-        model.setCoins(coins);
-        model.setToughIce(toughIce);
-        model.setInvisibleWalls(invisibleWalls);
+        levelModel.setWalls(walls);
+        levelModel.setIce(ice);
+        levelModel.setCoins(coins);
+        levelModel.setToughIce(toughIce);
+        levelModel.setInvisibleWalls(invisibleWalls);
+        levelModel.setTeleport(teleports);
     }
 
-    public void initLevel(int levelNumber, boolean restart) {
+    public void initLevel(int levelNumber) {
         try {
-            if(!restart) this.globalScore = this.model.getLevelHeaderModel().getGlobalScore().getPoints();
             this.levelNumber = levelNumber;
             this.mapElements = readLines("/levelDesign/level" + this.levelNumber + ".txt");
-            this.model.setLevelHeaderModel(new LevelHeaderModel(new LevelCurrent(this.levelNumber),globalScore));
             loadElements();
         } catch (IOException e) {
             e.printStackTrace();
