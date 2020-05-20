@@ -64,7 +64,7 @@ public class LevelBuilder {
         levelModel.setTeleport(teleports);
     }
 
-    public void initLevel(int levelNumber, boolean restart) {
+    public void initLevel(int levelNumber) {
         try {
             this.levelNumber = levelNumber;
             this.mapElements = readLines("/levelDesign/level" + this.levelNumber + ".txt");

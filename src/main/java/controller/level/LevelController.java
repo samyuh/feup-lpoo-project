@@ -50,7 +50,7 @@ public class LevelController {
         else levelHeader.lockGlobalScore();
         this.levelHeader.setLevelNumber(levelNum);
         this.levelModel.clearLevel(true);
-        this.levelBuilder.initLevel(levelNum, restart);
+        this.levelBuilder.initLevel(levelNum);
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
         this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
     }
@@ -61,10 +61,10 @@ public class LevelController {
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
         this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
     }
-
     // Dup code //
-    public void addScore(int levelPoints, int globalPoints) {
-        levelHeader.updateHeader(levelPoints, globalPoints);
+
+    public void addScore(int blocks, int score) {
+        levelHeader.updateHeader(blocks, score);
     }
 
     public void run() throws IOException {
