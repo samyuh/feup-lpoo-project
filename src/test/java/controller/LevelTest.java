@@ -51,7 +51,7 @@ public class LevelTest {
         levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
 
         assertFalse(levelC.gameWon());
-        assertFalse(levelC.gameLost());
+        assertFalse(levelC.gameFinished());
 
         assertTrue(heroMTest1.atPosition(intermediate1));
         levelC.processCommand(KeyHandler.DIRECTION.LEFT);
@@ -62,7 +62,7 @@ public class LevelTest {
         assertTrue(heroMTest1.atPosition(intermediate1));
 
         assertFalse(levelC.gameWon());
-        assertFalse(levelC.gameLost());
+        assertFalse(levelC.gameFinished());
 
         levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
         levelC.processCommand(KeyHandler.DIRECTION.RIGHT);
@@ -75,7 +75,7 @@ public class LevelTest {
         assertTrue(heroMTest1.atPosition(finish1));
 
         assertTrue(levelC.gameWon());
-        assertFalse(levelC.gameLost());
+        assertFalse(levelC.gameFinished());
 
         // Lose Level 3 Test
         /*

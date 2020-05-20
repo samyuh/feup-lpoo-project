@@ -6,6 +6,8 @@ import controller.level.LevelFacade;
 import controller.level.strategy.StrategyRegular;
 import model.drawable.element.Destination;
 
+import java.io.IOException;
+
 public class InteractDestination extends Interact<Destination> {
     public InteractDestination(Destination element) {
         super(element);
@@ -16,7 +18,7 @@ public class InteractDestination extends Interact<Destination> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1,1);
+        controller.addScore(1,1);
 
         controller.gameWon();
 

@@ -1,7 +1,6 @@
 package model.level;
 
 import controller.level.movement.BoxMovement;
-import model.drawable.levelheader.LevelCurrent;
 import model.drawable.Drawable;
 import model.drawable.element.*;
 import model.Position;
@@ -19,11 +18,10 @@ public class LevelModel {
     private List<Coin> coins;
     private List<ToughIce> toughIce;
     private List<InvisibleWall> invisibleWalls;
-    private List<Teleport> teleports;
+    private List<Teleport> teleport;
     private Key key;
     private Lock lock;
     private Box box;
-    private LevelHeaderModel levelHeaderModel;
     private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
     private SecretDestination secretDestination;
@@ -35,8 +33,7 @@ public class LevelModel {
         this.coins  = new ArrayList<>();
         this.toughIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
-        this.teleports = new ArrayList<>();
-        this.levelHeaderModel = new LevelHeaderModel(new LevelCurrent(1),0);
+        this.teleport = new ArrayList<>();
     }
 
     // -- SET
@@ -81,9 +78,7 @@ public class LevelModel {
         boxMovement = new BoxMovement(box);
         this.box = box; }
 
-    public void setLevelHeaderModel(LevelHeaderModel levelHeaderModel) { this.levelHeaderModel = levelHeaderModel; }
-
-    public void setTeleports(List<Teleport> teleports) { this.teleports = teleports; }
+    public void setTeleport(List<Teleport> teleport) { this.teleport = teleport; }
 
     public void addWall(Position position) {
         Wall wall = new Wall(position);
@@ -114,8 +109,6 @@ public class LevelModel {
 
     public Box getBox() { return box; }
 
-    public LevelHeaderModel getLevelHeaderModel() { return this.levelHeaderModel; }
-
     public BoxFinalSquare getBoxFinalSquare() { return boxFinalSquare; }
 
     public BoxMovement getBoxMovement() { return boxMovement; }
@@ -124,15 +117,12 @@ public class LevelModel {
 
     public SecretDestination getSecretDestination() { return secretDestination; }
 
-    public List<Teleport> getTeleports() { return teleports; }
+    public List<Teleport> getTeleport() { return teleport; }
 
     // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
     public List<Drawable> getAll(){
         List<Drawable> drawables = getElements();
         Collections.reverse(drawables);
-        drawables.add(levelHeaderModel.getLevelCurrent());
-        drawables.add(levelHeaderModel.getLevelScore());
-        drawables.add(levelHeaderModel.getGlobalScore());
         return drawables;
     }
 
@@ -146,7 +136,7 @@ public class LevelModel {
         if(key != null) elements.add(key);
         if(boxFinalSquare != null) elements.add(boxFinalSquare);
         if(secretDestination != null) elements.add(secretDestination);
-        elements.addAll(teleports);
+        elements.addAll(teleport);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
         elements.add(destination);
@@ -160,10 +150,9 @@ public class LevelModel {
 
 
     public ElementModel find(Position position) {
-
         List<Drawable> everyone = getElements();
 
-        for( Drawable element : everyone){
+        for(Drawable element : everyone){
             if(element.getPosition().equals(position))
                 return (ElementModel) element;
         }
@@ -174,14 +163,13 @@ public class LevelModel {
     public void clearLevel(boolean clearWater) {
         if(clearWater) {
             water = new ArrayList<>();
-            levelHeaderModel = new LevelHeaderModel(new LevelCurrent(this.levelHeaderModel.getLevelCurrent().getLevelNumber()), this.levelHeaderModel.getGlobalScore().getPoints());
         }
         puffle = null;
         destination = null;
         walls = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
-        teleports = new ArrayList<>();
+        teleport = new ArrayList<>();
         key = null;
         lock = null;
         boxFinalSquare = null;

@@ -1,10 +1,14 @@
 package controller.level;
 
+import controller.MainController;
 import controller.level.movement.PuffleMovement;
 import controller.level.interact.*;
 import controller.level.interact.level.InteractStop;
-import model.drawable.levelheader.LevelCurrent;
+import controller.level.strategy.StrategyRegular;
+import controller.state.StateGameOver;
+import model.drawable.levelheader.CurrentLevel;
 import model.drawable.element.*;
+import model.level.LevelHeaderModel;
 import model.level.LevelModel;
 import model.Position;
 import view.handler.KeyHandler;
@@ -15,48 +19,62 @@ import java.io.IOException;
 public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
+    private LevelHeaderModel levelHeader;
+    private MainController mainController;
+
     private LevelBuilder levelBuilder;
     private LevelFacade levelFacade;
+
     private PuffleMovement puffleMovement;
-    private LevelCurrent levelCurrent;
-    private int globalPoints;
 
-    public LevelController(LevelModel levelModel, LevelView levelView) {
-        this.levelCurrent = new LevelCurrent(1);
+    private int levelNum;
+
+    public LevelController(MainController mainController, LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
+        this.levelNum = 1;
+
+        this.mainController = mainController;
         this.levelModel = levelModel;
+        this.levelHeader = headerModel;
         this.levelView = levelView;
-        this.levelBuilder = new LevelBuilder(levelModel,globalPoints);
-        this.levelBuilder.initLevel(levelCurrent.getLevelNumber(),false);
+
+        this.levelBuilder = new LevelBuilder(levelModel);
 
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
-
         this.levelFacade = new LevelFacade(levelModel);
-
-        this.globalPoints = 0;
+        this.setLevel(false);
     }
 
-    public void setLevel(LevelCurrent CurrentLevel, boolean restart) {
-        this.levelCurrent = CurrentLevel;
+    // Dup code //
+    public void setLevel(boolean restart) {
+        if(restart) levelHeader.resetGlobalScore();
+        else levelHeader.lockGlobalScore();
+        this.levelHeader.setLevelNumber(levelNum);
         this.levelModel.clearLevel(true);
-        this.levelBuilder.initLevel(levelCurrent.getLevelNumber(), restart);
-        this.levelFacade = new LevelFacade(levelModel);
+        this.levelBuilder.initLevel(levelNum, restart);
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
     }
 
-    public void setLevelSecret(LevelCurrent levelNumber) {
-        this.levelCurrent = levelNumber;
+    public void setLevelSecret() {
         this.levelModel.clearLevel(false);
-        this.levelBuilder.initSecretLevel(levelCurrent.getLevelNumber());
+        this.levelBuilder.initSecretLevel(levelNum);
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
-        this.levelFacade = new LevelFacade(levelModel);
+        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
+    }
+
+    // Dup code //
+    public void addScore(int levelPoints, int globalPoints) {
+        levelHeader.updateHeader(levelPoints, globalPoints);
     }
 
     public void run() throws IOException {
         do {
-            if (gameLost()) break;
+            if (gameFinished()) break;
 
             levelView.draw();
         } while(processCommand(levelView.handler()));
+
+        mainController.setState(new StateGameOver(mainController, levelHeader.getGlobalScore().getScore()));
     }
 
     public boolean processCommand(KeyHandler.DIRECTION command) {
@@ -77,7 +95,7 @@ public class LevelController {
                 gameWon();
                 return true;
             case RESTART:
-                this.setLevel(this.levelCurrent,true);
+                this.setLevel(true);
                 return true;
             case CLOSE:
                 return false;
@@ -98,19 +116,19 @@ public class LevelController {
         return (checkMovement(position).getClass() == InteractStop.class);
     }
 
-    public boolean gameLost() {
+    public boolean gameFinished() {
         return checkCollisions(puffleMovement.moveUp()) && checkCollisions(puffleMovement.moveDown()) &&
                 checkCollisions(puffleMovement.moveLeft()) && checkCollisions(puffleMovement.moveRight());
     }
 
     public void gameWon() {
-        if (levelCurrent.getLevelNumber() != 19) {
-            levelCurrent.increment();
-            setLevel(levelCurrent,false);
+        if (levelNum != 19) {
+            levelNum++;
+            setLevel(false);
         }
     }
 
     public void secretLevel() {
-        setLevelSecret(levelCurrent);
+        setLevelSecret();
     }
 }

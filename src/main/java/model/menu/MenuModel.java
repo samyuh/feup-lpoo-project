@@ -20,8 +20,6 @@ public abstract class MenuModel {
 
         resetColor();
         updateColor();
-
-        initTextBoxes();
     }
 
     public void previousAction() {

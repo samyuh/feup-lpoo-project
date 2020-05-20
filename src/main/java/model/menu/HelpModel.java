@@ -10,10 +10,11 @@ import java.util.List;
 public class HelpModel extends MenuModel {
     public HelpModel(List<MenuOption> option) {
         super(option);
+        initTextBoxes();
     }
 
+    @Override
     protected void initTextBoxes() {
-        // -- Elements -- //
         textBoxes.add(new Puffle(new Position(2, 4)));
         textBoxes.add(new Box(new Position(2, 6)));
         textBoxes.add(new BoxFinalSquare(new Position(2, 8)));
@@ -26,8 +27,7 @@ public class HelpModel extends MenuModel {
         textBoxes.add(new Teleport(new Position(16, 10)));
         textBoxes.add(new ToughIce(new Position(16, 12)));
         textBoxes.add(new Wall(new Position(16, 14)));
-        
-        // -- Description -- //
+
         textBoxes.add(new TextBox( " Your Puffle!", "#ffffff", "#000077", new Position(3, 4)));
         textBoxes.add(new TextBox( " Moving Box", "#ffffff", "#000077", new Position(3, 6)));
         textBoxes.add(new TextBox( " Box Place", "#ffffff", "#000077", new Position(3, 8)));

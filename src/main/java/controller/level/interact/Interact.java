@@ -5,6 +5,8 @@ import controller.level.LevelFacade;
 import model.drawable.element.ElementModel;
 import model.Position;
 
+import java.io.IOException;
+
 public abstract class Interact<T extends ElementModel> {
     protected T element;
     protected Position position;

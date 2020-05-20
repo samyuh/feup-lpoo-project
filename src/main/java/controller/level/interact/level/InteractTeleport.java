@@ -19,7 +19,7 @@ public class InteractTeleport extends Interact<Teleport> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1, 1);
+        controller.addScore(1, 1);
 
         Position p2 = facade.getTeleportPosition(element);
         facade.move(p2);

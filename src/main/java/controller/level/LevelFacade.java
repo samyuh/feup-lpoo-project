@@ -19,7 +19,6 @@ public class LevelFacade {
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
-        this.meltStrategy = new StrategyRegular(this);
     }
 
     // -- Refactor Box please bellow -- //
@@ -56,7 +55,7 @@ public class LevelFacade {
 
     // --- Teleport Methods -- //
     public List<Teleport> getTeleport() {
-        return levelModel.getTeleports();
+        return levelModel.getTeleport();
     }
 
     public Position getTeleportPosition(Teleport teleport) {
@@ -76,10 +75,6 @@ public class LevelFacade {
     // --- Coin and Score -- //
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
-    }
-
-    public void addScore(int levelPoints, int globalPoints) {
-        levelModel.getLevelHeaderModel().addScore(levelPoints, globalPoints);
     }
 
 

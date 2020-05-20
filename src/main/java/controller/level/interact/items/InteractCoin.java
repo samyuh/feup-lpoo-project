@@ -17,7 +17,7 @@ public class InteractCoin extends Interact<Coin> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1,10);
+        controller.addScore(1,10);
 
         facade.removeCoin(element);
 

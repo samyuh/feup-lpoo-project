@@ -18,7 +18,7 @@ public class InteractSecretDestination extends Interact<SecretDestination> {
         facade.meltPreviousIce();
 
         facade.move(position);
-        facade.addScore(1,1);
+        controller.addScore(1,1);
 
         controller.secretLevel();
 
