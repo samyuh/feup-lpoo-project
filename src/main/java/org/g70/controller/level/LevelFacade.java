@@ -1,10 +1,10 @@
 package org.g70.controller.level;
 
+import org.g70.controller.level.boxInteract.BoxInteract;
 import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.interact.box.InteractBox;
 import org.g70.controller.level.interact.ice.InteractIce;
 import org.g70.controller.level.interact.level.InteractStop;
-import org.g70.controller.level.interact.level.InteractTeleport;
 import org.g70.controller.level.movement.BoxMovement;
 import org.g70.controller.level.strategy.Strategy;
 import org.g70.model.drawable.element.*;
@@ -39,12 +39,17 @@ public class LevelFacade {
     }
 
     public void executeMovement(Position position) {
-        checkMovement(position).executeBox(this);
+        checkBoxMovement(position).execute(this);
     }
 
     private Interact checkMovement(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
+    }
+
+    private BoxInteract checkBoxMovement(Position position) {
+        ElementModel element = levelModel.find(position);
+        return element.getBoxInteraction();
     }
 
     private boolean checkCollisions(Position position) {

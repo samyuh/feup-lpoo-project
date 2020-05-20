@@ -1,5 +1,6 @@
 package org.g70.model.drawable.element;
 
+import org.g70.controller.level.boxInteract.BoxInteractStop;
 import org.g70.controller.level.interact.box.InteractBox;
 import org.g70.model.Position;
 
@@ -8,5 +9,7 @@ public class Box extends ElementModel {
         super("O", "#0079d0", position);
 
         this.setInteraction(new InteractBox(this));
+
+        this.setBoxInteraction(new BoxInteractStop(this));
     }
 }
