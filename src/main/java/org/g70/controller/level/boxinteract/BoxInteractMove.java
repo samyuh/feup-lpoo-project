@@ -1,6 +1,5 @@
-package org.g70.controller.level.boxInteract;
+package org.g70.controller.level.boxinteract;
 
-import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.drawable.element.ElementModel;
 

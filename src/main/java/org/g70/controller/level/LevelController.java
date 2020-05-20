@@ -2,8 +2,8 @@ package org.g70.controller.level;
 
 import org.g70.controller.MainController;
 import org.g70.controller.level.movement.PuffleMovement;
-import org.g70.controller.level.interact.*;
-import org.g70.controller.level.interact.level.InteractStop;
+import org.g70.controller.level.puffleinteract.*;
+import org.g70.controller.level.puffleinteract.PuffleInteractStop;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.controller.state.StateGameOver;
 import org.g70.model.drawable.element.*;
@@ -106,13 +106,13 @@ public class LevelController {
         checkMovement(position).execute(this, levelFacade);
     }
 
-    private Interact checkMovement(Position position){
+    private PuffleInteract checkMovement(Position position){
         ElementModel element = levelModel.find(position);
-        return element.getInteraction();
+        return element.getPuffleInteraction();
     }
 
     private boolean checkCollisions(Position position) {
-        return (checkMovement(position).getClass() == InteractStop.class);
+        return (checkMovement(position).getClass() == PuffleInteractStop.class);
     }
 
     public boolean gameFinished() {

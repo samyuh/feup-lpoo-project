@@ -1,13 +1,12 @@
-package org.g70.controller.level.interact.level;
+package org.g70.controller.level.puffleinteract;
 
-import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyEmpty;
 import org.g70.model.drawable.element.InvisibleWall;
 
-public class InteractInvisibleWall extends Interact<InvisibleWall> {
-    public InteractInvisibleWall(InvisibleWall element) {
+public class PuffleInteractInvisibleWall extends PuffleInteract<InvisibleWall> {
+    public PuffleInteractInvisibleWall(InvisibleWall element) {
         super(element);
     }
 
@@ -15,17 +14,11 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        facade.move(position);
+        facade.movePuffle(position);
         controller.addScore(1,1);
 
-        element.setInteraction(new InteractStop(element));
+        element.setPuffleInteraction(new PuffleInteractStop(element));
 
         facade.setStrategy(new StrategyEmpty(facade));
     }
-
-    @Override
-    public void executeBox(LevelFacade facade) {
-        System.out.println("Found InteractInvisbleWall");
-    }
-
 }

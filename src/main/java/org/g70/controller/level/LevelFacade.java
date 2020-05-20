@@ -1,11 +1,10 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.boxInteract.BoxInteract;
-import org.g70.controller.level.interact.Interact;
-import org.g70.controller.level.interact.box.InteractBox;
-import org.g70.controller.level.interact.ice.InteractIce;
-import org.g70.controller.level.interact.level.InteractStop;
-import org.g70.controller.level.movement.BoxMovement;
+import org.g70.controller.level.boxinteract.BoxInteract;
+import org.g70.controller.level.boxinteract.BoxInteractStop;
+import org.g70.controller.level.puffleinteract.PuffleInteractBox;
+import org.g70.controller.level.puffleinteract.PuffleInteractIce;
+import org.g70.controller.level.puffleinteract.PuffleInteractStop;
 import org.g70.controller.level.strategy.Strategy;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelModel;
@@ -23,28 +22,54 @@ public class LevelFacade {
 
     // -- Refactor Box please bellow -- //
     // --- Move --- //
-    public void move(Position position) {   
+    public enum ORIENTATION {UP, RIGHT, DOWN, LEFT};
+
+    public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
-        if(levelModel.getBox() != null) levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
+        if(levelModel.getBox() != null) levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
+    }
+
+    public boolean moveBox() {
+        boolean canMove = false;
+        ORIENTATION boxDirection = findBoxDirection(levelModel.getPuffle());
+        while(true) {
+            Position position = moveDirection(boxDirection);
+            if(checkCollisions(position)) return canMove;
+            executeMovement(position);
+            canMove = true;
+        }
     }
 
     // --- Box Methods -- //
-    public BoxMovement.ORIENTATION findBoxDirection() {
-        return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
+    public Position moveDirection(ORIENTATION direction){
+        switch(direction){
+            case UP:
+                return levelModel.getBoxMovement().moveUp();
+            case DOWN:
+                return levelModel.getBoxMovement().moveDown();
+            case LEFT:
+                return levelModel.getBoxMovement().moveLeft();
+            case RIGHT:
+                return levelModel.getBoxMovement().moveRight();
+            default:
+                return null;
+        }
     }
 
-    public void makeBoxMove( Position position){
+    public ORIENTATION findBoxDirection(Puffle puffle) {
+        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveLeft())) return ORIENTATION.RIGHT;
+        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveRight())) return ORIENTATION.LEFT;
+        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveDown())) return ORIENTATION.UP;
+        return ORIENTATION.DOWN;
+    }
+
+    public void makeBoxMove(Position position){
         levelModel.getBox().setPosition(position);
     }
 
     public void executeMovement(Position position) {
         checkBoxMovement(position).execute(this);
-    }
-
-    private Interact checkMovement(Position position) {
-        ElementModel element = levelModel.find(position);
-        return element.getInteraction();
     }
 
     private BoxInteract checkBoxMovement(Position position) {
@@ -53,19 +78,7 @@ public class LevelFacade {
     }
 
     private boolean checkCollisions(Position position) {
-        return checkMovement(position).getClass() == InteractStop.class;
-    }
-
-    public boolean moveBox() {
-        boolean canMove = false;
-        BoxMovement.ORIENTATION boxDirection = this.findBoxDirection();
-        while(true) {
-            Position position = levelModel.getBoxMovement().moveDirection(boxDirection);
-            if(checkCollisions(position)) return canMove;
-            executeMovement(position);
-            canMove = true;
-
-        }
+        return checkBoxMovement(position).getClass() == BoxInteractStop.class;
     }
 
     // --- Teleport Methods -- //
@@ -96,13 +109,13 @@ public class LevelFacade {
     // --- Melt Ice Methods -- //
     public void addWater(Position position) {
         Water water = new Water(position);
-        water.setInteraction(new InteractStop(water));
+        water.setPuffleInteraction(new PuffleInteractStop(water));
         levelModel.getWater().add(water);
     }
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
-        ice.setInteraction(new InteractIce(ice));
+        ice.setPuffleInteraction(new PuffleInteractIce(ice));
         levelModel.getIce().add(ice);
     }
 

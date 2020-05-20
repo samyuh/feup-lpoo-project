@@ -1,14 +1,13 @@
-package org.g70.controller.level.interact.ice;
+package org.g70.controller.level.puffleinteract;
 
-import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.Ice;
 
-public class InteractIce extends Interact<Ice> {
+public class PuffleInteractIce extends PuffleInteract<Ice> {
 
-    public InteractIce(Ice element) {
+    public PuffleInteractIce(Ice element) {
         super(element);
     }
 
@@ -16,15 +15,9 @@ public class InteractIce extends Interact<Ice> {
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        facade.move(position);
+        facade.movePuffle(position);
         controller.addScore(1,1);
 
         facade.setStrategy(new StrategyRegular(facade));
-    }
-
-    @Override
-    public void executeBox(LevelFacade facade) {
-        System.out.println("Found InteractIce");
-        facade.makeBoxMove(position);
     }
 }

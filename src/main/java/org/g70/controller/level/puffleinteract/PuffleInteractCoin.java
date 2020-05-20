@@ -1,14 +1,13 @@
-package org.g70.controller.level.interact.items;
+package org.g70.controller.level.puffleinteract;
 
-import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.Coin;
 
-public class InteractCoin extends Interact<Coin> {
+public class PuffleInteractCoin extends PuffleInteract<Coin> {
 
-    public InteractCoin(Coin element) {
+    public PuffleInteractCoin(Coin element) {
         super(element);
     }
 
@@ -16,17 +15,11 @@ public class InteractCoin extends Interact<Coin> {
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        facade.move(position);
+        facade.movePuffle(position);
         controller.addScore(1,10);
 
         facade.removeCoin(element);
 
         facade.setStrategy(new StrategyRegular(facade));
-    }
-
-    @Override
-    public void executeBox(LevelFacade facade) {
-        System.out.println("Found InteractCoin");
-        facade.makeBoxMove(position);
     }
 }

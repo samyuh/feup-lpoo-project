@@ -1,13 +1,12 @@
-package org.g70.controller.level.interact.level;
+package org.g70.controller.level.puffleinteract;
 
-import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.SecretDestination;
 
-public class InteractSecretDestination extends Interact<SecretDestination> {
-    public InteractSecretDestination(SecretDestination element) {
+public class PuffleInteractSecretDestination extends PuffleInteract<SecretDestination> {
+    public PuffleInteractSecretDestination(SecretDestination element) {
         super(element);
     }
 
@@ -15,16 +14,11 @@ public class InteractSecretDestination extends Interact<SecretDestination> {
     public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        facade.move(position);
+        facade.movePuffle(position);
         controller.addScore(1,1);
 
         controller.secretLevel();
 
         facade.setStrategy(new StrategyRegular(facade));
-    }
-
-    @Override
-    public void executeBox(LevelFacade facade) {
-        System.out.println("Found InteractSecretDestination");
     }
 }
