@@ -20,6 +20,6 @@ public class ElementTest {
         assertEquals(element.getPosition().getX(), 1);
         assertEquals(element.getPosition().getY(), 2);
         assertEquals(element.getImage(), "D");
-        assertEquals(element.getColor(), "#ff0422");
+        assertEquals(element.getColorForeground(), "#ff0422");
     }
 }

@@ -1,4 +1,4 @@
-package org.g70.view;
+package org.g70.view.drawable;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -8,7 +8,6 @@ import org.g70.model.Position;
 import org.g70.model.drawable.element.ElementModel;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.g70.view.DrawableView;
 
 
 public class DrawableViewTest {
@@ -24,12 +23,13 @@ public class DrawableViewTest {
 
         ElementModel elementMock = Mockito.mock(ElementModel.class);
         Mockito.when(elementMock.getPosition()).thenReturn(positionMock);
-        Mockito.when(elementMock.getColor()).thenReturn("#FFBB33");
+        Mockito.when(elementMock.getColorForeground()).thenReturn("#FFBB33");
         Mockito.when(elementMock.getImage()).thenReturn("I");
 
         elementView.draw(elementMock, graphicsMock);
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#FFBB33"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(0, 0), "I");
+
     }
 }

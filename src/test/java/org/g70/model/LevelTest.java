@@ -1,10 +1,12 @@
 package org.g70.model;
 
+import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.Coin;
+import org.g70.model.drawable.element.ElementModel;
 import org.g70.model.drawable.element.ToughIce;
 import org.g70.model.level.LevelModel;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -12,24 +14,29 @@ import java.util.List;
 
 public class LevelTest {
     LevelModel testM;
-    private List<Coin> coins;
-    private List<ToughIce> frozenIce;
+    private List<ElementModel> elements;
+    private List<Position> positions;
     private Position pCoin1;
     private Position pFrozenIce1;
 
     @Before
     public void startLevel() {
-        this.coins = new ArrayList<>();
-        this.frozenIce = new ArrayList<>();
+        this.testM = new LevelModel();
+        this.elements = new ArrayList<>();
+        this.positions = new ArrayList<>();
 
-        this.pCoin1 = Mockito.mock(Position.class);
+        Position pCoin1 = Mockito.mock(Position.class);
         Mockito.when(pCoin1.getX()).thenReturn(0);
         Mockito.when(pCoin1.getY()).thenReturn(0);
 
         Coin w1 = Mockito.mock(Coin.class);
         Mockito.when(w1.getPosition()).thenReturn(pCoin1);
 
-        this.coins.add(w1);
+        List<Coin> coin = new ArrayList<>();
+        coin.add(w1);
+        testM.setCoins(coin);
+        this.elements.add(w1);
+        this.positions.add(pCoin1);
 
         this.pFrozenIce1 = Mockito.mock(Position.class);
         Mockito.when(pFrozenIce1.getX()).thenReturn(1);
@@ -38,26 +45,24 @@ public class LevelTest {
         ToughIce i1 = Mockito.mock(ToughIce.class);
         Mockito.when(i1.getPosition()).thenReturn(pFrozenIce1);
 
-        frozenIce.add(i1);
-
-        this.testM = new LevelModel();
-        testM.setCoins(coins);
-        testM.setToughIce(frozenIce);
+        List<ToughIce> doubleIce = new ArrayList<>();
+        doubleIce.add(i1);
+        testM.setToughIce(doubleIce);
+        this.elements.add(i1);
+        this.positions.add(pFrozenIce1);
 
         // Set other things
     }
 
-    @Test
+    //@Test
     public void levelTest() {
-        /*
-        testM.removeCoin(this.pCoin1);
-        Assert.assertEquals(testM.getCoins().isEmpty(), true);
+        List<Drawable> m = testM.getAll();
+        Assert.assertEquals(m.size(), elements.size() + 4);
 
-        testM.removeToughIce(this.pFrozenIce1);
+        ElementModel e0 = testM.find(positions.get(0));
+        Assert.assertEquals(e0, elements.get(0));
+
+        testM.clearLevel(true);
         Assert.assertEquals(testM.getToughIce().isEmpty(), true);
-
-        // testM.clearlevel() -- To Do
-
-         */
     }
 }

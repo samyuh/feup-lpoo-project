@@ -1,27 +1,25 @@
-package org.g70.view;
+package org.g70.view.level;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.Puffle;
 import org.g70.model.drawable.element.Wall;
+import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
+import org.g70.view.ScreenView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.g70.view.handler.KeyHandler;
-import org.g70.view.level.LevelView;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 
 public class LevelViewTest {
     List<Drawable> elementMocks;
@@ -36,7 +34,7 @@ public class LevelViewTest {
 
         Wall e1 = Mockito.mock(Wall.class);
         Mockito.when(e1.getImage()).thenReturn("\u2588");
-        Mockito.when(e1.getColor()).thenReturn("#0065c6");
+        Mockito.when(e1.getColorForeground()).thenReturn("#0065c6");
         Mockito.when(e1.getPosition()).thenReturn(p1);
 
         elementMocks.add(e1);
@@ -47,7 +45,7 @@ public class LevelViewTest {
 
         Puffle e2 = Mockito.mock(Puffle.class);
         Mockito.when(e2.getImage()).thenReturn("H");
-        Mockito.when(e2.getColor()).thenReturn("#000000");
+        Mockito.when(e2.getColorForeground()).thenReturn("#000000");
         Mockito.when(e2.getPosition()).thenReturn(p2);
 
         elementMocks.add(e2);
@@ -56,7 +54,11 @@ public class LevelViewTest {
     @Test
     public void drawTest() {
         // Create a Stub for Screen
+        TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
+
         Screen scrMock = Mockito.mock(Screen.class);
+        Mockito.when(scrMock.newTextGraphics()).thenReturn(graphicsMock);
+
         ScreenView screenMock = Mockito.mock(ScreenView.class);
         Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
 
@@ -64,11 +66,12 @@ public class LevelViewTest {
         LevelModel levelMock = Mockito.mock(LevelModel.class);
         Mockito.when(levelMock.getAll()).thenReturn(this.elementMocks);
 
-        TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
+        LevelHeaderModel headerMock = Mockito.mock(LevelHeaderModel.class);
 
-        LevelView levelView = new LevelView(screenMock);
+        LevelView levelView = new LevelView(screenMock, levelMock, headerMock);
+
         try {
-            levelView.draw(levelMock);
+            levelView.draw();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,45 +83,5 @@ public class LevelViewTest {
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#000000"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(1, 0), "H");
-    }
-
-    @Test
-    public void inputTest() throws IOException {
-        // Create a Stub for Screen and keyPressed
-        Screen scrMock = Mockito.mock(Screen.class);
-        ScreenView screenMock = Mockito.mock(ScreenView.class);
-        Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
-
-        KeyStroke keyUp = Mockito.mock(KeyStroke.class);
-        Mockito.when(keyUp.getKeyType()).thenReturn(KeyType.ArrowUp);
-
-        KeyStroke keyRight = Mockito.mock(KeyStroke.class);
-        Mockito.when(keyRight.getKeyType()).thenReturn(KeyType.ArrowRight);
-
-        KeyStroke keyDown = Mockito.mock(KeyStroke.class);
-        Mockito.when(keyDown.getKeyType()).thenReturn(KeyType.ArrowDown);
-
-        KeyStroke keyLeft = Mockito.mock(KeyStroke.class);
-        Mockito.when(keyLeft.getKeyType()).thenReturn(KeyType.ArrowLeft);
-
-        KeyStroke keyEOF = Mockito.mock(KeyStroke.class);
-        Mockito.when(keyEOF.getKeyType()).thenReturn(KeyType.EOF);
-
-        LevelView levelView = new LevelView(screenMock);
-
-        Mockito.when(scrMock.readInput()).thenReturn(keyUp);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.UP);
-
-        Mockito.when(scrMock.readInput()).thenReturn(keyRight);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.RIGHT);
-
-        Mockito.when(scrMock.readInput()).thenReturn(keyDown);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.DOWN);
-
-        Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.LEFT);
-
-        Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.CLOSE);
     }
 }
