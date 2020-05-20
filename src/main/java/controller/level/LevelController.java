@@ -6,7 +6,6 @@ import controller.level.interact.*;
 import controller.level.interact.level.InteractStop;
 import controller.level.strategy.StrategyRegular;
 import controller.state.StateGameOver;
-import model.drawable.levelheader.CurrentLevel;
 import model.drawable.element.*;
 import model.level.LevelHeaderModel;
 import model.level.LevelModel;
@@ -64,7 +63,7 @@ public class LevelController {
     // Dup code //
 
     public void addScore(int blocks, int score) {
-        levelHeader.updateHeader(blocks, score);
+        levelHeader.updateHeaderScore(blocks, score);
     }
 
     public void run() throws IOException {

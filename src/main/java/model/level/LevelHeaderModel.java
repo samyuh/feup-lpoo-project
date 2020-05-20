@@ -34,7 +34,7 @@ public class LevelHeaderModel {
         return globalScore;
     }
 
-    public void updateHeader(int incBlocks, int incScore){
+    public void updateHeaderScore(int incBlocks, int incScore){
         this.levelBlocks.addBlocks(incBlocks);
         this.globalScore.addScore(incScore);
     }

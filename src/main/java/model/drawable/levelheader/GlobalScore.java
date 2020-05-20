@@ -33,6 +33,6 @@ public class GlobalScore extends Drawable {
     }
 
     private void updateImage() {
-        this.image = "GLOBAL SCORE " + restartLevelScore;
+        this.image = "GLOBAL SCORE " + this.score;
     }
 }
