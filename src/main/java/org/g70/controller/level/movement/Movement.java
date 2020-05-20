@@ -1,0 +1,32 @@
+package org.g70.controller.level.movement;
+
+import org.g70.model.Position;
+import org.g70.model.drawable.element.ElementModel;
+
+public abstract class Movement {
+    protected ElementModel element;
+
+    public Movement(ElementModel element) {
+        this.element = element;
+    }
+
+    public Position moveUp() {
+        return new Position(element.getPosition().getX(), element.getPosition().getY() - 1);
+    }
+
+    public Position moveDown() {
+        return new Position(element.getPosition().getX(), element.getPosition().getY() + 1);
+    }
+
+    public Position moveRight() {
+        return new Position(element.getPosition().getX() + 1, element.getPosition().getY());
+    }
+
+    public Position moveLeft() {
+        return new Position(element.getPosition().getX() - 1, element.getPosition().getY());
+    }
+
+    public boolean atPosition(Position target) {
+        return element.getPosition().equals(target);
+    }
+}

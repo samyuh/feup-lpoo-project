@@ -4,7 +4,7 @@ plugins {
     id 'info.solidsoft.pitest' version '1.4.6'
 }
 
-group 'org.example'
+group 'org.g70'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -20,5 +20,5 @@ dependencies {
 }
 
 application {
-    mainClassName = 'Application'
+    mainClassName = 'org.g70.Application'
 }
