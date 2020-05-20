@@ -33,4 +33,12 @@ public class InteractTeleport extends Interact<Teleport> {
 
         facade.setStrategy(new StrategyRegular(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractTeleport");
+
+        Position p3 = facade.getTeleportPosition(element);
+        facade.makeBoxMove(p3);
+    }
 }

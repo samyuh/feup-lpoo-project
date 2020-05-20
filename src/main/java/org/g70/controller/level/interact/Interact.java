@@ -15,4 +15,6 @@ public abstract class Interact<T extends ElementModel> {
     }
 
     public abstract void execute(LevelController controller, LevelFacade facade);
+
+    public abstract void executeBox(LevelFacade facade);
 }

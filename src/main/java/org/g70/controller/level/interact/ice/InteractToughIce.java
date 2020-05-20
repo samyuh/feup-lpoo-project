@@ -21,4 +21,10 @@ public class InteractToughIce extends Interact<ToughIce> {
 
         facade.setStrategy(new StrategyToughIce(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractToughIce");
+        facade.makeBoxMove(position);
+    }
 }

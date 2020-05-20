@@ -19,14 +19,17 @@ public class InteractBox extends Interact<Box> {
         if(facade.moveBox()) {
             facade.meltPreviousIce();
 
-            facade.move(position);
-
-            controller.addScore(1,1);
-
             facade.setStrategy(new StrategyRegular(facade));
+
+            controller.executeMovement(position);
         }
         else {
             element.setInteraction(new InteractStop(element));
         }
+    }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        // Este caso nunca vai ocorrer, porque a caixanunca pode interagir consigo mesma, sendo um objeto com um só instância
     }
 }

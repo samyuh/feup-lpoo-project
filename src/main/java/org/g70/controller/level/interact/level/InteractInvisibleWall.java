@@ -22,4 +22,10 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
 
         facade.setStrategy(new StrategyEmpty(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractInvisbleWall");
+    }
+
 }

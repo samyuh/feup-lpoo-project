@@ -4,6 +4,7 @@ import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.interact.box.InteractBox;
 import org.g70.controller.level.interact.ice.InteractIce;
 import org.g70.controller.level.interact.level.InteractStop;
+import org.g70.controller.level.interact.level.InteractTeleport;
 import org.g70.controller.level.movement.BoxMovement;
 import org.g70.controller.level.strategy.Strategy;
 import org.g70.model.drawable.element.*;
@@ -33,6 +34,14 @@ public class LevelFacade {
         return levelModel.getBoxMovement().pufflePushedDirection(levelModel.getPuffle());
     }
 
+    public void makeBoxMove( Position position){
+        levelModel.getBox().setPosition(position);
+    }
+
+    public void executeMovement(Position position) {
+        checkMovement(position).executeBox(this);
+    }
+
     private Interact checkMovement(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
@@ -46,9 +55,11 @@ public class LevelFacade {
         boolean canMove = false;
         BoxMovement.ORIENTATION boxDirection = this.findBoxDirection();
         while(true) {
-            if(checkCollisions(levelModel.getBoxMovement().moveDirection(boxDirection))) return canMove;
-            levelModel.getBox().setPosition(levelModel.getBoxMovement().moveDirection(boxDirection));
+            Position position = levelModel.getBoxMovement().moveDirection(boxDirection);
+            if(checkCollisions(position)) return canMove;
+            executeMovement(position);
             canMove = true;
+
         }
     }
 

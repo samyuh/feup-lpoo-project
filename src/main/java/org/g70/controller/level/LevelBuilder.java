@@ -51,9 +51,12 @@ public class LevelBuilder {
                 if(c == 'L') levelModel.setLock(new Lock(new Position(xi + 2,yi+2)));
                 if(c == 'S') levelModel.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
                 if(c == 'D') levelModel.setDestination(new Destination(new Position(xi + 2,yi+2)));
-                if(c == 'Y') levelModel.setBox(new Box( new Position(xi + 2,yi+2)));
                 if(c == 'F') levelModel.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
                 if(c == 'Q') levelModel.setSecretDestination(new SecretDestination( new Position(xi + 2,yi+2)));
+                if(c == 'Y'){
+                    levelModel.setBox(new Box( new Position(xi + 2,yi+2)));
+                    ice.add(new Ice(new Position(xi + 2,yi+2)));
+                }
             }
         }
         levelModel.setWalls(walls);

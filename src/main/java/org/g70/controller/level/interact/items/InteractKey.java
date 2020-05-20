@@ -23,4 +23,10 @@ public class InteractKey extends Interact<Key> {
 
         facade.setStrategy(new StrategyRegular(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractKey");
+        facade.makeBoxMove(position);
+    }
 }

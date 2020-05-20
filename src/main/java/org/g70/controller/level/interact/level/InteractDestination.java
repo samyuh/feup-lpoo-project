@@ -22,4 +22,10 @@ public class InteractDestination extends Interact<Destination> {
 
         facade.setStrategy(new StrategyRegular(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractDestination");
+    }
+
 }

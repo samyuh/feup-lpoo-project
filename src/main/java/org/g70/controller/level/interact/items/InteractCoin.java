@@ -23,4 +23,10 @@ public class InteractCoin extends Interact<Coin> {
 
         facade.setStrategy(new StrategyRegular(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractCoin");
+        facade.makeBoxMove(position);
+    }
 }

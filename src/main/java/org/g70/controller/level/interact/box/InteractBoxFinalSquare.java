@@ -20,4 +20,10 @@ public class InteractBoxFinalSquare extends Interact<BoxFinalSquare> {
 
         facade.setStrategy(new StrategyEmpty(facade));
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("FoundInteractBoxFinalSquare");
+        facade.makeBoxMove(position);
+    }
 }

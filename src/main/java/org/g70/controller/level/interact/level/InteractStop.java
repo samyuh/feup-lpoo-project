@@ -15,4 +15,9 @@ public class InteractStop extends Interact<ElementModel> {
     public void execute(LevelController controller, LevelFacade facade) {
         // if wall, water, or used teleport is found, nothing should be done
     }
+
+    @Override
+    public void executeBox(LevelFacade facade) {
+        System.out.println("Found InteractStop");
+    }
 }
