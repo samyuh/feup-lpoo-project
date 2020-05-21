@@ -18,7 +18,7 @@ public class LevelControllerTest {
 
         assertEquals(levelModel.getWalls().size(), 24);
         assertEquals(levelModel.getCoins().size(), 0);
-        assertEquals(levelModel.getToughIce().size(), 0);
+        assertEquals(levelModel.getDoubleIce().size(), 0);
 
         // Finish with all levelModel to ensure that is reading
 

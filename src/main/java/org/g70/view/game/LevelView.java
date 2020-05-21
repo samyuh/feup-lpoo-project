@@ -1,16 +1,16 @@
-package org.g70.view.level;
+package org.g70.view.game;
 
 import org.g70.model.drawable.Drawable;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.drawable.DrawableView;
-import org.g70.view.GeneralView;
 import org.g70.view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LevelView extends GeneralView {
@@ -30,7 +30,10 @@ public class LevelView extends GeneralView {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
-        List<Drawable> drawables = levelModel.getAll();
+
+        List<Drawable> drawables = new ArrayList<>();
+
+        drawables.addAll(levelModel.getAll());
         drawables.addAll(headerModel.getAll());
 
         for(Drawable element : drawables)

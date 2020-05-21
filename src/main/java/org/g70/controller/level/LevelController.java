@@ -7,7 +7,7 @@ import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
 import org.g70.view.handler.KeyHandler;
-import org.g70.view.level.LevelView;
+import org.g70.view.game.LevelView;
 
 import java.io.IOException;
 
@@ -92,15 +92,14 @@ public class LevelController {
     public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
 
-        if (levelModel.getBox() != null)
-            levelFacade.resetBoxInteraction();
+        if (levelModel.getBox() != null) levelFacade.resetBoxInteraction();
     }
 
     public void executeMovement(Position position) {
         checkMovement(position).executePuffle(this, levelFacade);
     }
 
-    private Interact checkMovement(Position position){
+    private Interact checkMovement(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
     }

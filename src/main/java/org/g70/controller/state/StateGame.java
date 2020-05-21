@@ -4,7 +4,7 @@ import org.g70.controller.level.LevelController;
 import org.g70.controller.MainController;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
-import org.g70.view.level.LevelView;
+import org.g70.view.game.LevelView;
 
 import java.io.IOException;
 

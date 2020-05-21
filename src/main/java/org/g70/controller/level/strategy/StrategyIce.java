@@ -3,16 +3,16 @@ package org.g70.controller.level.strategy;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 
-public class StrategyToughIce implements Strategy {
+public class StrategyIce implements Strategy {
     LevelFacade facade;
 
-    public StrategyToughIce(LevelFacade facade) {
+    public StrategyIce(LevelFacade facade) {
         this.facade = facade;
     }
-
+    
     @Override
     public void execute(Position pufflePos) {
-        facade.removeToughIce(pufflePos);
-        facade.addIce(pufflePos);
+        facade.removeIce(pufflePos);
+        facade.addWater(pufflePos);
     }
 }

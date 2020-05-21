@@ -1,10 +1,9 @@
-package org.g70.view.menu;
+package org.g70.view.game;
 
 import org.g70.model.drawable.Drawable;
-import org.g70.model.menu.MenuModel;
+import org.g70.model.menu.MenuFactory;
 import org.g70.model.drawable.menu.MenuOption;
 import org.g70.view.drawable.DrawableView;
-import org.g70.view.GeneralView;
 import org.g70.view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -14,9 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class MenuView extends GeneralView {
-    MenuModel model;
+    MenuFactory model;
 
-    public MenuView(ScreenView gui, MenuModel model) {
+    public MenuView(ScreenView gui, MenuFactory model) {
         super(gui.getScreen());
         this.model = model;
     }
@@ -33,8 +32,8 @@ public class MenuView extends GeneralView {
 
         drawables.addAll(options);
 
-        for(Drawable drawable : drawables)
-            view.draw(drawable, graphics);
+        for(Drawable element : drawables)
+            view.draw(element, graphics);
 
         screen.refresh();
     }

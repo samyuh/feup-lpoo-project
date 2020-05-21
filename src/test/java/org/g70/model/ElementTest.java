@@ -1,6 +1,6 @@
 package org.g70.model;
 
-import org.g70.model.drawable.element.Destination;
+import org.g70.model.drawable.element.Finish;
 import org.g70.model.drawable.element.ElementModel;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class ElementTest {
         when(positionMock.getX()).thenReturn(1);
         when(positionMock.getY()).thenReturn(2);
 
-        ElementModel element = new Destination(positionMock);
+        ElementModel element = new Finish(positionMock);
 
         assertEquals(element.getPosition().getX(), 1);
         assertEquals(element.getPosition().getY(), 2);

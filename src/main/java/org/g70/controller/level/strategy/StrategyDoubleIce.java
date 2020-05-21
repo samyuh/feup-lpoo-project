@@ -3,15 +3,16 @@ package org.g70.controller.level.strategy;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 
-public class StrategyEmpty implements Strategy {
+public class StrategyDoubleIce implements Strategy {
     LevelFacade facade;
 
-    public StrategyEmpty(LevelFacade facade) {
+    public StrategyDoubleIce(LevelFacade facade) {
         this.facade = facade;
     }
 
     @Override
     public void execute(Position pufflePos) {
-        // When Puffle goes trough special blocks, like invisible walls
+        facade.removeToughIce(pufflePos);
+        facade.addIce(pufflePos);
     }
 }

@@ -2,11 +2,11 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
-import org.g70.model.drawable.element.Destination;
+import org.g70.controller.level.strategy.StrategyIce;
+import org.g70.model.drawable.element.Finish;
 
-public class InteractDestination extends Interact<Destination> {
-    public InteractDestination(Destination element) {
+public class InteractDestination extends Interact<Finish> {
+    public InteractDestination(Finish element) {
         super(element);
     }
 
@@ -19,7 +19,7 @@ public class InteractDestination extends Interact<Destination> {
 
         controller.gameWon();
 
-        facade.setStrategy(new StrategyRegular(facade));
+        facade.setStrategy(new StrategyIce(facade));
     }
 
     @Override

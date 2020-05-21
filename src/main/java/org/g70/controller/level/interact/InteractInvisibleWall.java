@@ -2,7 +2,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyEmpty;
+import org.g70.controller.level.strategy.StrategyNothing;
 import org.g70.model.drawable.element.InvisibleWall;
 
 public class InteractInvisibleWall extends Interact<InvisibleWall> {
@@ -19,7 +19,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
 
         element.setInteraction(new InteractStop(element));
 
-        facade.setStrategy(new StrategyEmpty(facade));
+        facade.setStrategy(new StrategyNothing(facade));
     }
 
     @Override

@@ -8,7 +8,7 @@ import org.g70.controller.level.interact.InteractBox;
 import org.g70.controller.level.interact.InteractIce;
 import org.g70.controller.level.interact.InteractStop;
 import org.g70.controller.level.strategy.Strategy;
-import org.g70.controller.level.strategy.StrategyRegular;
+import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
@@ -30,7 +30,7 @@ public class LevelFacade {
     public void newLevel() {
         updatePuffleMovement();
         updateBoxMovement();
-        setStrategy(new StrategyRegular(this));
+        setStrategy(new StrategyIce(this));
     }
 
     public Movement getPuffleMovement() {
@@ -101,7 +101,6 @@ public class LevelFacade {
         return element.getInteraction();
     }
 
-
     public List<Teleport> getTeleport() {
         return levelModel.getTeleport();
     }
@@ -140,6 +139,6 @@ public class LevelFacade {
     }
 
     public boolean removeToughIce(Position position){
-        return levelModel.getToughIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
+        return levelModel.getDoubleIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
     }
 }

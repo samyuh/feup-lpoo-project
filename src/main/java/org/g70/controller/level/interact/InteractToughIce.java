@@ -2,12 +2,12 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyToughIce;
-import org.g70.model.drawable.element.ToughIce;
+import org.g70.controller.level.strategy.StrategyDoubleIce;
+import org.g70.model.drawable.element.DoubleIce;
 
-public class InteractToughIce extends Interact<ToughIce> {
+public class InteractToughIce extends Interact<DoubleIce> {
 
-    public InteractToughIce(ToughIce element) {
+    public InteractToughIce(DoubleIce element) {
         super(element);
     }
 
@@ -18,7 +18,7 @@ public class InteractToughIce extends Interact<ToughIce> {
         controller.movePuffle(position);
         controller.addScore(1,1);
 
-        facade.setStrategy(new StrategyToughIce(facade));
+        facade.setStrategy(new StrategyDoubleIce(facade));
     }
 
     @Override

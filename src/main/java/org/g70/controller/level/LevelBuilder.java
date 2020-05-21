@@ -32,7 +32,7 @@ public class LevelBuilder {
     private void loadElements() {
         List<Wall> walls = new ArrayList<>();
         List<Coin> coins = new ArrayList<>();
-        List<ToughIce> toughIce = new ArrayList<>();
+        List<DoubleIce> doubleIce = new ArrayList<>();
         List<Ice> ice = new ArrayList<>();
         List<InvisibleWall> invisibleWalls = new ArrayList<>();
         List<Teleport> teleports = new ArrayList<>();
@@ -47,7 +47,7 @@ public class LevelBuilder {
                 if(c == 'C')
                     coins.add(new Coin(new Position(xi + 2,yi+2)));
                 if(c == 'B')
-                    toughIce.add(new ToughIce(new Position(xi + 2,yi+2)));
+                    doubleIce.add(new DoubleIce(new Position(xi + 2,yi+2)));
                 if(c == 'I')
                     invisibleWalls.add(new InvisibleWall( new Position(xi+2,yi+2)));
                 if(c == 'T')
@@ -59,11 +59,11 @@ public class LevelBuilder {
                 if(c == 'S')
                     levelModel.setPuffle(new Puffle(new Position(xi + 2,yi+2)));
                 if(c == 'D')
-                    levelModel.setDestination(new Destination(new Position(xi + 2,yi+2)));
+                    levelModel.setFinish(new Finish(new Position(xi + 2,yi+2)));
                 if(c == 'F')
-                    levelModel.setBoxFinalSquare(new BoxFinalSquare( new Position(xi + 2,yi+2)));
+                    levelModel.setEmptyBlock(new EmptyBlock( new Position(xi + 2,yi+2)));
                 if(c == 'Q')
-                    levelModel.setSecretDestination(new SecretDestination( new Position(xi + 2,yi+2)));
+                    levelModel.setSecret(new Secret( new Position(xi + 2,yi+2)));
                 if(c == 'Y') {
                     levelModel.setBox(new Box( new Position(xi + 2,yi+2)));
                     ice.add(new Ice(new Position(xi + 2,yi+2)));
@@ -73,7 +73,7 @@ public class LevelBuilder {
         levelModel.setWalls(walls);
         levelModel.setIce(ice);
         levelModel.setCoins(coins);
-        levelModel.setToughIce(toughIce);
+        levelModel.setDoubleIce(doubleIce);
         levelModel.setInvisibleWalls(invisibleWalls);
         levelModel.setTeleport(teleports);
     }

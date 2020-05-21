@@ -2,7 +2,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
+import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.drawable.element.Key;
 
 public class InteractKey extends Interact<Key> {
@@ -20,7 +20,7 @@ public class InteractKey extends Interact<Key> {
 
         facade.removeKeyLock();
 
-        facade.setStrategy(new StrategyRegular(facade));
+        facade.setStrategy(new StrategyIce(facade));
     }
 
     @Override

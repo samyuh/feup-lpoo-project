@@ -2,11 +2,11 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
-import org.g70.model.drawable.element.SecretDestination;
+import org.g70.controller.level.strategy.StrategyIce;
+import org.g70.model.drawable.element.Secret;
 
-public class InteractSecretDestination extends Interact<SecretDestination> {
-    public InteractSecretDestination(SecretDestination element) {
+public class InteractSecret extends Interact<Secret> {
+    public InteractSecret(Secret element) {
         super(element);
     }
 
@@ -19,7 +19,7 @@ public class InteractSecretDestination extends Interact<SecretDestination> {
 
         controller.initSecretLevel();
 
-        facade.setStrategy(new StrategyRegular(facade));
+        facade.setStrategy(new StrategyIce(facade));
     }
 
     @Override

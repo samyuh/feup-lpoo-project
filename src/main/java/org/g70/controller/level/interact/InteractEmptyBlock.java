@@ -2,12 +2,12 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyEmpty;
-import org.g70.model.drawable.element.BoxFinalSquare;
+import org.g70.controller.level.strategy.StrategyNothing;
+import org.g70.model.drawable.element.EmptyBlock;
 
-public class InteractBoxFinalSquare extends Interact<BoxFinalSquare> {
+public class InteractEmptyBlock extends Interact<EmptyBlock> {
 
-    public InteractBoxFinalSquare(BoxFinalSquare element) {
+    public InteractEmptyBlock(EmptyBlock element) {
         super(element);
     }
 
@@ -17,7 +17,7 @@ public class InteractBoxFinalSquare extends Interact<BoxFinalSquare> {
 
         controller.movePuffle(position);
 
-        facade.setStrategy(new StrategyEmpty(facade));
+        facade.setStrategy(new StrategyNothing(facade));
     }
 
     @Override

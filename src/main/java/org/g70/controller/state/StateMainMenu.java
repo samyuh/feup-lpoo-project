@@ -8,7 +8,7 @@ import org.g70.controller.menu.MenuController;
 import org.g70.model.menu.MainMenuModel;
 import org.g70.model.drawable.menu.MenuOption;
 import org.g70.model.Position;
-import org.g70.view.menu.MenuView;
+import org.g70.view.game.MenuView;
 
 import java.io.IOException;
 import java.util.ArrayList;

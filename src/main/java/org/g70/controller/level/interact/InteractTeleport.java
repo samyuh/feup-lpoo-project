@@ -2,7 +2,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
+import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Teleport;
 
@@ -30,7 +30,7 @@ public class InteractTeleport extends Interact<Teleport> {
             teleport.setColorForeground("#0000ff");
         }
 
-        facade.setStrategy(new StrategyRegular(facade));
+        facade.setStrategy(new StrategyIce(facade));
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
+import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.drawable.element.Ice;
 
 public class InteractIce extends Interact<Ice> {
@@ -18,7 +18,7 @@ public class InteractIce extends Interact<Ice> {
         controller.movePuffle(position);
         controller.addScore(1,1);
 
-        facade.setStrategy(new StrategyRegular(facade));
+        facade.setStrategy(new StrategyIce(facade));
     }
 
     @Override

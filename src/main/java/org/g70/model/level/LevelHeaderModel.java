@@ -22,14 +22,12 @@ public class LevelHeaderModel {
         this.globalScore =  new GlobalScore();
     }
 
-    // --- Current Level --- //
     public void setLevelNumber(int levelNum) {
         this.levelCurrent.setLevel(levelNum);
 
         this.levelBlocks.setLevelBlocks(maxScores[levelNum-1]);
     }
 
-    // --- Score --- //
     public GlobalScore getGlobalScore() {
         return globalScore;
     }
@@ -47,7 +45,6 @@ public class LevelHeaderModel {
         this.globalScore.resetScore();
     }
 
-    // --- Draw --- //
     public List<Drawable> getAll() {
         List<Drawable> elements = new ArrayList<>();
 

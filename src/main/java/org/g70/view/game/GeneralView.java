@@ -1,4 +1,4 @@
-package org.g70.view;
+package org.g70.view.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
