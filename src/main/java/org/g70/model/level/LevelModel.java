@@ -144,9 +144,9 @@ public class LevelModel {
 
 
     public ElementModel find(Position position) {
-        List<Drawable> everyone = getElements();
+        List<Drawable> elements = getElements();
 
-        for(Drawable element : everyone){
+        for(Drawable element : elements){
             if(element.getPosition().equals(position))
                 return (ElementModel) element;
         }
