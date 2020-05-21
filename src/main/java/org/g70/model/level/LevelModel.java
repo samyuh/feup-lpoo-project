@@ -154,8 +154,8 @@ public class LevelModel {
 
     }
 
-    public void clearLevel(boolean clearWater) {
-        if(clearWater) {
+    public void clearLevel(boolean secretLevel) {
+        if (!secretLevel) {
             water = new ArrayList<>();
         }
         puffle = null;

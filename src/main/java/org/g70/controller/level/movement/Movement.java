@@ -17,10 +17,6 @@ public abstract class Movement {
         return orientationFaced;
     }
 
-    public void setOrientationFaced(ORIENTATION orientation) {
-        this.orientationFaced = orientation;
-    }
-
     public Position moveUp() {
         orientationFaced = ORIENTATION.UP;
         return new Position(element.getPosition().getX(), element.getPosition().getY() - 1);
@@ -39,6 +35,10 @@ public abstract class Movement {
     public Position moveLeft() {
         orientationFaced = ORIENTATION.LEFT;
         return new Position(element.getPosition().getX() - 1, element.getPosition().getY());
+    }
+
+    public Position getPosition() {
+        return element.getPosition();
     }
 
     public boolean atPosition(Position target) {

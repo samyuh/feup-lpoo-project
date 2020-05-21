@@ -20,18 +20,15 @@ public class LevelController {
     private LevelView levelView;
     private LevelHeaderModel levelHeader;
 
-    private MainController mainController;
-
     private LevelBuilder levelBuilder;
 
     private LevelFacade levelFacade;
 
     private int levelNum;
 
-    public LevelController(MainController mainController, LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
+    public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
         this.levelNum = 1;
 
-        this.mainController = mainController;
         this.levelModel = levelModel;
         this.levelHeader = headerModel;
         this.levelView = levelView;
@@ -46,21 +43,18 @@ public class LevelController {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
         this.levelHeader.setLevelNumber(levelNum);
-        this.levelModel.clearLevel(true);
+        this.levelModel.clearLevel(false);
         this.levelBuilder.initLevel(levelNum);
-        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
+        this.levelFacade.newLevel();
 
-        PuffleMovement puffleMovement = new PuffleMovement(levelModel.getPuffle());
-        this.levelFacade.setPuffleMovement(puffleMovement);
     }
 
     public void setLevelSecret() {
-        this.levelModel.clearLevel(false);
+        this.levelModel.clearLevel(true);
         this.levelBuilder.initSecretLevel(levelNum);
-        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
+        this.levelFacade.newLevel();
 
-        PuffleMovement puffleMovement = new PuffleMovement(levelModel.getPuffle());
-        this.levelFacade.setPuffleMovement(puffleMovement);
+
     }
     // Dup code //
 
@@ -74,8 +68,6 @@ public class LevelController {
 
             levelView.draw();
         } while(processCommand(levelView.handler()));
-
-        mainController.setState(new StateGameOver(mainController, levelHeader.getGlobalScore().getScore()));
     }
 
     public boolean processCommand(KeyHandler.DIRECTION command) {

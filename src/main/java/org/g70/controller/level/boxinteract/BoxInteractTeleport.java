@@ -13,6 +13,6 @@ public class BoxInteractTeleport extends BoxInteract<Teleport> {
     public boolean execute(LevelFacade facade) {
         Position otherTeleport = facade.getTeleportPosition(element);
         facade.moveBox(otherTeleport);
-        return false;
+        return true;
     }
 }
