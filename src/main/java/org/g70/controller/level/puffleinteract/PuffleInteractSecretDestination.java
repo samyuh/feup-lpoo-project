@@ -17,7 +17,7 @@ public class PuffleInteractSecretDestination extends PuffleInteract<SecretDestin
         facade.movePuffle(position);
         controller.addScore(1,1);
 
-        controller.secretLevel();
+        controller.initSecretLevel();
 
         facade.setStrategy(new StrategyRegular(facade));
     }
