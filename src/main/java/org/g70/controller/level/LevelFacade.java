@@ -1,12 +1,12 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.boxinteract.BoxInteract;
+import org.g70.controller.level.interact.Interact;
 import org.g70.controller.level.movement.BoxMovement;
 import org.g70.controller.level.movement.Movement;
 import org.g70.controller.level.movement.PuffleMovement;
-import org.g70.controller.level.puffleinteract.PuffleInteractBox;
-import org.g70.controller.level.puffleinteract.PuffleInteractIce;
-import org.g70.controller.level.puffleinteract.PuffleInteractStop;
+import org.g70.controller.level.interact.InteractBox;
+import org.g70.controller.level.interact.InteractIce;
+import org.g70.controller.level.interact.InteractStop;
 import org.g70.controller.level.strategy.Strategy;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.*;
@@ -53,20 +53,12 @@ public class LevelFacade {
         meltStrategy.execute(puffleMovement.getPosition());
     }
 
-    public void movePuffle(Position position) {
-        levelModel.getPuffle().setPosition(position);
-
-        // Refactor this bellow
-        if (levelModel.getBox() != null)
-            resetBoxInteraction();
-    }
-
     public void moveBox(Position position){
         levelModel.getBox().setPosition(position);
     }
 
     public void resetBoxInteraction() {
-        levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
+        levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
     public boolean boxLoop() {
@@ -101,15 +93,15 @@ public class LevelFacade {
                 break;
         }
 
-        return getBoxInteract(box).execute(this);
+        return getBoxInteract(box).executeBox(this);
     }
 
-    private BoxInteract getBoxInteract(Position position) {
+    private Interact getBoxInteract(Position position) {
         ElementModel element = levelModel.find(position);
-        return element.getBoxInteraction();
+        return element.getInteraction();
     }
 
-    // --- Teleport Methods -- //
+
     public List<Teleport> getTeleport() {
         return levelModel.getTeleport();
     }
@@ -121,28 +113,25 @@ public class LevelFacade {
             return getTeleport().get(0).getPosition();
     }
 
-    // --- Remove Key -- //
     public void removeKeyLock() {
         levelModel.setKey(null);
         addIce(levelModel.getLock().getPosition());
         levelModel.setLock(null);
     }
 
-    // --- Coin and Score -- //
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
     }
 
-    // --- Melt Ice Methods -- //
     public void addWater(Position position) {
         Water water = new Water(position);
-        water.setPuffleInteraction(new PuffleInteractStop(water));
+        water.setInteraction(new InteractStop(water));
         levelModel.getWater().add(water);
     }
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
-        ice.setPuffleInteraction(new PuffleInteractIce(ice));
+        ice.setInteraction(new InteractIce(ice));
         levelModel.getIce().add(ice);
     }
 

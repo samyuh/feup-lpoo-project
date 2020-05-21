@@ -34,8 +34,6 @@ public class LevelModel {
         this.teleport = new ArrayList<>();
     }
 
-    // -- SET
-
     public void setPuffle(Puffle puffle) {
         this.puffle = puffle;
     }
@@ -75,13 +73,6 @@ public class LevelModel {
     public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
 
     public void setTeleport(List<Teleport> teleport) { this.teleport = teleport; }
-
-    public void addWall(Position position) {
-        Wall wall = new Wall(position);
-        this.walls.add(wall);
-    }
-
-    // -- Get Functions
 
     public Puffle getPuffle() {
         return puffle;
@@ -142,7 +133,6 @@ public class LevelModel {
         return elements;
     }
 
-
     public ElementModel find(Position position) {
         List<Drawable> elements = getElements();
 
@@ -151,19 +141,16 @@ public class LevelModel {
                 return (ElementModel) element;
         }
         return null;
-
     }
 
     public void clearLevel(boolean secretLevel) {
-        if (!secretLevel) {
-            water = new ArrayList<>();
-        }
-        puffle = null;
-        destination = null;
+        if (!secretLevel) water = new ArrayList<>();
         walls = new ArrayList<>();
         coins = new ArrayList<>();
         toughIce = new ArrayList<>();
         teleport = new ArrayList<>();
+        puffle = null;
+        destination = null;
         key = null;
         lock = null;
         boxFinalSquare = null;

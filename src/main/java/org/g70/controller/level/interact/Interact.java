@@ -1,18 +1,20 @@
-package org.g70.controller.level.puffleinteract;
+package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.drawable.element.ElementModel;
 import org.g70.model.Position;
 
-public abstract class PuffleInteract<T extends ElementModel> {
+public abstract class Interact<T extends ElementModel> {
     protected T element;
     protected Position position;
 
-    protected PuffleInteract(T element){
+    protected Interact(T element){
         this.element = element;
         this.position = element.getPosition();
     }
 
-    public abstract void execute(LevelController controller, LevelFacade facade);
+    public abstract void executePuffle(LevelController controller, LevelFacade facade);
+
+    public abstract boolean executeBox(LevelFacade facade);
 }

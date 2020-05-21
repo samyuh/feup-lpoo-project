@@ -1,7 +1,7 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.puffleinteract.*;
-import org.g70.controller.level.puffleinteract.PuffleInteractStop;
+import org.g70.controller.level.interact.*;
+import org.g70.controller.level.interact.InteractStop;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
@@ -33,7 +33,6 @@ public class LevelController {
         this.initLevel(false);
     }
 
-    // Here Code Smell
     public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
@@ -50,10 +49,6 @@ public class LevelController {
         this.levelBuilder.initLevel(levelNum, secretLevel);
         this.levelHeader.setLevelNumber(levelNum);
         this.levelFacade.newLevel();
-    }
-
-    public void addScore(int blocks, int score) {
-        levelHeader.updateHeaderScore(blocks, score);
     }
 
     public void run() throws IOException {
@@ -90,17 +85,28 @@ public class LevelController {
         return true;
     }
 
-    public void executeMovement(Position position) {
-        checkMovement(position).execute(this, levelFacade);
+    public void addScore(int blocks, int score) {
+        levelHeader.updateHeaderScore(blocks, score);
     }
 
-    private PuffleInteract checkMovement(Position position){
+    public void movePuffle(Position position) {
+        levelModel.getPuffle().setPosition(position);
+
+        if (levelModel.getBox() != null)
+            levelFacade.resetBoxInteraction();
+    }
+
+    public void executeMovement(Position position) {
+        checkMovement(position).executePuffle(this, levelFacade);
+    }
+
+    private Interact checkMovement(Position position){
         ElementModel element = levelModel.find(position);
-        return element.getPuffleInteraction();
+        return element.getInteraction();
     }
 
     private boolean checkCollisions(Position position) {
-        return checkMovement(position).getClass() == PuffleInteractStop.class;
+        return checkMovement(position).getClass() == InteractStop.class;
     }
 
     public boolean gameFinished() {
