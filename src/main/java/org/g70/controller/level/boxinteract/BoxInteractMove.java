@@ -9,7 +9,8 @@ public class BoxInteractMove extends BoxInteract {
     }
 
     @Override
-    public void execute( LevelFacade facade) {
+    public boolean execute(LevelFacade facade) {
         facade.moveBox(position);
+        return true;
     }
 }

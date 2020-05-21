@@ -13,5 +13,5 @@ public abstract class BoxInteract<T extends ElementModel> {
         this.position = element.getPosition();
     }
 
-    public abstract void execute(LevelFacade facade);
+    public abstract boolean execute(LevelFacade facade);
 }

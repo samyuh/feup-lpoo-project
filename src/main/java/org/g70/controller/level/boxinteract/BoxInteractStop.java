@@ -9,7 +9,8 @@ public class BoxInteractStop extends BoxInteract {
     }
 
     @Override
-    public void execute( LevelFacade facade) {
+    public boolean execute( LevelFacade facade) {
         //Does nothing
+        return false;
     }
 }

@@ -1,7 +1,6 @@
 package org.g70.controller.level;
 
 import org.g70.controller.level.boxinteract.BoxInteract;
-import org.g70.controller.level.boxinteract.BoxInteractStop;
 
 import org.g70.controller.level.movement.BoxMovement;
 import org.g70.controller.level.puffleinteract.PuffleInteractBox;
@@ -43,30 +42,13 @@ public class LevelFacade {
         levelModel.getBox().setPosition(position);
     }
 
-    public boolean moveBox() {
+    public boolean boxLoop() {
         boolean canMove = false;
         ORIENTATION boxDirection = findBoxDirection(levelModel.getPuffle());
-        while(true) {
-            Position position = moveDirection(boxDirection);
-            if(checkCollisions(position)) return canMove;
-            executeMovement(position);
-            canMove = true;
-        }
-    }
 
-    // --- Box Methods -- //
-    public Position moveDirection(ORIENTATION direction){
-        switch(direction){
-            case UP:
-                return boxMovement.moveUp();
-            case DOWN:
-                return boxMovement.moveDown();
-            case LEFT:
-                return boxMovement.moveLeft();
-            case RIGHT:
-                return boxMovement.moveRight();
-            default:
-                return null;
+        while(true) {
+            if(!executeMovement(boxDirection)) return canMove;
+            canMove = true;
         }
     }
 
@@ -77,17 +59,33 @@ public class LevelFacade {
         return ORIENTATION.DOWN;
     }
 
-    public void executeMovement(Position position) {
-        checkBoxMovement(position).execute(this);
+    public boolean executeMovement(ORIENTATION direction) {
+        Position box;
+
+        switch(direction) {
+            case UP:
+                box = boxMovement.moveUp();
+                break;
+            case DOWN:
+                box = boxMovement.moveDown();
+                break;
+            case LEFT:
+                box = boxMovement.moveLeft();
+                break;
+            case RIGHT:
+                box = boxMovement.moveRight();
+                break;
+            default:
+                box = levelModel.getBox().getPosition();
+                break;
+        }
+
+        return getBoxInteract(box).execute(this);
     }
 
-    private BoxInteract checkBoxMovement(Position position) {
+    private BoxInteract getBoxInteract(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getBoxInteraction();
-    }
-
-    private boolean checkCollisions(Position position) {
-        return checkBoxMovement(position).getClass() == BoxInteractStop.class;
     }
 
     // --- Teleport Methods -- //

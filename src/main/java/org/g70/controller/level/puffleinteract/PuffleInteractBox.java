@@ -13,7 +13,7 @@ public class PuffleInteractBox extends PuffleInteract<Box> {
 
     @Override
     public void execute(LevelController controller, LevelFacade facade) {
-        if(facade.moveBox()) {
+        if(facade.boxLoop()) {
             facade.meltPreviousIce();
 
             controller.executeMovement(position);
