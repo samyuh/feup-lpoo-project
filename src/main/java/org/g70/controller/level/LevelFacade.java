@@ -2,6 +2,8 @@ package org.g70.controller.level;
 
 import org.g70.controller.level.boxinteract.BoxInteract;
 import org.g70.controller.level.boxinteract.BoxInteractStop;
+
+import org.g70.controller.level.movement.BoxMovement;
 import org.g70.controller.level.puffleinteract.PuffleInteractBox;
 import org.g70.controller.level.puffleinteract.PuffleInteractIce;
 import org.g70.controller.level.puffleinteract.PuffleInteractStop;
@@ -16,6 +18,8 @@ public class LevelFacade {
     LevelModel levelModel;
     Strategy meltStrategy;
 
+    private BoxMovement boxMovement;
+
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
@@ -26,8 +30,17 @@ public class LevelFacade {
 
     public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
+
         // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
-        if(levelModel.getBox() != null) levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
+        if (levelModel.getBox() != null) {
+            levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
+            this.boxMovement = new BoxMovement(levelModel.getBox());
+        }
+        //
+    }
+
+    public void moveBox(Position position){
+        levelModel.getBox().setPosition(position);
     }
 
     public boolean moveBox() {
@@ -45,27 +58,23 @@ public class LevelFacade {
     public Position moveDirection(ORIENTATION direction){
         switch(direction){
             case UP:
-                return levelModel.getBoxMovement().moveUp();
+                return boxMovement.moveUp();
             case DOWN:
-                return levelModel.getBoxMovement().moveDown();
+                return boxMovement.moveDown();
             case LEFT:
-                return levelModel.getBoxMovement().moveLeft();
+                return boxMovement.moveLeft();
             case RIGHT:
-                return levelModel.getBoxMovement().moveRight();
+                return boxMovement.moveRight();
             default:
                 return null;
         }
     }
 
     public ORIENTATION findBoxDirection(Puffle puffle) {
-        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveLeft())) return ORIENTATION.RIGHT;
-        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveRight())) return ORIENTATION.LEFT;
-        if(puffle.getPosition().equals(levelModel.getBoxMovement().moveDown())) return ORIENTATION.UP;
+        if(puffle.getPosition().equals(boxMovement.moveLeft())) return ORIENTATION.RIGHT;
+        if(puffle.getPosition().equals(boxMovement.moveRight())) return ORIENTATION.LEFT;
+        if(puffle.getPosition().equals(boxMovement.moveDown())) return ORIENTATION.UP;
         return ORIENTATION.DOWN;
-    }
-
-    public void makeBoxMove(Position position){
-        levelModel.getBox().setPosition(position);
     }
 
     public void executeMovement(Position position) {
@@ -87,7 +96,7 @@ public class LevelFacade {
     }
 
     public Position getTeleportPosition(Teleport teleport) {
-        if(teleport.getPosition().equals(getTeleport().get(0).getPosition()))
+        if(teleport.equals(getTeleport().get(0)))
             return getTeleport().get(1).getPosition();
         else
             return getTeleport().get(0).getPosition();

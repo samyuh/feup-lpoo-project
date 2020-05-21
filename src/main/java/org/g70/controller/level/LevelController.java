@@ -19,9 +19,11 @@ public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
     private LevelHeaderModel levelHeader;
+
     private MainController mainController;
 
     private LevelBuilder levelBuilder;
+
     private LevelFacade levelFacade;
 
     private PuffleMovement puffleMovement;
@@ -112,7 +114,7 @@ public class LevelController {
     }
 
     private boolean checkCollisions(Position position) {
-        return (checkMovement(position).getClass() == PuffleInteractStop.class);
+        return checkMovement(position).getClass() == PuffleInteractStop.class;
     }
 
     public boolean gameFinished() {

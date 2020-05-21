@@ -1,14 +1,8 @@
 package org.g70.controller;
 
 import org.g70.controller.level.LevelBuilder;
-import org.g70.controller.level.LevelController;
-import org.g70.controller.level.movement.PuffleMovement;
-import org.g70.model.Position;
 import org.g70.model.level.LevelModel;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.g70.view.handler.KeyHandler;
-import org.g70.view.level.LevelView;
 
 import java.io.IOException;
 

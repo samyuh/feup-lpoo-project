@@ -3,7 +3,6 @@ package org.g70.controller.level.puffleinteract;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.Box;
 
 public class PuffleInteractBox extends PuffleInteract<Box> {

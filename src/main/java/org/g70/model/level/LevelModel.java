@@ -1,6 +1,5 @@
 package org.g70.model.level;
 
-import org.g70.controller.level.movement.BoxMovement;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
 import org.g70.model.Position;
@@ -22,7 +21,6 @@ public class LevelModel {
     private Key key;
     private Lock lock;
     private Box box;
-    private BoxMovement boxMovement;
     private BoxFinalSquare boxFinalSquare;
     private SecretDestination secretDestination;
 
@@ -40,6 +38,10 @@ public class LevelModel {
 
     public void setPuffle(Puffle puffle) {
         this.puffle = puffle;
+    }
+
+    public void setBox(Box box) {
+        this.box = box;
     }
 
     public void setDestination(Destination destination) {
@@ -68,15 +70,9 @@ public class LevelModel {
 
     public void setBoxFinalSquare(BoxFinalSquare boxFinalSquare) { this.boxFinalSquare = boxFinalSquare; }
 
-    public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
-
     public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
 
     public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
-
-    public void setBox(Box box) {
-        boxMovement = new BoxMovement(box);
-        this.box = box; }
 
     public void setTeleport(List<Teleport> teleport) { this.teleport = teleport; }
 
@@ -110,8 +106,6 @@ public class LevelModel {
     public Box getBox() { return box; }
 
     public BoxFinalSquare getBoxFinalSquare() { return boxFinalSquare; }
-
-    public BoxMovement getBoxMovement() { return boxMovement; }
 
     public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
 

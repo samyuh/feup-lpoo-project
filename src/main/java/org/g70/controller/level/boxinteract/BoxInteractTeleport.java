@@ -12,6 +12,6 @@ public class BoxInteractTeleport extends BoxInteract<Teleport> {
     @Override
     public void execute(LevelFacade facade) {
         Position otherTeleport = facade.getTeleportPosition(element);
-        facade.makeBoxMove(otherTeleport);
+        facade.moveBox(otherTeleport);
     }
 }
