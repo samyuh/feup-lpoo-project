@@ -1,8 +1,9 @@
 package org.g70.controller.level;
 
 import org.g70.controller.level.boxinteract.BoxInteract;
-
 import org.g70.controller.level.movement.BoxMovement;
+import org.g70.controller.level.movement.Movement;
+import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.controller.level.puffleinteract.PuffleInteractBox;
 import org.g70.controller.level.puffleinteract.PuffleInteractIce;
 import org.g70.controller.level.puffleinteract.PuffleInteractStop;
@@ -13,20 +14,24 @@ import org.g70.model.Position;
 
 import java.util.List;
 
-public class LevelItemsFacade {
+public class LevelFacade {
     LevelModel levelModel;
-    Strategy meltStrategy;
 
     private BoxMovement boxMovement;
+    private PuffleMovement puffleMovement;
 
-    public LevelItemsFacade(LevelModel levelModel) {
+    Strategy meltStrategy;
+
+    public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
+    }
+
+    public void setPuffleMovement(PuffleMovement puffleMovement) {
+        this.puffleMovement = puffleMovement;
     }
 
     // -- Refactor Box please bellow -- //
     // --- Move --- //
-    public enum ORIENTATION {UP, RIGHT, DOWN, LEFT};
-
     public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
 
@@ -44,25 +49,21 @@ public class LevelItemsFacade {
 
     public boolean boxLoop() {
         boolean canMove = false;
-        ORIENTATION boxDirection = findBoxDirection(levelModel.getPuffle());
-        boxMovement.setDir(boxDirection);
+        boxMovement.setOrientationFaced(findBoxDirection());
         while(true) {
             if(!executeMovement()) return canMove;
             canMove = true;
         }
     }
 
-    public ORIENTATION findBoxDirection(Puffle puffle) {
-        if(puffle.getPosition().equals(boxMovement.moveLeft())) return ORIENTATION.RIGHT;
-        if(puffle.getPosition().equals(boxMovement.moveRight())) return ORIENTATION.LEFT;
-        if(puffle.getPosition().equals(boxMovement.moveDown())) return ORIENTATION.UP;
-        return ORIENTATION.DOWN;
+    public Movement.ORIENTATION findBoxDirection() {
+        return puffleMovement.getOrientationFaced();
     }
 
     public boolean executeMovement() {
         Position box;
 
-        switch(boxMovement.getDir()) {
+        switch(boxMovement.getOrientationFaced()) {
             case UP:
                 box = boxMovement.moveUp();
                 break;
@@ -143,5 +144,9 @@ public class LevelItemsFacade {
 
     public void setStrategy(Strategy strategy) {
         this.meltStrategy = strategy;
+    }
+
+    public Movement getPuffleMovement() {
+        return puffleMovement;
     }
 }

@@ -1,6 +1,7 @@
 package org.g70.controller.level;
 
 import org.g70.controller.MainController;
+import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.controller.level.puffleinteract.*;
 import org.g70.controller.level.puffleinteract.PuffleInteractStop;
 import org.g70.controller.level.strategy.StrategyRegular;
@@ -23,8 +24,7 @@ public class LevelController {
 
     private LevelBuilder levelBuilder;
 
-    private LevelItemsFacade levelFacade;
-    private LevelPuffleFacade levelPuffleFacade;
+    private LevelFacade levelFacade;
 
     private int levelNum;
 
@@ -35,10 +35,9 @@ public class LevelController {
         this.levelModel = levelModel;
         this.levelHeader = headerModel;
         this.levelView = levelView;
-
         this.levelBuilder = new LevelBuilder(levelModel);
-        this.levelFacade = new LevelItemsFacade(levelModel);
-        this.levelPuffleFacade = new LevelPuffleFacade(levelModel);
+        this.levelFacade = new LevelFacade(levelModel);
+
         this.setLevel(false);
     }
 
@@ -50,14 +49,18 @@ public class LevelController {
         this.levelModel.clearLevel(true);
         this.levelBuilder.initLevel(levelNum);
         this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
-        this.levelPuffleFacade.setPuffleMovement();
+
+        PuffleMovement puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.levelFacade.setPuffleMovement(puffleMovement);
     }
 
     public void setLevelSecret() {
         this.levelModel.clearLevel(false);
         this.levelBuilder.initSecretLevel(levelNum);
         this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
-        this.levelPuffleFacade.setPuffleMovement();
+
+        PuffleMovement puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        this.levelFacade.setPuffleMovement(puffleMovement);
     }
     // Dup code //
 
@@ -78,16 +81,16 @@ public class LevelController {
     public boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveUp());
+                executeMovement(levelFacade.getPuffleMovement().moveUp());
                 return true;
             case DOWN:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveDown());
+                executeMovement(levelFacade.getPuffleMovement().moveDown());
                 return true;
             case LEFT:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveLeft());
+                executeMovement(levelFacade.getPuffleMovement().moveLeft());
                 return true;
             case RIGHT:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveRight());
+                executeMovement(levelFacade.getPuffleMovement().moveRight());
                 return true;
             case NEXT:
                 gameWon();
@@ -115,8 +118,8 @@ public class LevelController {
     }
 
     public boolean gameFinished() {
-        return checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveUp()) && checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveDown()) &&
-                checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveLeft()) && checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveRight());
+        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) && checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
+                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) && checkCollisions(levelFacade.getPuffleMovement().moveRight());
     }
 
     public void gameWon() {

@@ -1,6 +1,6 @@
 package org.g70.controller.level.boxinteract;
 
-import org.g70.controller.level.LevelItemsFacade;
+import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.ElementModel;
 
@@ -13,5 +13,5 @@ public abstract class BoxInteract<T extends ElementModel> {
         this.position = element.getPosition();
     }
 
-    public abstract boolean execute(LevelItemsFacade facade);
+    public abstract boolean execute(LevelFacade facade);
 }
