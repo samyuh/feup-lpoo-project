@@ -1,12 +1,12 @@
 package org.g70.controller.level.strategy;
 
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelItemsFacade;
 import org.g70.model.Position;
 
 public class StrategyToughIce implements Strategy {
-    LevelFacade facade;
+    LevelItemsFacade facade;
 
-    public StrategyToughIce(LevelFacade facade) {
+    public StrategyToughIce(LevelItemsFacade facade) {
         this.facade = facade;
     }
 

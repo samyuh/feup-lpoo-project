@@ -1,7 +1,7 @@
 package org.g70.controller.level.puffleinteract;
 
 import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelItemsFacade;
 import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.SecretDestination;
 
@@ -11,7 +11,7 @@ public class PuffleInteractSecretDestination extends PuffleInteract<SecretDestin
     }
 
     @Override
-    public void execute(LevelController controller, LevelFacade facade) {
+    public void execute(LevelController controller, LevelItemsFacade facade) {
         facade.meltPreviousIce();
 
         facade.movePuffle(position);

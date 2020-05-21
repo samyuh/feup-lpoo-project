@@ -13,13 +13,13 @@ import org.g70.model.Position;
 
 import java.util.List;
 
-public class LevelFacade {
+public class LevelItemsFacade {
     LevelModel levelModel;
     Strategy meltStrategy;
 
     private BoxMovement boxMovement;
 
-    public LevelFacade(LevelModel levelModel) {
+    public LevelItemsFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
 
@@ -45,9 +45,9 @@ public class LevelFacade {
     public boolean boxLoop() {
         boolean canMove = false;
         ORIENTATION boxDirection = findBoxDirection(levelModel.getPuffle());
-
+        boxMovement.setDir(boxDirection);
         while(true) {
-            if(!executeMovement(boxDirection)) return canMove;
+            if(!executeMovement()) return canMove;
             canMove = true;
         }
     }
@@ -59,10 +59,10 @@ public class LevelFacade {
         return ORIENTATION.DOWN;
     }
 
-    public boolean executeMovement(ORIENTATION direction) {
+    public boolean executeMovement() {
         Position box;
 
-        switch(direction) {
+        switch(boxMovement.getDir()) {
             case UP:
                 box = boxMovement.moveUp();
                 break;

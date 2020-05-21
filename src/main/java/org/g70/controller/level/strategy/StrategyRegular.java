@@ -1,12 +1,12 @@
 package org.g70.controller.level.strategy;
 
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelItemsFacade;
 import org.g70.model.Position;
 
 public class StrategyRegular implements Strategy {
-    LevelFacade facade;
+    LevelItemsFacade facade;
 
-    public StrategyRegular(LevelFacade facade) {
+    public StrategyRegular(LevelItemsFacade facade) {
         this.facade = facade;
     }
     

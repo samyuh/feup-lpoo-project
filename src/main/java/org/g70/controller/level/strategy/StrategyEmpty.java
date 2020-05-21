@@ -1,12 +1,12 @@
 package org.g70.controller.level.strategy;
 
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelItemsFacade;
 import org.g70.model.Position;
 
 public class StrategyEmpty implements Strategy {
-    LevelFacade facade;
+    LevelItemsFacade facade;
 
-    public StrategyEmpty(LevelFacade facade) {
+    public StrategyEmpty(LevelItemsFacade facade) {
         this.facade = facade;
     }
 
