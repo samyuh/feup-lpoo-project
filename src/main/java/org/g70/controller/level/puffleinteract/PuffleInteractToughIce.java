@@ -1,7 +1,7 @@
 package org.g70.controller.level.puffleinteract;
 
 import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelItemsFacade;
+import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyToughIce;
 import org.g70.model.drawable.element.ToughIce;
 
@@ -12,7 +12,7 @@ public class PuffleInteractToughIce extends PuffleInteract<ToughIce> {
     }
 
     @Override
-    public void execute(LevelController controller, LevelItemsFacade facade) {
+    public void execute(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
         facade.movePuffle(position);

@@ -2,7 +2,7 @@ package org.g70.controller.level.puffleinteract;
 
 
 import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelItemsFacade;
+import org.g70.controller.level.LevelFacade;
 import org.g70.model.drawable.element.Box;
 
 public class PuffleInteractBox extends PuffleInteract<Box> {
@@ -12,7 +12,7 @@ public class PuffleInteractBox extends PuffleInteract<Box> {
     }
 
     @Override
-    public void execute(LevelController controller, LevelItemsFacade facade) {
+    public void execute(LevelController controller, LevelFacade facade) {
         if(facade.boxLoop()) {
             facade.meltPreviousIce();
 

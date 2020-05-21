@@ -1,6 +1,6 @@
 package org.g70.controller.level.boxinteract;
 
-import org.g70.controller.level.LevelItemsFacade;
+import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Teleport;
 
@@ -10,9 +10,9 @@ public class BoxInteractTeleport extends BoxInteract<Teleport> {
     }
 
     @Override
-    public boolean execute(LevelItemsFacade facade) {
+    public boolean execute(LevelFacade facade) {
         Position otherTeleport = facade.getTeleportPosition(element);
         facade.moveBox(otherTeleport);
-        return false;
+        return true;
     }
 }

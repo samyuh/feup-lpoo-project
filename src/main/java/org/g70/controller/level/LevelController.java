@@ -1,10 +1,7 @@
 package org.g70.controller.level;
 
-import org.g70.controller.MainController;
 import org.g70.controller.level.puffleinteract.*;
 import org.g70.controller.level.puffleinteract.PuffleInteractStop;
-import org.g70.controller.level.strategy.StrategyRegular;
-import org.g70.controller.state.StateGameOver;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
@@ -19,47 +16,41 @@ public class LevelController {
     private LevelView levelView;
     private LevelHeaderModel levelHeader;
 
-    private MainController mainController;
-
     private LevelBuilder levelBuilder;
-
-    private LevelItemsFacade levelFacade;
-    private LevelPuffleFacade levelPuffleFacade;
+    private LevelFacade levelFacade;
 
     private int levelNum;
 
-    public LevelController(MainController mainController, LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
-        this.levelNum = 1;
-
-        this.mainController = mainController;
+    public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
         this.levelModel = levelModel;
         this.levelHeader = headerModel;
         this.levelView = levelView;
-
         this.levelBuilder = new LevelBuilder(levelModel);
-        this.levelFacade = new LevelItemsFacade(levelModel);
-        this.levelPuffleFacade = new LevelPuffleFacade(levelModel);
-        this.setLevel(false);
+        this.levelFacade = new LevelFacade(levelModel);
+
+        this.levelNum = 1;
+
+        this.initLevel(false);
     }
 
-    // Dup code //
-    public void setLevel(boolean restart) {
+    // Here Code Smell
+    public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
-        this.levelHeader.setLevelNumber(levelNum);
-        this.levelModel.clearLevel(true);
-        this.levelBuilder.initLevel(levelNum);
-        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
-        this.levelPuffleFacade.setPuffleMovement();
+
+        this.initLevel(false);
     }
 
-    public void setLevelSecret() {
-        this.levelModel.clearLevel(false);
-        this.levelBuilder.initSecretLevel(levelNum);
-        this.levelFacade.setStrategy(new StrategyRegular(levelFacade));
-        this.levelPuffleFacade.setPuffleMovement();
+    public void initSecretLevel() {
+        this.initLevel(true);
     }
-    // Dup code //
+
+    private void initLevel(boolean secretLevel) {
+        this.levelModel.clearLevel(secretLevel);
+        this.levelBuilder.initLevel(levelNum, secretLevel);
+        this.levelHeader.setLevelNumber(levelNum);
+        this.levelFacade.newLevel();
+    }
 
     public void addScore(int blocks, int score) {
         levelHeader.updateHeaderScore(blocks, score);
@@ -71,29 +62,27 @@ public class LevelController {
 
             levelView.draw();
         } while(processCommand(levelView.handler()));
-
-        mainController.setState(new StateGameOver(mainController, levelHeader.getGlobalScore().getScore()));
     }
 
-    public boolean processCommand(KeyHandler.DIRECTION command) {
+    private boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveUp());
+                executeMovement(levelFacade.getPuffleMovement().moveUp());
                 return true;
             case DOWN:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveDown());
+                executeMovement(levelFacade.getPuffleMovement().moveDown());
                 return true;
             case LEFT:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveLeft());
+                executeMovement(levelFacade.getPuffleMovement().moveLeft());
                 return true;
             case RIGHT:
-                executeMovement(this.levelPuffleFacade.getPuffleMovement().moveRight());
+                executeMovement(levelFacade.getPuffleMovement().moveRight());
                 return true;
             case NEXT:
                 gameWon();
                 return true;
             case RESTART:
-                this.setLevel(true);
+                this.initRegularLevel(true);
                 return true;
             case CLOSE:
                 return false;
@@ -115,18 +104,14 @@ public class LevelController {
     }
 
     public boolean gameFinished() {
-        return checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveUp()) && checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveDown()) &&
-                checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveLeft()) && checkCollisions(this.levelPuffleFacade.getPuffleMovement().moveRight());
+        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) && checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
+                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) && checkCollisions(levelFacade.getPuffleMovement().moveRight());
     }
 
     public void gameWon() {
         if (levelNum != 19) {
             levelNum++;
-            setLevel(false);
+            initRegularLevel(false);
         }
-    }
-
-    public void secretLevel() {
-        setLevelSecret();
     }
 }

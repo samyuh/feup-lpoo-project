@@ -1,68 +1,89 @@
 package org.g70.controller.level;
 
 import org.g70.controller.level.boxinteract.BoxInteract;
-
 import org.g70.controller.level.movement.BoxMovement;
+import org.g70.controller.level.movement.Movement;
+import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.controller.level.puffleinteract.PuffleInteractBox;
 import org.g70.controller.level.puffleinteract.PuffleInteractIce;
 import org.g70.controller.level.puffleinteract.PuffleInteractStop;
 import org.g70.controller.level.strategy.Strategy;
+import org.g70.controller.level.strategy.StrategyRegular;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
 
 import java.util.List;
 
-public class LevelItemsFacade {
+public class LevelFacade {
     LevelModel levelModel;
-    Strategy meltStrategy;
 
     private BoxMovement boxMovement;
+    private PuffleMovement puffleMovement;
 
-    public LevelItemsFacade(LevelModel levelModel) {
+    Strategy meltStrategy;
+
+    public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
 
-    // -- Refactor Box please bellow -- //
-    // --- Move --- //
-    public enum ORIENTATION {UP, RIGHT, DOWN, LEFT};
+    public void newLevel() {
+        updatePuffleMovement();
+        updateBoxMovement();
+        setStrategy(new StrategyRegular(this));
+    }
+
+    public Movement getPuffleMovement() {
+        return puffleMovement;
+    }
+
+    private void updatePuffleMovement() {
+        this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
+    }
+
+    private void updateBoxMovement() {
+        this.boxMovement = new BoxMovement(levelModel.getBox());
+    }
+
+    public void setStrategy(Strategy strategy) {
+        this.meltStrategy = strategy;
+    }
+
+    public void meltPreviousIce() {
+        meltStrategy.execute(puffleMovement.getPosition());
+    }
 
     public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
 
-        // Need to set the position back in case it is blocked (block is raised to lose the game when box cant move)
-        if (levelModel.getBox() != null) {
-            levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
-            this.boxMovement = new BoxMovement(levelModel.getBox());
-        }
-        //
+        // Refactor this bellow
+        if (levelModel.getBox() != null)
+            resetBoxInteraction();
     }
 
     public void moveBox(Position position){
         levelModel.getBox().setPosition(position);
     }
 
+    public void resetBoxInteraction() {
+        levelModel.getBox().setPuffleInteraction(new PuffleInteractBox(levelModel.getBox()));
+    }
+
     public boolean boxLoop() {
-        boolean canMove = false;
-        ORIENTATION boxDirection = findBoxDirection(levelModel.getPuffle());
-        boxMovement.setDir(boxDirection);
-        while(true) {
-            if(!executeMovement()) return canMove;
-            canMove = true;
-        }
+        Movement.ORIENTATION orientation = puffleMovement.getOrientationFaced();
+
+        if(!executeMovement(orientation))
+            return false;
+
+        while(executeMovement(orientation)) {}
+
+        return true;
     }
 
-    public ORIENTATION findBoxDirection(Puffle puffle) {
-        if(puffle.getPosition().equals(boxMovement.moveLeft())) return ORIENTATION.RIGHT;
-        if(puffle.getPosition().equals(boxMovement.moveRight())) return ORIENTATION.LEFT;
-        if(puffle.getPosition().equals(boxMovement.moveDown())) return ORIENTATION.UP;
-        return ORIENTATION.DOWN;
-    }
-
-    public boolean executeMovement() {
+    public boolean executeMovement(Movement.ORIENTATION orientation) {
         Position box;
 
-        switch(boxMovement.getDir()) {
+        switch(orientation) {
             case UP:
                 box = boxMovement.moveUp();
                 break;
@@ -102,8 +123,8 @@ public class LevelItemsFacade {
 
     // --- Remove Key -- //
     public void removeKeyLock() {
-        addIce(levelModel.getLock().getPosition());
         levelModel.setKey(null);
+        addIce(levelModel.getLock().getPosition());
         levelModel.setLock(null);
     }
 
@@ -111,7 +132,6 @@ public class LevelItemsFacade {
     public void removeCoin(Coin coin) {
         levelModel.getCoins().remove(coin);
     }
-
 
     // --- Melt Ice Methods -- //
     public void addWater(Position position) {
@@ -132,16 +152,5 @@ public class LevelItemsFacade {
 
     public boolean removeToughIce(Position position){
         return levelModel.getToughIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
-    }
-
-    // -- Change Melt Ice Strategy -- //
-    public void meltPreviousIce() {
-        Position pufflePos = levelModel.getPuffle().getPosition();
-
-        meltStrategy.execute(pufflePos);
-    }
-
-    public void setStrategy(Strategy strategy) {
-        this.meltStrategy = strategy;
     }
 }
