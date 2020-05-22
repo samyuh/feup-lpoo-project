@@ -29,20 +29,20 @@ public abstract class Movement {
     }
 
     public Position moveUp() {
-        this.x = 0;
-        this.y = -1;
+        x = 0;
+        y = -1;
         return new Position(element.getPosition().getX(), element.getPosition().getY() - 1);
     }
 
     public Position moveDown() {
-        this.x = 0;
-        this.y = 1;
+        x = 0;
+        y = 1;
         return new Position(element.getPosition().getX(), element.getPosition().getY() + 1);
     }
 
     public Position moveRight() {
-        this.x = 1;
-        this.y = 0;
+        x = 1;
+        y = 0;
         return new Position(element.getPosition().getX() + 1, element.getPosition().getY());
     }
 
