@@ -47,8 +47,8 @@ public abstract class Movement {
     }
 
     public Position moveLeft() {
-        this.x = -1;
-        this.y = 0;
+        x = -1;
+        y = 0;
         return new Position(element.getPosition().getX() - 1, element.getPosition().getY());
     }
 }
