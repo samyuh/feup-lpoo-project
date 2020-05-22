@@ -14,7 +14,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        controller.movePuffle(position);
+        facade.movePuffle(position);
         controller.addScore(1,1);
 
         element.setInteraction(new InteractStop(element));

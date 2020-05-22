@@ -89,12 +89,6 @@ public class LevelController {
         levelHeader.updateHeaderScore(blocks, score);
     }
 
-    public void movePuffle(Position position) {
-        levelModel.getPuffle().setPosition(position);
-
-        if (levelModel.getBox() != null) levelFacade.resetBoxInteraction();
-    }
-
     public void executeMovement(Position position) {
         checkMovement(position).executePuffle(this, levelFacade);
     }

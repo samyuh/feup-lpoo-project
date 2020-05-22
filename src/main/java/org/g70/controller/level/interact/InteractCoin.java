@@ -15,7 +15,7 @@ public class InteractCoin extends Interact<Coin> {
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        controller.movePuffle(position);
+        facade.movePuffle(position);
         controller.addScore(1,10);
 
         facade.removeCoin(element);

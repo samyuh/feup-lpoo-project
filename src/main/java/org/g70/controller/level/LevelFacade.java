@@ -41,6 +41,13 @@ public class LevelFacade {
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
+    public void movePuffle(Position position) {
+        levelModel.getPuffle().setPosition(position);
+
+        if (levelModel.getBox() != null)
+            resetBoxInteraction();
+    }
+
     private void updateBoxMovement() {
         this.boxMovement = new BoxMovement(levelModel.getBox());
     }
