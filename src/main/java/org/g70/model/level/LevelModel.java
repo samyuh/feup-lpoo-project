@@ -1,6 +1,5 @@
 package org.g70.model.level;
 
-import org.g70.controller.level.movement.BoxMovement;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
 import org.g70.model.Position;
@@ -11,39 +10,40 @@ import java.util.List;
 
 public class LevelModel {
     private Puffle puffle;
-    private Destination destination;
+    private Finish finish;
     private List<Wall> walls;
     private List<Ice> ice;
     private List<Water> water;
     private List<Coin> coins;
-    private List<ToughIce> toughIce;
+    private List<DoubleIce> doubleIce;
     private List<InvisibleWall> invisibleWalls;
     private List<Teleport> teleport;
     private Key key;
     private Lock lock;
     private Box box;
-    private BoxMovement boxMovement;
-    private BoxFinalSquare boxFinalSquare;
-    private SecretDestination secretDestination;
+    private EmptyBlock emptyBlock;
+    private Secret secret;
 
     public LevelModel() {
         this.walls = new ArrayList<>();
         this.ice = new ArrayList<>();
         this.water = new ArrayList<>();
         this.coins  = new ArrayList<>();
-        this.toughIce = new ArrayList<>();
+        this.doubleIce = new ArrayList<>();
         this.invisibleWalls = new ArrayList<>();
         this.teleport = new ArrayList<>();
     }
-
-    // -- SET
 
     public void setPuffle(Puffle puffle) {
         this.puffle = puffle;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setBox(Box box) {
+        this.box = box;
+    }
+
+    public void setFinish(Finish finish) {
+        this.finish = finish;
     }
 
     public void setWalls(List<Wall> walls) {
@@ -64,34 +64,21 @@ public class LevelModel {
 
     public void setCoins(List<Coin> coins) { this.coins = coins; }
 
-    public void setToughIce(List<ToughIce> toughIce) { this.toughIce = toughIce; }
+    public void setDoubleIce(List<DoubleIce> doubleIce) { this.doubleIce = doubleIce; }
 
-    public void setBoxFinalSquare(BoxFinalSquare boxFinalSquare) { this.boxFinalSquare = boxFinalSquare; }
-
-    public void setBoxMovement(BoxMovement boxMovement) { this.boxMovement = boxMovement; }
+    public void setEmptyBlock(EmptyBlock emptyBlock) { this.emptyBlock = emptyBlock; }
 
     public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
 
-    public void setSecretDestination(SecretDestination secretDestination) { this.secretDestination = secretDestination; }
-
-    public void setBox(Box box) {
-        boxMovement = new BoxMovement(box);
-        this.box = box; }
+    public void setSecret(Secret secret) { this.secret = secret; }
 
     public void setTeleport(List<Teleport> teleport) { this.teleport = teleport; }
-
-    public void addWall(Position position) {
-        Wall wall = new Wall(position);
-        this.walls.add(wall);
-    }
-
-    // -- Get Functions
 
     public Puffle getPuffle() {
         return puffle;
     }
 
-    public Destination getDestination() { return destination; }
+    public Finish getFinish() { return finish; }
 
     public List<Wall> getWalls() { return walls; }
 
@@ -105,17 +92,15 @@ public class LevelModel {
 
     public Lock getLock() { return lock; }
 
-    public List<ToughIce> getToughIce() { return toughIce; }
+    public List<DoubleIce> getDoubleIce() { return doubleIce; }
 
     public Box getBox() { return box; }
 
-    public BoxFinalSquare getBoxFinalSquare() { return boxFinalSquare; }
-
-    public BoxMovement getBoxMovement() { return boxMovement; }
+    public EmptyBlock getEmptyBlock() { return emptyBlock; }
 
     public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
 
-    public SecretDestination getSecretDestination() { return secretDestination; }
+    public Secret getSecret() { return secret; }
 
     public List<Teleport> getTeleport() { return teleport; }
 
@@ -134,44 +119,40 @@ public class LevelModel {
         if(box != null) elements.add(box);
         if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
-        if(boxFinalSquare != null) elements.add(boxFinalSquare);
-        if(secretDestination != null) elements.add(secretDestination);
+        if(emptyBlock != null) elements.add(emptyBlock);
+        if(secret != null) elements.add(secret);
         elements.addAll(teleport);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
-        elements.add(destination);
+        elements.add(finish);
         elements.addAll(coins);
-        elements.addAll(toughIce);
+        elements.addAll(doubleIce);
         elements.addAll(water);
         elements.addAll(ice);
 
         return elements;
     }
 
-
     public ElementModel find(Position position) {
-        List<Drawable> everyone = getElements();
+        List<Drawable> elements = getElements();
 
-        for(Drawable element : everyone){
+        for(Drawable element : elements){
             if(element.getPosition().equals(position))
                 return (ElementModel) element;
         }
         return null;
-
     }
 
-    public void clearLevel(boolean clearWater) {
-        if(clearWater) {
-            water = new ArrayList<>();
-        }
-        puffle = null;
-        destination = null;
+    public void clearLevel(boolean secretLevel) {
+        if (!secretLevel) water = new ArrayList<>();
         walls = new ArrayList<>();
         coins = new ArrayList<>();
-        toughIce = new ArrayList<>();
+        doubleIce = new ArrayList<>();
         teleport = new ArrayList<>();
+        puffle = null;
+        finish = null;
         key = null;
         lock = null;
-        boxFinalSquare = null;
+        emptyBlock = null;
     }
 }

@@ -7,12 +7,12 @@ import org.g70.model.drawable.menu.MenuOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MenuModel {
+public abstract class MenuFactory {
     protected int optionNum;
     protected List<MenuOption> option;
     protected List<Drawable> textBoxes;
 
-    MenuModel(List<MenuOption> option) {
+    MenuFactory(List<MenuOption> option) {
         optionNum = 0;
         this.option = option;
 

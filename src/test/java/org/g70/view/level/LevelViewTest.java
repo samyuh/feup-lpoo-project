@@ -11,6 +11,7 @@ import org.g70.model.drawable.element.Wall;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.ScreenView;
+import org.g70.view.game.LevelView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -1,6 +1,6 @@
 package org.g70.controller;
 
-import org.g70.controller.level.movement.PuffleMovement;
+import org.g70.model.drawable.element.movement.PuffleMovement;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Puffle;
 import org.mockito.Mockito;

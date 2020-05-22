@@ -1,6 +1,6 @@
 package org.g70.model.drawable.element;
 
-import org.g70.controller.level.interact.level.InteractStop;
+import org.g70.controller.level.interact.InteractStop;
 import org.g70.model.Position;
 
 public class Wall extends ElementModel {

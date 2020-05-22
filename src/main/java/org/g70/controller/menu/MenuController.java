@@ -1,18 +1,18 @@
 package org.g70.controller.menu;
 
 import org.g70.controller.MainController;
-import org.g70.model.menu.MenuModel;
+import org.g70.model.menu.MenuFactory;
 import org.g70.view.handler.KeyHandler;
-import org.g70.view.menu.MenuView;
+import org.g70.view.game.MenuView;
 
 import java.io.IOException;
 
 public class MenuController {
-    private MenuModel menuModel;
+    private MenuFactory menuModel;
     private MenuView menuView;
     private MainController mainController;
 
-    public MenuController(MainController mainController, MenuModel menuModel, MenuView menuView) {
+    public MenuController(MainController mainController, MenuFactory menuModel, MenuView menuView) {
         this.mainController = mainController;
         this.menuModel = menuModel;
         this.menuView = menuView;

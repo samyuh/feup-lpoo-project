@@ -1,14 +1,8 @@
 package org.g70.controller;
 
 import org.g70.controller.level.LevelBuilder;
-import org.g70.controller.level.LevelController;
-import org.g70.controller.level.movement.PuffleMovement;
-import org.g70.model.Position;
 import org.g70.model.level.LevelModel;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.g70.view.handler.KeyHandler;
-import org.g70.view.level.LevelView;
 
 import java.io.IOException;
 
@@ -24,7 +18,7 @@ public class LevelControllerTest {
 
         assertEquals(levelModel.getWalls().size(), 24);
         assertEquals(levelModel.getCoins().size(), 0);
-        assertEquals(levelModel.getToughIce().size(), 0);
+        assertEquals(levelModel.getDoubleIce().size(), 0);
 
         // Finish with all levelModel to ensure that is reading
 

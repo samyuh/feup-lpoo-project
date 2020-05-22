@@ -1,6 +1,6 @@
 package org.g70.model.drawable.element;
 
-import org.g70.controller.level.interact.level.InteractInvisibleWall;
+import org.g70.controller.level.interact.InteractInvisibleWall;
 import org.g70.model.Position;
 
 public class InvisibleWall extends ElementModel {

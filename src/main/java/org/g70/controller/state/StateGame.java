@@ -4,7 +4,7 @@ import org.g70.controller.level.LevelController;
 import org.g70.controller.MainController;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
-import org.g70.view.level.LevelView;
+import org.g70.view.game.LevelView;
 
 import java.io.IOException;
 
@@ -19,8 +19,10 @@ public class StateGame extends State {
         LevelHeaderModel headerModel = new LevelHeaderModel(1);
         LevelView levelView = new LevelView(mainController.getGui(), levelModel, headerModel);
 
-        LevelController controller = new LevelController(mainController, levelModel, headerModel, levelView);
+        LevelController controller = new LevelController(levelModel, headerModel, levelView);
 
         controller.run();
+
+        mainController.setState(new StateGameOver(mainController, headerModel.getGlobalScore().getScore()));
     }
 }

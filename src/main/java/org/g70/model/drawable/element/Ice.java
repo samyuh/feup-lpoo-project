@@ -1,6 +1,6 @@
 package org.g70.model.drawable.element;
 
-import org.g70.controller.level.interact.ice.InteractIce;
+import org.g70.controller.level.interact.InteractIce;
 import org.g70.model.Position;
 
 public class Ice extends ElementModel {

@@ -14,5 +14,7 @@ public abstract class Interact<T extends ElementModel> {
         this.position = element.getPosition();
     }
 
-    public abstract void execute(LevelController controller, LevelFacade facade);
+    public abstract void executePuffle(LevelController controller, LevelFacade facade);
+
+    public abstract boolean executeBox(LevelFacade facade);
 }

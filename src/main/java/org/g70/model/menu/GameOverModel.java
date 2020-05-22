@@ -6,7 +6,7 @@ import org.g70.model.drawable.menu.TextBox;
 
 import java.util.List;
 
-public class GameOverModel extends MenuModel {
+public class GameOverModel extends MenuFactory {
     int globalScore;
 
     public GameOverModel(List<MenuOption> option, int globalScore) {

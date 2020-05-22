@@ -4,7 +4,7 @@ import org.g70.model.drawable.Drawable;
 import org.g70.model.Position;
 
 public abstract class ElementModel extends Drawable {
-    private Interact command;
+    private Interact interaction;
 
     public ElementModel(String image, String colorForeground, Position position) {
         super(image, colorForeground, "#8dc5f0", position);
@@ -17,10 +17,10 @@ public abstract class ElementModel extends Drawable {
     }
 
     public void setInteraction(Interact command) {
-        this.command = command;
+        this.interaction = command;
     }
 
     public Interact getInteraction() {
-        return command;
+        return interaction;
     }
 }

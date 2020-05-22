@@ -3,7 +3,7 @@ package org.g70.model;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.Coin;
 import org.g70.model.drawable.element.ElementModel;
-import org.g70.model.drawable.element.ToughIce;
+import org.g70.model.drawable.element.DoubleIce;
 import org.g70.model.level.LevelModel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,12 +42,12 @@ public class LevelTest {
         Mockito.when(pFrozenIce1.getX()).thenReturn(1);
         Mockito.when(pFrozenIce1.getY()).thenReturn(1);
 
-        ToughIce i1 = Mockito.mock(ToughIce.class);
+        DoubleIce i1 = Mockito.mock(DoubleIce.class);
         Mockito.when(i1.getPosition()).thenReturn(pFrozenIce1);
 
-        List<ToughIce> doubleIce = new ArrayList<>();
+        List<DoubleIce> doubleIce = new ArrayList<>();
         doubleIce.add(i1);
-        testM.setToughIce(doubleIce);
+        testM.setDoubleIce(doubleIce);
         this.elements.add(i1);
         this.positions.add(pFrozenIce1);
 
@@ -63,6 +63,6 @@ public class LevelTest {
         Assert.assertEquals(e0, elements.get(0));
 
         testM.clearLevel(true);
-        Assert.assertEquals(testM.getToughIce().isEmpty(), true);
+        Assert.assertEquals(testM.getDoubleIce().isEmpty(), true);
     }
 }

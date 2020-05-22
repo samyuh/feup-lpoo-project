@@ -6,8 +6,9 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.model.Position;
 import org.g70.model.drawable.menu.MenuOption;
-import org.g70.model.menu.MenuModel;
+import org.g70.model.menu.MenuFactory;
 import org.g70.view.ScreenView;
+import org.g70.view.game.MenuView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -47,7 +48,7 @@ public class MenuViewTest {
         Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
 
         // Create a menuMock with the elements that will appear on screen
-        MenuModel menuMock = Mockito.mock(MenuModel.class);
+        MenuFactory menuMock = Mockito.mock(MenuFactory.class);
         Mockito.when(menuMock.getOption()).thenReturn(this.options);
 
         MenuView menuView = new MenuView(screenMock,menuMock);
