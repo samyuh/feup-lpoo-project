@@ -8,16 +8,18 @@ import java.io.IOException;
 public class MainController {
     private ScreenView gui;
     private State state;
-    private boolean exit = false;
+    private boolean exit;
 
     public MainController(ScreenView gui) {
         this.gui = gui;
         this.state = new StateMainMenu(this);
+        this.exit = false;
     }
 
     public ScreenView getGui() {
         return gui;
     }
+
     public void setState(State state) {
         this.state = state;
     }

@@ -13,13 +13,11 @@ public class InteractCoin extends Interact<Coin> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
 
+        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,10);
-
         facade.removeCoin(element);
-
         facade.setMeltStrategy(new StrategyIce(facade));
     }
 

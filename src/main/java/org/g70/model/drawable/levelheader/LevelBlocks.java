@@ -16,13 +16,11 @@ public class LevelBlocks extends Drawable {
     public void setLevelBlocks(int maxBlocks) {
         this.blocks = 0;
         this.maxBlocks = maxBlocks;
-
         updateImage();
     }
 
     public void addBlocks(int number){
         this.blocks += number;
-
         updateImage();
     }
 

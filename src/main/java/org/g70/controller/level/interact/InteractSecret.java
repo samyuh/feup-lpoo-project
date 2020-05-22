@@ -12,13 +12,11 @@ public class InteractSecret extends Interact<Secret> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
 
+        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,1);
-
         controller.initSecretLevel();
-
         facade.setMeltStrategy(new StrategyIce(facade));
     }
 

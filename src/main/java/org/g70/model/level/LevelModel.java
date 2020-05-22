@@ -11,39 +11,56 @@ import java.util.List;
 public class LevelModel {
     private Puffle puffle;
     private Finish finish;
+    private Key key;
+    private Lock lock;
+    private Box box;
+    private EmptyBlock emptyBlock;
+    private Secret secret;
     private List<Wall> walls;
     private List<Ice> ice;
     private List<Water> water;
     private List<Coin> coins;
     private List<DoubleIce> doubleIce;
     private List<InvisibleWall> invisibleWalls;
-    private List<Teleport> teleport;
-    private Key key;
-    private Lock lock;
-    private Box box;
-    private EmptyBlock emptyBlock;
-    private Secret secret;
+    private List<Teleport> teleports;
+
 
     public LevelModel() {
-        this.walls = new ArrayList<>();
-        this.ice = new ArrayList<>();
-        this.water = new ArrayList<>();
-        this.coins  = new ArrayList<>();
-        this.doubleIce = new ArrayList<>();
-        this.invisibleWalls = new ArrayList<>();
-        this.teleport = new ArrayList<>();
+        walls = new ArrayList<>();
+        ice = new ArrayList<>();
+        water = new ArrayList<>();
+        coins  = new ArrayList<>();
+        doubleIce = new ArrayList<>();
+        invisibleWalls = new ArrayList<>();
+        teleports = new ArrayList<>();
     }
 
     public void setPuffle(Puffle puffle) {
         this.puffle = puffle;
     }
 
+    public void setFinish(Finish finish) {
+        this.finish = finish;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public void setLock(Lock lock) {
+        this.lock = lock;
+    }
+
     public void setBox(Box box) {
         this.box = box;
     }
 
-    public void setFinish(Finish finish) {
-        this.finish = finish;
+    public void setEmptyBlock(EmptyBlock emptyBlock) {
+        this.emptyBlock = emptyBlock;
+    }
+
+    public void setSecret(Secret secret) {
+        this.secret = secret;
     }
 
     public void setWalls(List<Wall> walls) {
@@ -54,61 +71,56 @@ public class LevelModel {
         this.ice = ice;
     }
 
-    public void setWater(List<Water> water) {
-        this.water = water;
+    public void setCoins(List<Coin> coins) {
+        this.coins = coins;
     }
 
-    public void setKey(Key key) { this.key = key; }
+    public void setDoubleIce(List<DoubleIce> doubleIce) {
+        this.doubleIce = doubleIce;
+    }
 
-    public void setLock(Lock lock) { this.lock = lock; }
+    public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) {
+        this.invisibleWalls = invisibleWalls;
+    }
 
-    public void setCoins(List<Coin> coins) { this.coins = coins; }
-
-    public void setDoubleIce(List<DoubleIce> doubleIce) { this.doubleIce = doubleIce; }
-
-    public void setEmptyBlock(EmptyBlock emptyBlock) { this.emptyBlock = emptyBlock; }
-
-    public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) { this.invisibleWalls = invisibleWalls; }
-
-    public void setSecret(Secret secret) { this.secret = secret; }
-
-    public void setTeleport(List<Teleport> teleport) { this.teleport = teleport; }
+    public void setTeleports(List<Teleport> teleports) {
+        this.teleports = teleports;
+    }
 
     public Puffle getPuffle() {
         return puffle;
     }
 
-    public Finish getFinish() { return finish; }
+    public Lock getLock() {
+        return lock;
+    }
 
-    public List<Wall> getWalls() { return walls; }
+    public Box getBox() {
+        return box;
+    }
 
-    public List<Ice> getIce() { return ice; }
+    public List<Wall> getWalls() {
+        return walls;
+    }
 
-    public List<Water> getWater() { return water; }
+    public List<Ice> getIce() {
+        return ice;
+    }
 
-    public List<Coin> getCoins() { return coins; }
+    public List<Water> getWater() {
+        return water;
+    }
 
-    public Key getKey() { return key; }
+    public List<Coin> getCoins() {
+        return coins;
+    }
 
-    public Lock getLock() { return lock; }
+    public List<DoubleIce> getDoubleIce() {
+        return doubleIce;
+    }
 
-    public List<DoubleIce> getDoubleIce() { return doubleIce; }
-
-    public Box getBox() { return box; }
-
-    public EmptyBlock getEmptyBlock() { return emptyBlock; }
-
-    public List<InvisibleWall> getInvisibleWalls() { return invisibleWalls; }
-
-    public Secret getSecret() { return secret; }
-
-    public List<Teleport> getTeleport() { return teleport; }
-
-    // Reverses the List of Elements, because we need to draw what is on the floor first, and then what is above it (Painter's algorithm)
-    public List<Drawable> getAll(){
-        List<Drawable> drawables = getElements();
-        Collections.reverse(drawables);
-        return drawables;
+    public List<Teleport> getTeleports() {
+        return teleports;
     }
 
     // List of elements(as Drawables) ordered by gamePlay processing data order
@@ -121,7 +133,7 @@ public class LevelModel {
         if(key != null) elements.add(key);
         if(emptyBlock != null) elements.add(emptyBlock);
         if(secret != null) elements.add(secret);
-        elements.addAll(teleport);
+        elements.addAll(teleports);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
         elements.add(finish);
@@ -131,6 +143,13 @@ public class LevelModel {
         elements.addAll(ice);
 
         return elements;
+    }
+
+    // List of elements(as Drawables) ordered by drawing order(reverse of processing order)
+    public List<Drawable> getAll(){
+        List<Drawable> drawables = getElements();
+        Collections.reverse(drawables);
+        return drawables;
     }
 
     public ElementModel find(Position position) {
@@ -146,13 +165,17 @@ public class LevelModel {
     public void clearLevel(boolean secretLevel) {
         if (!secretLevel) water = new ArrayList<>();
         walls = new ArrayList<>();
+        ice = new ArrayList<>();
         coins = new ArrayList<>();
         doubleIce = new ArrayList<>();
-        teleport = new ArrayList<>();
+        invisibleWalls = new ArrayList<>();
+        teleports = new ArrayList<>();
         puffle = null;
         finish = null;
         key = null;
         lock = null;
+        box = null;
         emptyBlock = null;
+        secret = null;
     }
 }

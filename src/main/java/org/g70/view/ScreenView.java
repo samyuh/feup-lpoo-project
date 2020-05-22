@@ -26,7 +26,7 @@ public class ScreenView {
 
             File file = new File(this.getClass().getResource("/font/square.ttf").getFile());
 
-            // Costum Font
+            // Custom Font
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(28f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -37,10 +37,10 @@ public class ScreenView {
                     .setInitialTerminalSize(new TerminalSize(this.width,this.height))
                     .setTerminalEmulatorFontConfiguration(config).createTerminal();
 
-            this.screen = new TerminalScreen(terminal);
-            this.screen.setCursorPosition(null);   // we don't need a cursor
-            this.screen.startScreen();             // screens must be started
-            this.screen.doResizeIfNecessary();     // resize screen if necessary
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();     // resize screen if necessary
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }

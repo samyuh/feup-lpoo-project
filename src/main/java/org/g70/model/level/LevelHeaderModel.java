@@ -13,19 +13,18 @@ public class LevelHeaderModel {
     private final LevelBlocks levelBlocks;
     private final GlobalScore globalScore;
 
-    int[] maxScores = {12, 19, 25, 43, 41, 41, 66, 82, 93, 204, 132,
+    static final int[] maxScores = {12, 19, 25, 43, 41, 41, 66, 82, 93, 204, 132,
             138, 128, 131, 227, 181, 161, 179, 172, 172};
 
     public LevelHeaderModel(int levelNum) {
-        this.levelBlocks = new LevelBlocks(maxScores[levelNum-1]);
-        this.levelCurrent = new CurrentLevel(levelNum);
-        this.globalScore =  new GlobalScore();
+        levelBlocks = new LevelBlocks(maxScores[levelNum-1]);
+        levelCurrent = new CurrentLevel(levelNum);
+        globalScore =  new GlobalScore();
     }
 
     public void setLevelNumber(int levelNum) {
-        this.levelCurrent.setLevel(levelNum);
-
-        this.levelBlocks.setLevelBlocks(maxScores[levelNum-1]);
+        levelCurrent.setLevel(levelNum);
+        levelBlocks.setLevelBlocks(maxScores[levelNum-1]);
     }
 
     public GlobalScore getGlobalScore() {
@@ -33,16 +32,16 @@ public class LevelHeaderModel {
     }
 
     public void updateHeaderScore(int incBlocks, int incScore){
-        this.levelBlocks.addBlocks(incBlocks);
-        this.globalScore.addScore(incScore);
+        levelBlocks.addBlocks(incBlocks);
+        globalScore.addScore(incScore);
     }
 
     public void lockGlobalScore() {
-        this.globalScore.lockScore();
+        globalScore.lockScore();
     }
 
     public void resetGlobalScore() {
-        this.globalScore.resetScore();
+        globalScore.resetScore();
     }
 
     public List<Drawable> getAll() {

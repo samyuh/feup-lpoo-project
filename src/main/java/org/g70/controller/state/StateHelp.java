@@ -27,7 +27,6 @@ public class StateHelp extends State {
 
         HelpModel helpModel = new HelpModel(op);
         MenuView helpView = new MenuView(mainController.getGui(), helpModel);
-
         MenuController controller = new MenuController(mainController, helpModel, helpView);
 
         controller.run();

@@ -18,11 +18,9 @@ public class StateGame extends State {
         LevelModel levelModel = new LevelModel();
         LevelHeaderModel headerModel = new LevelHeaderModel(1);
         LevelView levelView = new LevelView(mainController.getGui(), levelModel, headerModel);
-
         LevelController controller = new LevelController(levelModel, headerModel, levelView);
 
         controller.run();
-
         mainController.setState(new StateGameOver(mainController, headerModel.getGlobalScore().getScore()));
     }
 }

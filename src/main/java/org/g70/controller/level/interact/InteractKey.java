@@ -13,13 +13,11 @@ public class InteractKey extends Interact<Key> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
 
+        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,1);
-
         facade.removeKeyLock();
-
         facade.setMeltStrategy(new StrategyIce(facade));
     }
 

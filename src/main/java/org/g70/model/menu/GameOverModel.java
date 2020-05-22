@@ -13,7 +13,6 @@ public class GameOverModel extends MenuFactory {
         super(option);
 
         this.globalScore = globalScore;
-
         initTextBoxes();
     }
 

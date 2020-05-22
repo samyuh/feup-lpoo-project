@@ -17,16 +17,17 @@ public class MenuView extends GeneralView {
 
     public MenuView(ScreenView gui, MenuFactory model) {
         super(gui.getScreen());
+
         this.model = model;
     }
 
+    @Override
     public void draw() throws IOException {
         screen.clear();
         graphics.setBackgroundColor(TextColor.Factory.fromString("#000077"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
-
         List<Drawable> drawables = model.getTextBoxes();
         List<MenuOption> options = model.getOption();
 

@@ -12,10 +12,10 @@ public abstract class GeneralView {
 
     public GeneralView(Screen screen) {
         this.screen = screen;
-        this.graphics = screen.newTextGraphics();
+        graphics = screen.newTextGraphics();
     }
 
-    public KeyHandler.DIRECTION handler() throws IOException {
+    public KeyHandler.KEY handler() throws IOException {
         KeyHandler k = new KeyHandler();
         return k.processKey(screen);
     }

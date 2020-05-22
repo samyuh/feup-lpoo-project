@@ -19,18 +19,18 @@ public class LevelView extends GeneralView {
 
     public LevelView(ScreenView gui, LevelModel levelModel, LevelHeaderModel headerModel) {
         super(gui.getScreen());
+
         this.levelModel = levelModel;
         this.headerModel = headerModel;
     }
 
+    @Override
     public void draw() throws IOException {
-        this.screen.clear();
-
+        screen.clear();
         graphics.setBackgroundColor(TextColor.Factory.fromString("#8dc5f0"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(30, 24), ' ');
 
         DrawableView view = new DrawableView();
-
         List<Drawable> drawables = new ArrayList<>();
 
         drawables.addAll(levelModel.getAll());
@@ -39,6 +39,6 @@ public class LevelView extends GeneralView {
         for(Drawable element : drawables)
             view.draw(element, graphics);
 
-        this.screen.refresh();
+        screen.refresh();
     }
 }

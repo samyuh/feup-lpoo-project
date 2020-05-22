@@ -9,6 +9,7 @@ import java.util.List;
 public class MainMenuModel extends MenuFactory {
     public MainMenuModel(List<MenuOption> option) {
         super(option);
+
         initTextBoxes();
     }
 

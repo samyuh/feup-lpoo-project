@@ -10,6 +10,7 @@ import java.util.List;
 public class HelpModel extends MenuFactory {
     public HelpModel(List<MenuOption> option) {
         super(option);
+
         initTextBoxes();
     }
 

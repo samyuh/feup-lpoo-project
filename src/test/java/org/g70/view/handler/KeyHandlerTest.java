@@ -50,27 +50,27 @@ public class KeyHandlerTest {
         // -- Tests
 
         Mockito.when(scrMock.readInput()).thenReturn(keyUp);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.UP);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.UP);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyRight);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.RIGHT);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RIGHT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyDown);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.DOWN);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.DOWN);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.LEFT);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.LEFT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.CLOSE);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyN);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.NEXT);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.NEXT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyR);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.RESTART);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RESTART);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyQ);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.DIRECTION.CLOSE);
+        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
     }
 }

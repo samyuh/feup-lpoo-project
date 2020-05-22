@@ -5,7 +5,6 @@ import org.g70.model.drawable.element.ElementModel;
 
 public abstract class Movement {
     private ElementModel element;
-
     private int x;
     private int y;
 

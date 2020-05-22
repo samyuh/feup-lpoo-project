@@ -15,8 +15,7 @@ public abstract class MenuFactory {
     MenuFactory(List<MenuOption> option) {
         optionNum = 0;
         this.option = option;
-
-        this.textBoxes = new ArrayList<>();
+        textBoxes = new ArrayList<>();
 
         resetColor();
         updateColor();

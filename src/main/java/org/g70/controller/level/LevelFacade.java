@@ -17,11 +17,10 @@ import java.util.List;
 
 public class LevelFacade {
     LevelModel levelModel;
-
+    MeltStrategy meltStrategy;
     private BoxMovement boxMovement;
     private PuffleMovement puffleMovement;
 
-    MeltStrategy meltStrategy;
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
@@ -43,7 +42,6 @@ public class LevelFacade {
 
     public void movePuffle(Position position) {
         levelModel.getPuffle().setPosition(position);
-
         if (levelModel.getBox() != null)
             resetBoxInteraction();
     }
@@ -92,7 +90,7 @@ public class LevelFacade {
     }
 
     public List<Teleport> getTeleport() {
-        return levelModel.getTeleport();
+        return levelModel.getTeleports();
     }
 
     public Position getTeleportPosition(Teleport teleport) {

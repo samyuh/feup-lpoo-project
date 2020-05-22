@@ -12,13 +12,11 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
 
+        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,1);
-
         element.setInteraction(new InteractStop(element));
-
         facade.setMeltStrategy(new StrategyNothing(facade));
     }
 

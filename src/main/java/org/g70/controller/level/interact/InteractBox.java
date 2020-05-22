@@ -14,8 +14,8 @@ public class InteractBox extends Interact<Box> {
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
         if(facade.boxLoop()) {
-            facade.meltPreviousIce();
 
+            facade.meltPreviousIce();
             controller.executePuffleMovement(position);
         }
         else {

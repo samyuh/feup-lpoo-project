@@ -1,8 +1,6 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.interact.*;
 import org.g70.controller.level.interact.InteractStop;
-import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
@@ -15,19 +13,16 @@ public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
     private LevelHeaderModel levelHeader;
-
     private LevelBuilder levelBuilder;
     private LevelFacade levelFacade;
-
     private int levelNum;
 
     public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
         this.levelModel = levelModel;
-        this.levelHeader = headerModel;
         this.levelView = levelView;
+        this.levelHeader = headerModel;
         this.levelBuilder = new LevelBuilder(levelModel);
         this.levelFacade = new LevelFacade(levelModel);
-
         this.levelNum = 1;
 
         this.initLevel(false);
@@ -54,12 +49,11 @@ public class LevelController {
     public void run() throws IOException {
         do {
             if (gameFinished()) break;
-
             levelView.draw();
         } while(processCommand(levelView.handler()));
     }
 
-    private boolean processCommand(KeyHandler.DIRECTION command) {
+    private boolean processCommand(KeyHandler.KEY command) {
         switch (command) {
             case UP:
                 executePuffleMovement(levelFacade.getPuffleMovement().moveUp());
@@ -98,8 +92,10 @@ public class LevelController {
     }
 
     public boolean gameFinished() {
-        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) && checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
-                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) && checkCollisions(levelFacade.getPuffleMovement().moveRight());
+        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveLeft()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveRight());
     }
 
     public void gameWon() {
