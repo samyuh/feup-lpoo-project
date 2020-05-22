@@ -19,6 +19,6 @@ public class CurrentLevel extends Drawable {
     }
 
     private void updateImage() {
-        this.image = "LEVEL " + levelNumber;
+        image = "LEVEL " + levelNumber;
     }
 }

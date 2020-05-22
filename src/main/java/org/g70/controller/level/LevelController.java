@@ -21,18 +21,18 @@ public class LevelController {
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelHeader = headerModel;
-        this.levelBuilder = new LevelBuilder(levelModel);
-        this.levelFacade = new LevelFacade(levelModel);
-        this.levelNum = 1;
+        levelBuilder = new LevelBuilder(levelModel);
+        levelFacade = new LevelFacade(levelModel);
+        levelNum = 1;
 
-        this.initLevel(false);
+        initLevel(false);
     }
 
     public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
 
-        this.initLevel(false);
+        initLevel(false);
     }
 
     public void initSecretLevel() {
@@ -40,10 +40,10 @@ public class LevelController {
     }
 
     private void initLevel(boolean secretLevel) {
-        this.levelModel.clearLevel(secretLevel);
-        this.levelBuilder.initLevel(levelNum, secretLevel);
-        this.levelHeader.setLevelNumber(levelNum);
-        this.levelFacade.newLevelMovement();
+        levelModel.clearLevel(secretLevel);
+        levelBuilder.initLevel(levelNum, secretLevel);
+        levelHeader.setLevelNumber(levelNum);
+        levelFacade.newLevelMovement();
     }
 
     public void run() throws IOException {
@@ -91,7 +91,7 @@ public class LevelController {
         return levelFacade.getInteract(position).getClass() == InteractStop.class;
     }
 
-    public boolean gameFinished() {
+    private boolean gameFinished() {
         return checkCollisions(levelFacade.getPuffleMovement().moveUp()) &&
                checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) &&

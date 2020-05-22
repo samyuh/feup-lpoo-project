@@ -23,7 +23,7 @@ public class MenuController {
         } while (processCommand(menuView.handler()));
     }
 
-    public boolean processCommand(KeyHandler.KEY command) {
+    private boolean processCommand(KeyHandler.KEY command) {
         switch (command) {
             case UP:
                 menuModel.previousAction();

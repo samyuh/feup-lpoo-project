@@ -7,6 +7,6 @@ public class DoubleIce extends ElementModel {
     public DoubleIce(Position position) {
         super("\u2588", "#ffffff", position);
 
-        this.setInteraction(new InteractToughIce(this));
+        setInteraction(new InteractToughIce(this));
     }
 }

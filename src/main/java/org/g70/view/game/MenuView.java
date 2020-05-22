@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MenuView extends GeneralView {
-    MenuFactory model;
+    private MenuFactory model;
 
     public MenuView(ScreenView gui, MenuFactory model) {
         super(gui.getScreen());

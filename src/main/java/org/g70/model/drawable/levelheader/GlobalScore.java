@@ -9,7 +9,8 @@ public class GlobalScore extends Drawable {
 
     public GlobalScore() {
         super("GLOBAL SCORE " + 0,"#000000", "#8dc5f0", new Position(12,18));
-        this.score = 0;
+
+        score = 0;
     }
 
     public int getScore() {
@@ -17,22 +18,22 @@ public class GlobalScore extends Drawable {
     }
 
     public void lockScore() {
-        this.restartLevelScore = score;
+        restartLevelScore = score;
     }
 
     public void addScore(int number) {
-        this.score += number;
+        score += number;
 
         updateImage();
     }
 
     public void resetScore() {
-        this.score = restartLevelScore;
+        score = restartLevelScore;
 
         updateImage();
     }
 
     private void updateImage() {
-        this.image = "GLOBAL SCORE " + this.score;
+        image = "GLOBAL SCORE " + score;
     }
 }

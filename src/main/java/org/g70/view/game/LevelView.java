@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelView extends GeneralView {
-    LevelModel levelModel;
-    LevelHeaderModel headerModel;
+    private LevelModel levelModel;
+    private LevelHeaderModel headerModel;
 
     public LevelView(ScreenView gui, LevelModel levelModel, LevelHeaderModel headerModel) {
         super(gui.getScreen());

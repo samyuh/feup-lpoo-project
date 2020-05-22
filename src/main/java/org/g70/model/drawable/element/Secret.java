@@ -7,6 +7,6 @@ public class Secret extends ElementModel {
     public Secret(Position position) {
         super("\u2588", "#0065c6", position);
 
-        this.setInteraction(new InteractSecret(this));
+        setInteraction(new InteractSecret(this));
     }
 }

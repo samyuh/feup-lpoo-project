@@ -16,8 +16,8 @@ import org.g70.model.Position;
 import java.util.List;
 
 public class LevelFacade {
-    LevelModel levelModel;
-    MeltStrategy meltStrategy;
+    private LevelModel levelModel;
+    private MeltStrategy meltStrategy;
     private BoxMovement boxMovement;
     private PuffleMovement puffleMovement;
 
@@ -37,7 +37,7 @@ public class LevelFacade {
     }
 
     private void updatePuffleMovement() {
-        this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
+        puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
     public void movePuffle(Position position) {
@@ -47,7 +47,7 @@ public class LevelFacade {
     }
 
     public void setMeltStrategy(MeltStrategy strategy) {
-        this.meltStrategy = strategy;
+        meltStrategy = strategy;
     }
 
     public void meltPreviousIce() {
@@ -55,14 +55,14 @@ public class LevelFacade {
     }
 
     private void updateBoxMovement() {
-        this.boxMovement = new BoxMovement(levelModel.getBox());
+        boxMovement = new BoxMovement(levelModel.getBox());
     }
 
     public void moveBox(Position position){
         levelModel.getBox().setPosition(position);
     }
 
-    public void resetBoxInteraction() {
+    private void resetBoxInteraction() {
         levelModel.getBox().setInteraction(new InteractBox(levelModel.getBox()));
     }
 
@@ -78,7 +78,7 @@ public class LevelFacade {
         return true;
     }
 
-    public boolean executeBoxMovement(int x, int y) {
+    private boolean executeBoxMovement(int x, int y) {
         Position position = boxMovement.moveDisplacement(x, y);
 
         return getInteract(position).executeBox(this);

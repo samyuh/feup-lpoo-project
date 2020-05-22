@@ -5,7 +5,7 @@ import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
 
 public class MenuOption extends Drawable {
-    Option option;
+    private Option option;
     
     public MenuOption(String image, Position position, Option option) {
         super(image, "#FFFFFF", "#000077", position);

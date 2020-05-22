@@ -23,6 +23,7 @@ public class LevelBuilder {
         URL resource = LevelBuilder.class.getResource(fileName);
         BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
         List<String> lines = new ArrayList<>();
+
         for (String line; (line = br.readLine()) != null; )
             lines.add(line);
 
