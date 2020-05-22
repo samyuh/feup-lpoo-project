@@ -16,7 +16,7 @@ public class InteractBox extends Interact<Box> {
         if(facade.boxLoop()) {
             facade.meltPreviousIce();
 
-            controller.executeMovement(position);
+            controller.executePuffleMovement(position);
         }
         else {
             element.setInteraction(new InteractStop(element));

@@ -7,7 +7,7 @@ import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.controller.level.interact.InteractBox;
 import org.g70.controller.level.interact.InteractIce;
 import org.g70.controller.level.interact.InteractStop;
-import org.g70.controller.level.strategy.Strategy;
+import org.g70.controller.level.strategy.MeltStrategy;
 import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelModel;
@@ -21,16 +21,16 @@ public class LevelFacade {
     private BoxMovement boxMovement;
     private PuffleMovement puffleMovement;
 
-    Strategy meltStrategy;
+    MeltStrategy meltStrategy;
 
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
 
-    public void newLevel() {
+    public void newLevelMovement() {
         updatePuffleMovement();
         updateBoxMovement();
-        setStrategy(new StrategyIce(this));
+        setMeltStrategy(new StrategyIce(this));
     }
 
     public Movement getPuffleMovement() {
@@ -41,16 +41,23 @@ public class LevelFacade {
         this.puffleMovement = new PuffleMovement(levelModel.getPuffle());
     }
 
-    private void updateBoxMovement() {
-        this.boxMovement = new BoxMovement(levelModel.getBox());
+    public void movePuffle(Position position) {
+        levelModel.getPuffle().setPosition(position);
+
+        if (levelModel.getBox() != null)
+            resetBoxInteraction();
     }
 
-    public void setStrategy(Strategy strategy) {
+    public void setMeltStrategy(MeltStrategy strategy) {
         this.meltStrategy = strategy;
     }
 
     public void meltPreviousIce() {
         meltStrategy.execute(puffleMovement.getPosition());
+    }
+
+    private void updateBoxMovement() {
+        this.boxMovement = new BoxMovement(levelModel.getBox());
     }
 
     public void moveBox(Position position){
@@ -62,41 +69,24 @@ public class LevelFacade {
     }
 
     public boolean boxLoop() {
-        Movement.ORIENTATION orientation = puffleMovement.getOrientationFaced();
+        int x = puffleMovement.lastDisplacementX();
+        int y = puffleMovement.lastDisplacementY();
 
-        if(!executeMovement(orientation))
+        if(!executeBoxMovement(x, y))
             return false;
 
-        while(executeMovement(orientation)) {}
+        while(executeBoxMovement(x, y)) {}
 
         return true;
     }
 
-    public boolean executeMovement(Movement.ORIENTATION orientation) {
-        Position box;
+    public boolean executeBoxMovement(int x, int y) {
+        Position position = boxMovement.moveDisplacement(x, y);
 
-        switch(orientation) {
-            case UP:
-                box = boxMovement.moveUp();
-                break;
-            case DOWN:
-                box = boxMovement.moveDown();
-                break;
-            case LEFT:
-                box = boxMovement.moveLeft();
-                break;
-            case RIGHT:
-                box = boxMovement.moveRight();
-                break;
-            default:
-                box = levelModel.getBox().getPosition();
-                break;
-        }
-
-        return getBoxInteract(box).executeBox(this);
+        return getInteract(position).executeBox(this);
     }
 
-    private Interact getBoxInteract(Position position) {
+    public Interact getInteract(Position position) {
         ElementModel element = levelModel.find(position);
         return element.getInteraction();
     }

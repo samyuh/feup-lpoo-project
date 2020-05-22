@@ -14,12 +14,12 @@ public class InteractDestination extends Interact<Finish> {
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        controller.movePuffle(position);
+        facade.movePuffle(position);
         controller.addScore(1,1);
 
         controller.gameWon();
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

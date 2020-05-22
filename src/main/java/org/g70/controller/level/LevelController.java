@@ -48,7 +48,7 @@ public class LevelController {
         this.levelModel.clearLevel(secretLevel);
         this.levelBuilder.initLevel(levelNum, secretLevel);
         this.levelHeader.setLevelNumber(levelNum);
-        this.levelFacade.newLevel();
+        this.levelFacade.newLevelMovement();
     }
 
     public void run() throws IOException {
@@ -62,16 +62,16 @@ public class LevelController {
     private boolean processCommand(KeyHandler.DIRECTION command) {
         switch (command) {
             case UP:
-                executeMovement(levelFacade.getPuffleMovement().moveUp());
+                executePuffleMovement(levelFacade.getPuffleMovement().moveUp());
                 return true;
             case DOWN:
-                executeMovement(levelFacade.getPuffleMovement().moveDown());
+                executePuffleMovement(levelFacade.getPuffleMovement().moveDown());
                 return true;
             case LEFT:
-                executeMovement(levelFacade.getPuffleMovement().moveLeft());
+                executePuffleMovement(levelFacade.getPuffleMovement().moveLeft());
                 return true;
             case RIGHT:
-                executeMovement(levelFacade.getPuffleMovement().moveRight());
+                executePuffleMovement(levelFacade.getPuffleMovement().moveRight());
                 return true;
             case NEXT:
                 gameWon();
@@ -89,23 +89,12 @@ public class LevelController {
         levelHeader.updateHeaderScore(blocks, score);
     }
 
-    public void movePuffle(Position position) {
-        levelModel.getPuffle().setPosition(position);
-
-        if (levelModel.getBox() != null) levelFacade.resetBoxInteraction();
-    }
-
-    public void executeMovement(Position position) {
-        checkMovement(position).executePuffle(this, levelFacade);
-    }
-
-    private Interact checkMovement(Position position) {
-        ElementModel element = levelModel.find(position);
-        return element.getInteraction();
+    public void executePuffleMovement(Position position) {
+        levelFacade.getInteract(position).executePuffle(this, levelFacade);
     }
 
     private boolean checkCollisions(Position position) {
-        return checkMovement(position).getClass() == InteractStop.class;
+        return levelFacade.getInteract(position).getClass() == InteractStop.class;
     }
 
     public boolean gameFinished() {

@@ -17,11 +17,11 @@ public class InteractTeleport extends Interact<Teleport> {
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
 
-        controller.movePuffle(position);
+        facade.movePuffle(position);
         controller.addScore(1, 1);
 
         Position p2 = facade.getTeleportPosition(element);
-        controller.movePuffle(p2);
+        facade.movePuffle(p2);
 
         List<Teleport> tp = facade.getTeleport();
 
@@ -30,7 +30,7 @@ public class InteractTeleport extends Interact<Teleport> {
             teleport.setColorForeground("#0000ff");
         }
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

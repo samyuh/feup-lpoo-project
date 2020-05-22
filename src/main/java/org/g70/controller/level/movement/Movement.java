@@ -4,44 +4,52 @@ import org.g70.model.Position;
 import org.g70.model.drawable.element.ElementModel;
 
 public abstract class Movement {
-    public enum ORIENTATION {UP, RIGHT, DOWN, LEFT}
+    private ElementModel element;
 
-    protected ElementModel element;
-    protected ORIENTATION orientationFaced;
+    private int x;
+    private int y;
 
     public Movement(ElementModel element) {
         this.element = element;
-    }
-
-    public ORIENTATION getOrientationFaced() {
-        return orientationFaced;
-    }
-
-    public Position moveUp() {
-        orientationFaced = ORIENTATION.UP;
-        return new Position(element.getPosition().getX(), element.getPosition().getY() - 1);
-    }
-
-    public Position moveDown() {
-        orientationFaced = ORIENTATION.DOWN;
-        return new Position(element.getPosition().getX(), element.getPosition().getY() + 1);
-    }
-
-    public Position moveRight() {
-        orientationFaced = ORIENTATION.RIGHT;
-        return new Position(element.getPosition().getX() + 1, element.getPosition().getY());
-    }
-
-    public Position moveLeft() {
-        orientationFaced = ORIENTATION.LEFT;
-        return new Position(element.getPosition().getX() - 1, element.getPosition().getY());
     }
 
     public Position getPosition() {
         return element.getPosition();
     }
 
-    public boolean atPosition(Position target) {
-        return element.getPosition().equals(target);
+    public int lastDisplacementX() {
+        return x;
+    }
+
+    public int lastDisplacementY() {
+        return y;
+    }
+
+    public Position moveDisplacement(int x, int y) {
+        return new Position(element.getPosition().getX() + x, element.getPosition().getY() + y);
+    }
+
+    public Position moveUp() {
+        this.x = 0;
+        this.y = -1;
+        return new Position(element.getPosition().getX(), element.getPosition().getY() - 1);
+    }
+
+    public Position moveDown() {
+        this.x = 0;
+        this.y = 1;
+        return new Position(element.getPosition().getX(), element.getPosition().getY() + 1);
+    }
+
+    public Position moveRight() {
+        this.x = 1;
+        this.y = 0;
+        return new Position(element.getPosition().getX() + 1, element.getPosition().getY());
+    }
+
+    public Position moveLeft() {
+        this.x = -1;
+        this.y = 0;
+        return new Position(element.getPosition().getX() - 1, element.getPosition().getY());
     }
 }

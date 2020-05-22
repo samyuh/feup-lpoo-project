@@ -39,6 +39,4 @@ public class MainController {
             this.state.run();
         }
     }
-
-
 }
