@@ -17,7 +17,7 @@ public class InteractEmptyBlock extends Interact<EmptyBlock> {
 
         facade.movePuffle(position);
 
-        facade.setStrategy(new StrategyNothing(facade));
+        facade.setMeltStrategy(new StrategyNothing(facade));
     }
 
     @Override

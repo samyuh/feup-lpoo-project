@@ -19,7 +19,7 @@ public class InteractSecret extends Interact<Secret> {
 
         controller.initSecretLevel();
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
 
         element.setInteraction(new InteractStop(element));
 
-        facade.setStrategy(new StrategyNothing(facade));
+        facade.setMeltStrategy(new StrategyNothing(facade));
     }
 
     @Override

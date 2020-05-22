@@ -18,7 +18,7 @@ public class InteractIce extends Interact<Ice> {
         facade.movePuffle(position);
         controller.addScore(1,1);
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

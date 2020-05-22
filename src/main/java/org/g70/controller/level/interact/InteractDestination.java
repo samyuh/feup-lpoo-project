@@ -19,7 +19,7 @@ public class InteractDestination extends Interact<Finish> {
 
         controller.gameWon();
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

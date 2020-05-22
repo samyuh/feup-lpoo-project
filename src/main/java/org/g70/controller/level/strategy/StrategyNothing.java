@@ -3,7 +3,7 @@ package org.g70.controller.level.strategy;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 
-public class StrategyNothing implements Strategy {
+public class StrategyNothing implements MeltStrategy {
     LevelFacade facade;
 
     public StrategyNothing(LevelFacade facade) {

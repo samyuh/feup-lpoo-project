@@ -20,7 +20,7 @@ public class InteractCoin extends Interact<Coin> {
 
         facade.removeCoin(element);
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

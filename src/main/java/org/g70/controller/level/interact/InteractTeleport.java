@@ -30,7 +30,7 @@ public class InteractTeleport extends Interact<Teleport> {
             teleport.setColorForeground("#0000ff");
         }
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

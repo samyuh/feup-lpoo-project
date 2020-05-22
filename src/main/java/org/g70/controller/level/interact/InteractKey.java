@@ -20,7 +20,7 @@ public class InteractKey extends Interact<Key> {
 
         facade.removeKeyLock();
 
-        facade.setStrategy(new StrategyIce(facade));
+        facade.setMeltStrategy(new StrategyIce(facade));
     }
 
     @Override

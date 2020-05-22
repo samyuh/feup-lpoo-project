@@ -18,7 +18,7 @@ public class InteractToughIce extends Interact<DoubleIce> {
         facade.movePuffle(position);
         controller.addScore(1,1);
 
-        facade.setStrategy(new StrategyDoubleIce(facade));
+        facade.setMeltStrategy(new StrategyDoubleIce(facade));
     }
 
     @Override
