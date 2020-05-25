@@ -24,7 +24,8 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 - [x] Menu Principal
     - [x] Começar um novo jogo
-    - [x] Escolha de nível
+    - [x] Instruções do jogo
+    - [ ] Escolha de nível
     - [x] Sair do jogo
 
 - [x] Movimento
@@ -33,8 +34,8 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
     - [x] Quando o jogador não se pode movimentar, isto é, quando rodeado por peças de água e por paredes, perde o jogo
 
 - [ ] Menu Pausa
-    - [ ] Recomeçar o nível
-    - [ ] Retornar ao menu principal
+    - [x] Recomeçar o nível
+    - [x] Retornar ao menu principal
 
 - [x] Pontuação
     - [x] Sempre que o jogador percorre um novo quadrado, a sua pontuação incrementa um ponto
@@ -43,12 +44,14 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 - [x] Mecânicas de jogo
     - [x] Quadrados onde o jogador pode passar por cima duas vezes.
+    - [x] Mecanismo chave-fechadura. Só é possível atravessar a fechadura caso se tenha obtido a chave.
     - [x] Quadrados verdes que correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
-    - [x] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede
-    - [ ] Passagens secretas que levem o jogador para zonas bónus com muitos sacos de moedas.
+    - [x] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede. Estas peças podem utilizar os quadardos de teletransporte.
+    - [x] Passagens secretas que levem o jogador para zonas bónus com muitos sacos de moedas.
 
 - [x] Menu de fim de jogo
-    - [ ] O jogo acaba assim que o jogador completar todos os niveis ou perder. É apresentado a pontuação total.
+    - [x] O jogo acaba assim que o jogador completar todos os niveis ou perder. É apresentado a pontuação total.
+    - [x] Recomeça o jogo
     - [x] Retornar ao Menu Principal
 
 Com o decorrer do projeto poderão ser adicionadas mais funcionalidades
@@ -115,104 +118,116 @@ Este padrão arquitetural permite uma maior modularidade ao código, facilitando
 
 # Design Patterns
 
-## State
-
+## Builder
 #### Contexto do Problema
-Como o nosso programa irá possuir diversos estados, nos quais terá comportamentos distintos, decidimos que precisávamos de arranjar algum método no âmbito do código estar organizado  da melhor maneira possível.
+Era necessário encontrar uma forma de criar os níveis predefinidos que, sua criação, iriam inicializar diferentes objetos, dependendo do nível, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
 
 #### Padrão
-De forma a conseguir ter diversos estados diferentes no nosso projeto, decidimos implementar o *Design Pattern* *State* para resolver a situação.
+Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***Builder***, usando como base o mecanismo de utilização de métodos *Build* para decidir se, em cada nível, iriamos precisar de criar um determinado Element.  
 
 #### Implementação
+Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples de construir um nível seria a criação de uma classe única *LevelBuilder*, que iria ser capaz de ler um ficheiro `.txt` e descodificar os simbolos *ASCII*, que estaria associado a um elemento.
+
+##### Diagrama UML
+##### Ficheiros
+- [LevelBuilder](../src/main/java/org/g70/controller/level/LevelBuilder.java)
+- [Resources](../src/main/resources/levelDesign) (This folder contains 19 different levels)
+
+#### Consequências
+- Fácil criação de novos níveis.
+- Fácil alteraçao dos ficheiros atuais.
+- Fácil criação de novos *Elements*.
+
+> Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
+
+## State
+#### Contexto do Problema
+Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
+
+#### Padrão
+Desta forma, decidimos implementar o *Design Pattern* *State*.
+
+#### Implementação
+Decidimos Criar um *MainController* que possuiria uma objeto *State*, e iria estar sempre a executar o método `run()` desse objeto, até que o estado seja alterado pelo controlador.
+
 ##### Diagrama UML
 ![State](images/StateUML.png)
 
 ##### Ficheiros
-- [Main Controller](../src/main/java/controller/MainController.java)
-- [State](../src/main/java/controller/state/State.java)
-- [StateGame](../src/main/java/controller/state/StateGame.java)
-- [StateGameOver](../src/main/java/controller/state/StateGameOver.java)
+- [Main Controller](..src/main/java/org/g70/controller/MainController.java)
+- [State](../src/main/java/org/g70/controller/state/State.java)
+- [StateGame](../src/main/java/org/g70/controller/state/StateGame.java)
+- [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
+- [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
+- [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
 
 #### Consequências
-A aplicação deste *Design Pattern* irá permitir um maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
+- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
 
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35)
 
 ## Command
-### Interações Puffle - Elemento
+### Interações Elemento - Puffle/Box
 #### Problema
-Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o jogador causou um *Code Smell* devido ao elevado número de *If Statements* que podem ser resolvidos.
+Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o *Puffle* causou um *Code Smell*, devido ao elevado número de *If Statements* associados a cada interação. Para aleḿ disso, acabamos por adicionar um novo Elemento *Box*, que teria a sua própria interação com cada objeto, o que intensificou o *Code Smell* mencionado.
 
 #### Padrão
-Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes interações de cada *Element* com o jogador em diferentes classes, evitando assim o *Code Smell*.
+Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes interações de cada *Element* com o *Puffle* e a *Box* em diferentes classes.
 
 #### Implementação
-Criamos uma classe para cada interação com o Puffle, com um único método `execute()` e inicializamos a interação desejada no construtor de cada objeto.  
+Criamos uma classe para cada diferente interação existente, com dois métodos `executePuffle()` e `executeBox()`. De seguida, inicializamos a interação desejada no construtor de cada objeto.  
 
-Sempre que se tenta mover o Puffle, é verificada a Interação do elemento que se encontra na nova Posição, sendo chamado o `execute()` da interação
+Sempre que se tenta mover o *Puffle*, é verificada a Interação do elemento que se encontra na nova Posição, sendo chamado o `executePuffle()` da interação. Caso se esteja a calcular o movimento da *Box*, utilizar-se-ia o outro método.
+
 ##### Diagrama UML
 ![Command Option](images/CommandInteractUML.png)
 
 ##### Ficheiros
-- [PuffleInteract](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteract.java)
-- [PuffleInteractBox](..src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractBox.java)
-- [PuffleInteractBoxFinalSquare](..src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractBoxFinalSquare.java)
-- [PuffleInteractCoin](..src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractCoin.java)
-- [PuffleInteractDestination](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractDestination.java)
-- [PuffleInteractIce](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractIce.java)
-- [PuffleInteractInvisibleWall](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractInvisibleWall.java)
-- [PuffleInteractKey](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractKey.java)
-- [PuffleInteractSecretDestination](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractSecretDestination.java)
-- [PuffleInteractStop](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractStop.java)
-- [PuffleInteractTeleport](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractTeleport.java)
-- [PuffleInteractToughIce](src/main/java/org/g70/controller/level/puffleinteract/PuffleInteractToughIce.java)
+- [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
+- [InteractBox](../src/main/java/org/g70/controller/level/interact/InteractBox.java)
+- [InteractCoin](../src/main/java/org/g70/controller/level/interact/InteractCoin.java)
+- [InteractDestination](../src/main/java/org/g70/controller/level/interact/InteractDestination.java)
+- [InteractEmptyBlock](../src/main/java/org/g70/controller/level/interact/InteractEmptyBlock.java)
+- [InteractIce](../src/main/java/org/g70/controller/level/interact/InteractIce.java)
+- [InteractInvisibleWall](../src/main/java/org/g70/controller/level/interact/InteractInvisibleWall.java)
+- [InteractKey](../src/main/java/org/g70/controller/level/interact/InteractKey.java)
+- [InteractSecret](../src/main/java/org/g70/controller/level/interact/InteractSecret.java)
+- [InteractStop](../src/main/java/org/g70/controller/level/interact/InteractStop.java)
+- [InteractTeleport](../src/main/java/org/g70/controller/level/interact/InteractTeleport.java)
+- [InteractToughIce](../src/main/java/org/g70/controller/level/interact/InteractToughIce.java)
 
 #### Consequências
-A implementação deste *Design Pattern* irá permitir uma fácil e rápida implementação de novos objetos que tenham algum tipo de interação com o jogador.
-
-### Interações Box - Elemento
-
-#### Problema
-Após criamos a classe *Box*, houve necessidade de fazer movimentar o objeto, quando o *Puffle* interagia com ele. Porém, a *Box* teria uma interação com os outros Elementos de uma forma diferente do Puffle.
-
-#### Padrão
-Para resolvermos este problema decidimos usar o *Design Pattern Command* da mesma forma que o fizemos para o Puffle, encapsulando os diferentes comportamentos possíveis em diferentes classes
-
-#### Implementação
-Criamos uma classe para cada interação possível e inicializamos a interação desejada no construtor de cada objeto. Em seguida, criamos um método que é chamado no `execute()` da classe *PuffleInteractBox* que vai tentar mover a caixa até encontrar um elemento cuja interação seja *BoxInteractStop*, aplicando as restantes intererações pelo caminho.
-
-##### Diagrama UML
-
-##### Ficheiros
-
-- [BoxInteractMove](..src/main/java/org/g70/controller/level/boxinteract/BoxInteractMove.java)
-- [BoxInteractStop](..src/main/java/org/g70/controller/level/boxinteract/BoxInteractStop.java)
-- [BoxInteractTeleport](..src/main/java/org/g70/controller/level/boxinteract/BoxInteractTeleport.java)
-
-#### Consequências
-A implementação deste Design pattern facilita a nova adição de comportamentos da caixa, caso seja adicionado um novo *Element*
+- Fácil e rápida implementação do comportamento de novos Elementos
+- Evita longos *If Statements* associados ao comportamento de cada Elemento
+- Permite evitar código repetido, dado que vários Elementos podem ter a mesma interação (ex: Wall e Water)
 
 ### Opções dos menus
 #### Problema
-A escolha de usar o command para fazer as várias opções do menu foi simples, uma vez que o próprio nome do *Design Pattern* diz aquilo que vai efetuar. Assim, escolhemos o *Command* para ser responsável pelas diferentes opções existentes no menu principal.
+Era necessário arranjar uma maneira eficaz de implementar novas opções de cada menu, executando a opção escolhida pelo utilizador, de modo a evitar o *Code Smells* *If Statements*, que estava a surgir graças á variedade de opções associadas a cada menu.
 
 #### Padrão
-Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes opções do jogador nos diferentes menus existentes ao longo do jogo.
+Para resolver este problema decidimos utilizar o *Design Pattern Command*, que permite encapsular as diferentes opções do jogador nos diferentes menus existentes ao longo do jogo.
 
 #### Implementação
+Criamos uma classe para cada opção que o utilizador teria disponível, cada uma a estender a classe abstrata *Option* com um único método *execute()* que
+executaria um comando específico. Deste modo, estamos a delegar cada ação existente nos menus a um objeto.
+
 ##### Diagrama UML
 ![Command Interact](images/CommandInteractUML.png)
 
 ##### Ficheiros
-- [Option](../src/main/java/controller/menu/Option.java)
-- [OptionExit](../src/main/java/controller/menu/OptionExit.java)
-- [OptionNewGame](../src/main/java/controller/menu/OptionNewGame.java)
+- [MenuController](../src/main/java/org/g70/controller/menu/MenuController.java)
+- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
+- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
+- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
+- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
+- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
 
 #### Consequências
-A implementação deste *Design Pattern* irá permitir uma fácil e rápida implementação de novos comandos para os menus presentes no nosso jogo.
+- Fácil e rápida implementação de novos comandos para os menus presentes no nosso jogo.
+- Evita um longo conjunto de *If Statements* associados a cada menu
 
 > Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
-
 
 
 ## Facade
@@ -220,30 +235,35 @@ A implementação deste *Design Pattern* irá permitir uma fácil e rápida impl
 ### LevelController
 
 #### Problema
-
-A divisão do codigo de acordo com o cumprimento do padrão arquitetural MVC originou uma classe *LevelController* que, ao longo do desenvolvimento do código, se veio a tornar numa classe demasiado longa, responsável por todos os comportamentos associados á lógica do jogo, originando o *Code Smell* **Large Class** e violando o **Single Responsability Principle**
+A divisão do codigo de acordo com o cumprimento do padrão arquitetural MVC originou uma classe *LevelController* que, ao longo do desenvolvimento do código, se veio a tornar numa classe demasiado longa, responsável por todos os comportamentos associados á lógica do jogo, originando o *Code Smell* *Large Class* e violando o *Single Responsability Principle*
 
 
 #### Padrão
-Para resolver este problema, decidimos usar o *Design Pattern* **Facade**.
+Para resolver este problema, decidimos usar o *Design Pattern* ***Facade***.
 Este padrão permite-nos criar *Facades* responsáveis por novos comportamentos que se vão adicionando ao longo do desenvolvimento.
 
 #### Implementação
 Extraimos os métodos associados á manipulação dos *Elements* do *LevelModel*
-para diferentes *Facades*, tornando o *LevelController* numa classe responsável por verificar se o Utilizador perdeu o jogo ou mudou de nível
+para uma nova *Facade*.
+
+A nova classe *LevelFacade* é agora responsável pela interação entre os elementos.
+
+Deste modo, o *LevelController* tournou-se numa classe responsável por apenas verificar se o Utilizador perdeu o jogo, deve mudar de nível, ou ganhou pontos, de acordo com as alterações executadas pelo *LevelFacade*.
 
 ##### Diagrama UML
-
 
 ##### Ficheiros
 
 - [LevelController](..src/main/java/org/g70/controller/level/LevelController.java)
-- [LevelItemsFacade](..src/main/java/org/g70/controller/level/LevelItemsFacade.java)
-- [LevelPuffleFacade](src/main/java/org/g70/controller/level/LevelPuffleFacade.java)
+- [LevelFacade](..src/main/java/org/g70/controller/level/LevelFacade.java)
+
 
 #### Consequências
 
-Deste modo, é possível isolar o código em classes mais curtas com apens uma responsabilidade, corrigindo o *Code Smell* e o principio *SOLID* enunciados.
+- Isolamento do código em classes mais curtas, distribuindo as responsabilidades de cada objeto, corrigindo o *Code Smell* e o principio *SOLID* enunciados.
+
+
+> Fonte: [Design Patterns - Facade](https://refactoring.guru/design-patterns/facade)
 
 ## Strategy
 
@@ -252,20 +272,61 @@ Ao mover o *Puffle* era necessário não só vericar as interações associadas 
 
 #### Padrão
 Para resolvermos este problema, decidimos utilizar o *Design Pattern Strategy*.
-Este padrão permite-nos definir uma familia de algoritmos separados em diferentes classes, alterando facilmente o algoritmo que um determinado objeto usas
+Este padrão permite-nos definir uma familia de algoritmos separados em diferentes classes, alterando facilmente o algoritmo que um determinado objeto usa
 
 #### Implementação
-Criamos 3 diferentes estratégias: Não fazer nada, adicionar agua e adicionar gelo. Em seguida, no `execute()` cada *PuffleInteract*, executamos a estratégia que estava atualmente em vigor (inicializada a *StrategyRegular*) e demos *set* à estratégia que deveria entrar em vigor na próxima interação.
-#### Ficheiros
-#### Consequências
-Este padrão permitiu-nos implementar a funcionalidade desejada evitando ter um código desorganizado cheio de *if statements* confusos. Além disso, o controlador deixa de verificar se existe um objeto com uma interação debaixo dele (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*
+Criamos 3 diferentes estratégias: Não fazer nada, adicionar agua e adicionar gelo. Em seguida, no `execute()` de cada *Interact*, executamos a estratégia que estava atualmente em vigor (inicializada a *StrategyRegular*) e demos *set* à estratégia que deve entrar em vigor na próxima interação.
 
+##### Diagrama UML
+
+##### Ficheiros
+- [MeltStrategy](../src/main/java/org/g70/controller/level/strategy/MeltStrategy.java)
+- [StrategyDoubleIce](../src/main/java/org/g70/controller/level/strategy/StrategyDoubleIce.java)
+- [StrategyIce](../src/main/java/org/g70/controller/level/strategy/StrategyIce.java)
+- [StrategyNothing](../src/main/java/org/g70/controller/level/strategy/StrategyNothing.java)
+
+#### Consequências
+- Implementação da funcionalidade desejada evitando um código desorganizado repleto de *if statements* confusos.
+- Fácil alternar entre a estratégia a ser utilizada.
+- O controlador deixa de verificar se existe um objeto com uma interação debaixo dele (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*.
+- Fácil adição de novos comportamentos do Puffle ao sair de uma posição.
+
+> Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
+
+
+## Factory Method
+#### Problema
+Tinhamo criado Menus e
+
+#### Padrão
+
+#### Implementação
+Criamos uma classe *MenuFactory* que recebe várias *Options* e cria um menu com elas. Cada menu pode criar vários tipos de *Options*, nomeadamente *MenuOptions* e *TextBoxes*
+
+##### Diagrama UML
+
+##### Ficheiros
+
+[Drawable](../src/main/java/org/g70/model/drawable/Drawable.java)
+[MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
+[TextBox](../src/main/java/org/g70/model/drawable/menu/TextBox.java)
+[GameOverModel](../src/main/java/org/g70/model/menu/GameOverModel.java)
+[HelpModel](../src/main/java/org/g70/model/menu/HelpModel.java)
+[MainMenuModel](../src/main/java/org/g70/model/menu/MainMenuModel.java)
+[MenuFactory](../src/main/java/org/g70/model/menu/MenuFactory.java)
+
+#### Consequências
+
+- Fácil criação de novos Menus.
+- Fácil de adicionar/remover funcionalidades a cada Menu
+
+> Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
 # Code Smells e Refactoring
 
 ### Data Class
 
-As classes que se encontram no [*Package Model*](../src/main/java/Model) são apenas constituídas por atributos, funções *getter* e *setter*.  
+As classes que se encontram no [*Package Model*](..src/main/java/org/g70/model) são apenas constituídas por atributos, funções *getter* e *setter*.  
 
 Embora se possa resolver este problema colocando alguma *lógica do jogo* nas nossas *Data Classes* utilizando, por exemplo, o *Move Method*, estaríamos a violar o ***MVC***. Sendo assim, podemos afirmar que este *Code Smell* é inerente ao estilo arquitetural utilizado no desenvolvimento do nosso projeto, pelo que não temos planos futuros para o corrigir.
 
