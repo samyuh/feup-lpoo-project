@@ -7,6 +7,6 @@ public class Finish extends ElementModel {
     public Finish(Position position) {
         super("D", "#ff0422", position);
 
-        this.setInteraction(new InteractDestination(this));
+        setInteraction(new InteractDestination(this));
     }
 }

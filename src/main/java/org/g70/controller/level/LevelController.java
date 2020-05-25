@@ -1,8 +1,6 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.interact.*;
 import org.g70.controller.level.interact.InteractStop;
-import org.g70.model.drawable.element.*;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
@@ -15,29 +13,26 @@ public class LevelController {
     private LevelModel levelModel;
     private LevelView levelView;
     private LevelHeaderModel levelHeader;
-
     private LevelBuilder levelBuilder;
     private LevelFacade levelFacade;
-
     private int levelNum;
 
     public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
         this.levelModel = levelModel;
-        this.levelHeader = headerModel;
         this.levelView = levelView;
-        this.levelBuilder = new LevelBuilder(levelModel);
-        this.levelFacade = new LevelFacade(levelModel);
+        this.levelHeader = headerModel;
+        levelBuilder = new LevelBuilder(levelModel);
+        levelFacade = new LevelFacade(levelModel);
+        levelNum = 1;
 
-        this.levelNum = 1;
-
-        this.initLevel(false);
+        initLevel(false);
     }
 
     public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
 
-        this.initLevel(false);
+        initLevel(false);
     }
 
     public void initSecretLevel() {
@@ -45,21 +40,20 @@ public class LevelController {
     }
 
     private void initLevel(boolean secretLevel) {
-        this.levelModel.clearLevel(secretLevel);
-        this.levelBuilder.initLevel(levelNum, secretLevel);
-        this.levelHeader.setLevelNumber(levelNum);
-        this.levelFacade.newLevelMovement();
+        levelModel.clearLevel(secretLevel);
+        levelBuilder.initLevel(levelNum, secretLevel);
+        levelHeader.setLevelNumber(levelNum);
+        levelFacade.newLevelMovement();
     }
 
     public void run() throws IOException {
         do {
             if (gameFinished()) break;
-
             levelView.draw();
         } while(processCommand(levelView.handler()));
     }
 
-    private boolean processCommand(KeyHandler.DIRECTION command) {
+    private boolean processCommand(KeyHandler.KEY command) {
         switch (command) {
             case UP:
                 executePuffleMovement(levelFacade.getPuffleMovement().moveUp());
@@ -97,9 +91,11 @@ public class LevelController {
         return levelFacade.getInteract(position).getClass() == InteractStop.class;
     }
 
-    public boolean gameFinished() {
-        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) && checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
-                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) && checkCollisions(levelFacade.getPuffleMovement().moveRight());
+    private boolean gameFinished() {
+        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveLeft()) &&
+               checkCollisions(levelFacade.getPuffleMovement().moveRight());
     }
 
     public void gameWon() {

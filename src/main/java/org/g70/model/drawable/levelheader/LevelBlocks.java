@@ -9,24 +9,23 @@ public class LevelBlocks extends Drawable {
 
     public LevelBlocks(int maxBlocks) {
         super(0 + "/" + maxBlocks,"#000000", "#8dc5f0", new Position(12,0));
-        this.blocks = 0;
+
+        blocks = 0;
         this.maxBlocks = maxBlocks;
     }
 
     public void setLevelBlocks(int maxBlocks) {
-        this.blocks = 0;
+        blocks = 0;
         this.maxBlocks = maxBlocks;
-
         updateImage();
     }
 
     public void addBlocks(int number){
-        this.blocks += number;
-
+        blocks += number;
         updateImage();
     }
 
     private void updateImage() {
-        this.image = blocks + "/" + maxBlocks;
+        image = blocks + "/" + maxBlocks;
     }
 }

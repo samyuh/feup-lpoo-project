@@ -29,7 +29,6 @@ public class StateGameOver extends State {
 
         GameOverModel MainMenuModel = new GameOverModel(op, globalScore);
         MenuView menuView = new MenuView(mainController.getGui(), MainMenuModel);
-
         MenuController controller = new MenuController(mainController, MainMenuModel, menuView);
 
         controller.run();

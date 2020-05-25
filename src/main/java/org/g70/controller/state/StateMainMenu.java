@@ -28,7 +28,6 @@ public class StateMainMenu extends State {
 
         MainMenuModel MainMenuModel = new MainMenuModel(op);
         MenuView menuView = new MenuView(mainController.getGui(), MainMenuModel);
-
         MenuController controller = new MenuController(mainController, MainMenuModel, menuView);
 
         controller.run();

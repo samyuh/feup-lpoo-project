@@ -7,22 +7,22 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 
 public class KeyHandler {
-    public enum DIRECTION {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT, RESTART};
+    public enum KEY {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT, RESTART};
 
     public KeyHandler() {}
 
-    public static DIRECTION processKey(Screen screen) throws IOException {
+    public static KEY processKey(Screen screen) throws IOException {
         while (true) {
             KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.ArrowUp) return DIRECTION.UP;
-            if (key.getKeyType() == KeyType.ArrowRight) return DIRECTION.RIGHT;
-            if (key.getKeyType() == KeyType.ArrowDown) return DIRECTION.DOWN;
-            if (key.getKeyType() == KeyType.ArrowLeft) return DIRECTION.LEFT;
-            if (key.getKeyType() == KeyType.EOF) return DIRECTION.CLOSE;
+            if (key.getKeyType() == KeyType.ArrowUp) return KEY.UP;
+            if (key.getKeyType() == KeyType.ArrowRight) return KEY.RIGHT;
+            if (key.getKeyType() == KeyType.ArrowDown) return KEY.DOWN;
+            if (key.getKeyType() == KeyType.ArrowLeft) return KEY.LEFT;
+            if (key.getKeyType() == KeyType.EOF) return KEY.CLOSE;
             if (key.getKeyType() == KeyType.Character) {
-                if(key.getCharacter().equals('n')) return DIRECTION.NEXT;
-                if(key.getCharacter().equals('r')) return DIRECTION.RESTART;
-                if(key.getCharacter().equals('q')) return DIRECTION.CLOSE;
+                if(key.getCharacter().equals('n')) return KEY.NEXT;
+                if(key.getCharacter().equals('r')) return KEY.RESTART;
+                if(key.getCharacter().equals('q')) return KEY.CLOSE;
             }
         }
     }

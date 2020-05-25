@@ -11,9 +11,7 @@ public class InteractStop extends Interact<ElementModel> {
     }
 
     @Override
-    public void executePuffle(LevelController controller, LevelFacade facade) {
-        // if wall, water, or used teleport is found, nothing should be done
-    }
+    public void executePuffle(LevelController controller, LevelFacade facade){}
 
     @Override
     public boolean executeBox(LevelFacade facade) {

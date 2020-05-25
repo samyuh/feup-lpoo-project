@@ -12,6 +12,5 @@ public class StrategyNothing implements MeltStrategy {
 
     @Override
     public void execute(Position pufflePos) {
-        // When Puffle goes trough special blocks, like invisible walls
     }
 }

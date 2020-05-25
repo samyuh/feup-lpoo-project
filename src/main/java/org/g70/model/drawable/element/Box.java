@@ -7,6 +7,6 @@ public class Box extends ElementModel {
     public Box(Position position) {
         super("O", "#0079d0", position);
 
-        this.setInteraction(new InteractBox(this));
+        setInteraction(new InteractBox(this));
     }
 }

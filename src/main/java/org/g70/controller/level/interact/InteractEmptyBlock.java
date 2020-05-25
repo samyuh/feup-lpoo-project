@@ -14,9 +14,7 @@ public class InteractEmptyBlock extends Interact<EmptyBlock> {
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
-
         facade.movePuffle(position);
-
         facade.setMeltStrategy(new StrategyNothing(facade));
     }
 
