@@ -1,5 +1,6 @@
 package org.g70.model.level;
 
+import org.g70.controller.level.movement.Movement;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
 import org.g70.model.Position;
@@ -89,6 +90,10 @@ public class LevelModel {
 
     public Puffle getPuffle() {
         return puffle;
+    }
+
+    public Finish getFinish() {
+        return finish;
     }
 
     public Lock getLock() {

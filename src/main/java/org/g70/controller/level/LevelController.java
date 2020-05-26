@@ -28,6 +28,10 @@ public class LevelController {
         initLevel(false);
     }
 
+    public int getLevelNum() {
+        return levelNum;
+    }
+
     public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
@@ -53,7 +57,7 @@ public class LevelController {
         } while(processCommand(levelView.handler()));
     }
 
-    private boolean processCommand(KeyHandler.KEY command) {
+    public boolean processCommand(KeyHandler.KEY command) {
         switch (command) {
             case UP:
                 executePuffleMovement(levelFacade.getPuffleMovement().moveUp());
@@ -91,7 +95,7 @@ public class LevelController {
         return levelFacade.getInteract(position).getClass() == InteractStop.class;
     }
 
-    private boolean gameFinished() {
+    public boolean gameFinished() {
         return checkCollisions(levelFacade.getPuffleMovement().moveUp()) &&
                checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
                checkCollisions(levelFacade.getPuffleMovement().moveLeft()) &&
@@ -103,5 +107,9 @@ public class LevelController {
             levelNum++;
             initRegularLevel(false);
         }
+    }
+
+    public LevelFacade getLevelFacade() {
+        return levelFacade;
     }
 }
