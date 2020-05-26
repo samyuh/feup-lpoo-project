@@ -296,9 +296,10 @@ Criamos 3 diferentes estratégias: Não fazer nada, adicionar agua e adicionar g
 
 ## Factory Method
 #### Problema
-Tinhamo criado Menus e
+Os menus possuiam bastantes métodos repetidos, pelo que estávamos a tentar organizar as classes de modo a evitar o *Code Smell* *Duplicate Code*,  
 
 #### Padrão
+Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextBoxes*. posteriormente, criamos vários menus que extendem a clases *MenuFactory*, e cada um adiciona a cada *ArrayList* os objetos que deseja
 
 #### Implementação
 Criamos uma classe *MenuFactory* que recebe várias *Options* e cria um menu com elas. Cada menu pode criar vários tipos de *Options*, nomeadamente *MenuOptions* e *TextBoxes*
@@ -318,7 +319,7 @@ Criamos uma classe *MenuFactory* que recebe várias *Options* e cria um menu com
 #### Consequências
 
 - Fácil criação de novos Menus.
-- Fácil de adicionar/remover funcionalidades a cada Menu
+- Fácil de adicionar/remover funcionalidades(*Options*) a cada Menu
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
