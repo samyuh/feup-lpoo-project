@@ -14,14 +14,13 @@ public class LevelControllerTest {
         LevelModel levelModel = new LevelModel();
         LevelBuilder levelInit = new LevelBuilder(levelModel);
 
-        levelInit.initLevel(1);
+        levelInit.initLevel(1, false);
 
         assertEquals(levelModel.getWalls().size(), 24);
         assertEquals(levelModel.getCoins().size(), 0);
         assertEquals(levelModel.getDoubleIce().size(), 0);
 
         // Finish with all levelModel to ensure that is reading
-
     }
 
     @Test
