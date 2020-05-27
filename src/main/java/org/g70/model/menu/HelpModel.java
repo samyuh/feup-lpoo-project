@@ -1,8 +1,8 @@
 package org.g70.model.menu;
 
 import org.g70.model.Position;
+import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
-import org.g70.model.drawable.menu.TextBox;
 import org.g70.model.drawable.menu.MenuOption;
 
 import java.util.List;
@@ -29,17 +29,17 @@ public class HelpModel extends MenuFactory {
         textBoxes.add(new DoubleIce(new Position(16, 12)));
         textBoxes.add(new Wall(new Position(16, 14)));
 
-        textBoxes.add(new TextBox( " Your Puffle!", "#ffffff", "#000077", new Position(3, 4)));
-        textBoxes.add(new TextBox( " Moving Box", "#ffffff", "#000077", new Position(3, 6)));
-        textBoxes.add(new TextBox( " Box Place", "#ffffff", "#000077", new Position(3, 8)));
-        textBoxes.add(new TextBox( " Coin", "#ffffff", "#000077", new Position(3, 10)));
-        textBoxes.add(new TextBox( " Destination", "#ffffff", "#000077", new Position(3, 12)));
-        textBoxes.add(new TextBox( " Water", "#ffffff", "#000077", new Position(3, 14)));
-        textBoxes.add(new TextBox( " Ice", "#ffffff", "#000077", new Position(17, 4)));
-        textBoxes.add(new TextBox( " Key", "#ffffff", "#000077", new Position(17, 6)));
-        textBoxes.add(new TextBox( " Lock", "#ffffff", "#000077", new Position(17, 8)));
-        textBoxes.add(new TextBox( " Teleport", "#ffffff", "#000077", new Position(17, 10)));
-        textBoxes.add(new TextBox( " Double Ice", "#ffffff", "#000077", new Position(17, 12)));
-        textBoxes.add(new TextBox( " Wall", "#ffffff", "#000077", new Position(17, 14)));
+        textBoxes.add(new Drawable( " Your Puffle!", "#ffffff", "#000077", new Position(3, 4)));
+        textBoxes.add(new Drawable( " Moving Box", "#ffffff", "#000077", new Position(3, 6)));
+        textBoxes.add(new Drawable( " Box Place", "#ffffff", "#000077", new Position(3, 8)));
+        textBoxes.add(new Drawable( " Coin", "#ffffff", "#000077", new Position(3, 10)));
+        textBoxes.add(new Drawable( " Destination", "#ffffff", "#000077", new Position(3, 12)));
+        textBoxes.add(new Drawable( " Water", "#ffffff", "#000077", new Position(3, 14)));
+        textBoxes.add(new Drawable( " Ice", "#ffffff", "#000077", new Position(17, 4)));
+        textBoxes.add(new Drawable( " Key", "#ffffff", "#000077", new Position(17, 6)));
+        textBoxes.add(new Drawable( " Lock", "#ffffff", "#000077", new Position(17, 8)));
+        textBoxes.add(new Drawable( " Teleport", "#ffffff", "#000077", new Position(17, 10)));
+        textBoxes.add(new Drawable( " Double Ice", "#ffffff", "#000077", new Position(17, 12)));
+        textBoxes.add(new Drawable( " Wall", "#ffffff", "#000077", new Position(17, 14)));
     }
 }
