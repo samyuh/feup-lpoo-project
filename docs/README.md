@@ -129,6 +129,8 @@ Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***B
 Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples de construir um nível seria a criação de uma classe única *LevelBuilder*, que iria ser capaz de ler um ficheiro `.txt` e descodificar os simbolos *ASCII*, que estaria associado a um elemento.
 
 ##### Diagrama UML
+![Builder](images/BuilderUML.png)
+
 ##### Ficheiros
 - [LevelBuilder](../src/main/java/org/g70/controller/level/LevelBuilder.java)
 - [Resources](../src/main/resources/levelDesign) (This folder contains 19 different levels)
@@ -305,6 +307,8 @@ Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Cria
 Criamos uma classe *MenuFactory* que recebe várias *Options* e cria um menu com elas. Cada menu pode criar vários tipos de *Options*, nomeadamente *MenuOptions* e *TextBoxes*
 
 ##### Diagrama UML
+![Factory Method](images/FactoryMethodUML.png)
+
 
 ##### Ficheiros
 
