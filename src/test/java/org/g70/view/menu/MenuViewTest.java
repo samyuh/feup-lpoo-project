@@ -1,8 +1,6 @@
 package org.g70.view.menu;
 
-import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -67,7 +65,7 @@ public class MenuViewTest {
 
         // Create a menuMock with the elements that will appear on screen
         MenuFactory menuMock = Mockito.mock(MenuFactory.class);
-        Mockito.when(menuMock.getOption()).thenReturn(this.options);
+        Mockito.when(menuMock.getOptions()).thenReturn(this.options);
         Mockito.when(menuMock.getTextBoxes()).thenReturn(this.textBoxes);
 
         MenuView menuView = new MenuView(screenMock,menuMock);

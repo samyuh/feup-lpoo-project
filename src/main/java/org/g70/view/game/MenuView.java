@@ -29,7 +29,7 @@ public class MenuView extends GeneralView {
 
         DrawableView view = new DrawableView();
         List<Drawable> drawables = model.getTextBoxes();
-        List<MenuOption> options = model.getOption();
+        List<MenuOption> options = model.getOptions();
 
         drawables.addAll(options);
 

@@ -45,7 +45,7 @@ public abstract class MenuFactory {
         option.get(optionNum).highlightedColor();
     }
 
-    public List<MenuOption> getOption() {
+    public List<MenuOption> getOptions() {
         return option;
     }
 
