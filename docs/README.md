@@ -123,24 +123,60 @@ Este padrão arquitetural permite uma maior modularidade ao código, facilitando
 Era necessário encontrar uma forma de criar os níveis predefinidos que, sua criação, iriam inicializar diferentes objetos, dependendo do nível, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
 
 #### Padrão
-Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***Builder***, usando como base o mecanismo de utilização de métodos *Build* para decidir se, em cada nível, iriamos precisar de criar um determinado Element.  
+Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***Builder***, usando como base o mecanismo de utilização de métodos *Build* para decidir se, em cada nível, iriamos precisar de criar um determinado *Element*.
 
 #### Implementação
 Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples de construir um nível seria a criação de uma classe única *LevelBuilder*, que iria ser capaz de ler um ficheiro `.txt` e descodificar os simbolos *ASCII*, que estaria associado a um elemento.
 
-##### Diagrama UML
-![Builder](images/BuilderUML.png)
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/BuilderUML.png)
 
 ##### Ficheiros
+- [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
 - [LevelBuilder](../src/main/java/org/g70/controller/level/LevelBuilder.java)
 - [Resources](../src/main/resources/levelDesign) (This folder contains 19 different levels)
 
 #### Consequências
-- Fácil criação de novos níveis.
-- Fácil alteraçao dos ficheiros atuais.
-- Fácil criação de novos *Elements*.
+- Facilita criação de novos níveis.
+- Facilita alteraçao dos ficheiros atuais.
+- Facilita a adição de novos *Elements*, sendo apenas necessário atribuir um novo símbolo ASCII
 
 > Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
+
+
+## MenuState with Command
+#### Contexto do Problema
+Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
+
+#### Padrão
+Para resolver este problema, decidimos implementar o *Design Pattern* *State*. Este padrão iria possibilitar a criação de vários estados de jogo, que seriam alterados através de comandos, utilizando o *Design Pattern* *Command*.
+
+#### Implementação
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/Menu-State-CommandUML.png)
+
+#### Ficheiros
+- [Main Controller](..src/main/java/org/g70/controller/MainController.java)
+- [State](../src/main/java/org/g70/controller/state/State.java)
+- [StateGame](../src/main/java/org/g70/controller/state/StateGame.java)
+- [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
+- [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
+- [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
+- [MenuController](../src/main/java/org/g70/controller/menu/MenuController.java)
+- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
+- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
+- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
+- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
+- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
+- [MenuFactory](../src/main/java/org/g70/model/menu/MenuFactory.java)
+- [MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
+
+#### Consequências
+- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
+- Facilita aadição e aletração de *Options*.
+- Possibilita a criação de *Options* que afetem o estado de jogo.
 
 ## State
 #### Contexto do Problema
