@@ -151,7 +151,7 @@ Desta forma, decidimos implementar o *Design Pattern* *State*.
 Decidimos Criar um *MainController* que possuiria uma objeto *State*, e iria estar sempre a executar o método `run()` desse objeto, até que o estado seja alterado pelo controlador.
 
 ##### Diagrama UML
-![State](images/StateUML.png)
+![State](images/StateUML3.png)
 
 ##### Ficheiros
 - [Main Controller](..src/main/java/org/g70/controller/MainController.java)
@@ -180,7 +180,7 @@ Criamos uma classe para cada diferente interação existente, com dois métodos 
 Sempre que se tenta mover o *Puffle*, é verificada a Interação do elemento que se encontra na nova Posição, sendo chamado o `executePuffle()` da interação. Caso se esteja a calcular o movimento da *Box*, utilizar-se-ia o outro método.
 
 ##### Diagrama UML
-![Command Option](images/CommandInteractUML.png)
+![Command Option](images/CommandUML.png)
 
 ##### Ficheiros
 - [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
