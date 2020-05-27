@@ -1,9 +1,9 @@
 package org.g70.model.level;
 
 import org.g70.model.drawable.Drawable;
-import org.g70.model.drawable.levelheader.GlobalScore;
-import org.g70.model.drawable.levelheader.CurrentLevel;
-import org.g70.model.drawable.levelheader.LevelBlocks;
+import org.g70.model.drawable.leveldrawable.GlobalScore;
+import org.g70.model.drawable.leveldrawable.CurrentLevel;
+import org.g70.model.drawable.leveldrawable.LevelBlocks;
 
 import java.util.ArrayList;
 import java.util.List;

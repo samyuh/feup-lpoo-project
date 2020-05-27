@@ -2,7 +2,7 @@ package org.g70.view.game;
 
 import org.g70.model.drawable.Drawable;
 import org.g70.model.menu.MenuFactory;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.view.drawable.DrawableView;
 import org.g70.view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;

@@ -1,4 +1,4 @@
-package org.g70.model.drawable.menu;
+package org.g70.model.drawable.menudrawable;
 
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;

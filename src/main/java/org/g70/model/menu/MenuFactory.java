@@ -2,7 +2,7 @@ package org.g70.model.menu;
 
 import org.g70.controller.menu.option.Option;
 import org.g70.model.drawable.Drawable;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.MenuOption;
 
 import java.util.ArrayList;
 import java.util.List;

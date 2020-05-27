@@ -1,8 +1,8 @@
 package org.g70.model.menu;
 
 import org.g70.model.Position;
-import org.g70.model.drawable.menu.TextBox;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.TextBox;
+import org.g70.model.drawable.menudrawable.MenuOption;
 
 import java.util.List;
 

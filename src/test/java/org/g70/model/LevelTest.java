@@ -7,6 +7,7 @@ import org.g70.model.drawable.element.DoubleIce;
 import org.g70.model.level.LevelModel;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class LevelTest {
         // Set other things
     }
 
-    //@Test
+    @Test
     public void levelTest() {
         List<Drawable> m = testM.getAll();
         Assert.assertEquals(m.size(), elements.size() + 4);

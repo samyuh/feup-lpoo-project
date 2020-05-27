@@ -4,7 +4,7 @@ import org.g70.controller.menu.option.Option;
 import org.g70.controller.menu.option.OptionExit;
 import org.g70.controller.menu.option.OptionHelp;
 import org.g70.controller.menu.option.OptionNewGame;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.menu.GameOverModel;
 import org.g70.model.menu.HelpModel;
 import org.g70.model.menu.MainMenuModel;
@@ -28,6 +28,7 @@ public class MenuTest {
         Option mockOpt1 = Mockito.mock(OptionExit.class);
         Option mockOpt2 = Mockito.mock(OptionHelp.class);
         Option mockOpt3 = Mockito.mock(OptionNewGame.class);
+
         options.add(new MenuOption("OptionA", new Position(2, 16), mockOpt1));
         options.add(new MenuOption("OptionB", new Position(2, 17), mockOpt2));
         options.add(new MenuOption("OptionC", new Position(2, 18), mockOpt3));

@@ -5,7 +5,7 @@ import org.g70.controller.menu.option.OptionNewGame;
 import org.g70.controller.MainController;
 import org.g70.controller.menu.MenuController;
 import org.g70.model.menu.GameOverModel;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.Position;
 import org.g70.view.game.MenuView;
 
