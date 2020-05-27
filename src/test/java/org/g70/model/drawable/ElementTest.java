@@ -1,5 +1,6 @@
-package org.g70.model;
+package org.g70.model.drawable;
 
+import org.g70.model.Position;
 import org.g70.model.drawable.element.Finish;
 import org.g70.model.drawable.element.ElementModel;
 import org.junit.Test;

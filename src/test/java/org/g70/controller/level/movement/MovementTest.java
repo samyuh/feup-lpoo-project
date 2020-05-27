@@ -1,7 +1,5 @@
-package org.g70.controller.movement;
+package org.g70.controller.level.movement;
 
-import org.g70.controller.level.movement.BoxMovement;
-import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Box;
 import org.g70.model.drawable.element.Puffle;

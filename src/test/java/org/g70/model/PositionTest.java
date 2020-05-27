@@ -11,6 +11,5 @@ public class PositionTest {
         Position elementPos2 = new Position(0,1);
 
         assertEquals(elementPos1.getX(), elementPos2.getX());
-
     }
 }

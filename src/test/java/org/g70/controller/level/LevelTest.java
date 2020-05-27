@@ -1,4 +1,4 @@
-package org.g70.controller;
+package org.g70.controller.level;
 
 import org.g70.controller.level.LevelBuilder;
 import org.g70.controller.level.LevelController;
