@@ -80,24 +80,20 @@ Representam todos os obstáculos possíveis de se encontrar em qualquer nível. 
 - Water - É criada sempre que o *Puffle* atravessa gelo, não podendo ser atravessada. Deste modo, não se podem atravessar 2 blocos de *Ice* mais do que 1 vez
 
 #### LevelHeaders
-
 - CurrentLevel - Indica o atual nível que o Utilizador está a jogar
 - GlobalScore - Indica a pontuação total que o Utilizador acumulou até ao momento atual, em todos os níveis que já passou
 - LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
 
 #### Menus
-
 - MenuOtion - Opção de um menu que possa ser selecionada, alterando o estado de jogo
 - TextBox - Caixa de Texto de um menu, para imprimir uma string numa certa posição do ecrã
 
 
 ### LevelBuilder
-
 Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
 
 
 ### Menu States
-
 Implementamos vários estados associados ao atual menu a ser utilizado
 
 
@@ -149,6 +145,8 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 #### Contexto do Problema
 Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
 
+Inicialmente, tinhamos apenas criado um simples menu principal capaz de iniciar ou terminar o jogo, que possuia apenas vários *Ifs* para executar a opção escolhida pelo utilizador, pelo que nos apercebemos que a contínua adição de funcionalidades aos menus iria causar o *Code Smell* *If Statements*
+
 #### Padrão
 Para resolver este problema, decidimos implementar o *Design Pattern* *State*. Este padrão iria possibilitar a criação de vários estados de jogo, que seriam alterados através de comandos, utilizando o *Design Pattern* *Command*.
 
@@ -175,34 +173,14 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 #### Consequências
 - Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
-- Facilita aadição e aletração de *Options*.
+- Facilita a adição e alteração de *Options*.
 - Possibilita a criação de *Options* que afetem o estado de jogo.
+- Evita o uso de *If Statements* nos *States* e *Options*.
 
-## State
-#### Contexto do Problema
-Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
-
-#### Padrão
-Desta forma, decidimos implementar o *Design Pattern* *State*.
-
-#### Implementação
-Decidimos Criar um *MainController* que possuiria uma objeto *State*, e iria estar sempre a executar o método `run()` desse objeto, até que o estado seja alterado pelo controlador.
-
-##### Diagrama UML
-![State](images/StateUML3.png)
-
-##### Ficheiros
-- [Main Controller](..src/main/java/org/g70/controller/MainController.java)
-- [State](../src/main/java/org/g70/controller/state/State.java)
-- [StateGame](../src/main/java/org/g70/controller/state/StateGame.java)
-- [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
-- [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
-- [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
-
-#### Consequências
-- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
 
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35)
+
+> Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
 ## Command
 ### Interações Elemento - Puffle/Box
@@ -213,12 +191,10 @@ Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, v�
 Para resolver este problema decidimos utilizar o *Design Pattern Command* que permite encapsular as diferentes interações de cada *Element* com o *Puffle* e a *Box* em diferentes classes.
 
 #### Implementação
-Criamos uma classe para cada diferente interação existente, com dois métodos `executePuffle()` e `executeBox()`. De seguida, inicializamos a interação desejada no construtor de cada objeto.  
 
-Sempre que se tenta mover o *Puffle*, é verificada a Interação do elemento que se encontra na nova Posição, sendo chamado o `executePuffle()` da interação. Caso se esteja a calcular o movimento da *Box*, utilizar-se-ia o outro método.
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-##### Diagrama UML
-![Command Option](images/CommandUML.png)
+![](images/CommandUML.png)
 
 ##### Ficheiros
 - [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
@@ -239,34 +215,7 @@ Sempre que se tenta mover o *Puffle*, é verificada a Interação do elemento qu
 - Evita longos *If Statements* associados ao comportamento de cada Elemento
 - Permite evitar código repetido, dado que vários Elementos podem ter a mesma interação (ex: Wall e Water)
 
-### Opções dos menus
-#### Problema
-Era necessário arranjar uma maneira eficaz de implementar novas opções de cada menu, executando a opção escolhida pelo utilizador, de modo a evitar o *Code Smells* *If Statements*, que estava a surgir graças á variedade de opções associadas a cada menu.
-
-#### Padrão
-Para resolver este problema decidimos utilizar o *Design Pattern Command*, que permite encapsular as diferentes opções do jogador nos diferentes menus existentes ao longo do jogo.
-
-#### Implementação
-Criamos uma classe para cada opção que o utilizador teria disponível, cada uma a estender a classe abstrata *Option* com um único método *execute()* que
-executaria um comando específico. Deste modo, estamos a delegar cada ação existente nos menus a um objeto.
-
-##### Diagrama UML
-![Command Interact](images/CommandInteractUML.png)
-
-##### Ficheiros
-- [MenuController](../src/main/java/org/g70/controller/menu/MenuController.java)
-- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
-- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
-- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
-- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
-- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
-
-#### Consequências
-- Fácil e rápida implementação de novos comandos para os menus presentes no nosso jogo.
-- Evita um longo conjunto de *If Statements* associados a cada menu
-
 > Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
-
 
 ## Facade
 
@@ -288,7 +237,9 @@ A nova classe *LevelFacade* é agora responsável pela interação entre os elem
 
 Deste modo, o *LevelController* tournou-se numa classe responsável por apenas verificar se o Utilizador perdeu o jogo, deve mudar de nível, ou ganhou pontos, de acordo com as alterações executadas pelo *LevelFacade*.
 
-##### Diagrama UML
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/FacadeUML.png)
 
 ##### Ficheiros
 
@@ -313,9 +264,10 @@ Para resolvermos este problema, decidimos utilizar o *Design Pattern Strategy*.
 Este padrão permite-nos definir uma familia de algoritmos separados em diferentes classes, alterando facilmente o algoritmo que um determinado objeto usa
 
 #### Implementação
-Criamos 3 diferentes estratégias: Não fazer nada, adicionar agua e adicionar gelo. Em seguida, no `execute()` de cada *Interact*, executamos a estratégia que estava atualmente em vigor (inicializada a *StrategyRegular*) e demos *set* à estratégia que deve entrar em vigor na próxima interação.
 
-##### Diagrama UML
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/MeltStrategyUML.png)
 
 ##### Ficheiros
 - [MeltStrategy](../src/main/java/org/g70/controller/level/strategy/MeltStrategy.java)
@@ -324,10 +276,10 @@ Criamos 3 diferentes estratégias: Não fazer nada, adicionar agua e adicionar g
 - [StrategyNothing](../src/main/java/org/g70/controller/level/strategy/StrategyNothing.java)
 
 #### Consequências
-- Implementação da funcionalidade desejada evitando um código desorganizado repleto de *if statements* confusos.
-- Fácil alternar entre a estratégia a ser utilizada.
+- Evita um código desorganizado repleto de *if statements* confusos.
+- Torna mais fácil alternar a estratégia a ser utilizada.
 - O controlador deixa de verificar se existe um objeto com uma interação debaixo dele (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*.
-- Fácil adição de novos comportamentos do Puffle ao sair de uma posição.
+- Facilita a adição de novos comportamentos do Puffle ao sair de uma posição.
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
@@ -340,10 +292,10 @@ Os menus possuiam bastantes métodos repetidos, pelo que estávamos a tentar org
 Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextBoxes*. posteriormente, criamos vários menus que extendem a clases *MenuFactory*, e cada um adiciona a cada *ArrayList* os objetos que deseja
 
 #### Implementação
-Criamos uma classe *MenuFactory* que recebe várias *Options* e cria um menu com elas. Cada menu pode criar vários tipos de *Options*, nomeadamente *MenuOptions* e *TextBoxes*
 
-##### Diagrama UML
-![Factory Method](images/FactoryMethodUML.png)
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/FactoryMethodUML.png)
 
 
 ##### Ficheiros
@@ -428,3 +380,61 @@ Os nossos teste cobrem cerca de 76% do código total. É possível observar a pe
 Para a criação de testes foram utilizados as frameworks ***JUnit*** e ***Mockito***.
 
 Os resultados dos testes encontram-se na seguinte [pasta](./test).
+
+
+
+### Cenas removidas que podem não estar mal enquanto o stor não responder
+## State
+#### Contexto do Problema
+Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
+
+#### Padrão
+Desta forma, decidimos implementar o *Design Pattern* *State*.
+
+#### Implementação
+Decidimos Criar um *MainController* que possuiria uma objeto *State*, e iria estar sempre a executar o método `run()` desse objeto, até que o estado seja alterado pelo controlador.
+
+##### Diagrama UML
+![State](images/StateUML3.png)
+
+##### Ficheiros
+- [Main Controller](..src/main/java/org/g70/controller/MainController.java)
+- [State](../src/main/java/org/g70/controller/state/State.java)
+- [StateGame](../src/main/java/org/g70/controller/state/StateGame.java)
+- [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
+- [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
+- [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
+
+#### Consequências
+- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
+
+> Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35)
+
+
+### Opções dos menus
+#### Problema
+Era necessário arranjar uma maneira eficaz de implementar novas opções de cada menu, executando a opção escolhida pelo utilizador, de modo a evitar o *Code Smells* *If Statements*, que estava a surgir graças á variedade de opções associadas a cada menu.
+
+#### Padrão
+Para resolver este problema decidimos utilizar o *Design Pattern Command*, que permite encapsular as diferentes opções do jogador nos diferentes menus existentes ao longo do jogo.
+
+#### Implementação
+Criamos uma classe para cada opção que o utilizador teria disponível, cada uma a estender a classe abstrata *Option* com um único método *execute()* que
+executaria um comando específico. Deste modo, estamos a delegar cada ação existente nos menus a um objeto.
+
+##### Diagrama UML
+![Command Interact](images/CommandInteractUML.png)
+
+##### Ficheiros
+- [MenuController](../src/main/java/org/g70/controller/menu/MenuController.java)
+- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
+- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
+- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
+- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
+- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
+
+#### Consequências
+- Fácil e rápida implementação de novos comandos para os menus presentes no nosso jogo.
+- Evita um longo conjunto de *If Statements* associados a cada menu
+
+> Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
