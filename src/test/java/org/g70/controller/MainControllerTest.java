@@ -23,13 +23,14 @@ public class MainControllerTest {
         ScreenView screenMock = Mockito.mock(ScreenView.class);
         Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
         Mockito.when(scrMock.newTextGraphics()).thenReturn(txtG);
+
         // -- Main Controller
         MainController controllerTest = new MainController(screenMock);
         assertEquals(controllerTest.getState().getClass(), StateMainMenu.class);
         assertFalse(controllerTest.getExit());
 
-        controllerTest.run();
-        controllerTest.
+        controllerTest.exit();
+        assertTrue(controllerTest.getExit());
 
         // -- Game Over
         /*
