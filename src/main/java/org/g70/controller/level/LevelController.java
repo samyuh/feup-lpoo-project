@@ -28,6 +28,10 @@ public class LevelController {
         initLevel(false);
     }
 
+    public LevelHeaderModel getLevelHeaderModel() {
+        return levelHeader;
+    }
+
     public int getLevelNum() {
         return levelNum;
     }

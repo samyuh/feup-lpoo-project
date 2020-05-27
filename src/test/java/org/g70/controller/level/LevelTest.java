@@ -5,6 +5,7 @@ import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.model.Position;
+import org.g70.model.drawable.element.Secret;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.game.LevelView;
@@ -96,13 +97,11 @@ public class LevelTest {
     public void levelAllElementsTest() {
         // Not necessary
         LevelView levelView = Mockito.mock(LevelView.class);
-        LevelHeaderModel headerModel = Mockito.mock(LevelHeaderModel.class);
+        LevelHeaderModel headerModel = new LevelHeaderModel(1);
         LevelModel levelModel = new LevelModel();
 
         LevelController levelC = new LevelController(levelModel, headerModel, levelView);
         LevelFacade levelFacade = levelC.getLevelFacade();
-
-        Position initialPufflePosition = levelModel.getPuffle().getPosition();
 
         // -- Skip Level -- //
         levelC.processCommand(KeyHandler.KEY.NEXT);
@@ -110,6 +109,8 @@ public class LevelTest {
 
         levelC.processCommand(KeyHandler.KEY.NEXT);
         assertEquals(levelC.getLevelNum(), 3);
+
+        Position initialPufflePosition = levelModel.getPuffle().getPosition();
 
         // -- Test Teleport -- //
         PuffleMovement puffleTest = levelFacade.getPuffleMovement();
@@ -140,17 +141,58 @@ public class LevelTest {
         // -- Test Secret -- //
         Position previousSecret = new Position(19, 14);
         levelModel.getPuffle().setPosition(previousSecret);
+        Secret secret = levelModel.getSecret();
 
         levelC.processCommand(KeyHandler.KEY.DOWN);
+        assertEquals(puffleTest.getPosition(), secret.getPosition());
+        assertNull(levelModel.getSecret());
+
+        levelC.processCommand(KeyHandler.KEY.RESTART);
+        puffleTest = levelFacade.getPuffleMovement();
+
+        assertEquals(puffleTest.getPosition(), initialPufflePosition);
+
+        // -- Coin Test -- //
+        levelC.processCommand(KeyHandler.KEY.NEXT);
+        assertEquals(levelC.getLevelNum(), 4);
+
+        int previousScore = levelC.getLevelHeaderModel().getGlobalScore().getScore();
+
+        /*
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        int afterCoinScore = levelC.getLevelHeaderModel().getGlobalScore().getScore();
+
+        assertEquals(previousScore + 10, afterCoinScore);
+
+         */
+
+        // -- Key Lock -- //
+
+        // -- Box -- //
+
+        // -- Double Ice -- //
+    }
+
+    @Test
+    public void levelProcessCommandTest() {
+        // Not necessary
+        LevelView levelView = Mockito.mock(LevelView.class);
+        LevelHeaderModel headerModel = Mockito.mock(LevelHeaderModel.class);
+        LevelModel levelModel = new LevelModel();
+
+        LevelController levelC = new LevelController(levelModel, headerModel, levelView);
+
+        assertEquals(levelC.processCommand(KeyHandler.KEY.NEXT), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.RESTART), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.UP), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.DOWN), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.LEFT), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.RIGHT), true);
+        assertEquals(levelC.processCommand(KeyHandler.KEY.CLOSE), false);
     }
 
     @Test
     public void levelFacadeTest() {
-        // To Do
-    }
-
-    @Test
-    public void levelInteractTest() {
         // To Do
     }
 }

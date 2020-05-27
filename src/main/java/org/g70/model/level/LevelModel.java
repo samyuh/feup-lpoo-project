@@ -128,6 +128,10 @@ public class LevelModel {
         return teleports;
     }
 
+    public Secret getSecret() {
+        return secret;
+    }
+
     // List of elements(as Drawables) ordered by gamePlay processing data order
     public List<Drawable> getElements(){
         List<Drawable> elements = new ArrayList<>();
