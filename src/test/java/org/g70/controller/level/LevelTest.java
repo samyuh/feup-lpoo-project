@@ -93,8 +93,55 @@ public class LevelTest {
     }
 
     @Test
-    public void levelControllerLoopTest() {
-        // To Do
+    public void levelAllElementsTest() {
+        // Not necessary
+        LevelView levelView = Mockito.mock(LevelView.class);
+        LevelHeaderModel headerModel = Mockito.mock(LevelHeaderModel.class);
+        LevelModel levelModel = new LevelModel();
+
+        LevelController levelC = new LevelController(levelModel, headerModel, levelView);
+        LevelFacade levelFacade = levelC.getLevelFacade();
+
+        Position initialPufflePosition = levelModel.getPuffle().getPosition();
+
+        // -- Skip Level -- //
+        levelC.processCommand(KeyHandler.KEY.NEXT);
+        assertEquals(levelC.getLevelNum(), 2);
+
+        levelC.processCommand(KeyHandler.KEY.NEXT);
+        assertEquals(levelC.getLevelNum(), 3);
+
+        // -- Test Teleport -- //
+        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+
+        Position teleportOne = new Position(12 ,9);
+        Position teleportTwo = new Position(9, 13);
+
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+
+        assertEquals(puffleTest.getPosition().getX(), teleportOne.getX() - 1);
+        assertEquals(puffleTest.getPosition().getY(), teleportOne.getY());
+
+        levelC.processCommand(KeyHandler.KEY.RIGHT);
+
+        assertEquals(puffleTest.getPosition(), teleportTwo);
+
+        // -- Test Restart -- //
+        levelC.processCommand(KeyHandler.KEY.RESTART);
+        puffleTest = levelFacade.getPuffleMovement();
+
+        assertEquals(puffleTest.getPosition(), initialPufflePosition);
+
+        // -- Test Secret -- //
+        Position previousSecret = new Position(19, 14);
+        levelModel.getPuffle().setPosition(previousSecret);
+
+        levelC.processCommand(KeyHandler.KEY.DOWN);
     }
 
     @Test
