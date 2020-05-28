@@ -6,6 +6,7 @@ import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.menu.MainMenuModel;
 import org.g70.view.game.GeneralView;
 import org.g70.view.handler.KeyHandler;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -36,22 +37,28 @@ public class MenuControllerTest {
     }
 
     @Test
-    public void testHandler() throws IOException {
+    public void testHandler() {
+        Assert.assertTrue(controller.processCommand(KeyHandler.KEY.UP));
+        Mockito.verify(menuModelMock, Mockito.times(1)).previousAction();
+
+        Assert.assertFalse(controller.processCommand(KeyHandler.KEY.RIGHT));
+        Mockito.verify(menuModelMock, Mockito.times(1)).getAction();
+
+        Assert.assertTrue(controller.processCommand(KeyHandler.KEY.DOWN));
+        Mockito.verify(menuModelMock, Mockito.times(1)).nextAction();
+
+        Assert.assertFalse(controller.processCommand(KeyHandler.KEY.CLOSE));
+        Mockito.verify(mainControllerMock, Mockito.times(1)).exit();
+
+        Assert.assertTrue(controller.processCommand(KeyHandler.KEY.LEFT));
+    }
+
+    @Test
+    public void menuRun() throws IOException {
         Mockito.when(menuViewMock.handler()).thenReturn(KeyHandler.KEY.CLOSE);
         controller.run();
 
         Mockito.verify(menuViewMock, Mockito.times(1)).draw();
         Mockito.verify(menuViewMock, Mockito.times(1)).handler();
-        Mockito.verify(mainControllerMock, Mockito.times(1)).exit();
-
-
-        controller.processCommand(KeyHandler.KEY.UP);
-        Mockito.verify(menuModelMock, Mockito.times(1)).previousAction();
-
-        controller.processCommand(KeyHandler.KEY.RIGHT);
-        Mockito.verify(menuModelMock, Mockito.times(1)).getAction();
-
-        controller.processCommand(KeyHandler.KEY.DOWN);
-        Mockito.verify(menuModelMock, Mockito.times(1)).nextAction();
     }
 }
