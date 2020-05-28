@@ -4,7 +4,6 @@ import org.g70.controller.menu.option.Option;
 import org.g70.controller.menu.option.OptionExit;
 import org.g70.model.Position;
 import org.g70.model.drawable.menudrawable.MenuOption;
-import org.g70.model.drawable.menudrawable.TextBox;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,15 +35,5 @@ public class MenuDrawableTest {
 
         opt1.resetColor();
         Assert.assertEquals(opt1.getColorBackground(), "#000077");
-    }
-
-    @Test
-    public void textBoxTest() {
-        TextBox box1 = new TextBox("OptionA", "#000000", "#000000", posMock);
-
-        Assert.assertEquals(box1.getImage(), "OptionA");
-        Assert.assertEquals(box1.getColorForeground(), "#000000");
-        Assert.assertEquals(box1.getColorBackground(), "#000000");
-        Assert.assertEquals(box1.getPosition(), posMock);
     }
 }

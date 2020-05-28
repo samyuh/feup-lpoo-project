@@ -7,7 +7,6 @@ import com.googlecode.lanterna.screen.Screen;
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.menudrawable.MenuOption;
-import org.g70.model.drawable.menudrawable.TextBox;
 import org.g70.model.menu.MenuFactory;
 import org.g70.view.ScreenView;
 import org.g70.view.game.MenuView;
@@ -43,7 +42,7 @@ public class MenuViewTest {
         Mockito.when(p2.getX()).thenReturn(2);
         Mockito.when(p2.getY()).thenReturn(1);
 
-        TextBox e2 = Mockito.mock(TextBox.class);
+        Drawable e2 = Mockito.mock(Drawable.class);
         Mockito.when(e2.getImage()).thenReturn("This is a test string");
         Mockito.when(e2.getColorBackground()).thenReturn("#ffffff");
         Mockito.when(e2.getColorForeground()).thenReturn("#000077");
