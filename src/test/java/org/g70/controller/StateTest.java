@@ -20,13 +20,9 @@ import java.io.IOException;
 public class StateTest {
     MainController controllerMock;
 
-
     @Before
     public void initController() {
-        TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
-
         Screen screenMock = Mockito.mock(Screen.class);
-        Mockito.when(screenMock.newTextGraphics()).thenReturn(graphicsMock);
 
         ScreenView screenViewMock = Mockito.mock(ScreenView.class);
         Mockito.when(screenViewMock.getScreen()).thenReturn(screenMock);

@@ -15,7 +15,7 @@ public class MainController {
         this.gui = gui;
         this.exit = false;
 
-        setState(new StateMainMenu(this));
+        state = new StateMainMenu(this);
     }
 
     public ScreenView getGui() {
