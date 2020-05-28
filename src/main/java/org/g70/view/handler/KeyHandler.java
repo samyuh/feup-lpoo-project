@@ -9,8 +9,6 @@ import java.io.IOException;
 public class KeyHandler {
     public enum KEY {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT, RESTART};
 
-    public KeyHandler() {}
-
     public static KEY processKey(Screen screen) throws IOException {
         while (true) {
             KeyStroke key = screen.readInput();

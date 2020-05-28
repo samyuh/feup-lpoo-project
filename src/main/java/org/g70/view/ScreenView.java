@@ -19,8 +19,7 @@ public class ScreenView {
 
     private Screen screen;
 
-    public ScreenView(int width, int height) {
-        try {
+    public ScreenView(int width, int height) throws IOException, FontFormatException {
             this.width = width;
             this.height = height;
 
@@ -41,9 +40,6 @@ public class ScreenView {
             screen.setCursorPosition(null);   // we don't need a cursor
             screen.startScreen();             // screens must be started
             screen.doResizeIfNecessary();     // resize screen if necessary
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
     }
 
     public Screen getScreen() {

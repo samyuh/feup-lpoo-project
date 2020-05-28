@@ -1,5 +1,6 @@
 package org.g70.model.level;
 
+import org.g70.controller.level.movement.Movement;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
 import org.g70.model.Position;
@@ -91,6 +92,10 @@ public class LevelModel {
         return puffle;
     }
 
+    public Finish getFinish() {
+        return finish;
+    }
+
     public Lock getLock() {
         return lock;
     }
@@ -121,6 +126,10 @@ public class LevelModel {
 
     public List<Teleport> getTeleports() {
         return teleports;
+    }
+
+    public Secret getSecret() {
+        return secret;
     }
 
     // List of elements(as Drawables) ordered by gamePlay processing data order

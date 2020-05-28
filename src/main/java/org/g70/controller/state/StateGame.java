@@ -4,23 +4,33 @@ import org.g70.controller.level.LevelController;
 import org.g70.controller.MainController;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
+import org.g70.view.game.GeneralView;
 import org.g70.view.game.LevelView;
 
 import java.io.IOException;
 
 public class StateGame extends State {
+    LevelModel levelModel;
+    LevelHeaderModel headerModel;
+
     public StateGame(MainController mainController) {
         super(mainController);
+
+        initGame();
+    }
+
+    private void initGame() {
+        levelModel = new LevelModel();
+        headerModel = new LevelHeaderModel(1);
+        view = new LevelView(mainController.getGui(), levelModel, headerModel);
     }
 
     @Override
     public void run() throws IOException {
-        LevelModel levelModel = new LevelModel();
-        LevelHeaderModel headerModel = new LevelHeaderModel(1);
-        LevelView levelView = new LevelView(mainController.getGui(), levelModel, headerModel);
-        LevelController controller = new LevelController(levelModel, headerModel, levelView);
+        LevelController controller = new LevelController(levelModel, headerModel, view);
 
         controller.run();
+
         mainController.setState(new StateGameOver(mainController, headerModel.getGlobalScore().getScore()));
     }
 }

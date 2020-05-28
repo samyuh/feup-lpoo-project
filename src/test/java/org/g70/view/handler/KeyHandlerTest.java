@@ -4,12 +4,12 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.view.ScreenView;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
 
 public class KeyHandlerTest {
     @Test
@@ -50,27 +50,27 @@ public class KeyHandlerTest {
         // -- Tests
 
         Mockito.when(scrMock.readInput()).thenReturn(keyUp);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.UP);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.UP);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyRight);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RIGHT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyDown);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.DOWN);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.DOWN);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.LEFT);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.LEFT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyN);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.NEXT);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.NEXT);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyR);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RESTART);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RESTART);
 
         Mockito.when(scrMock.readInput()).thenReturn(keyQ);
-        assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
+        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
     }
 }

@@ -2,7 +2,7 @@ package org.g70.view.game;
 
 import org.g70.model.drawable.Drawable;
 import org.g70.model.menu.MenuFactory;
-import org.g70.model.drawable.menu.MenuOption;
+import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.view.drawable.DrawableView;
 import org.g70.view.ScreenView;
 import com.googlecode.lanterna.TerminalPosition;
@@ -29,7 +29,7 @@ public class MenuView extends GeneralView {
 
         DrawableView view = new DrawableView();
         List<Drawable> drawables = model.getTextBoxes();
-        List<MenuOption> options = model.getOption();
+        List<MenuOption> options = model.getOptions();
 
         drawables.addAll(options);
 

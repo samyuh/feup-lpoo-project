@@ -32,7 +32,7 @@ public class LevelFacade {
         setMeltStrategy(new StrategyIce(this));
     }
 
-    public Movement getPuffleMovement() {
+    public PuffleMovement getPuffleMovement() {
         return puffleMovement;
     }
 

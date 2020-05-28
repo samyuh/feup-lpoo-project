@@ -9,7 +9,6 @@ import org.g70.model.drawable.element.ElementModel;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
 public class DrawableViewTest {
     @Test
     public void drawTest() {

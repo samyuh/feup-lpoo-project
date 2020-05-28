@@ -1,4 +1,4 @@
-package org.g70.model.drawable.levelheader;
+package org.g70.model.drawable.leveldrawable;
 
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
