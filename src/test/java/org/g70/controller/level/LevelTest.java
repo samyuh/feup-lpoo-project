@@ -218,6 +218,68 @@ public class LevelTest {
     }
 
     @Test
+    public void testEmptyBlockTest() {
+        levelController.setLevelNum(8);
+        levelController.initRegularLevel(false);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.UP);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        Assert.assertEquals(levelModel.getIce().size(), 0);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+
+        Assert.assertEquals(levelController.getLevelNum(), 9);
+    }
+
+    @Test
+    public void testTeleportBoxWinTest() {
+        levelController.setLevelNum(9);
+        levelController.initRegularLevel(false);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+
+        Assert.assertEquals(levelController.getLevelNum(), 10);
+    }
+
+    @Test
+    public void testTeleportBoxLoseTest() {
+        levelController.setLevelNum(10);
+        levelController.initRegularLevel(false);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertTrue(levelController.gameFinished());
+    }
+
+    @Test
     public void levelAllElementsTest() {
         levelController.setLevelNum(3);
         levelController.initRegularLevel(false);
