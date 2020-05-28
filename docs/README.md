@@ -317,19 +317,34 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 As classes que se encontram no [*Package Model*](../src/main/java/org/g70/model) são apenas constituídas por atributos, funções *getter* e *setter*.  
 
-Embora se possa resolver este problema colocando alguma *lógica do jogo* nas nossas *Data Classes* utilizando, por exemplo, o *Move Method*, estaríamos a violar o padrão ***MVC***. Sendo assim, podemos afirmar que este *Code Smell* é inerente ao estilo arquitetural utilizado no desenvolvimento do nosso projeto, pelo que não temos planos futuros para o corrigir.
+Embora se possa resolver este problema colocando alguma *lógica do jogo* nas nossas *Data Classes* utilizando, por exemplo, o *Move Method*, estaríamos a violar o padrão arquitetural escolhido, o ***MVC***. Sendo assim, podemos afirmar que este *Code Smell* é inerente ao estilo arquitetural utilizado no desenvolvimento do nosso projeto, pelo que não temos planos futuros para o corrigir.
 
 > Fonte: [Data Class](https://refactoring.guru/smells/data-class), [Move Method](https://refactoring.guru/move-method)
 
-### Dead Code e Speculative Generality
 
-Na classe [Level Model](../src/main/java/Model/Level/LevelModel.java), existem *getters* e *setters* que não são utilizados. Estas funções foram utilizadas anteriormente, porém, no processo de *Refactor* ao código, deixaram de ser utilizadas. Para além disso, são funções que podemos utilizar no futuro. Uma vez que estamos perante uma entrega intermédia do projeto, ainda existe bastante código a ser desenvolvido que poderá usufruir da manipulação dos atributos do modelo.  
 
-Este *Code Smell* pode vir a ser problemático, uma vez que  estamos a adicionar linhas de código redundantes, deixando as classes demasiado longas.
+### Large Class e Single Responsability Principle
+Embora a nossa maior classe *LevelFacade* tenha pouco mais do que 100 linha de código, possui um grande número de métodos, sendo responsável pela interações entre todos os elementos, violando um princípio SOLID *Single Responsability Principle*.
 
-O problema pode ser facilmente resolvido eliminando o código inutilizado. Contudo, decidimos não o fazer uma vez que estas linha de código podem vir a ser úteis.
+Uma maneira de corrigir este problema seria o uso do *Refactor* *Extract Class*, através da ciração de uma classe para encapsular todos os métodos associados á manipulação de um objeto.
 
-> Fonte : [Dead Code](https://refactoring.guru/smells/dead-code), [Speculative Generality](https://refactoring.guru/smells/speculative-generality)
+Ex: Os métodos:
+- `updateBoxMovement()`
+- `moveBox(Position position)`
+- `resetBoxInteraction()`
+- `boxLoop()`
+- `executeBoxMovement`
+
+poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Elemento.
+
+O levelController sofre exatamente do mesmo problema. Embora todos os seus métodos sejam relacionados com o comportamento do Puffle e as consequências do seu movimento no nível atual, e já se tenha criado a classe *LevelFacade* para reduzir as suas responsabilidades, continua a violar o *Single Responsability Principle*, visto que tanto inicialliza um nível, como é responsável por delegar á *LevelFacade* a alteração a posição do *Puffle*.
+
+Ex: os métodos :
+- `processCommand(KeyHandler.KEY command)`
+- `initLevel(boolean secretLevel)`
+
+possuem comportamenos distintos e podem ser separados em diferentes objetos
+
 
 ### Message Chains, Switch Statements e Large Class
 
