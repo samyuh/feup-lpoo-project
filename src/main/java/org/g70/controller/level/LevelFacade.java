@@ -16,7 +16,6 @@ public class LevelFacade {
     private Box boxMovement;
     private Puffle puffleMovement;
 
-
     public LevelFacade(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
@@ -25,10 +24,6 @@ public class LevelFacade {
         updatePuffleMovement();
         updateBoxMovement();
         setMeltStrategy(new StrategyIce(this));
-    }
-
-    public Puffle getPuffleMovement() {
-        return puffleMovement;
     }
 
     private void updatePuffleMovement() {
@@ -68,7 +63,7 @@ public class LevelFacade {
         if(!executeBoxMovement(x, y))
             return false;
 
-        while(executeBoxMovement(x, y)) {}
+        while(executeBoxMovement(x, y));
 
         return true;
     }
@@ -121,7 +116,7 @@ public class LevelFacade {
         levelModel.getIce().removeIf(ice -> ice.getPosition().equals(position));
     }
 
-    public boolean removeToughIce(Position position){
-        return levelModel.getDoubleIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
+    public void removeToughIce(Position position){
+        levelModel.getDoubleIce().removeIf(toughIce -> toughIce.getPosition().equals(position));
     }
 }

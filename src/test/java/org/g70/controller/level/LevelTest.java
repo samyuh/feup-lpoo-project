@@ -48,7 +48,7 @@ public class LevelTest {
 
     @Test
     public void levelWinTest() {
-        Puffle puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelModel.getPuffle();
         Position start = levelModel.getPuffle().getPosition();
         Position finish = levelModel.getFinish().getPosition();
 
@@ -87,7 +87,7 @@ public class LevelTest {
         levelController.processCommand(KeyHandler.KEY.NEXT);
 
         Assert.assertEquals(levelController.getLevelNum(), 2);
-        Puffle puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelModel.getPuffle();
 
 
         Position start = new Position(14, 3);
@@ -129,7 +129,7 @@ public class LevelTest {
         levelController.setLevelNum(5);
         levelController.initRegularLevel(false);
 
-        Puffle puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelModel.getPuffle();
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
@@ -287,7 +287,7 @@ public class LevelTest {
         // -- Test Teleport -- //
         Position initialPufflePosition = levelModel.getPuffle().getPosition();
 
-        Puffle puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelModel.getPuffle();
 
         Position teleportOne = new Position(12, 9);
         Position teleportTwo = new Position(9, 13);
@@ -308,7 +308,7 @@ public class LevelTest {
 
         // -- Test Restart -- //
         levelController.processCommand(KeyHandler.KEY.RESTART);
-        puffleTest = levelFacade.getPuffleMovement();
+        puffleTest = levelModel.getPuffle();
 
         Assert.assertEquals(puffleTest.getPosition(), initialPufflePosition);
 
@@ -324,7 +324,7 @@ public class LevelTest {
         // -- Test Secret Restart -- //
         levelController.processCommand(KeyHandler.KEY.RESTART);
 
-        puffleTest = levelFacade.getPuffleMovement();
+        puffleTest = levelModel.getPuffle();
         Assert.assertEquals(puffleTest.getPosition(), initialPufflePosition);
     }
 
