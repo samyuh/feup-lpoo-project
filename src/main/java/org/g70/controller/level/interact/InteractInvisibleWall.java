@@ -2,7 +2,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyNothing;
+import org.g70.controller.level.strategy.MeltNothing;
 import org.g70.model.drawable.element.immovable.InvisibleWall;
 
 public class InteractInvisibleWall extends Interact<InvisibleWall> {
@@ -16,7 +16,7 @@ public class InteractInvisibleWall extends Interact<InvisibleWall> {
         facade.movePuffle(position);
         controller.addScore(1,1);
         element.setInteraction(new InteractStop(element));
-        facade.setMeltStrategy(new StrategyNothing(facade));
+        facade.setMelt(new MeltNothing(facade));
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.g70.controller.level;
 
 import org.g70.controller.level.interact.*;
 import org.g70.controller.level.strategy.*;
+import org.g70.controller.level.strategy.MeltIce;
 import org.g70.model.drawable.element.*;
 import org.g70.model.drawable.element.immovable.*;
 import org.g70.model.drawable.element.movable.*;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class LevelFacade {
     private LevelModel levelModel;
-    private MeltStrategy meltStrategy;
+    private Melt melt;
     private Box boxMovement;
     private Puffle puffleMovement;
 
@@ -23,7 +24,7 @@ public class LevelFacade {
     public void newLevelMovement() {
         updatePuffleMovement();
         updateBoxMovement();
-        setMeltStrategy(new StrategyIce(this));
+        setMelt(new MeltIce(this));
     }
 
     private void updatePuffleMovement() {
@@ -36,12 +37,12 @@ public class LevelFacade {
             resetBoxInteraction();
     }
 
-    public void setMeltStrategy(MeltStrategy strategy) {
-        meltStrategy = strategy;
+    public void setMelt(Melt strategy) {
+        melt = strategy;
     }
 
     public void meltPreviousIce() {
-        meltStrategy.execute(puffleMovement.getPosition());
+        melt.execute(puffleMovement.getPosition());
     }
 
     private void updateBoxMovement() {
@@ -107,7 +108,7 @@ public class LevelFacade {
     }
 
     public void addIce(Position position){
-        Ice ice = new Ice(position);
+        org.g70.model.drawable.element.immovable.Ice ice = new org.g70.model.drawable.element.immovable.Ice(position);
         ice.setInteraction(new InteractIce(ice));
         levelModel.getIce().add(ice);
     }

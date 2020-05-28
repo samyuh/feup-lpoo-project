@@ -3,10 +3,10 @@ package org.g70.controller.level.strategy;
 import org.g70.controller.level.LevelFacade;
 import org.g70.model.Position;
 
-public class StrategyNothing implements MeltStrategy {
+public class MeltNothing implements Melt {
     LevelFacade facade;
 
-    public StrategyNothing(LevelFacade facade) {
+    public MeltNothing(LevelFacade facade) {
         this.facade = facade;
     }
 
