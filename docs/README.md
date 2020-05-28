@@ -85,7 +85,7 @@ Representam todos os obstáculos possíveis de se encontrar em qualquer nível. 
 - LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
 
 #### Menus
-- MenuOtion - Opção de um menu que possa ser selecionada, alterando o estado de jogo
+- MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
 - TextBox - Caixa de Texto de um menu, para imprimir uma string numa certa posição do ecrã
 
 
@@ -136,7 +136,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 #### Consequências
 - Facilita criação de novos níveis.
 - Facilita alteraçao dos ficheiros atuais.
-- Facilita a adição de novos *Elements*, sendo apenas necessário atribuir um novo símbolo ASCII
+- Facilita a adição de novos *Elements*, sendo apenas necessário atribuir um novo símbolo ASCII (*Open-Closed Principle*).
 
 > Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
 
@@ -172,15 +172,13 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
 
 #### Consequências
-- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição.
-- Facilita a adição e alteração de *Options*.
+- Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição (*Open-Closed Principle*).
+- Facilita a adição e alteração de *Options* (*Open-Closed Principle*).
 - Possibilita a criação de *Options* que afetem o estado de jogo.
 - Evita o uso de *If Statements* nos *States* e *Options*.
 
 
-> Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35)
-
-> Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
+> Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
 ## Puffle/Box Movement Strategy
 #### Problema
@@ -208,9 +206,13 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [InteractStop](../src/main/java/org/g70/controller/level/interact/InteractStop.java)
 - [InteractTeleport](../src/main/java/org/g70/controller/level/interact/InteractTeleport.java)
 - [InteractToughIce](../src/main/java/org/g70/controller/level/interact/InteractToughIce.java)
+- [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
+- [LevelFacade](../src/main/java/org/g70/controller/level/LevelFacade.java)
+- [LevelModel](../src/main/java/org/g70/model/level/LevelModel.java)
+- [ElementModel](../src/main/java/org/g70/model/drawable/element/ElementModel.java)
 
 #### Consequências
-- Fácil e rápida implementação do comportamento de novos Elementos
+- Fácil e rápida implementação do comportamento de novos Elementos (*Open-Closed Principle*).
 - Evita longos *If Statements* associados ao comportamento de cada Elemento
 - Permite evitar código repetido, dado que vários Elementos podem ter a mesma interação (ex: Wall e Water)
 
@@ -266,6 +268,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 ![](images/MeltStrategyUML.png)
 
 ##### Ficheiros
+- [LevelFacade](../src/main/java/org/g70/controller/level/LevelFacade.java)
 - [MeltStrategy](../src/main/java/org/g70/controller/level/strategy/MeltStrategy.java)
 - [StrategyDoubleIce](../src/main/java/org/g70/controller/level/strategy/StrategyDoubleIce.java)
 - [StrategyIce](../src/main/java/org/g70/controller/level/strategy/StrategyIce.java)
@@ -275,7 +278,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - Evita um código desorganizado repleto de *if statements* confusos.
 - Torna mais fácil alternar a estratégia a ser utilizada.
 - O controlador deixa de verificar se existe um objeto com uma interação debaixo dele (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*.
-- Facilita a adição de novos comportamentos do Puffle ao sair de uma posição.
+- Facilita a adição de novos comportamentos do Puffle ao sair de uma posição (*Open-Closed Principle*).
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
@@ -296,18 +299,17 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 ##### Ficheiros
 
-[Drawable](../src/main/java/org/g70/model/drawable/Drawable.java)
-[MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
-[TextBox](../src/main/java/org/g70/model/drawable/menu/TextBox.java)
-[GameOverModel](../src/main/java/org/g70/model/menu/GameOverModel.java)
-[HelpModel](../src/main/java/org/g70/model/menu/HelpModel.java)
-[MainMenuModel](../src/main/java/org/g70/model/menu/MainMenuModel.java)
-[MenuFactory](../src/main/java/org/g70/model/menu/MenuFactory.java)
+- [Drawable](../src/main/java/org/g70/model/drawable/Drawable.java)
+- [MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
+- [GameOverModel](../src/main/java/org/g70/model/menu/GameOverModel.java)
+- [HelpModel](../src/main/java/org/g70/model/menu/HelpModel.java)
+- [MainMenuModel](../src/main/java/org/g70/model/menu/MainMenuModel.java)
+- [MenuFactory](../src/main/java/org/g70/model/menu/MenuFactory.java)
 
 #### Consequências
 
 - Fácil criação de novos Menus.
-- Fácil de adicionar/remover funcionalidades(*Options*) a cada Menu
+- Fácil de adicionar/remover funcionalidades(*Options*) a cada Menu (*Open-Closed Principle*)
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
@@ -345,16 +347,7 @@ Ex: os métodos :
 
 possuem comportamenos distintos e podem ser separados em diferentes objetos
 
-
-### Message Chains, Switch Statements e Large Class
-
-// Ainda não eliminei isto porque estes 2 seguintes parágrafos podem ainda dar jeito
-
-- **Extract Method** - Criar novos métodos que executem a manipulação dos atributos do objeto em causa, melhorando a legibilade do código. Neste caso, em vez de `getHero().getPosition()` podiamos utilizar `getHeroPosition()`. No entanto esta solução pode originar um outro *Code Smell* denominado como *Large Class*.
-
-- **Extract Class** - Criar uma nova classe responsável por executar parte do código da classe principal. Combinando este *Refactor* com o anterior, será possível eliminar o *Code Smell* associado a uma *Large Class*.
-
-> Fonte: [Message Chains](https://refactoring.guru/smells/message-chains), [*Couplers*](https://refactoring.guru/refactoring/smells/couplers), [*Extract Method*](https://refactoring.guru/extract-method), [*Extract Class*](https://refactoring.guru/extract-class)
+> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11), [Single Responsability Principle](https://web.fe.up.pt/~arestivo/presentation/solid/#16), [Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
 
 # Unit Tests
 
