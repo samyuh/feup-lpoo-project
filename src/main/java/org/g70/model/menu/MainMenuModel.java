@@ -1,8 +1,8 @@
 package org.g70.model.menu;
 
 import org.g70.model.Position;
-import org.g70.model.drawable.menudrawable.TextBox;
-import org.g70.model.drawable.menudrawable.MenuOption;
+import org.g70.model.drawable.Drawable;
+import org.g70.model.drawable.menu.MenuOption;
 
 import java.util.List;
 
@@ -15,6 +15,6 @@ public class MainMenuModel extends MenuFactory {
 
     @Override
     protected void initTextBoxes() {
-        textBoxes.add(new TextBox("Frostbite Penguin Madness", "#ffffff", "#000077", new Position(1, 2)));
+        textBoxes.add(new Drawable("Frostbite Penguin Madness", "#ffffff", "#000077", new Position(1, 2)));
     }
 }

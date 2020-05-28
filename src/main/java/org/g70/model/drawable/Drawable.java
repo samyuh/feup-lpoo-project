@@ -2,7 +2,7 @@ package org.g70.model.drawable;
 
 import org.g70.model.Position;
 
-public abstract class Drawable {
+public class Drawable {
     protected String image;
     private String colorForeground;
     private String colorBackground;
