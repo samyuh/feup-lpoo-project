@@ -348,33 +348,7 @@ possuem comportamenos distintos e podem ser separados em diferentes objetos
 
 ### Message Chains, Switch Statements e Large Class
 
-A classe [Level Controller](../src/main/java/Controller/Level/LevelController.java) possui um *Code Smell* conhecido como *Message Chain*. Este ocorre quando um objeto invoca um método e esse método invoca outro, continuando este ciclo.
-
-Podemos ver abaixo um exemplo de um método problemático que origina problemas de legibilidade do código.
-
-```java
-public void moveHero(Position position) {
-    if (!checkCollisions(position)) {
-        if(!levelModel.removeWhite(levelModel.getHero().getPosition()))
-            levelModel.getFilled().add(new Water(levelModel.getHero().getPosition()));
-
-        if (levelModel.removeCoin(position))
-            levelModel.addPoints(10);
-
-        levelModel.addPoints(1);
-
-        if(levelModel.getKey() != null && levelModel.getKey().getPosition().equals(position)){
-            levelModel.setKey(null);
-            levelModel.setLock(null);
-        }
-        levelModel.getHero().setPosition(position);
-    }
-}
-```
-
-Além disso, o grande número de *If Statements* existentes no código é em si um *Code Smell* e que neste caso pode ser resolvido utilizando o *Design Pattern Command* como já foi referido acima.
-
-Para resolver este problema podemos seguir os seguintes passos:
+// Ainda não eliminei isto porque estes 2 seguintes parágrafos podem ainda dar jeito
 
 - **Extract Method** - Criar novos métodos que executem a manipulação dos atributos do objeto em causa, melhorando a legibilade do código. Neste caso, em vez de `getHero().getPosition()` podiamos utilizar `getHeroPosition()`. No entanto esta solução pode originar um outro *Code Smell* denominado como *Large Class*.
 
@@ -391,3 +365,11 @@ Os nossos teste cobrem cerca de 76% do código total. É possível observar a pe
 Para a criação de testes foram utilizados as frameworks ***JUnit*** e ***Mockito***.
 
 Os resultados dos testes encontram-se na seguinte [pasta](./test).
+
+# Auto-Avaliação
+
+Decidimos que ambos os colaboradores contribuiram de igual forma para o desenvolvimento do trabalho!!
+
+Divisão percentual:
+- Diogo Samuel Fernandes : 50%
+- Hugo Guimarães : 50%
