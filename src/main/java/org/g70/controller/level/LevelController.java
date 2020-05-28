@@ -4,6 +4,7 @@ import org.g70.controller.level.interact.InteractStop;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
+import org.g70.view.game.GeneralView;
 import org.g70.view.handler.KeyHandler;
 import org.g70.view.game.LevelView;
 
@@ -11,13 +12,13 @@ import java.io.IOException;
 
 public class LevelController {
     private LevelModel levelModel;
-    private LevelView levelView;
+    private GeneralView levelView;
     private LevelHeaderModel levelHeader;
     private LevelBuilder levelBuilder;
     private LevelFacade levelFacade;
     private int levelNum;
 
-    public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, LevelView levelView) {
+    public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, GeneralView levelView) {
         this.levelModel = levelModel;
         this.levelView = levelView;
         this.levelHeader = headerModel;

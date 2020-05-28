@@ -2,6 +2,7 @@ package org.g70.controller.menu;
 
 import org.g70.controller.MainController;
 import org.g70.model.menu.MenuFactory;
+import org.g70.view.game.GeneralView;
 import org.g70.view.handler.KeyHandler;
 import org.g70.view.game.MenuView;
 
@@ -9,14 +10,15 @@ import java.io.IOException;
 
 public class MenuController {
     private MenuFactory menuModel;
-    private MenuView menuView;
+    private GeneralView menuView;
     private MainController mainController;
 
-    public MenuController(MainController mainController, MenuFactory menuModel, MenuView menuView) {
+    public MenuController(MainController mainController, MenuFactory menuModel, GeneralView menuView) {
         this.mainController = mainController;
         this.menuModel = menuModel;
         this.menuView = menuView;
     }
+
     public void run() throws IOException {
         do {
             menuView.draw();

@@ -15,20 +15,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateMainMenu extends State {
+    MainMenuModel mainMenuModel;
+
     public StateMainMenu(MainController mainController) {
         super(mainController);
+
+        initMenu();
+    }
+
+    private void initMenu() {
+        List<MenuOption> options = new ArrayList<>();
+
+        options.add(new MenuOption("Start", new Position(2, 14), new OptionNewGame(mainController)));
+        options.add(new MenuOption("Instructions", new Position(2, 15), new OptionHelp(mainController)));
+        options.add(new MenuOption("Exit", new Position(2, 16), new OptionExit(mainController)));
+
+        mainMenuModel = new MainMenuModel(options);
+        view = new MenuView(mainController.getGui(), mainMenuModel);
     }
 
     @Override
     public void run() throws IOException {
-        List<MenuOption> op = new ArrayList<>();
-        op.add(new MenuOption("Start", new Position(2, 14), new OptionNewGame(mainController)));
-        op.add(new MenuOption("Instructions", new Position(2, 15), new OptionHelp(mainController)));
-        op.add(new MenuOption("Exit", new Position(2, 16), new OptionExit(mainController)));
-
-        MainMenuModel MainMenuModel = new MainMenuModel(op);
-        MenuView menuView = new MenuView(mainController.getGui(), MainMenuModel);
-        MenuController controller = new MenuController(mainController, MainMenuModel, menuView);
+        MenuController controller = new MenuController(mainController, mainMenuModel, view);
 
         controller.run();
     }

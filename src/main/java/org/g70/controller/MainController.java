@@ -2,6 +2,7 @@ package org.g70.controller;
 
 import org.g70.controller.state.*;
 import org.g70.view.ScreenView;
+import org.g70.view.game.GeneralView;
 
 import java.io.IOException;
 
@@ -12,8 +13,9 @@ public class MainController {
 
     public MainController(ScreenView gui) {
         this.gui = gui;
-        this.state = new StateMainMenu(this);
         this.exit = false;
+
+        setState(new StateMainMenu(this));
     }
 
     public ScreenView getGui() {
