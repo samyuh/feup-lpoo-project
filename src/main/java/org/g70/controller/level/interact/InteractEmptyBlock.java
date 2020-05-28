@@ -2,8 +2,8 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyNothing;
-import org.g70.model.drawable.element.EmptyBlock;
+import org.g70.controller.level.strategy.MeltNothing;
+import org.g70.model.drawable.element.immovable.EmptyBlock;
 
 public class InteractEmptyBlock extends Interact<EmptyBlock> {
 
@@ -15,7 +15,7 @@ public class InteractEmptyBlock extends Interact<EmptyBlock> {
     public void executePuffle(LevelController controller, LevelFacade facade) {
         facade.meltPreviousIce();
         facade.movePuffle(position);
-        facade.setMeltStrategy(new StrategyNothing(facade));
+        facade.setMelt(new MeltNothing(facade));
     }
 
     @Override

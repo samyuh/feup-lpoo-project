@@ -6,7 +6,6 @@ import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
 import org.g70.view.game.GeneralView;
 import org.g70.view.handler.KeyHandler;
-import org.g70.view.game.LevelView;
 
 import java.io.IOException;
 
@@ -29,12 +28,16 @@ public class LevelController {
         initLevel(false);
     }
 
-    public void setLevelNum(int levelNum) {
-        this.levelNum = levelNum;
-    }
-
     public int getLevelNum() {
         return levelNum;
+    }
+
+    public LevelFacade getLevelFacade() {
+        return levelFacade;
+    }
+
+    public void setLevelNum(int levelNum) {
+        this.levelNum = levelNum;
     }
 
     public void initRegularLevel(boolean restart) {
@@ -65,16 +68,16 @@ public class LevelController {
     public boolean processCommand(KeyHandler.KEY command) {
         switch (command) {
             case UP:
-                executePuffleMovement(levelFacade.getPuffleMovement().moveUp());
+                executePuffleMovement(levelModel.getPuffle().moveUp());
                 return true;
             case DOWN:
-                executePuffleMovement(levelFacade.getPuffleMovement().moveDown());
+                executePuffleMovement(levelModel.getPuffle().moveDown());
                 return true;
             case LEFT:
-                executePuffleMovement(levelFacade.getPuffleMovement().moveLeft());
+                executePuffleMovement(levelModel.getPuffle().moveLeft());
                 return true;
             case RIGHT:
-                executePuffleMovement(levelFacade.getPuffleMovement().moveRight());
+                executePuffleMovement(levelModel.getPuffle().moveRight());
                 return true;
             case NEXT:
                 gameWon();
@@ -101,10 +104,10 @@ public class LevelController {
     }
 
     public boolean gameFinished() {
-        return checkCollisions(levelFacade.getPuffleMovement().moveUp()) &&
-               checkCollisions(levelFacade.getPuffleMovement().moveDown()) &&
-               checkCollisions(levelFacade.getPuffleMovement().moveLeft()) &&
-               checkCollisions(levelFacade.getPuffleMovement().moveRight());
+        return checkCollisions(levelModel.getPuffle().moveUp()) &&
+               checkCollisions(levelModel.getPuffle().moveDown()) &&
+               checkCollisions(levelModel.getPuffle().moveLeft()) &&
+               checkCollisions(levelModel.getPuffle().moveRight());
     }
 
     public void gameWon() {
@@ -112,9 +115,5 @@ public class LevelController {
             levelNum++;
             initRegularLevel(false);
         }
-    }
-
-    public LevelFacade getLevelFacade() {
-        return levelFacade;
     }
 }

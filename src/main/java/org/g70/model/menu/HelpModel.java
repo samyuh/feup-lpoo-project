@@ -2,7 +2,8 @@ package org.g70.model.menu;
 
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
-import org.g70.model.drawable.element.*;
+import org.g70.model.drawable.element.immovable.*;
+import org.g70.model.drawable.element.movable.*;
 import org.g70.model.drawable.menudrawable.MenuOption;
 
 import java.util.List;

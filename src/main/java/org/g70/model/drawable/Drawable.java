@@ -4,9 +4,9 @@ import org.g70.model.Position;
 
 public class Drawable {
     protected String image;
+    protected Position position;
     private String colorForeground;
     private String colorBackground;
-    protected Position position;
 
     public Drawable(String image, String colorForeground, String colorBackground, Position position) {
         this.image = image;

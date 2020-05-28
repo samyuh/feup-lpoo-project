@@ -1,6 +1,7 @@
 package org.g70.controller.level;
 
-import org.g70.model.drawable.element.*;
+import org.g70.model.drawable.element.immovable.*;
+import org.g70.model.drawable.element.movable.*;
 import org.g70.model.level.LevelModel;
 import org.g70.model.Position;
 

@@ -2,8 +2,8 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.controller.level.strategy.StrategyIce;
-import org.g70.model.drawable.element.Key;
+import org.g70.controller.level.strategy.MeltIce;
+import org.g70.model.drawable.element.immovable.Key;
 
 public class InteractKey extends Interact<Key> {
 
@@ -17,7 +17,7 @@ public class InteractKey extends Interact<Key> {
         facade.movePuffle(position);
         controller.addScore(1,1);
         facade.removeKeyLock();
-        facade.setMeltStrategy(new StrategyIce(facade));
+        facade.setMelt(new MeltIce(facade));
     }
 
     @Override
