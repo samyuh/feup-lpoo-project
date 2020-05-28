@@ -3,7 +3,7 @@ package org.g70.controller.level.interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyIce;
-import org.g70.model.drawable.element.Ice;
+import org.g70.model.drawable.element.immovable.Ice;
 
 public class InteractIce extends Interact<Ice> {
 

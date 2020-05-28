@@ -1,20 +1,19 @@
-package org.g70.controller.level.movement;
+package org.g70.model.drawable.element.movable;
 
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Box;
-import org.g70.model.drawable.element.Puffle;
 import org.junit.*;
 import org.junit.Test;
 
 
-public class MovementTest {
+public class MovableElementTest {
     @Test
     public void movementTest() {
-        Puffle puffle = new Puffle(new Position(1, 1));
+        org.g70.model.drawable.element.Puffle puffle = new org.g70.model.drawable.element.Puffle(new Position(1, 1));
         Box box = new Box(new Position(1, 1));
 
-        BoxMovement boxTest1 = new BoxMovement(box);
-        PuffleMovement puffleTest1 = new PuffleMovement(puffle);
+        Box boxTest1 = new Box(box);
+        Puffle puffleTest1 = new Puffle(puffle);
 
         Assert.assertEquals(boxTest1.getPosition(), new Position(1, 1));
         Assert.assertEquals(puffleTest1.getPosition(), new Position(1, 1));

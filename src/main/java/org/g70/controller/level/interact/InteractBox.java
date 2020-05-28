@@ -3,7 +3,7 @@ package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
-import org.g70.model.drawable.element.Box;
+import org.g70.model.drawable.element.movable.Box;
 
 public class InteractBox extends Interact<Box> {
 

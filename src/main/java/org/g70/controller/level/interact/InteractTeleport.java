@@ -4,7 +4,7 @@ import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyIce;
 import org.g70.model.Position;
-import org.g70.model.drawable.element.Teleport;
+import org.g70.model.drawable.element.immovable.Teleport;
 
 import java.util.List;
 

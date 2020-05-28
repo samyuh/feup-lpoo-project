@@ -1,11 +1,9 @@
 package org.g70.model;
 
-import org.g70.model.drawable.Drawable;
-import org.g70.model.drawable.element.Coin;
+import org.g70.model.drawable.element.immovable.Coin;
 import org.g70.model.drawable.element.ElementModel;
-import org.g70.model.drawable.element.DoubleIce;
+import org.g70.model.drawable.element.immovable.DoubleIce;
 import org.g70.model.level.LevelModel;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

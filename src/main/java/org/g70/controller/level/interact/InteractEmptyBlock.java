@@ -3,7 +3,7 @@ package org.g70.controller.level.interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyNothing;
-import org.g70.model.drawable.element.EmptyBlock;
+import org.g70.model.drawable.element.immovable.EmptyBlock;
 
 public class InteractEmptyBlock extends Interact<EmptyBlock> {
 

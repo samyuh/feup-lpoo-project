@@ -3,7 +3,7 @@ package org.g70.controller.level.interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyIce;
-import org.g70.model.drawable.element.Secret;
+import org.g70.model.drawable.element.immovable.Secret;
 
 public class InteractSecret extends Interact<Secret> {
     public InteractSecret(Secret element) {

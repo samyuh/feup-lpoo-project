@@ -3,7 +3,7 @@ package org.g70.controller.level.interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.strategy.StrategyDoubleIce;
-import org.g70.model.drawable.element.DoubleIce;
+import org.g70.model.drawable.element.immovable.DoubleIce;
 
 public class InteractToughIce extends Interact<DoubleIce> {
 

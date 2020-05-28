@@ -7,7 +7,7 @@ import com.googlecode.lanterna.screen.Screen;
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.Puffle;
-import org.g70.model.drawable.element.Wall;
+import org.g70.model.drawable.element.immovable.Wall;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.ScreenView;

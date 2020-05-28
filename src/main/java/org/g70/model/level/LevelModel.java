@@ -1,9 +1,10 @@
 package org.g70.model.level;
 
-import org.g70.controller.level.movement.Movement;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.element.*;
 import org.g70.model.Position;
+import org.g70.model.drawable.element.immovable.*;
+import org.g70.model.drawable.element.movable.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,8 +1,8 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.movement.PuffleMovement;
+import org.g70.model.drawable.element.movable.Puffle;
 import org.g70.model.Position;
-import org.g70.model.drawable.element.Secret;
+import org.g70.model.drawable.element.immovable.Secret;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.game.LevelView;
@@ -48,7 +48,7 @@ public class LevelTest {
 
     @Test
     public void levelWinTest() {
-        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelFacade.getPuffleMovement();
         Position start = levelModel.getPuffle().getPosition();
         Position finish = levelModel.getFinish().getPosition();
 
@@ -87,7 +87,7 @@ public class LevelTest {
         levelController.processCommand(KeyHandler.KEY.NEXT);
 
         Assert.assertEquals(levelController.getLevelNum(), 2);
-        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelFacade.getPuffleMovement();
 
 
         Position start = new Position(14, 3);
@@ -129,7 +129,7 @@ public class LevelTest {
         levelController.setLevelNum(5);
         levelController.initRegularLevel(false);
 
-        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelFacade.getPuffleMovement();
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
@@ -287,7 +287,7 @@ public class LevelTest {
         // -- Test Teleport -- //
         Position initialPufflePosition = levelModel.getPuffle().getPosition();
 
-        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+        Puffle puffleTest = levelFacade.getPuffleMovement();
 
         Position teleportOne = new Position(12, 9);
         Position teleportTwo = new Position(9, 13);
