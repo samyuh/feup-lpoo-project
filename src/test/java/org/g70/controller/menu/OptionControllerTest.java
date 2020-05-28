@@ -1,6 +1,5 @@
 package org.g70.controller.menu;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.controller.MainController;
 import org.g70.controller.menu.option.OptionExit;
@@ -11,15 +10,13 @@ import org.g70.controller.state.StateGame;
 import org.g70.controller.state.StateHelp;
 import org.g70.controller.state.StateMainMenu;
 import org.g70.view.ScreenView;
-import org.g70.view.game.GeneralView;
-import org.g70.view.handler.KeyHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 public class OptionControllerTest {
-    MainController controller;
+    private MainController controller;
 
     @Before
     public void initController() {

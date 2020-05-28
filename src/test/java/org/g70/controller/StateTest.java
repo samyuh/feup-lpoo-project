@@ -1,6 +1,5 @@
 package org.g70.controller;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.controller.state.StateGame;
 import org.g70.controller.state.StateGameOver;
@@ -12,13 +11,12 @@ import org.g70.view.handler.KeyHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 
 public class StateTest {
-    MainController controllerMock;
+    private MainController controllerMock;
 
     @Before
     public void initController() {

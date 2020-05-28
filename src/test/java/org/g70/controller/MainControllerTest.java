@@ -1,15 +1,9 @@
 package org.g70.controller;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.gui2.TextGUIGraphics;
 import com.googlecode.lanterna.screen.Screen;
-import org.g70.controller.state.State;
 import org.g70.controller.state.StateGame;
-import org.g70.controller.state.StateGameOver;
 import org.g70.controller.state.StateMainMenu;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.g70.view.ScreenView;
 

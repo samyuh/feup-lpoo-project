@@ -1,4 +1,4 @@
-package org.g70.view.level;
+package org.g70.view.game;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -11,7 +11,6 @@ import org.g70.model.drawable.element.Wall;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.ScreenView;
-import org.g70.view.game.LevelView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,7 +22,7 @@ import java.util.List;
 
 
 public class LevelViewTest {
-    List<Drawable> elementMocks;
+    private List<Drawable> elementMocks;
 
     @Before
     public void startLevel() {

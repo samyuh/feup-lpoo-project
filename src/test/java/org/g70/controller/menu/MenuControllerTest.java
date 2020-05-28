@@ -2,7 +2,6 @@ package org.g70.controller.menu;
 
 import org.g70.controller.MainController;
 import org.g70.controller.menu.option.Option;
-import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.menu.MainMenuModel;
 import org.g70.view.game.GeneralView;
 import org.g70.view.handler.KeyHandler;
@@ -14,11 +13,10 @@ import org.mockito.Mockito;
 import java.io.IOException;
 
 public class MenuControllerTest {
-    MainController mainControllerMock;
-    GeneralView menuViewMock;
-    MainMenuModel menuModelMock;
-
-    MenuController controller;
+    private MainController mainControllerMock;
+    private GeneralView menuViewMock;
+    private MainMenuModel menuModelMock;
+    private MenuController controller;
 
     @Before
     public void initController() {

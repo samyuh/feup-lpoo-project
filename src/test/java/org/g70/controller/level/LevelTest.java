@@ -1,8 +1,5 @@
 package org.g70.controller.level;
 
-import org.g70.controller.level.LevelBuilder;
-import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelFacade;
 import org.g70.controller.level.movement.PuffleMovement;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.Secret;
@@ -10,185 +7,274 @@ import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.game.LevelView;
 import org.g70.view.handler.KeyHandler;
+
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
-
 public class LevelTest {
+    private LevelModel levelModel;
+    private LevelController levelController;
+    private LevelHeaderModel headerModel;
+    private LevelFacade levelFacade;
+
+    @Before
+    public void initLevel() {
+        LevelView levelView = Mockito.mock(LevelView.class);
+        headerModel = new LevelHeaderModel(1);
+        levelModel = new LevelModel();
+        levelController = new LevelController(levelModel, headerModel, levelView);
+        levelFacade = levelController.getLevelFacade();
+    }
+
     @Test
     public void levelBuilderTest() {
-        LevelModel levelModel = new LevelModel();
         LevelBuilder levelInit = new LevelBuilder(levelModel);
 
         levelInit.initLevel(1, false);
-
-        assertEquals(levelModel.getWalls().size(), 24);
-        assertEquals(levelModel.getCoins().size(), 0);
-        assertEquals(levelModel.getDoubleIce().size(), 0);
+        Assert.assertEquals(levelModel.getWalls().size(), 24);
+        Assert.assertEquals(levelModel.getCoins().size(), 0);
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
 
         // Finish with all levelModel to ensure that is reading
+        levelInit.initLevel(2, false);
+        levelInit.initLevel(3, false);
+        levelInit.initLevel(3, true);
+        levelInit.initLevel(4, false);
+        levelInit.initLevel(5, false);
+        levelInit.initLevel(6, false);
+    }
+
+    @Test
+    public void levelWinTest() {
+        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
+        Position start = levelModel.getPuffle().getPosition();
+        Position finish = levelModel.getFinish().getPosition();
+
+        Assert.assertEquals(puffleTest.getPosition(), start);
+
+        levelController.processCommand(KeyHandler.KEY.UP);
+
+        Assert.assertEquals(puffleTest.getPosition(), start);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertFalse(levelController.gameFinished());
+        Assert.assertEquals(levelController.getLevelNum(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.UP);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+
+        Assert.assertFalse(levelController.gameFinished());
+        Assert.assertEquals(levelController.getLevelNum(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(puffleTest.getPosition(), finish);
+        Assert.assertFalse(levelController.gameFinished());
     }
 
     @Test
     public void levelWinLoseTest() {
-        // Not necessary
-        LevelView levelView = Mockito.mock(LevelView.class);
-        LevelModel levelModel = new LevelModel();
-        LevelHeaderModel headerModel = new LevelHeaderModel(1);
+        levelController.processCommand(KeyHandler.KEY.NEXT);
 
-        LevelController levelC = new LevelController(levelModel, headerModel, levelView);
+        Assert.assertEquals(levelController.getLevelNum(), 2);
+        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
 
-        // Win First Level Test
-        LevelFacade levelFacade = levelC.getLevelFacade();
-        PuffleMovement puffleTest1 = levelFacade.getPuffleMovement();
 
-        Position start1 = levelModel.getPuffle().getPosition();
-        Position finish1 = levelModel.getFinish().getPosition();
+        Position start = new Position(14, 3);
+        Position finish = new Position(14, 7);
+        Assert.assertEquals(puffleTest.getPosition(), start);
 
-        assertEquals(puffleTest1.getPosition(), start1);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        levelC.processCommand(KeyHandler.KEY.UP);
-        assertEquals(puffleTest1.getPosition(), start1);
+        Assert.assertEquals(puffleTest.getPosition(), finish);
+        Assert.assertTrue(levelController.gameFinished());
+    }
 
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
+    @Test
+    public void levelCoinTest() {
+        levelController.setLevelNum(4);
+        levelController.initRegularLevel(false);
 
-        assertFalse(levelC.gameFinished());
-        assertEquals(levelC.getLevelNum(), 1);
+        int previousScore = headerModel.getGlobalScore().getScore();
 
-        levelC.processCommand(KeyHandler.KEY.LEFT);
-        levelC.processCommand(KeyHandler.KEY.UP);
-        levelC.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        assertFalse(levelC.gameFinished());
-        assertEquals(levelC.getLevelNum(), 1);
+        int afterCoinScore = headerModel.getGlobalScore().getScore();
 
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        assertEquals(puffleTest1.getPosition(), finish1);
+        Assert.assertEquals(previousScore + 10, afterCoinScore);
 
-        assertFalse(levelC.gameFinished());
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(levelController.getLevelNum(), 5);
+    }
 
-        // Lose Level
-        assertEquals(levelC.getLevelNum(), 2);
-        PuffleMovement puffleTest2 = levelFacade.getPuffleMovement();
+    @Test
+    public void testLevelKey() {
+        levelController.setLevelNum(5);
+        levelController.initRegularLevel(false);
 
-        Position start2 = new Position(14, 3);
-        Position finish2 = new Position(14, 7);
+        PuffleMovement puffleTest = levelFacade.getPuffleMovement();
 
-        assertEquals(puffleTest2.getPosition(), start2);
-        levelC.processCommand(KeyHandler.KEY.DOWN);
-        levelC.processCommand(KeyHandler.KEY.DOWN);
-        levelC.processCommand(KeyHandler.KEY.DOWN);
-        levelC.processCommand(KeyHandler.KEY.LEFT);
-        levelC.processCommand(KeyHandler.KEY.DOWN);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        assertEquals(puffleTest2.getPosition(), finish2);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        assertTrue(levelC.gameFinished());
+        Position previousDoor = puffleTest.getPosition();
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(puffleTest.getPosition(),
+                previousDoor);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.UP);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelController.getLevelNum(), 6);
+    }
+
+    @Test
+    public void testLevelBox() {
+        levelController.setLevelNum(6);
+        levelController.initRegularLevel(false);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+
+        Assert.assertEquals(levelController.getLevelNum(), 7);
+    }
+
+    @Test
+    public void testLevelIceMelt() {
+        levelController.setLevelNum(7);
+        levelController.initRegularLevel(false);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 2);
+        Assert.assertEquals(levelModel.getIce().size(), 2);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 1);
+        Assert.assertEquals(levelModel.getIce().size(), 3);
+
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
+        Assert.assertEquals(levelModel.getIce().size(), 4);
+
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
+        Assert.assertEquals(levelModel.getIce().size(), 3);
+
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
+        Assert.assertEquals(levelModel.getIce().size(), 2);
+
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
+        Assert.assertEquals(levelModel.getIce().size(), 1);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+
+        Assert.assertEquals(levelController.getLevelNum(), 8);
     }
 
     @Test
     public void levelAllElementsTest() {
-        // Not necessary
-        LevelView levelView = Mockito.mock(LevelView.class);
-        LevelHeaderModel headerModel = new LevelHeaderModel(1);
-        LevelModel levelModel = new LevelModel();
-
-        LevelController levelC = new LevelController(levelModel, headerModel, levelView);
-        LevelFacade levelFacade = levelC.getLevelFacade();
-
-        // -- Skip Level -- //
-        levelC.processCommand(KeyHandler.KEY.NEXT);
-        assertEquals(levelC.getLevelNum(), 2);
-
-        levelC.processCommand(KeyHandler.KEY.NEXT);
-        assertEquals(levelC.getLevelNum(), 3);
-
-        Position initialPufflePosition = levelModel.getPuffle().getPosition();
+        levelController.setLevelNum(3);
+        levelController.initRegularLevel(false);
 
         // -- Test Teleport -- //
+        Position initialPufflePosition = levelModel.getPuffle().getPosition();
+
         PuffleMovement puffleTest = levelFacade.getPuffleMovement();
 
-        Position teleportOne = new Position(12 ,9);
+        Position teleportOne = new Position(12, 9);
         Position teleportTwo = new Position(9, 13);
 
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        assertEquals(puffleTest.getPosition().getX(), teleportOne.getX() - 1);
-        assertEquals(puffleTest.getPosition().getY(), teleportOne.getY());
+        Assert.assertEquals(puffleTest.getPosition().getX(), teleportOne.getX() - 1);
+        Assert.assertEquals(puffleTest.getPosition().getY(), teleportOne.getY());
 
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        assertEquals(puffleTest.getPosition(), teleportTwo);
+        Assert.assertEquals(puffleTest.getPosition(), teleportTwo);
 
         // -- Test Restart -- //
-        levelC.processCommand(KeyHandler.KEY.RESTART);
+        levelController.processCommand(KeyHandler.KEY.RESTART);
         puffleTest = levelFacade.getPuffleMovement();
 
-        assertEquals(puffleTest.getPosition(), initialPufflePosition);
+        Assert.assertEquals(puffleTest.getPosition(), initialPufflePosition);
 
         // -- Test Secret -- //
         Position previousSecret = new Position(19, 14);
         levelModel.getPuffle().setPosition(previousSecret);
         Secret secret = levelModel.getSecret();
 
-        levelC.processCommand(KeyHandler.KEY.DOWN);
-        assertEquals(puffleTest.getPosition(), secret.getPosition());
-        assertNull(levelModel.getSecret());
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        Assert.assertEquals(puffleTest.getPosition(), secret.getPosition());
+        Assert.assertNull(levelModel.getSecret());
 
-        levelC.processCommand(KeyHandler.KEY.RESTART);
+        // -- Test Secret Restart -- //
+        levelController.processCommand(KeyHandler.KEY.RESTART);
+
         puffleTest = levelFacade.getPuffleMovement();
-
-        assertEquals(puffleTest.getPosition(), initialPufflePosition);
-
-        // -- Coin Test -- //
-        levelC.processCommand(KeyHandler.KEY.NEXT);
-        assertEquals(levelC.getLevelNum(), 4);
-
-        int previousScore = levelC.getLevelHeaderModel().getGlobalScore().getScore();
-
-        /*
-        levelC.processCommand(KeyHandler.KEY.RIGHT);
-        int afterCoinScore = levelC.getLevelHeaderModel().getGlobalScore().getScore();
-
-        assertEquals(previousScore + 10, afterCoinScore);
-
-         */
-
-        // -- Key Lock -- //
-
-        // -- Box -- //
-
-        // -- Double Ice -- //
+        Assert.assertEquals(puffleTest.getPosition(), initialPufflePosition);
     }
 
     @Test
     public void levelProcessCommandTest() {
-        // Not necessary
-        LevelView levelView = Mockito.mock(LevelView.class);
-        LevelHeaderModel headerModel = Mockito.mock(LevelHeaderModel.class);
-        LevelModel levelModel = new LevelModel();
-
-        LevelController levelC = new LevelController(levelModel, headerModel, levelView);
-
-        assertEquals(levelC.processCommand(KeyHandler.KEY.NEXT), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.RESTART), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.UP), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.DOWN), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.LEFT), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.RIGHT), true);
-        assertEquals(levelC.processCommand(KeyHandler.KEY.CLOSE), false);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.NEXT), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.RESTART), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.UP), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.DOWN), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.LEFT), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.RIGHT), true);
+        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.CLOSE), false);
     }
 
     @Test

@@ -14,10 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelTest {
-    LevelModel testM;
+    private LevelModel testM;
     private List<ElementModel> elements;
     private List<Position> positions;
-    private Position pCoin1;
     private Position pFrozenIce1;
 
     @Before

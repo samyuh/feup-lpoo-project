@@ -1,4 +1,4 @@
-package org.g70.view.menu;
+package org.g70.view.game;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -9,7 +9,6 @@ import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.menu.MenuFactory;
 import org.g70.view.ScreenView;
-import org.g70.view.game.MenuView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuViewTest {
-    List<Drawable> textBoxes;
-    List<MenuOption> options;
+    private List<Drawable> textBoxes;
+    private List<MenuOption> options;
 
     @Before
     public void startLevel() {

@@ -1,8 +1,7 @@
 package org.g70.model;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class PositionTest {
     @Test
@@ -10,6 +9,9 @@ public class PositionTest {
         Position elementPos1 = new Position(0,1);
         Position elementPos2 = new Position(0,1);
 
-        assertEquals(elementPos1.getX(), elementPos2.getX());
+        Assert.assertEquals(elementPos1.getX(), elementPos2.getX());
+        Assert.assertEquals(elementPos1.getY(), elementPos2.getY());
+        Assert.assertEquals(elementPos1, elementPos2);
+        Assert.assertNotEquals(null, elementPos1);
     }
 }

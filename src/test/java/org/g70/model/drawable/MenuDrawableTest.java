@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class MenuDrawableTest {
-    Position posMock;
+    private Position posMock;
 
     @Before
     public void initOptionMock() {

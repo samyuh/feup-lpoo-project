@@ -29,8 +29,8 @@ public class LevelController {
         initLevel(false);
     }
 
-    public LevelHeaderModel getLevelHeaderModel() {
-        return levelHeader;
+    public void setLevelNum(int levelNum) {
+        this.levelNum = levelNum;
     }
 
     public int getLevelNum() {
