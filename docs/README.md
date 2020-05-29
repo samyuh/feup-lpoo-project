@@ -15,8 +15,13 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 1. [Funcionalidades](#funcionalidades)
 2. [Arquitetura do Código](#padrão-arquitetural-do-código)
 3. [Design Patterns](#design-patterns)
-    - [State](#state)
-    - [Command](#state)
+    - [Level Builder](#level-builder)
+    - [MenuState with Command](#menuState-command)
+    - [Puffle/Box Movement Strategy](#Puffle-Box-Movement-Strategy)
+    - [Melting Strategy](#melting-strategy)
+    - [Menu Factory](#menu-factory)
+    - [Private CLass Data on LevelModel](#private-class-data-on-level-model)
+
 4. [Code Smells e Refactoring](#code-smells-e-refactoring)
 5. [Unit Tests](#unit-tests)
 
@@ -88,15 +93,11 @@ Representam todos os obstáculos possíveis de se encontrar em qualquer nível. 
 - MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
 - TextBox - Caixa de Texto de um menu, para imprimir uma string numa certa posição do ecrã
 
-
 ### LevelBuilder
 Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
 
-
 ### Menu States
 Implementamos vários estados associados ao atual menu a ser utilizado
-
-
 
 # Padrão Arquitetural do Código
 
@@ -218,40 +219,6 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
-## LevelFacade
-
-#### Problema
-A divisão do codigo de acordo com o cumprimento do padrão arquitetural MVC originou uma classe *LevelController* que, ao longo do desenvolvimento do código, se veio a tornar numa *God Class*, responsável por todos os comportamentos associados á lógica do jogo, originando o *Code Smell* *Large Class* e violando o *Single Responsability Principle*.
-
-
-#### Padrão
-Para resolver este problema, decidimos usar o *Design Pattern* ***Facade***.
-Este padrão permite-nos criar *Facades* responsáveis por novos comportamentos que se vão adicionando ao longo do desenvolvimento.
-
-#### Implementação
-Extraimos os métodos associados á manipulação dos *Elements* do *LevelModel* para uma nova *Facade*.
-
-A nova classe *LevelFacade* é agora responsável pela interação entre os elementos.
-
-Deste modo, o *LevelController* tournou-se numa classe responsável por apenas verificar se o Utilizador perdeu o jogo, deve mudar de nível, ou ganhou pontos, de acordo com as alterações executadas pelo *LevelFacade*.
-
-O diagrama seguinte demonstra como implementamos o *Design Pattern*
-
-![](images/FacadeUML.png)
-
-##### Ficheiros
-
-- [LevelController](..src/main/java/org/g70/controller/level/LevelController.java)
-- [LevelFacade](..src/main/java/org/g70/controller/level/LevelFacade.java)
-
-
-#### Consequências
-
-- Isolamento do código em classes mais curtas, distribuindo as responsabilidades de cada objeto, corrigindo o *Code Smell* e o principio *SOLID* enunciados.
-
-
-> Fonte: [Design Patterns - Facade](https://refactoring.guru/design-patterns/facade)
-
 ## Melting Strategy
 
 #### Problema
@@ -313,6 +280,29 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
+## Private Class Data on LevelModel
+
+#### Problema
+O nosso programa continha um enorme quantidade de objetos, que eram utilizados quer no *levelModel*, quer no *levelFacade*, causando o *Code Smells* *Data Clumps*.
+
+#### Padrão
+Para resolver este problema, decidimos utilizar o *Design Pattern* *Private Class Data*, que consiste na criação de uma
+*Data Class* contendo todos os objetos que se deseja encapsular.
+
+#### Implementação
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/PrivateClassData.png)
+
+#### Consequências
+
+- Corrige o *Code Smell* *Data Clumps*, organizando os elementos associados ao nível num só objeto, simplificando todas as classes que necessitem de ter acesso aos *Elements*.
+- Origina o *Code Smell* *Data Class*, que acaba por ser inerente ao padrão de arquitetura usado: *MVC* (Mais informação sobre este *Code Smell* no capítulo seguinte).
+- Facilita a adição de *Elements* ao nível, pelo que basta adicionar mais um atributo ao levelModel.
+
+> Fonte : [Design Patterns - Private Class Data](https://sourcemaking.com/design_patterns/private_class_data)
+
+
 # Code Smells e Refactoring
 
 ### Data Class
@@ -325,10 +315,10 @@ Embora se possa resolver este problema colocando alguma *lógica do jogo* nas no
 
 
 
-### Large Class e Single Responsability Principle
-Embora a nossa maior classe *LevelFacade* tenha pouco mais do que 100 linha de código, possui um grande número de métodos, sendo responsável pela interações entre todos os elementos, violando um princípio SOLID *Single Responsability Principle*.
+### Large Class
+Embora a nossa maior classe *LevelFacade* tenha pouco mais do que 100 linha de código, possui um grande número de métodos, sendo responsável pela interações entre todos os elementos.
 
-Uma maneira de corrigir este problema seria o uso do *Refactor* *Extract Class*, através da ciração de uma classe para encapsular todos os métodos associados á manipulação de um objeto.
+Uma maneira de corrigir este problema seria o uso do *Refactor* *Extract Class*, através da criação de uma classe para encapsular todos os métodos associados á manipulação de um objeto.
 
 Ex: Os métodos:
 - `updateBoxMovement()`
@@ -339,15 +329,7 @@ Ex: Os métodos:
 
 poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Elemento.
 
-O levelController sofre exatamente do mesmo problema. Embora todos os seus métodos sejam relacionados com o comportamento do Puffle e as consequências do seu movimento no nível atual, e já se tenha criado a classe *LevelFacade* para reduzir as suas responsabilidades, continua a violar o *Single Responsability Principle*, visto que tanto inicialliza um nível, como é responsável por delegar á *LevelFacade* a alteração a posição do *Puffle*.
-
-Ex: os métodos :
-- `processCommand(KeyHandler.KEY command)`
-- `initLevel(boolean secretLevel)`
-
-possuem comportamenos distintos e podem ser separados em diferentes objetos
-
-> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11), [Single Responsability Principle](https://web.fe.up.pt/~arestivo/presentation/solid/#16), [Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
+> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11),[Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
 
 # Unit Tests
 
