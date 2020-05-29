@@ -101,6 +101,10 @@ public class LevelModel {
         return lock;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
     public Box getBox() {
         return box;
     }

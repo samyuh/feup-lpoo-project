@@ -27,6 +27,8 @@ public class LevelHeaderModel {
         levelBlocks.setLevelBlocks(maxScores[levelNum-1]);
     }
 
+    public LevelBlocks getLevelBlocks() {return levelBlocks; }
+
     public GlobalScore getGlobalScore() {
         return globalScore;
     }

@@ -14,6 +14,10 @@ public class LevelBlocks extends Drawable {
         this.maxBlocks = maxBlocks;
     }
 
+    public int getBlocks() {
+        return blocks;
+    }
+
     public void setLevelBlocks(int maxBlocks) {
         blocks = 0;
         this.maxBlocks = maxBlocks;

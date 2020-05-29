@@ -37,6 +37,10 @@ public class LevelFacade {
             resetBoxInteraction();
     }
 
+    public Melt getMeltStrategy() {
+        return melt;
+    }
+
     public void setMelt(Melt strategy) {
         melt = strategy;
     }
