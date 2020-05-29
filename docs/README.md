@@ -20,7 +20,7 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
     - [Puffle/Box Movement Strategy](#Puffle-Box-Movement-Strategy)
     - [Melting Strategy](#melting-strategy)
     - [Menu Factory](#menu-factory)
-    - [Private CLass Data on LevelModel](#private-class-data-on-level-model)
+    - [Private Class Data on LevelModel](#private-class-data-on-level-model)
 
 4. [Code Smells e Refactoring](#code-smells-e-refactoring)
 5. [Unit Tests](#unit-tests)
