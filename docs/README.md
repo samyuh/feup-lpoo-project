@@ -12,7 +12,7 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 # Indíce
 
-1. [Funcionalidades Implementadas](#funcionalidades)
+1. [Funcionalidades Implementadas](#funcionalidades-implementadas)
 2. [Funcionalidades Planeadas](#funcionalidades-planeadas)
 3. [Design](#design)
     - [MVC](#padrao-arquitetural-do-codigo)
