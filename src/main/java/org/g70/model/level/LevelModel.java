@@ -65,28 +65,28 @@ public class LevelModel {
         this.secret = secret;
     }
 
-    public void setWalls(List<Wall> walls) {
-        this.walls = walls;
+    public void addWalls(Wall walls) {
+        this.walls.add(walls);
     }
 
-    public void setIce(List<Ice> ice) {
-        this.ice = ice;
+    public void addIce(Ice ice) {
+        this.ice.add(ice);
     }
 
-    public void setCoins(List<Coin> coins) {
-        this.coins = coins;
+    public void addCoins(Coin coin) {
+        this.coins.add(coin);
     }
 
-    public void setDoubleIce(List<DoubleIce> doubleIce) {
-        this.doubleIce = doubleIce;
+    public void addDoubleIce(DoubleIce doubleIce) {
+        this.doubleIce.add(doubleIce);
     }
 
-    public void setInvisibleWalls(List<InvisibleWall> invisibleWalls) {
-        this.invisibleWalls = invisibleWalls;
+    public void addInvisibleWalls(InvisibleWall invisibleWall) {
+        this.invisibleWalls.add(invisibleWall);
     }
 
-    public void setTeleports(List<Teleport> teleports) {
-        this.teleports = teleports;
+    public void addTeleports(Teleport teleport) {
+        this.teleports.add(teleport);
     }
 
     public Puffle getPuffle() {
@@ -173,19 +173,22 @@ public class LevelModel {
     }
 
     public void clearLevel(boolean secretLevel) {
-        if (!secretLevel) water = new ArrayList<>();
         walls = new ArrayList<>();
-        ice = new ArrayList<>();
-        coins = new ArrayList<>();
-        doubleIce = new ArrayList<>();
         invisibleWalls = new ArrayList<>();
-        teleports = new ArrayList<>();
-        puffle = null;
-        finish = null;
-        key = null;
-        lock = null;
-        box = null;
-        emptyBlock = null;
-        secret = null;
+
+        if (!secretLevel) {
+            water = new ArrayList<>();
+            ice = new ArrayList<>();
+            coins = new ArrayList<>();
+            doubleIce = new ArrayList<>();
+            teleports = new ArrayList<>();
+            puffle = null;
+            finish = null;
+            key = null;
+            lock = null;
+            box = null;
+            emptyBlock = null;
+            secret = null;
+        }
     }
 }

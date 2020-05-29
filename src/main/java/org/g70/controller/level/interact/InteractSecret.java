@@ -17,6 +17,7 @@ public class InteractSecret extends Interact<Secret> {
         controller.addScore(1,1);
         controller.initSecretLevel();
         facade.setMelt(new MeltIce(facade));
+        element.setInteraction(new InteractStop(element));
     }
 
     @Override

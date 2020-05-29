@@ -21,9 +21,9 @@ public class StateGameOver extends State {
     public StateGameOver(MainController mainController, int globalScore) {
         super(mainController);
 
-        initGameOver();
-
         this.globalScore = globalScore;
+
+        initGameOver();
     }
 
     private void initGameOver() {

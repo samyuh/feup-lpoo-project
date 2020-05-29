@@ -32,6 +32,7 @@ public class LevelTest {
     public void levelBuilderTest() {
         LevelBuilder levelInit = new LevelBuilder(levelModel);
 
+        levelModel.clearLevel(false);
         levelInit.initLevel(1, false);
         Assert.assertEquals(levelModel.getWalls().size(), 24);
         Assert.assertEquals(levelModel.getCoins().size(), 0);
@@ -319,7 +320,6 @@ public class LevelTest {
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
         Assert.assertEquals(puffleTest.getPosition(), secret.getPosition());
-        Assert.assertNull(levelModel.getSecret());
 
         // -- Test Secret Restart -- //
         levelController.processCommand(KeyHandler.KEY.RESTART);
