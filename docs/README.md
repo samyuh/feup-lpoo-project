@@ -336,7 +336,6 @@ poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Ele
 Os nossos teste cobrem cerca de 76% do código total. É possível observar a percentagem de testes em cada classe de cada um dos packages principais na seguinte imagem.
 
 ![MoveHero](./images/testCoverage.png)
-"hello"asdasd
 
 Para a criação de testes foram utilizados as frameworks ***JUnit*** e ***Mockito***.
 
@@ -344,7 +343,7 @@ Os resultados dos testes encontram-se na seguinte [pasta](./test).
 
 # Auto-Avaliação
 
-Decidimos que ambos os colaboradores casdasdontribuiram de igual forma para o desenvolvimento do trabalho!!
+Decidimos que ambos os colaboradores contribuiram de igual forma para o desenvolvimento do trabalho!!
 
 Divisão percentual:
 - Diogo Samuel Fernandes : 50%
