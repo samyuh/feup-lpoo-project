@@ -12,15 +12,66 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 # Indíce
 
-1. [Funcionalidades](#funcionalidades)
-2. [Arquitetura do Código](#padrão-arquitetural-do-código)
-3. [Design Patterns](#design-patterns)
-    - [State](#state)
-    - [Command](#state)
+1. [Funcionalidades Implementadas](#funcionalidades)
+2. [Funcionalidades Planeadas](#funcionalidades-planeadas)
+3. [Design](#design)
+    - [MVC](#padrao-arquitetural-do-codigo)
+    - [Level Builder](#level-builder)
+    - [MenuState with Command](#menustate-with-command)
+    - [Puffle/Box Movement Strategy](#pufflebox-movement-strategy)
+    - [Melting Strategy](#melting-strategy)
+    - [Menu Factory](#menu-factory)
+    - [Private Class Data on LevelModel](#private-class-data-on-levelmodel)
 4. [Code Smells e Refactoring](#code-smells-e-refactoring)
+    - [Data Class](#data-class)
+    - [Large Class](#large-class)
 5. [Unit Tests](#unit-tests)
 
-## Funcionalidades
+## Funcionalidades Implementadas
+
+### Drawables
+
+#### Elements
+Representam todos os obstáculos possíveis de se encontrar em qualquer nível. Todos ocupam uma só casa, têm a sua respetiva imagem e cor e comportamento que os distingue
+
+##### Movable
+Alguns *Elements* são capazes de se movimentar
+
+- Box - Caixa que pode ser empurrada até colidir com um obstáculo que não possa ser atravessado
+- Puffle - Personagem controlada pelo utilizador
+
+##### Imovable
+Os restantes *Elements* não são capazes de se movimetnar
+
+
+- Coin - Incrementa os pontos do utilizador por 10 em vez de 1
+- DoubleIce - Bloco de gelo branco que derrete ao interafir com o *Puffle*, tornando-se em *Ice*
+- EmptyBlock - Posição final onde a *Box* deve ficar, de modo a completar o nível com omaior número de pontos
+- Finish - Termina o nível, passando para o seguinte
+- Ice - Bloco de gelo que derrete ao interagir com o *Puffle*, tornando-se em *Water*
+- InvisibleWall - Tem a imagem de uma parede, mas pode ser atravessado, permitindo desbloquear o nível secreto
+- Key - Abre a *Lock*
+- Lock - Não pode ser atravessada até encontrar a *Key*
+- Secret - Objeto com igual comportamento a *Destination*, que desbloqueia o nível secreto
+- Teleport - Está sempre associado a outro *Teleport*. teletransporta o *Puffle* ou a *Box* entre a posição dos 2 *Teleport*, sendo o seu uso bloqueado após a sua utilização por parte do *Puffle*
+- Wall - Não pode ser atravessada. Representa os limites do nível, mantendo o *Puffle* numa região fechada
+- Water - É criada sempre que o *Puffle* atravessa gelo, não podendo ser atravessada. Deste modo, não se podem atravessar 2 blocos de *Ice* mais do que 1 vez
+
+#### LevelDrawable
+- CurrentLevel - Indica o atual nível que o Utilizador está a jogar
+- GlobalScore - Indica a pontuação total que o Utilizador acumulou até ao momento atual, em todos os níveis que já passou
+- LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
+
+#### MenuDrawable
+- MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
+
+### LevelBuilder
+Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
+
+### Menu
+Implementamos vários estados associados ao atual menu a ser utilizado
+
+# Funcionalidades Planeadas
 
 - [x] Menu Principal
     - [x] Começar um novo jogo
@@ -58,47 +109,9 @@ Com o decorrer do projeto poderão ser adicionadas mais funcionalidades
 
 ![GameLevel](./images/gameScreenshot.png)
 
+# Design
 
-### Drawables
-
-#### Elements
-Representam todos os obstáculos possíveis de se encontrar em qualquer nível. Todos ocupam uma só casa, têm a sua respetiva imagem e cor e comportamento que os distingue
-
-- Box - Caixa que pode ser empurrada até colidir com um obstáculo que não possa ser atravessado
-- BoxFinalSquare - Posição final onde a *Box* deve ficar, de modo a completar o nível com omaior número de pontos
-- Coin - Incrementa os pontos do utilizador por 10 em vez de 1
-- Destination - Termina o nível, passando para o seguinte
-- Ice - Bloco de gelo que derrete ao interagir com o *Puffle*, tornando-se em *Water*
-- InvisibleWall - Tem a imagem de uma parede, mas pode ser atravessado, permitindo desbloquear o nível secreto
-- Key - Abre a *Lock*
-- Lock - Não pode ser atravessada até encontrar a *Key*
-- Puffle - Personagem controlada pelo utilizador
-- SecretDestination - Objeto com igual comportamento a *Destination*, que desbloqueia o nível secreto
-- Teleport - Está sempre associado a outro *Teleport*. teletransporta o *Puffle* ou a *Box* entre a posição dos 2 *Teleport*, sendo o seu uso bloqueado após a sua utilização por parte do *Puffle*
-- ToughIce - Bloco de gelo branco que derrete ao interafir com o *Puffle*, tornando-se em *Ice*
-- Wall - Não pode ser atravessada. Representa os limites do nível, mantendo o *Puffle* numa região fechada
-- Water - É criada sempre que o *Puffle* atravessa gelo, não podendo ser atravessada. Deste modo, não se podem atravessar 2 blocos de *Ice* mais do que 1 vez
-
-#### LevelHeaders
-- CurrentLevel - Indica o atual nível que o Utilizador está a jogar
-- GlobalScore - Indica a pontuação total que o Utilizador acumulou até ao momento atual, em todos os níveis que já passou
-- LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
-
-#### Menus
-- MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
-- TextBox - Caixa de Texto de um menu, para imprimir uma string numa certa posição do ecrã
-
-
-### LevelBuilder
-Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
-
-
-### Menu States
-Implementamos vários estados associados ao atual menu a ser utilizado
-
-
-
-# Padrão Arquitetural do Código
+## Padrão Arquitetural do Código
 
 Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
 
@@ -112,9 +125,9 @@ Este padrão arquitetural permite uma maior modularidade ao código, facilitando
 
 > Fonte: [Architectural Patterns](https://web.fe.up.pt/~arestivo/presentation/patterns/#56)
 
-# Design Patterns
+## Design Patterns
 
-## Level Builder
+### Level Builder
 #### Contexto do Problema
 Era necessário encontrar uma forma de criar os níveis predefinidos que, sua criação, iriam inicializar diferentes objetos, dependendo do nível, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
 
@@ -141,7 +154,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 > Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
 
 
-## MenuState with Command
+###  MenuState with Command
 #### Contexto do Problema
 Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
 
@@ -180,7 +193,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
-## Puffle/Box Movement Strategy
+### Puffle/Box Movement Strategy
 #### Problema
 Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o *Puffle* causou um *Code Smell*, devido ao elevado número de *If Statements* associados a cada interação. Para aleḿ disso, acabamos por adicionar um novo Elemento *Box*, que teria a sua própria interação com cada objeto, o que intensificou o *Code Smell* mencionado.
 
@@ -218,41 +231,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
-## LevelFacade
-
-#### Problema
-A divisão do codigo de acordo com o cumprimento do padrão arquitetural MVC originou uma classe *LevelController* que, ao longo do desenvolvimento do código, se veio a tornar numa *God Class*, responsável por todos os comportamentos associados á lógica do jogo, originando o *Code Smell* *Large Class* e violando o *Single Responsability Principle*.
-
-
-#### Padrão
-Para resolver este problema, decidimos usar o *Design Pattern* ***Facade***.
-Este padrão permite-nos criar *Facades* responsáveis por novos comportamentos que se vão adicionando ao longo do desenvolvimento.
-
-#### Implementação
-Extraimos os métodos associados á manipulação dos *Elements* do *LevelModel* para uma nova *Facade*.
-
-A nova classe *LevelFacade* é agora responsável pela interação entre os elementos.
-
-Deste modo, o *LevelController* tournou-se numa classe responsável por apenas verificar se o Utilizador perdeu o jogo, deve mudar de nível, ou ganhou pontos, de acordo com as alterações executadas pelo *LevelFacade*.
-
-O diagrama seguinte demonstra como implementamos o *Design Pattern*
-
-![](images/FacadeUML.png)
-
-##### Ficheiros
-
-- [LevelController](..src/main/java/org/g70/controller/level/LevelController.java)
-- [LevelFacade](..src/main/java/org/g70/controller/level/LevelFacade.java)
-
-
-#### Consequências
-
-- Isolamento do código em classes mais curtas, distribuindo as responsabilidades de cada objeto, corrigindo o *Code Smell* e o principio *SOLID* enunciados.
-
-
-> Fonte: [Design Patterns - Facade](https://refactoring.guru/design-patterns/facade)
-
-## Melting Strategy
+### Melting Strategy
 
 #### Problema
 Ao mover o *Puffle* era necessário não só vericar as interações associadas ao bloco para qual o *Puffle* se tenta mover, mas também ao bloco sobre o qual se situa. Inicialmente, para implementarmos este funcionalidade, colocamos vários *if Statements* no método `movePuffle()`, originando os *Code Smells* *Long Method* e *Switch Statements*.
@@ -283,7 +262,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
 
-## Menu Factory
+### Menu Factory
 #### Problema
 Os menus possuiam bastantes métodos repetidos, pelo que estávamos a tentar organizar as classes de modo a evitar o *Code Smell* *Duplicate Code*,  
 
@@ -313,6 +292,29 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
+### Private Class Data on LevelModel
+
+#### Problema
+O nosso programa continha um enorme quantidade de objetos, que eram utilizados quer no *levelModel*, quer no *levelFacade*, causando o *Code Smells* *Data Clumps*.
+
+#### Padrão
+Para resolver este problema, decidimos utilizar o *Design Pattern* *Private Class Data*, que consiste na criação de uma
+*Data Class* contendo todos os objetos que se deseja encapsular.
+
+#### Implementação
+O diagrama seguinte demonstra como implementamos o *Design Pattern*
+
+![](images/PrivateClassData.png)
+
+#### Consequências
+
+- Corrige o *Code Smell* *Data Clumps*, organizando os elementos associados ao nível num só objeto, simplificando todas as classes que necessitem de ter acesso aos *Elements*.
+- Origina o *Code Smell* *Data Class*, que acaba por ser inerente ao padrão de arquitetura usado: *MVC* (Mais informação sobre este *Code Smell* no capítulo seguinte).
+- Facilita a adição de *Elements* ao nível, pelo que basta adicionar mais um atributo ao levelModel.
+
+> Fonte : [Design Patterns - Private Class Data](https://sourcemaking.com/design_patterns/private_class_data)
+
+
 # Code Smells e Refactoring
 
 ### Data Class
@@ -325,10 +327,10 @@ Embora se possa resolver este problema colocando alguma *lógica do jogo* nas no
 
 
 
-### Large Class e Single Responsability Principle
-Embora a nossa maior classe *LevelFacade* tenha pouco mais do que 100 linha de código, possui um grande número de métodos, sendo responsável pela interações entre todos os elementos, violando um princípio SOLID *Single Responsability Principle*.
+### Large Class
+Embora a nossa maior classe *LevelFacade* tenha pouco mais do que 100 linha de código, possui um grande número de métodos, sendo responsável pela interações entre todos os elementos.
 
-Uma maneira de corrigir este problema seria o uso do *Refactor* *Extract Class*, através da ciração de uma classe para encapsular todos os métodos associados á manipulação de um objeto.
+Uma maneira de corrigir este problema seria o uso do *Refactor* *Extract Class*, através da criação de uma classe para encapsular todos os métodos associados á manipulação de um objeto.
 
 Ex: Os métodos:
 - `updateBoxMovement()`
@@ -339,15 +341,7 @@ Ex: Os métodos:
 
 poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Elemento.
 
-O levelController sofre exatamente do mesmo problema. Embora todos os seus métodos sejam relacionados com o comportamento do Puffle e as consequências do seu movimento no nível atual, e já se tenha criado a classe *LevelFacade* para reduzir as suas responsabilidades, continua a violar o *Single Responsability Principle*, visto que tanto inicialliza um nível, como é responsável por delegar á *LevelFacade* a alteração a posição do *Puffle*.
-
-Ex: os métodos :
-- `processCommand(KeyHandler.KEY command)`
-- `initLevel(boolean secretLevel)`
-
-possuem comportamenos distintos e podem ser separados em diferentes objetos
-
-> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11), [Single Responsability Principle](https://web.fe.up.pt/~arestivo/presentation/solid/#16), [Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
+> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11),[Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
 
 # Unit Tests
 
