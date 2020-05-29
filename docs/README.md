@@ -12,20 +12,66 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 # Indíce
 
-1. [Funcionalidades](#funcionalidades)
-2. [Arquitetura do Código](#padrão-arquitetural-do-código)
-3. [Design Patterns](#design-patterns)
+1. [Funcionalidades Implementadas](#funcionalidades)
+2. [Funcionalidades Planeadas](#funcionalidades-planeadas)
+3. [Design](#design)
+    - [MVC](#padrao-arquitetural-do-codigo)
     - [Level Builder](#level-builder)
     - [MenuState with Command](#menustate-with-command)
     - [Puffle/Box Movement Strategy](#pufflebox-movement-strategy)
     - [Melting Strategy](#melting-strategy)
     - [Menu Factory](#menu-factory)
     - [Private Class Data on LevelModel](#private-class-data-on-levelmodel)
-
 4. [Code Smells e Refactoring](#code-smells-e-refactoring)
+    - [Data Class](#data-class)
+    - [Large Class](#large-class)
 5. [Unit Tests](#unit-tests)
 
-## Funcionalidades
+## Funcionalidades Implementadas
+
+### Drawables
+
+#### Elements
+Representam todos os obstáculos possíveis de se encontrar em qualquer nível. Todos ocupam uma só casa, têm a sua respetiva imagem e cor e comportamento que os distingue
+
+##### Movable
+Alguns *Elements* são capazes de se movimentar
+
+- Box - Caixa que pode ser empurrada até colidir com um obstáculo que não possa ser atravessado
+- Puffle - Personagem controlada pelo utilizador
+
+##### Imovable
+Os restantes *Elements* não são capazes de se movimetnar
+
+
+- Coin - Incrementa os pontos do utilizador por 10 em vez de 1
+- DoubleIce - Bloco de gelo branco que derrete ao interafir com o *Puffle*, tornando-se em *Ice*
+- EmptyBlock - Posição final onde a *Box* deve ficar, de modo a completar o nível com omaior número de pontos
+- Finish - Termina o nível, passando para o seguinte
+- Ice - Bloco de gelo que derrete ao interagir com o *Puffle*, tornando-se em *Water*
+- InvisibleWall - Tem a imagem de uma parede, mas pode ser atravessado, permitindo desbloquear o nível secreto
+- Key - Abre a *Lock*
+- Lock - Não pode ser atravessada até encontrar a *Key*
+- Secret - Objeto com igual comportamento a *Destination*, que desbloqueia o nível secreto
+- Teleport - Está sempre associado a outro *Teleport*. teletransporta o *Puffle* ou a *Box* entre a posição dos 2 *Teleport*, sendo o seu uso bloqueado após a sua utilização por parte do *Puffle*
+- Wall - Não pode ser atravessada. Representa os limites do nível, mantendo o *Puffle* numa região fechada
+- Water - É criada sempre que o *Puffle* atravessa gelo, não podendo ser atravessada. Deste modo, não se podem atravessar 2 blocos de *Ice* mais do que 1 vez
+
+#### LevelDrawable
+- CurrentLevel - Indica o atual nível que o Utilizador está a jogar
+- GlobalScore - Indica a pontuação total que o Utilizador acumulou até ao momento atual, em todos os níveis que já passou
+- LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
+
+#### MenuDrawable
+- MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
+
+### LevelBuilder
+Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
+
+### Menu
+Implementamos vários estados associados ao atual menu a ser utilizado
+
+# Funcionalidades Planeadas
 
 - [x] Menu Principal
     - [x] Começar um novo jogo
@@ -63,43 +109,9 @@ Com o decorrer do projeto poderão ser adicionadas mais funcionalidades
 
 ![GameLevel](./images/gameScreenshot.png)
 
+# Design
 
-### Drawables
-
-#### Elements
-Representam todos os obstáculos possíveis de se encontrar em qualquer nível. Todos ocupam uma só casa, têm a sua respetiva imagem e cor e comportamento que os distingue
-
-- Box - Caixa que pode ser empurrada até colidir com um obstáculo que não possa ser atravessado
-- BoxFinalSquare - Posição final onde a *Box* deve ficar, de modo a completar o nível com omaior número de pontos
-- Coin - Incrementa os pontos do utilizador por 10 em vez de 1
-- Destination - Termina o nível, passando para o seguinte
-- Ice - Bloco de gelo que derrete ao interagir com o *Puffle*, tornando-se em *Water*
-- InvisibleWall - Tem a imagem de uma parede, mas pode ser atravessado, permitindo desbloquear o nível secreto
-- Key - Abre a *Lock*
-- Lock - Não pode ser atravessada até encontrar a *Key*
-- Puffle - Personagem controlada pelo utilizador
-- SecretDestination - Objeto com igual comportamento a *Destination*, que desbloqueia o nível secreto
-- Teleport - Está sempre associado a outro *Teleport*. teletransporta o *Puffle* ou a *Box* entre a posição dos 2 *Teleport*, sendo o seu uso bloqueado após a sua utilização por parte do *Puffle*
-- ToughIce - Bloco de gelo branco que derrete ao interafir com o *Puffle*, tornando-se em *Ice*
-- Wall - Não pode ser atravessada. Representa os limites do nível, mantendo o *Puffle* numa região fechada
-- Water - É criada sempre que o *Puffle* atravessa gelo, não podendo ser atravessada. Deste modo, não se podem atravessar 2 blocos de *Ice* mais do que 1 vez
-
-#### LevelHeaders
-- CurrentLevel - Indica o atual nível que o Utilizador está a jogar
-- GlobalScore - Indica a pontuação total que o Utilizador acumulou até ao momento atual, em todos os níveis que já passou
-- LevelBlocks - Indica o número atual e o máximo de blocos atravessados em cada nível
-
-#### Menus
-- MenuOption - Opção de um menu que possa ser selecionada, alterando o estado de jogo
-- TextBox - Caixa de Texto de um menu, para imprimir uma string numa certa posição do ecrã
-
-### LevelBuilder
-Criamos uma classe levelBuilder para a leitura de um nível através de um ficheiro `.txt`. Estes ficheiros contém os *Elements* de um nível codificados em símbolos ASCII.
-
-### Menu States
-Implementamos vários estados associados ao atual menu a ser utilizado
-
-# Padrão Arquitetural do Código
+## Padrão Arquitetural do Código
 
 Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
 
@@ -113,9 +125,9 @@ Este padrão arquitetural permite uma maior modularidade ao código, facilitando
 
 > Fonte: [Architectural Patterns](https://web.fe.up.pt/~arestivo/presentation/patterns/#56)
 
-# Design Patterns
+## Design Patterns
 
-## Level Builder
+### Level Builder
 #### Contexto do Problema
 Era necessário encontrar uma forma de criar os níveis predefinidos que, sua criação, iriam inicializar diferentes objetos, dependendo do nível, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
 
@@ -142,7 +154,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 > Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
 
 
-## MenuState with Command
+###  MenuState with Command
 #### Contexto do Problema
 Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
 
@@ -181,7 +193,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
-## Puffle/Box Movement Strategy
+### Puffle/Box Movement Strategy
 #### Problema
 Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o *Puffle* causou um *Code Smell*, devido ao elevado número de *If Statements* associados a cada interação. Para aleḿ disso, acabamos por adicionar um novo Elemento *Box*, que teria a sua própria interação com cada objeto, o que intensificou o *Code Smell* mencionado.
 
@@ -219,7 +231,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
-## Melting Strategy
+### Melting Strategy
 
 #### Problema
 Ao mover o *Puffle* era necessário não só vericar as interações associadas ao bloco para qual o *Puffle* se tenta mover, mas também ao bloco sobre o qual se situa. Inicialmente, para implementarmos este funcionalidade, colocamos vários *if Statements* no método `movePuffle()`, originando os *Code Smells* *Long Method* e *Switch Statements*.
@@ -250,7 +262,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
 
-## Menu Factory
+### Menu Factory
 #### Problema
 Os menus possuiam bastantes métodos repetidos, pelo que estávamos a tentar organizar as classes de modo a evitar o *Code Smell* *Duplicate Code*,  
 
@@ -280,7 +292,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
-## Private Class Data on LevelModel
+### Private Class Data on LevelModel
 
 #### Problema
 O nosso programa continha um enorme quantidade de objetos, que eram utilizados quer no *levelModel*, quer no *levelFacade*, causando o *Code Smells* *Data Clumps*.
