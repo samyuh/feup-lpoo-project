@@ -19,9 +19,9 @@ public class LevelTest {
 
     @Before
     public void startLevel() {
-        this.testM = new LevelModel();
-        this.elements = new ArrayList<>();
-        this.positions = new ArrayList<>();
+        testM = new LevelModel();
+        elements = new ArrayList<>();
+        positions = new ArrayList<>();
 
         Position pCoin1 = Mockito.mock(Position.class);
         Mockito.when(pCoin1.getX()).thenReturn(0);
@@ -30,24 +30,20 @@ public class LevelTest {
         Coin w1 = Mockito.mock(Coin.class);
         Mockito.when(w1.getPosition()).thenReturn(pCoin1);
 
-        List<Coin> coin = new ArrayList<>();
-        coin.add(w1);
-        testM.setCoins(coin);
-        this.elements.add(w1);
-        this.positions.add(pCoin1);
+        testM.addCoins(w1);
+        elements.add(w1);
+        positions.add(pCoin1);
 
-        this.pFrozenIce1 = Mockito.mock(Position.class);
+        pFrozenIce1 = Mockito.mock(Position.class);
         Mockito.when(pFrozenIce1.getX()).thenReturn(1);
         Mockito.when(pFrozenIce1.getY()).thenReturn(1);
 
         DoubleIce i1 = Mockito.mock(DoubleIce.class);
         Mockito.when(i1.getPosition()).thenReturn(pFrozenIce1);
 
-        List<DoubleIce> doubleIce = new ArrayList<>();
-        doubleIce.add(i1);
-        testM.setDoubleIce(doubleIce);
-        this.elements.add(i1);
-        this.positions.add(pFrozenIce1);
+        testM.addDoubleIce(i1);
+        elements.add(i1);
+        positions.add(pFrozenIce1);
 
         // Set other things
     }
