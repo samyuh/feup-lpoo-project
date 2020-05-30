@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class LevelTest {
+public class LevelControllerTest {
     private LevelModel levelModel;
     private LevelController levelController;
     private LevelHeaderModel headerModel;
@@ -33,6 +33,8 @@ public class LevelTest {
 
     @Test
     public void levelWin() {
+        levelController.initRegularLevel(false);
+
         Puffle puffleTest = levelModel.getPuffle();
         Position start = levelModel.getPuffle().getPosition();
         Position finish = levelModel.getFinish().getPosition();
@@ -69,6 +71,7 @@ public class LevelTest {
 
     @Test
     public void levelLose() {
+        levelController.initRegularLevel(false);
         levelController.processCommand(KeyHandler.KEY.NEXT);
 
         Assert.assertEquals(levelController.getLevelNum(), 2);
@@ -87,6 +90,29 @@ public class LevelTest {
 
         Assert.assertEquals(puffleTest.getPosition(), finish);
         Assert.assertTrue(levelController.gameFinished());
+    }
+
+    @Test
+    public void restartLevel() {
+        levelController.initRegularLevel(false);
+        Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+
+        levelController.processCommand(KeyHandler.KEY.RESTART);
+        Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+
+        levelController.processCommand(KeyHandler.KEY.NEXT);
+        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        Assert.assertEquals(3,  headerModel.getGlobalScore().getScore());
+
+        levelController.processCommand(KeyHandler.KEY.RESTART);
+        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
     }
 
     @Test

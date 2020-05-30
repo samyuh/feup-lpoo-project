@@ -24,20 +24,18 @@ public class LevelController {
         levelBuilder = new LevelBuilder(levelModel);
         levelElementController = new LevelElementController(levelModel);
         levelNum = 1;
-
-        initLevel(false);
     }
 
     public int getLevelNum() {
         return levelNum;
     }
 
-    public LevelElementController getLevelElementController() {
-        return levelElementController;
-    }
-
     public void setLevelNum(int levelNum) {
         this.levelNum = levelNum;
+    }
+
+    public LevelElementController getLevelElementController() {
+        return levelElementController;
     }
 
     public void initRegularLevel(boolean restart) {
@@ -59,6 +57,8 @@ public class LevelController {
     }
 
     public void run() throws IOException {
+        initLevel(false);
+
         do {
             if (gameFinished()) break;
             levelView.draw();
