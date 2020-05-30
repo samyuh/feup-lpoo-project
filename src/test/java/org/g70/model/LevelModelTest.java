@@ -81,13 +81,13 @@ public class LevelModelTest {
         Assert.assertEquals(drawables.size(), elements.size());
 
         testM.clearLevel(true);
-        Assert.assertEquals(true, testM.getInvisibleWalls().isEmpty());
-        Assert.assertEquals(true, testM.getWalls().isEmpty());
-        Assert.assertEquals(false, testM.getWater().isEmpty());
-        Assert.assertEquals(false, testM.getCoins().isEmpty());
-        Assert.assertEquals(false, testM.getDoubleIce().isEmpty());
-        Assert.assertEquals(false, testM.getIce().isEmpty());
-        Assert.assertEquals(false, testM.getTeleports().isEmpty());
+        Assert.assertTrue(testM.getInvisibleWalls().isEmpty());
+        Assert.assertTrue(testM.getWalls().isEmpty());
+        Assert.assertFalse(testM.getWater().isEmpty());
+        Assert.assertFalse(testM.getCoins().isEmpty());
+        Assert.assertFalse(testM.getDoubleIce().isEmpty());
+        Assert.assertFalse(testM.getIce().isEmpty());
+        Assert.assertFalse(testM.getTeleports().isEmpty());
         Assert.assertNotNull(testM.getFinish());
         Assert.assertNotNull(testM.getKey());
         Assert.assertNotNull(testM.getLock());
@@ -97,14 +97,14 @@ public class LevelModelTest {
         Assert.assertNotNull(testM.getPuffle());
 
         testM.clearLevel(false);
-        Assert.assertEquals(true, testM.getDoubleIce().isEmpty());
-        Assert.assertEquals(true, testM.getInvisibleWalls().isEmpty());
-        Assert.assertEquals(true, testM.getWalls().isEmpty());
-        Assert.assertEquals(true, testM.getWater().isEmpty());
-        Assert.assertEquals(true, testM.getCoins().isEmpty());
-        Assert.assertEquals(true, testM.getDoubleIce().isEmpty());
-        Assert.assertEquals(true, testM.getIce().isEmpty());
-        Assert.assertEquals(true, testM.getTeleports().isEmpty());
+        Assert.assertTrue(testM.getDoubleIce().isEmpty());
+        Assert.assertTrue(testM.getInvisibleWalls().isEmpty());
+        Assert.assertTrue(testM.getWalls().isEmpty());
+        Assert.assertTrue(testM.getWater().isEmpty());
+        Assert.assertTrue(testM.getCoins().isEmpty());
+        Assert.assertTrue(testM.getDoubleIce().isEmpty());
+        Assert.assertTrue(testM.getIce().isEmpty());
+        Assert.assertTrue(testM.getTeleports().isEmpty());
         Assert.assertNull(testM.getFinish());
         Assert.assertNull(testM.getKey());
         Assert.assertNull(testM.getLock());
