@@ -7,6 +7,7 @@ import org.g70.model.drawable.element.immovable.*;
 import org.g70.model.drawable.element.movable.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,6 +70,10 @@ public class LevelModel {
         this.walls.add(walls);
     }
 
+    public void addWater(Water water) {
+        this.water.add(water);
+    }
+
     public void addIce(Ice ice) {
         this.ice.add(ice);
     }
@@ -125,8 +130,16 @@ public class LevelModel {
         return coins;
     }
 
+    public EmptyBlock getEmptyBlock() {
+        return emptyBlock;
+    }
+
     public List<DoubleIce> getDoubleIce() {
         return doubleIce;
+    }
+
+    public List<InvisibleWall> getInvisibleWalls() {
+        return invisibleWalls;
     }
 
     public List<Teleport> getTeleports() {
@@ -137,7 +150,7 @@ public class LevelModel {
         return secret;
     }
 
-    // List of elements(as Drawables) ordered by gamePlay processing data order
+    // List of elements ordered by gameplay processing data order
     private List<Drawable> getElements(){
         List<Drawable> elements = new ArrayList<>();
 

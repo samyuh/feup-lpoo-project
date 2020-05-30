@@ -33,30 +33,31 @@ public class LevelControllerTest {
 
     @Test
     public void levelWin() {
+        levelController.setLevelNum(1);
         levelController.initRegularLevel(false);
 
         Puffle puffleTest = levelModel.getPuffle();
         Position start = levelModel.getPuffle().getPosition();
         Position finish = levelModel.getFinish().getPosition();
 
-        Assert.assertEquals(puffleTest.getPosition(), start);
+        Assert.assertEquals(start, puffleTest.getPosition());
 
         levelController.processCommand(KeyHandler.KEY.UP);
 
-        Assert.assertEquals(puffleTest.getPosition(), start);
+        Assert.assertEquals(start, puffleTest.getPosition());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertFalse(levelController.gameFinished());
-        Assert.assertEquals(levelController.getLevelNum(), 1);
+        Assert.assertEquals(1, levelController.getLevelNum());
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
         levelController.processCommand(KeyHandler.KEY.UP);
         levelController.processCommand(KeyHandler.KEY.DOWN);
 
         Assert.assertFalse(levelController.gameFinished());
-        Assert.assertEquals(levelController.getLevelNum(), 1);
+        Assert.assertEquals(1, levelController.getLevelNum());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
@@ -65,54 +66,100 @@ public class LevelControllerTest {
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(puffleTest.getPosition(), finish);
+        Assert.assertEquals(finish, puffleTest.getPosition());
         Assert.assertFalse(levelController.gameFinished());
     }
 
     @Test
     public void levelLose() {
+        levelController.setLevelNum(2);
         levelController.initRegularLevel(false);
-        levelController.processCommand(KeyHandler.KEY.NEXT);
 
-        Assert.assertEquals(levelController.getLevelNum(), 2);
         Puffle puffleTest = levelModel.getPuffle();
 
         Position start = new Position(14, 3);
         Position finish = new Position(14, 7);
-        Assert.assertEquals(puffleTest.getPosition(), start);
+        Assert.assertEquals(start, puffleTest.getPosition());
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
         levelController.processCommand(KeyHandler.KEY.DOWN);
         levelController.processCommand(KeyHandler.KEY.DOWN);
         levelController.processCommand(KeyHandler.KEY.LEFT);
         levelController.processCommand(KeyHandler.KEY.DOWN);
+        Assert.assertFalse(levelController.gameFinished());
+
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(puffleTest.getPosition(), finish);
+        Assert.assertEquals(finish, puffleTest.getPosition());
         Assert.assertTrue(levelController.gameFinished());
     }
 
     @Test
     public void restartLevel() {
+        levelController.setLevelNum(1);
         levelController.initRegularLevel(false);
-        Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
+
+        Assert.assertEquals(0, headerModel.getGlobalScore().getScore());
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
-        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(2, headerModel.getGlobalScore().getScore());
 
         levelController.processCommand(KeyHandler.KEY.RESTART);
-        Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(0, headerModel.getGlobalScore().getScore());
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
-        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(2, headerModel.getGlobalScore().getScore());
 
         levelController.processCommand(KeyHandler.KEY.NEXT);
-        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(2, headerModel.getGlobalScore().getScore());
         levelController.processCommand(KeyHandler.KEY.DOWN);
-        Assert.assertEquals(3,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(3, headerModel.getGlobalScore().getScore());
 
         levelController.processCommand(KeyHandler.KEY.RESTART);
-        Assert.assertEquals(2,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(2, headerModel.getGlobalScore().getScore());
+    }
+
+    @Test
+    public void testNextLevel() {
+        levelController.setLevelNum(1);
+        levelController.initRegularLevel(false);
+        Assert.assertEquals(1, levelController.getLevelNum());
+
+        levelController.processCommand(KeyHandler.KEY.NEXT);
+        levelController.initRegularLevel(false);
+        Assert.assertEquals(2, levelController.getLevelNum());
+
+        levelController.processCommand(KeyHandler.KEY.NEXT);
+        levelController.initRegularLevel(false);
+        Assert.assertEquals(3, levelController.getLevelNum());
+    }
+
+    @Test
+    public void testLevelSecret() {
+        levelController.setLevelNum(3);
+        levelController.initRegularLevel(false);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+
+        Position prevSecret = levelModel.getPuffle().getPosition();
+
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        Assert.assertEquals(prevSecret, levelModel.getPuffle().getPosition());
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        levelController.processCommand(KeyHandler.KEY.LEFT);
+
+        levelController.processCommand(KeyHandler.KEY.DOWN);
+        Assert.assertEquals(4, levelController.getLevelNum());
     }
 
     @Test
@@ -122,22 +169,22 @@ public class LevelControllerTest {
 
         Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
 
-        Assert.assertEquals(levelModel.getIce().size(), 2);
+        Assert.assertEquals(2, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(1,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(1, headerModel.getGlobalScore().getScore());
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         Assert.assertEquals(levelModel.getIce().size(), 1);
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(11,  headerModel.getGlobalScore().getScore());
+        Assert.assertEquals(11, headerModel.getGlobalScore().getScore());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(levelModel.getCoins().size(), 0);
+        Assert.assertEquals(0, levelModel.getCoins().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
-        Assert.assertEquals(levelController.getLevelNum(), 5);
+        Assert.assertEquals(5, levelController.getLevelNum());
     }
 
     @Test
@@ -162,6 +209,7 @@ public class LevelControllerTest {
         Assert.assertTrue(levelModel.find(previousDoor) instanceof Ice);
 
         levelController.processCommand(KeyHandler.KEY.UP);
+
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
@@ -169,8 +217,7 @@ public class LevelControllerTest {
         Assert.assertNull(levelModel.getKey());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
-
-        Assert.assertEquals(levelController.getLevelNum(), 6);
+        Assert.assertEquals(6, levelController.getLevelNum());
     }
 
     @Test
@@ -182,11 +229,10 @@ public class LevelControllerTest {
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
-
-        Assert.assertEquals(levelController.getLevelNum(), 7);
+        Assert.assertEquals(7, levelController.getLevelNum());
     }
 
     @Test
@@ -195,54 +241,60 @@ public class LevelControllerTest {
         levelController.initRegularLevel(false);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(3, levelModel.getDoubleIce().size());
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(3, levelModel.getDoubleIce().size());
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 2);
-        Assert.assertEquals(levelModel.getIce().size(), 2);
+        Assert.assertEquals(2, levelModel.getDoubleIce().size());
+        Assert.assertEquals(2, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 1);
-        Assert.assertEquals(levelModel.getIce().size(), 3);
+        Assert.assertEquals(1, levelModel.getDoubleIce().size());
+        Assert.assertEquals(3, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
-        Assert.assertEquals(levelModel.getIce().size(), 4);
+        Assert.assertEquals(0, levelModel.getDoubleIce().size());
+        Assert.assertEquals(4, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
-        Assert.assertEquals(levelModel.getIce().size(), 3);
+        Assert.assertEquals(0, levelModel.getDoubleIce().size());
+        Assert.assertEquals(3, levelModel.getIce().size());
+
+        Position hold = levelModel.getPuffle().getPosition();
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        levelController.processCommand(KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(hold, levelModel.getPuffle().getPosition());
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
-        Assert.assertEquals(levelModel.getIce().size(), 2);
+        Assert.assertEquals(0, levelModel.getDoubleIce().size());
+        Assert.assertEquals(2, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
-        Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(0, levelModel.getDoubleIce().size());
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
-
-        Assert.assertEquals(levelController.getLevelNum(), 8);
+        Assert.assertEquals(8, levelController.getLevelNum());
     }
 
     @Test
@@ -263,11 +315,10 @@ public class LevelControllerTest {
         levelController.processCommand(KeyHandler.KEY.LEFT);
         Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltNothing);
 
-        Assert.assertEquals(levelModel.getIce().size(), 0);
+        Assert.assertEquals(0, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
-
-        Assert.assertEquals(levelController.getLevelNum(), 9);
+        Assert.assertEquals(9, levelController.getLevelNum());
     }
 
     @Test
@@ -281,18 +332,17 @@ public class LevelControllerTest {
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertEquals(levelModel.getIce().size(), 1);
+        Assert.assertEquals(1, levelModel.getIce().size());
 
         levelController.processCommand(KeyHandler.KEY.DOWN);
-
-        Assert.assertEquals(levelController.getLevelNum(), 10);
+        Assert.assertEquals(10, levelController.getLevelNum());
     }
 
     @Test
@@ -312,12 +362,12 @@ public class LevelControllerTest {
 
     @Test
     public void levelProcessCommandTest() {
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.NEXT), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.RESTART), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.UP), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.DOWN), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.LEFT), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.RIGHT), true);
-        Assert.assertEquals(levelController.processCommand(KeyHandler.KEY.CLOSE), false);
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.NEXT));
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.RESTART));
+        Assert.assertFalse(levelController.processCommand(KeyHandler.KEY.CLOSE));
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.UP));
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.DOWN));
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.LEFT));
+        Assert.assertTrue(levelController.processCommand(KeyHandler.KEY.RIGHT));
     }
 }

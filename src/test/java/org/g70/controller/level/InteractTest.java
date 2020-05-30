@@ -194,8 +194,8 @@ public class InteractTest {
         Assert.assertTrue(testTeleport1.getInteraction() instanceof InteractStop);
         Assert.assertTrue(testTeleport2.getInteraction() instanceof InteractStop);
 
-        Assert.assertEquals(testTeleport1.getColorForeground(), "#0000ff");
-        Assert.assertEquals(testTeleport2.getColorForeground(), "#0000ff");
+        Assert.assertEquals("#0000ff", testTeleport1.getColorForeground());
+        Assert.assertEquals("#0000ff", testTeleport2.getColorForeground());
 
         Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
