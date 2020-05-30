@@ -3,12 +3,16 @@ package org.g70.view.game;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.model.Position;
 import org.g70.model.drawable.Drawable;
 import org.g70.model.drawable.menudrawable.MenuOption;
 import org.g70.model.menu.MenuFactory;
 import org.g70.view.ScreenView;
+import org.g70.view.handler.KeyHandler;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,6 +24,10 @@ import java.util.List;
 public class MenuViewTest {
     private List<Drawable> textBoxes;
     private List<MenuOption> options;
+
+    private MenuView menuView;
+    private TextGraphics graphicsMock;
+    private Screen scrMock;
 
     @Before
     public void startLevel() {
@@ -48,14 +56,11 @@ public class MenuViewTest {
         Mockito.when(e2.getPosition()).thenReturn(p2);
 
         textBoxes.add(e2);
-    }
 
-    @Test
-    public void drawTest() {
-        // Create a Stub for Screen
-        TextGraphics graphicsMock = Mockito.mock(TextGraphics.class);
+        // Mocks
+        graphicsMock = Mockito.mock(TextGraphics.class);
 
-        Screen scrMock = Mockito.mock(Screen.class);
+        scrMock = Mockito.mock(Screen.class);
         Mockito.when(scrMock.newTextGraphics()).thenReturn(graphicsMock);
 
         ScreenView screenMock = Mockito.mock(ScreenView.class);
@@ -66,8 +71,11 @@ public class MenuViewTest {
         Mockito.when(menuMock.getOptions()).thenReturn(this.options);
         Mockito.when(menuMock.getTextBoxes()).thenReturn(this.textBoxes);
 
-        MenuView menuView = new MenuView(screenMock,menuMock);
+        menuView = new MenuView(screenMock,menuMock);
+    }
 
+    @Test
+    public void menuViewTest() throws IOException {
         try {
             menuView.draw();
         } catch (IOException e) {
@@ -80,5 +88,21 @@ public class MenuViewTest {
         Mockito.verify(graphicsMock, Mockito.times(1)).setBackgroundColor(TextColor.Factory.fromString("#ffffff"));
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#000077"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(2, 1), "This is a test string");
+
+        Mockito.verify(scrMock, Mockito.times(1)).clear();
+        Mockito.verify(scrMock, Mockito.times(1)).refresh();
+
+        KeyStroke keyEOF = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyEOF.getKeyType()).thenReturn(KeyType.EOF);
+        Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
+        Assert.assertEquals(menuView.handler(), KeyHandler.KEY.CLOSE);
+    }
+
+    @Test
+    public void testHandler() throws IOException {
+        KeyStroke keyEOF = Mockito.mock(KeyStroke.class);
+        Mockito.when(keyEOF.getKeyType()).thenReturn(KeyType.EOF);
+        Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
+        Assert.assertEquals(menuView.handler(), KeyHandler.KEY.CLOSE);
     }
 }

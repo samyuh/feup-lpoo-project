@@ -5,6 +5,7 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.g70.view.ScreenView;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -12,43 +13,52 @@ import java.io.IOException;
 
 
 public class KeyHandlerTest {
-    @Test
-    public void handlerTest() throws IOException {
-        // Create a Stub for Screen and keyPressed
-        Screen scrMock = Mockito.mock(Screen.class);
+    Screen scrMock;
+    private KeyStroke keyUp;
+    private KeyStroke keyDown;
+    private KeyStroke keyLeft;
+    private KeyStroke keyRight;
+    private KeyStroke keyEOF;
+    private KeyStroke keyN;
+    private KeyStroke keyR;
+    private KeyStroke keyQ;
+
+    @Before
+    public void initKeys() {
+        scrMock = Mockito.mock(Screen.class);
         ScreenView screenMock = Mockito.mock(ScreenView.class);
         Mockito.when(screenMock.getScreen()).thenReturn(scrMock);
 
-        KeyStroke keyUp = Mockito.mock(KeyStroke.class);
+        keyUp = Mockito.mock(KeyStroke.class);
         Mockito.when(keyUp.getKeyType()).thenReturn(KeyType.ArrowUp);
 
-        KeyStroke keyRight = Mockito.mock(KeyStroke.class);
+        keyRight = Mockito.mock(KeyStroke.class);
         Mockito.when(keyRight.getKeyType()).thenReturn(KeyType.ArrowRight);
 
-        KeyStroke keyDown = Mockito.mock(KeyStroke.class);
+        keyDown = Mockito.mock(KeyStroke.class);
         Mockito.when(keyDown.getKeyType()).thenReturn(KeyType.ArrowDown);
 
-        KeyStroke keyLeft = Mockito.mock(KeyStroke.class);
+        keyLeft = Mockito.mock(KeyStroke.class);
         Mockito.when(keyLeft.getKeyType()).thenReturn(KeyType.ArrowLeft);
 
-        KeyStroke keyEOF = Mockito.mock(KeyStroke.class);
+        keyEOF = Mockito.mock(KeyStroke.class);
         Mockito.when(keyEOF.getKeyType()).thenReturn(KeyType.EOF);
 
-        KeyStroke keyN = Mockito.mock(KeyStroke.class);
+        keyN = Mockito.mock(KeyStroke.class);
         Mockito.when(keyN.getKeyType()).thenReturn(KeyType.Character);
         Mockito.when(keyN.getCharacter()).thenReturn('n');
 
-        KeyStroke keyR = Mockito.mock(KeyStroke.class);
+        keyR = Mockito.mock(KeyStroke.class);
         Mockito.when(keyR.getKeyType()).thenReturn(KeyType.Character);
         Mockito.when(keyR.getCharacter()).thenReturn('r');
 
-        KeyStroke keyQ = Mockito.mock(KeyStroke.class);
+        keyQ = Mockito.mock(KeyStroke.class);
         Mockito.when(keyQ.getKeyType()).thenReturn(KeyType.Character);
         Mockito.when(keyQ.getCharacter()).thenReturn('q');
+    }
 
-
-        // -- Tests
-
+    @Test
+    public void handlerTest() throws IOException {
         Mockito.when(scrMock.readInput()).thenReturn(keyUp);
         Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.UP);
 
