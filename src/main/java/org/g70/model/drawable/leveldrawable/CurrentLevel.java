@@ -12,6 +12,10 @@ public class CurrentLevel extends Drawable {
         this.levelNumber = levelNumber;
     }
 
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
     public void setLevel(int levelNumber) {
         this.levelNumber = levelNumber;
 

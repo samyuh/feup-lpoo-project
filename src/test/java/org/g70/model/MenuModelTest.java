@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuTest {
+public class MenuModelTest {
     MainMenuModel mainMenuTest;
     HelpModel helpMenuTest;
     GameOverModel gameOverMenuTest;

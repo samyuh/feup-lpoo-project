@@ -38,24 +38,28 @@ public class LevelDrawableTest {
         globalScoreTest.addScore(10);
         Assert.assertEquals(globalScoreTest.getImage(), "GLOBAL SCORE 10");
         globalScoreTest.lockScore();
+        Assert.assertEquals(globalScoreTest.getImage(), "GLOBAL SCORE 10");
         Assert.assertEquals(globalScoreTest.getScore(), 10);
         globalScoreTest.resetScore();
+        Assert.assertEquals(globalScoreTest.getImage(), "GLOBAL SCORE 10");
         Assert.assertEquals(globalScoreTest.getScore(), 10);
         globalScoreTest.addScore(10);
+        Assert.assertEquals(globalScoreTest.getImage(), "GLOBAL SCORE 20");
         Assert.assertEquals(globalScoreTest.getScore(), 20);
         globalScoreTest.resetScore();
+        Assert.assertEquals(globalScoreTest.getImage(), "GLOBAL SCORE 10");
         Assert.assertEquals(globalScoreTest.getScore(), 10);
     }
 
     @Test
     public void levelBlocks() {
-        LevelBlocks levelBlockTest = new LevelBlocks(12345);
-        Assert.assertEquals(levelBlockTest.getImage(), "0/12345");
+        LevelBlocks levelBlockTest = new LevelBlocks(5);
+        Assert.assertEquals(levelBlockTest.getImage(), "0/41");
 
-        levelBlockTest.setLevelBlocks(123);
-        Assert.assertEquals(levelBlockTest.getImage(), "0/123");
+        levelBlockTest.setLevelNum(1);
+        Assert.assertEquals(levelBlockTest.getImage(), "0/12");
 
-        levelBlockTest.addBlocks(10);
-        Assert.assertEquals(levelBlockTest.getImage(), "10/123");
+        levelBlockTest.addBlocks(2);
+        Assert.assertEquals(levelBlockTest.getImage(), "2/12");
     }
 }

@@ -1,5 +1,7 @@
 package org.g70.model.drawable;
 
+import org.g70.controller.level.interact.InteractBox;
+import org.g70.controller.level.interact.InteractStop;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.movable.*;
 import org.junit.*;
@@ -11,6 +13,9 @@ public class MovableElementTest {
     public void movementTest() {
         Puffle puffleTest = new Puffle(new Position(1, 1));
         Box boxTest = new Box(new Position(1, 1));
+
+        Assert.assertTrue(boxTest.getInteraction() instanceof InteractBox);
+        Assert.assertTrue(puffleTest.getInteraction() instanceof InteractStop);
 
         Assert.assertEquals(boxTest.getPosition(), new Position(1, 1));
         Assert.assertEquals(puffleTest.getPosition(), new Position(1, 1));

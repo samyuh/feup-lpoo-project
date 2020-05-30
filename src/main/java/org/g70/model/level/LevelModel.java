@@ -138,10 +138,10 @@ public class LevelModel {
     }
 
     // List of elements(as Drawables) ordered by gamePlay processing data order
-    public List<Drawable> getElements(){
+    private List<Drawable> getElements(){
         List<Drawable> elements = new ArrayList<>();
 
-        elements.add(puffle);
+        if(puffle != null) elements.add(puffle);
         if(box != null) elements.add(box);
         if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
@@ -150,7 +150,7 @@ public class LevelModel {
         elements.addAll(teleports);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
-        elements.add(finish);
+        if(finish != null) elements.add(finish);
         elements.addAll(coins);
         elements.addAll(doubleIce);
         elements.addAll(water);

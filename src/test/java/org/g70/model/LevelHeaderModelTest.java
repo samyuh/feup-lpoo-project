@@ -31,7 +31,10 @@ public class LevelHeaderModelTest {
         headerModelTest.resetGlobalScore();
 
         Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 10);
-
+        headerModelTest.updateHeaderScore(0, 10);
+        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 20);
+        headerModelTest.resetGlobalScore();
+        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 10);
         Assert.assertEquals(headerModelTest.getAll().size(), 3);
     }
 
@@ -46,6 +49,16 @@ public class LevelHeaderModelTest {
         headerModelTest.setLevelNumber(5);
 
         Assert.assertEquals(headerModelTest.getLevelBlocks().getBlocks(), 0);
+        Assert.assertEquals(headerModelTest.getLevelBlocks().getMaxBlocks(), 41);
+    }
+
+    @Test
+    public void currentLevel() {
+        headerModelTest.setLevelNumber(5);
+        Assert.assertEquals(headerModelTest.getLevelCurrent().getLevelNumber(), 5);
+
+        headerModelTest.setLevelNumber(6);
+        Assert.assertEquals(headerModelTest.getLevelCurrent().getLevelNumber(), 6);
     }
 
 }

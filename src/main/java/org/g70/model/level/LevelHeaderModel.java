@@ -13,19 +13,13 @@ public class LevelHeaderModel {
     private final LevelBlocks levelBlocks;
     private final GlobalScore globalScore;
 
-    static final int[] maxScores = {12, 19, 25, 43, 41, 41, 66, 82, 93, 204, 132,
-            138, 128, 131, 227, 181, 161, 179, 172, 172};
-
     public LevelHeaderModel(int levelNum) {
-        levelBlocks = new LevelBlocks(maxScores[levelNum-1]);
+        levelBlocks = new LevelBlocks(levelNum);
         levelCurrent = new CurrentLevel(levelNum);
         globalScore =  new GlobalScore();
     }
 
-    public void setLevelNumber(int levelNum) {
-        levelCurrent.setLevel(levelNum);
-        levelBlocks.setLevelBlocks(maxScores[levelNum-1]);
-    }
+    public CurrentLevel getLevelCurrent() { return levelCurrent; }
 
     public LevelBlocks getLevelBlocks() {return levelBlocks; }
 
@@ -33,7 +27,12 @@ public class LevelHeaderModel {
         return globalScore;
     }
 
-    public void updateHeaderScore(int incBlocks, int incScore){
+    public void setLevelNumber(int levelNum) {
+        levelCurrent.setLevel(levelNum);
+        levelBlocks.setLevelNum(levelNum);
+    }
+
+    public void updateHeaderScore(int incBlocks, int incScore) {
         levelBlocks.addBlocks(incBlocks);
         globalScore.addScore(incScore);
     }
