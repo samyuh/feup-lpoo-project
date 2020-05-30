@@ -1,7 +1,9 @@
 package org.g70.controller.level;
 
 import org.g70.controller.level.interact.*;
+import org.g70.controller.level.strategy.MeltDoubleIce;
 import org.g70.controller.level.strategy.MeltIce;
+import org.g70.controller.level.strategy.MeltNothing;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.immovable.*;
 import org.g70.model.drawable.element.movable.*;
@@ -15,13 +17,13 @@ import java.util.List;
 
 public class InteractTest {
     LevelController controllerMock;
-    LevelFacade facadeMock;
+    LevelElementController facadeMock;
     Position position;
 
     @Before
     public void initElements() {
         controllerMock = Mockito.mock(LevelController.class);
-        facadeMock = Mockito.mock(LevelFacade.class);
+        facadeMock = Mockito.mock(LevelElementController.class);
         position = new Position(0,0);
     }
 
@@ -54,6 +56,7 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -66,6 +69,8 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltDoubleIce.class));
     }
 
     @Test
@@ -78,6 +83,8 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
     }
 
     @Test
@@ -90,6 +97,8 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -102,6 +111,8 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -115,6 +126,7 @@ public class InteractTest {
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
         Assert.assertTrue(testInvisibleWall.getInteraction() instanceof InteractStop);
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
     }
 
     @Test
@@ -128,6 +140,7 @@ public class InteractTest {
         interactTest.executePuffle(controllerMock, facadeMock);
         Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
         Mockito.verify(facadeMock, Mockito.times(1)).removeKeyLock();
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -143,6 +156,7 @@ public class InteractTest {
         Mockito.verify(controllerMock, Mockito.times(1)).initSecretLevel();
 
         Assert.assertTrue(testSecret.getInteraction() instanceof InteractStop);
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -182,5 +196,7 @@ public class InteractTest {
 
         Assert.assertEquals(testTeleport1.getColorForeground(), "#0000ff");
         Assert.assertEquals(testTeleport2.getColorForeground(), "#0000ff");
+
+        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 }

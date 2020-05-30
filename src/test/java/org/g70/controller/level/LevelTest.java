@@ -4,10 +4,8 @@ import org.g70.controller.level.strategy.MeltDoubleIce;
 import org.g70.controller.level.strategy.MeltIce;
 import org.g70.controller.level.strategy.MeltNothing;
 import org.g70.model.drawable.element.immovable.Ice;
-import org.g70.model.drawable.element.immovable.Water;
 import org.g70.model.drawable.element.movable.Puffle;
 import org.g70.model.Position;
-import org.g70.model.drawable.element.immovable.Secret;
 import org.g70.model.level.LevelHeaderModel;
 import org.g70.model.level.LevelModel;
 import org.g70.view.game.LevelView;
@@ -22,7 +20,7 @@ public class LevelTest {
     private LevelModel levelModel;
     private LevelController levelController;
     private LevelHeaderModel headerModel;
-    private LevelFacade levelFacade;
+    private LevelElementController levelElementController;
 
     @Before
     public void initLevel() {
@@ -30,7 +28,7 @@ public class LevelTest {
         headerModel = new LevelHeaderModel(1);
         levelModel = new LevelModel();
         levelController = new LevelController(levelModel, headerModel, levelView);
-        levelFacade = levelController.getLevelFacade();
+        levelElementController = levelController.getLevelElementController();
     }
 
     @Test
@@ -76,7 +74,6 @@ public class LevelTest {
         Assert.assertEquals(levelController.getLevelNum(), 2);
         Puffle puffleTest = levelModel.getPuffle();
 
-
         Position start = new Position(14, 3);
         Position finish = new Position(14, 7);
         Assert.assertEquals(puffleTest.getPosition(), start);
@@ -93,20 +90,21 @@ public class LevelTest {
     }
 
     @Test
-    public void puffleCoinInteract() {
+    public void testLevelScore() {
         levelController.setLevelNum(4);
         levelController.initRegularLevel(false);
+
+        Assert.assertEquals(0,  headerModel.getGlobalScore().getScore());
+
         Assert.assertEquals(levelModel.getIce().size(), 2);
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        int previousScore = headerModel.getGlobalScore().getScore();
-
+        Assert.assertEquals(1,  headerModel.getGlobalScore().getScore());
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         Assert.assertEquals(levelModel.getIce().size(), 1);
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
-        int afterCoinScore = headerModel.getGlobalScore().getScore();
-        Assert.assertEquals(previousScore + 10, afterCoinScore);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
+        Assert.assertEquals(11,  headerModel.getGlobalScore().getScore());
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
@@ -117,7 +115,7 @@ public class LevelTest {
     }
 
     @Test
-    public void puffleLevelKeyInteract() {
+    public void testLevelKeyLock() {
         levelController.setLevelNum(5);
         levelController.initRegularLevel(false);
 
@@ -140,7 +138,7 @@ public class LevelTest {
         levelController.processCommand(KeyHandler.KEY.UP);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertNull(levelModel.getLock());
         Assert.assertNull(levelModel.getKey());
 
@@ -170,49 +168,49 @@ public class LevelTest {
         levelController.setLevelNum(7);
         levelController.initRegularLevel(false);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
         Assert.assertEquals(levelModel.getIce().size(), 1);
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltDoubleIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 3);
         Assert.assertEquals(levelModel.getIce().size(), 1);
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltDoubleIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 2);
         Assert.assertEquals(levelModel.getIce().size(), 2);
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltDoubleIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltDoubleIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 1);
         Assert.assertEquals(levelModel.getIce().size(), 3);
 
         levelController.processCommand(KeyHandler.KEY.RIGHT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
         Assert.assertEquals(levelModel.getIce().size(), 4);
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
         Assert.assertEquals(levelModel.getIce().size(), 3);
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
         Assert.assertEquals(levelModel.getIce().size(), 2);
 
         levelController.processCommand(KeyHandler.KEY.LEFT);
 
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         Assert.assertEquals(levelModel.getDoubleIce().size(), 0);
         Assert.assertEquals(levelModel.getIce().size(), 1);
 
@@ -231,13 +229,13 @@ public class LevelTest {
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.DOWN);
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltNothing);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltNothing);
         levelController.processCommand(KeyHandler.KEY.UP);
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltIce);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltIce);
         levelController.processCommand(KeyHandler.KEY.RIGHT);
         levelController.processCommand(KeyHandler.KEY.DOWN);
         levelController.processCommand(KeyHandler.KEY.LEFT);
-        Assert.assertTrue(levelFacade.getMeltStrategy() instanceof MeltNothing);
+        Assert.assertTrue(levelElementController.getMeltStrategy() instanceof MeltNothing);
 
         Assert.assertEquals(levelModel.getIce().size(), 0);
 

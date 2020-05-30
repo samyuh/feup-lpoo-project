@@ -1,12 +1,12 @@
 package org.g70.controller.level.strategy;
 
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelElementController;
 import org.g70.model.Position;
 
 public class MeltDoubleIce implements Melt {
-    LevelFacade facade;
+    LevelElementController facade;
 
-    public MeltDoubleIce(LevelFacade facade) {
+    public MeltDoubleIce(LevelElementController facade) {
         this.facade = facade;
     }
 

@@ -11,13 +11,13 @@ import org.g70.model.Position;
 
 import java.util.List;
 
-public class LevelFacade {
+public class LevelElementController {
     private LevelModel levelModel;
     private Melt melt;
     private Box boxMovement;
     private Puffle puffleMovement;
 
-    public LevelFacade(LevelModel levelModel) {
+    public LevelElementController(LevelModel levelModel) {
         this.levelModel = levelModel;
     }
 
