@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LevelModelTest {
@@ -36,6 +37,11 @@ public class LevelModelTest {
     @Test
     public void levelTest() {
         List<Drawable> drawables = testM.getAll();
+
+        Assert.assertNotEquals(drawables.get(0), elements.get(0));
+        Collections.reverse(elements);
+        Assert.assertEquals(drawables.get(0), elements.get(0));
+
         Assert.assertEquals(drawables.size(), elements.size());
 
         testM.clearLevel(true);
