@@ -41,51 +41,51 @@ public class MenuModelTest {
     @Test
     public void menuOptionsTest() {
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionExit);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#120A8F");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#000077");
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.previousAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionNewGame);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#120A8F");
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.nextAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionExit);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#120A8F");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#000077");
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.nextAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionHelp);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#120A8F");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#000077");
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.nextAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionNewGame);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#120A8F");
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.nextAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionExit);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#120A8F");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#000077");
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.previousAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionNewGame);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#120A8F");
+        Assert.assertEquals("#000077",mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(2).getColorBackground());
 
         mainMenuTest.previousAction();
         Assert.assertTrue(mainMenuTest.getAction() instanceof OptionHelp);
-        Assert.assertEquals(mainMenuTest.getOptions().get(0).getColorBackground(), "#000077");
-        Assert.assertEquals(mainMenuTest.getOptions().get(1).getColorBackground(), "#120A8F");
-        Assert.assertEquals(mainMenuTest.getOptions().get(2).getColorBackground(), "#000077");
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(0).getColorBackground());
+        Assert.assertEquals("#120A8F", mainMenuTest.getOptions().get(1).getColorBackground());
+        Assert.assertEquals("#000077", mainMenuTest.getOptions().get(2).getColorBackground());
 
         Assert.assertEquals(mainMenuTest.getOptions().size(), 3);
     }

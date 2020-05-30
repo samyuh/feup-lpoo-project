@@ -16,49 +16,49 @@ public class LevelHeaderModelTest {
 
     @Test
     public void headerScore() {
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 0);
+        Assert.assertEquals(0, headerModelTest.getGlobalScore().getScore());
 
         headerModelTest.updateHeaderScore(0, 10);
 
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 10);
+        Assert.assertEquals(10, headerModelTest.getGlobalScore().getScore());
 
         headerModelTest.resetGlobalScore();
 
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 0);
+        Assert.assertEquals(0, headerModelTest.getGlobalScore().getScore());
 
         headerModelTest.updateHeaderScore(0, 10);
         headerModelTest.lockGlobalScore();
         headerModelTest.resetGlobalScore();
 
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 10);
+        Assert.assertEquals(10, headerModelTest.getGlobalScore().getScore());
         headerModelTest.updateHeaderScore(0, 10);
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 20);
+        Assert.assertEquals(20, headerModelTest.getGlobalScore().getScore());
         headerModelTest.resetGlobalScore();
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 10);
-        Assert.assertEquals(headerModelTest.getAll().size(), 3);
+        Assert.assertEquals(10, headerModelTest.getGlobalScore().getScore());
+        Assert.assertEquals(3, headerModelTest.getAll().size());
     }
 
     @Test
     public void headerBlocks() {
-        Assert.assertEquals(headerModelTest.getGlobalScore().getScore(), 0);
+        Assert.assertEquals(0, headerModelTest.getGlobalScore().getScore());
 
         headerModelTest.updateHeaderScore(10, 0);
 
-        Assert.assertEquals(headerModelTest.getLevelBlocks().getBlocks(), 10);
+        Assert.assertEquals(10, headerModelTest.getLevelBlocks().getBlocks());
 
         headerModelTest.setLevelNumber(5);
 
-        Assert.assertEquals(headerModelTest.getLevelBlocks().getBlocks(), 0);
-        Assert.assertEquals(headerModelTest.getLevelBlocks().getMaxBlocks(), 41);
+        Assert.assertEquals(0, headerModelTest.getLevelBlocks().getBlocks());
+        Assert.assertEquals(41, headerModelTest.getLevelBlocks().getMaxBlocks());
     }
 
     @Test
     public void currentLevel() {
         headerModelTest.setLevelNumber(5);
-        Assert.assertEquals(headerModelTest.getLevelCurrent().getLevelNumber(), 5);
+        Assert.assertEquals(5, headerModelTest.getLevelCurrent().getLevelNumber());
 
         headerModelTest.setLevelNumber(6);
-        Assert.assertEquals(headerModelTest.getLevelCurrent().getLevelNumber(), 6);
+        Assert.assertEquals(6, headerModelTest.getLevelCurrent().getLevelNumber());
     }
 
 }

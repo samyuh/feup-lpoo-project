@@ -60,27 +60,27 @@ public class KeyHandlerTest {
     @Test
     public void handlerTest() throws IOException {
         Mockito.when(scrMock.readInput()).thenReturn(keyUp);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.UP);
+        Assert.assertEquals(KeyHandler.KEY.UP, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyRight);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RIGHT);
+        Assert.assertEquals(KeyHandler.KEY.RIGHT, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyDown);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.DOWN);
+        Assert.assertEquals(KeyHandler.KEY.DOWN, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyLeft);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.LEFT);
+        Assert.assertEquals(KeyHandler.KEY.LEFT, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyEOF);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
+        Assert.assertEquals(KeyHandler.KEY.CLOSE, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyN);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.NEXT);
+        Assert.assertEquals(KeyHandler.KEY.NEXT, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyR);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.RESTART);
+        Assert.assertEquals(KeyHandler.KEY.RESTART, KeyHandler.processKey(scrMock));
 
         Mockito.when(scrMock.readInput()).thenReturn(keyQ);
-        Assert.assertEquals(KeyHandler.processKey(scrMock), KeyHandler.KEY.CLOSE);
+        Assert.assertEquals(KeyHandler.KEY.CLOSE, KeyHandler.processKey(scrMock));
     }
 }

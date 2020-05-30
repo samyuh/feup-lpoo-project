@@ -24,16 +24,16 @@ public class MenuDrawableTest {
         Option mockOpt1 = Mockito.mock(OptionExit.class);
         MenuOption opt1 = new MenuOption("OptionA", posMock, mockOpt1);
 
-        Assert.assertEquals(opt1.getImage(), "OptionA");
-        Assert.assertEquals(opt1.getColorForeground(), "#FFFFFF");
-        Assert.assertEquals(opt1.getColorBackground(), "#000077");
-        Assert.assertEquals(opt1.getCommandOption(), mockOpt1);
-        Assert.assertEquals(opt1.getPosition(), posMock);
+        Assert.assertEquals("OptionA", opt1.getImage());
+        Assert.assertEquals("#FFFFFF", opt1.getColorForeground());
+        Assert.assertEquals("#000077", opt1.getColorBackground());
+        Assert.assertEquals(mockOpt1, opt1.getCommandOption());
+        Assert.assertEquals(posMock, opt1.getPosition());
 
         opt1.highlightedColor();
-        Assert.assertEquals(opt1.getColorBackground(), "#120A8F");
+        Assert.assertEquals("#120A8F", opt1.getColorBackground());
 
         opt1.resetColor();
-        Assert.assertEquals(opt1.getColorBackground(), "#000077");
+        Assert.assertEquals("#000077", opt1.getColorBackground());
     }
 }

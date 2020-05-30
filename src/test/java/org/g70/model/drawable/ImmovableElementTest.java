@@ -24,10 +24,10 @@ public class ImmovableElementTest {
         Finish element = new Finish(new Position(1, 2));
 
         Assert.assertTrue(element.getInteraction() instanceof InteractFinish);
-        assertEquals(element.getPosition().getX(), 1);
-        assertEquals(element.getPosition().getY(), 2);
-        assertEquals(element.getImage(), "D");
-        assertEquals(element.getColorForeground(), "#ff0422");
+        assertEquals(1, element.getPosition().getX());
+        assertEquals(2, element.getPosition().getY());
+        assertEquals("D", element.getImage());
+        assertEquals("#ff0422", element.getColorForeground());
         assertTrue(element.getInteraction() instanceof InteractFinish);
     }
 
@@ -36,20 +36,20 @@ public class ImmovableElementTest {
         Coin element = new Coin(new Position(1, 2));
 
         Assert.assertTrue(element.getInteraction() instanceof InteractCoin);
-        assertEquals(element.getPosition().getX(), 1);
-        assertEquals(element.getPosition().getY(), 2);
-        assertEquals(element.getImage(), "$");
-        assertEquals(element.getColorForeground(), "#FFFF33");
+        assertEquals(1, element.getPosition().getX());
+        assertEquals(2, element.getPosition().getY());
+        assertEquals("$", element.getImage());
+        assertEquals("#FFFF33", element.getColorForeground());
     }
 
     @Test
     public void elementInvisibleWall() {
         InvisibleWall element = new InvisibleWall(new Position(1, 2));
 
+        assertEquals(1, element.getPosition().getX());
+        assertEquals(2, element.getPosition().getY());
+        assertEquals("\u2588", element.getImage());
+        assertEquals("#0065c6", element.getColorForeground());
         Assert.assertTrue(element.getInteraction() instanceof InteractInvisibleWall);
-        assertEquals(element.getPosition().getX(), 1);
-        assertEquals(element.getPosition().getY(), 2);
-        assertEquals(element.getImage(), "\u2588");
-        assertEquals(element.getColorForeground(), "#0065c6");
     }
 }

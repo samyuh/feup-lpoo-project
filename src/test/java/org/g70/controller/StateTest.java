@@ -60,7 +60,7 @@ public class StateTest {
         Mockito.when(viewMock.handler()).thenReturn(KeyHandler.KEY.CLOSE);
 
         gameTest.setView(viewMock);
-        Assert.assertEquals(gameTest.getView(), viewMock);
+        Assert.assertEquals(viewMock, gameTest.getView());
 
         gameTest.run();
         Mockito.verify(viewMock, Mockito.times(1)).handler();
@@ -78,7 +78,7 @@ public class StateTest {
         Mockito.when(viewMock.handler()).thenReturn(KeyHandler.KEY.CLOSE);
 
         gameOverTest.setView(viewMock);
-        Assert.assertEquals(gameOverTest.getView(), viewMock);
+        Assert.assertEquals(viewMock, gameOverTest.getView());
 
         gameOverTest.run();
         Mockito.verify(viewMock, Mockito.times(1)).handler();
@@ -94,7 +94,7 @@ public class StateTest {
         Mockito.when(viewMock.handler()).thenReturn(KeyHandler.KEY.CLOSE);
 
         menuHelpTest.setView(viewMock);
-        Assert.assertEquals(menuHelpTest.getView(), viewMock);
+        Assert.assertEquals(viewMock, menuHelpTest.getView());
 
         menuHelpTest.run();
         Mockito.verify(viewMock, Mockito.times(1)).handler();
