@@ -15,12 +15,10 @@ public class InteractTeleport extends Interact<Teleport> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
-        facade.movePuffle(position);
-        controller.addScore(1, 1);
+        Position otherTeleport = facade.getTeleportPosition(element);
+        facade.movePuffle(otherTeleport);
 
-        Position p2 = facade.getTeleportPosition(element);
-        facade.movePuffle(p2);
+        controller.addScore(1, 1);
 
         List<Teleport> tp = facade.getTeleport();
         for(Teleport teleport : tp) {

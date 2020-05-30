@@ -32,7 +32,10 @@ public class LevelFacade {
     }
 
     public void movePuffle(Position position) {
+        meltPreviousIce();
+
         levelModel.getPuffle().setPosition(position);
+
         if (levelModel.getBox() != null)
             resetBoxInteraction();
     }

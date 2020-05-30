@@ -12,7 +12,6 @@ public class InteractFinish extends Interact<Finish> {
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,1);
         controller.gameWon();

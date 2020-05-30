@@ -12,7 +12,6 @@ public class InteractDoubleIce extends Interact<org.g70.model.drawable.element.i
 
     @Override
     public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
         facade.movePuffle(position);
         controller.addScore(1,1);
         facade.setMelt(new MeltDoubleIce(facade));
