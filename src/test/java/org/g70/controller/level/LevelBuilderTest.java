@@ -116,11 +116,11 @@ public class LevelBuilderTest {
 
         levelModel.clearLevel(false);
         levelInit.initLevel(6, false);
-        Assert.assertEquals(3, levelModel.getIce().size());
+        Assert.assertEquals(5, levelModel.getIce().size());
         Assert.assertEquals(0, levelModel.getInvisibleWalls().size());
-        Assert.assertEquals(15, levelModel.getWalls().size());
+        Assert.assertEquals(26, levelModel.getWalls().size());
         Assert.assertEquals(0, levelModel.getCoins().size());
-        Assert.assertEquals(0, levelModel.getDoubleIce().size());
+        Assert.assertEquals(1, levelModel.getDoubleIce().size());
         Assert.assertEquals(0, levelModel.getTeleports().size());
         Assert.assertNotNull(levelModel.getFinish());
         Assert.assertNull(levelModel.getKey());

@@ -110,13 +110,11 @@ public class LevelElementController {
 
     public void addWater(Position position) {
         Water water = new Water(position);
-        water.setInteraction(new InteractStop(water));
         levelModel.getWater().add(water);
     }
 
     public void addIce(Position position){
-        org.g70.model.drawable.element.immovable.Ice ice = new org.g70.model.drawable.element.immovable.Ice(position);
-        ice.setInteraction(new InteractIce(ice));
+        Ice ice = new Ice(position);
         levelModel.getIce().add(ice);
     }
 
