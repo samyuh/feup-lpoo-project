@@ -150,7 +150,7 @@ Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples 
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/UML/levelbuilder.png)
+![Level Builder](images/UML/levelbuilder.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -175,7 +175,7 @@ Para resolver este problema, decidimos implementar o *Design Pattern* *State*. E
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/UML/state.png)
+![State](images/UML/state.png)
 
 #### Ficheiros
 - [Main Controller](..src/main/java/org/g70/controller/MainController.java)
@@ -199,6 +199,9 @@ Inicialmente, tinhamos apenas criado um simples menu principal capaz de iniciar 
 #### Padrão
 Para resolver este problema decidimos que as diferentes opções existentes nos menus seriam alterados através de comandos, utilizando então o *Design Pattern* *Command*.
 #### Implementação
+
+![Command](./images/UML/command.png)
+
 #### Ficheiros
 - [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
 - [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
@@ -226,6 +229,10 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 ![](images/UML/interact.png)
 
 ##### Ficheiros
+- [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
+- [LevelElementController](../src/main/java/org/g70/controller/level/LevelElementController.java)
+- [LevelModel](../src/main/java/org/g70/model/level/LevelModel.java)
+- [ElementModel](../src/main/java/org/g70/model/drawable/element/ElementModel.java)
 - [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
 - [InteractBox](../src/main/java/org/g70/controller/level/interact/InteractBox.java)
 - [InteractCoin](../src/main/java/org/g70/controller/level/interact/InteractCoin.java)
@@ -238,10 +245,6 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [InteractStop](../src/main/java/org/g70/controller/level/interact/InteractStop.java)
 - [InteractTeleport](../src/main/java/org/g70/controller/level/interact/InteractTeleport.java)
 - [InteractToughIce](../src/main/java/org/g70/controller/level/interact/InteractToughIce.java)
-- [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
-- [LevelFacade](../src/main/java/org/g70/controller/level/LevelFacade.java)
-- [LevelModel](../src/main/java/org/g70/model/level/LevelModel.java)
-- [ElementModel](../src/main/java/org/g70/model/drawable/element/ElementModel.java)
 
 #### Consequências
 - Fácil e rápida implementação do comportamento de novos Elementos.
@@ -266,7 +269,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 ![](images/UML/meltstrategy.png)
 
 ##### Ficheiros
-- [LevelFacade](../src/main/java/org/g70/controller/level/LevelFacade.java)
+- [LevelElementController](../src/main/java/org/g70/controller/level/LevelElementController.java)
 - [MeltStrategy](../src/main/java/org/g70/controller/level/strategy/MeltStrategy.java)
 - [StrategyDoubleIce](../src/main/java/org/g70/controller/level/strategy/StrategyDoubleIce.java)
 - [StrategyIce](../src/main/java/org/g70/controller/level/strategy/StrategyIce.java)
@@ -322,7 +325,7 @@ Esta situação provocou a criação de algumas *Design Pattern* *Private Class 
 #### Implementação
 O diagrama seguinte demonstra como este *Design Pattern* está implementado no LevelModel, LevelController e LevelElementController.
 
-![](images/UML/dataclass.png)
+![Data Class](images/UML/dataclass.png)
 
 #### Consequências
 
