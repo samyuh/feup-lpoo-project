@@ -24,7 +24,7 @@ public class LevelElementController {
     public void newLevelMovement() {
         updatePuffleMovement();
         updateBoxMovement();
-        setMelt(new MeltIce(this));
+        melt = new MeltIce(this);
     }
 
     private void updatePuffleMovement() {
