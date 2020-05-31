@@ -7,6 +7,6 @@ public class EmptyBlock extends ImmovableElement {
     public EmptyBlock(Position position) {
         super("\u2588", "#53a6ed", position);
 
-        setInteraction(new InteractEmptyBlock(this));
+        interaction = new InteractEmptyBlock(this);
     }
 }

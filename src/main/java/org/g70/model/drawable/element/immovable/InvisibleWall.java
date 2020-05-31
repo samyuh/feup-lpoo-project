@@ -7,6 +7,6 @@ public class InvisibleWall extends ImmovableElement {
     public InvisibleWall(Position position) {
         super("\u2588", "#0065c6", position);
 
-        setInteraction(new InteractInvisibleWall(this));
+        interaction = new InteractInvisibleWall(this);
     }
 }

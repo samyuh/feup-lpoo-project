@@ -7,6 +7,6 @@ public class Water extends ImmovableElement {
     public Water(Position position) {
         super("W", "#0056AC",position);
 
-        setInteraction(new InteractStop(this));
+        interaction = new InteractStop(this);
     }
 }
