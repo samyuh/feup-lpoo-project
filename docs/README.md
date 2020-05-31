@@ -80,11 +80,11 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
 
 | Menu                           | Instruções                         | Fim de Jogo                  |
 | ------------------------------ | -----------------------------------| -----------------------------|
-| ![MainMenu](./images/screenshots/gameMainMenu.png) | ![Instructions](./images/screenshots/gameInstructions.png) | ![Finish](./images/screenshots/gameFinish.png) |
+| ![MainMenu](./images/screenshots/gamemainmenu.png) | ![Instructions](./images/screenshots/gameinstructions.png) | ![Finish](./images/screenshots/gamefinish.png) |
 
 | Nível 1                       | Nível 19 (Passagem secreta oculta) |  Nível 19 (Passagem secreta descoberta) |
 | ----------------------------- | ---------------------------------- | --------------------------------------- |
-|  ![Level1](./images/screenshots/gameLevel1.png) | ![Level19](./images/screenshots/gameLevel19.png) | ![Level19Secret](./images/screenshots//gameLevel19Secret.png) |
+|  ![Level1](./images/screenshots/gamelevel1.png) | ![Level19](./images/screenshots/gamelevel19.png) | ![Level19Secret](./images/screenshots//gamelevel19secret.png) |
 
 |Gameplay|
 |---|
@@ -133,7 +133,7 @@ Para a realização deste projeto, decidimos separar e estruturar o nosso códig
 - O ***View***, que é responsável pela visualização do jogo e por enviar a informação recebida do utilizador, como por exemplo, teclas pressionadas no teclado, para o *Controller*.
 - O ***Controller***, que processa a informação recebida pelo *View* e envia comandos ao *Model* para atualizar o seu estado.
 
-![MVC](./images/UML/mvc.png)
+![MVC](./images/uml/mvc.png)
 
 Este padrão arquitetural permite uma maior modularidade do código, facilitando a implementação de novas funcionalidades.
 
@@ -153,7 +153,7 @@ Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples 
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Level Builder](images/UML/levelBuilder.png)
+![Level Builder](images/uml/levelbuilder.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -178,7 +178,7 @@ Para resolver este problema, decidimos implementar o *Design Pattern* ***State**
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![State](images/UML/state.png)
+![State](images/uml/state.png)
 
 #### Ficheiros
 - [Main Controller](../src/main/java/org/g70/controller/MainController.java)
@@ -203,7 +203,7 @@ Para resolver este problema, decidimos que as diferentes opções existentes nos
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Command](./images/UML/command.png)
+![Command](./images/uml/command.png)
 
 #### Ficheiros
 - [Main Controller](../src/main/java/org/g70/controller/MainController.java)
@@ -232,7 +232,7 @@ Para resolver este problema, decidimos utilizar o *Design Pattern* ***Strategy**
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Interact](images/UML/interact.png)
+![Interact](images/uml/interact.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -273,7 +273,7 @@ Este padrão permite-nos definir uma familia de algoritmos separados em diferent
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Melt](images/UML/meltstrategy.png)
+![Melt](images/uml/meltstrategy.png)
 
 ##### Ficheiros
 - [Melt](../src/main/java/org/g70/controller/level/strategy/Melt.java)
@@ -303,7 +303,7 @@ Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextB
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Factory](images/UML/factorymethod.png)
+![Factory](images/uml/factorymethod.png)
 
 
 ##### Ficheiros
@@ -333,7 +333,7 @@ Esta situação provocou a criação de algumas *Design Pattern* *Private Class 
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![Data Class](images/UML/dataclass.png)
+![Data Class](images/uml/dataclass.png)
 
 #### Consequências
 

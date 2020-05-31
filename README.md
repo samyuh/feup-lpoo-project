@@ -1,5 +1,7 @@
 # Frostbite Penguin Madness
 
+![university](https://img.shields.io/badge/FEUP-MIEIC-red)
+
 O nosso jogo é inspirado num mini-jogo existente no *Club Penguin*, chamado de `Gelo Fino`. O jogador deve controlar um `Puffle`através de inúmeros labirintos, passando pelo maior número de blocos de gelo antes de o completar. Ao longo do jogo vão surgindo moedas coletáveis, blocos de gelo duplo, teletransporte e até passagens secretas, que permitem ao jogador obter uma maior pontuação!
 
 - **Universidade**: [FEUP](https://sigarra.up.pt/feup/pt/web_page.Inicial)
@@ -26,11 +28,11 @@ O relatório sobre este projeto pode ser lido [aqui](./docs/README.md).
 
 | Menu         | Instruções | Fim de Jogo |
 | ------------ | ---------- | ------------|
-| ![MainMenu](./docs/images/screenshots/gameMainMenu.png) | ![Instructions](./docs/images/screenshots/gameInstructions.png) | ![Finish](./docs/images/screenshots/gameFinish.png) |
+| ![MainMenu](./docs/images/screenshots/gamemainmenu.png) | ![Instructions](./docs/images/screenshots/gameinstructions.png) | ![Finish](./docs/images/screenshots/gamefinish.png) |
 
 | Nível 1                       | Nível 19 (Passagem secreta oculta) |  Nível 19 (Passagem secreta descoberta) |
 | ----------------------------- | ---------------------------------- | --------------------------------------- |
-|  ![Level1](./docs/images/screenshots/gameLevel1.png) | ![Level19](./docs/images/screenshots/gameLevel19.png) | ![Level19Secret](./docs/images/screenshots//gameLevel19Secret.png) |
+|  ![Level1](./docs/images/screenshots/gamelevel1.png) | ![Level19](./docs/images/screenshots/gamelevel19.png) | ![Level19Secret](./docs/images/screenshots//gamelevel19secret.png) |
 
 | Gameplay                                   |
 | ------------------------------------------ |
