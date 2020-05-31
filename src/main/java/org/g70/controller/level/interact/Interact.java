@@ -11,7 +11,7 @@ public abstract class Interact<T extends ElementModel> {
 
     protected Interact(T element){
         this.element = element;
-        this.position = element.getPosition();
+        position = element.getPosition();
     }
 
     public abstract void executePuffle(LevelController controller, LevelElementController elementController);

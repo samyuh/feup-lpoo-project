@@ -3,10 +3,11 @@ package org.g70.controller.level.interact;
 import org.g70.controller.level.LevelController;
 import org.g70.controller.level.LevelElementController;
 import org.g70.controller.level.strategy.MeltDoubleIce;
+import org.g70.model.drawable.element.immovable.DoubleIce;
 
-public class InteractDoubleIce extends Interact<org.g70.model.drawable.element.immovable.DoubleIce> {
+public class InteractDoubleIce extends Interact<DoubleIce> {
 
-    public InteractDoubleIce(org.g70.model.drawable.element.immovable.DoubleIce element) {
+    public InteractDoubleIce(DoubleIce element) {
         super(element);
     }
 

@@ -1,13 +1,12 @@
 package org.g70.model;
 
-import org.g70.controller.level.LevelController;
 import org.g70.model.level.LevelHeaderModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class LevelHeaderModelTest {
-    LevelHeaderModel headerModelTest;
+    private LevelHeaderModel headerModelTest;
 
     @Before
     public void initHeader() {

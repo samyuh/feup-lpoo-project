@@ -7,6 +7,6 @@ public class Ice extends ImmovableElement {
     public Ice(Position position) {
         super(" ","#8dc5f0",position);
 
-        setInteraction(new InteractIce(this));
+        interaction = new InteractIce(this);
     }
 }

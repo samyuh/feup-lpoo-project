@@ -3,11 +3,9 @@ package org.g70.controller.level.strategy;
 import org.g70.controller.level.LevelElementController;
 import org.g70.model.Position;
 
-public class MeltNothing implements Melt {
-    LevelElementController facade;
-
-    public MeltNothing(LevelElementController facade) {
-        this.facade = facade;
+public class MeltNothing extends Melt {
+    public MeltNothing(LevelElementController elementController) {
+        super(elementController);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class Wall extends ImmovableElement {
     public Wall(Position position) {
         super("\u2588", "#0065c6", position);
 
-        setInteraction(new InteractStop(this));
+        interaction = new InteractStop(this);
     }
 }
 

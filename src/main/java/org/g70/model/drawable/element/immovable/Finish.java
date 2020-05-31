@@ -7,6 +7,6 @@ public class Finish extends ImmovableElement {
     public Finish(Position position) {
         super("D", "#ff0422", position);
 
-        setInteraction(new InteractFinish(this));
+        interaction = new InteractFinish(this);
     }
 }

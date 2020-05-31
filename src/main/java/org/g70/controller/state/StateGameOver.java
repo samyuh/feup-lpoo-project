@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateGameOver extends State {
-    GameOverModel mainMenuModel;
-    int globalScore;
+    private GameOverModel mainMenuModel;
+    private int globalScore;
 
     public StateGameOver(MainController mainController, int globalScore) {
         super(mainController);
 
         this.globalScore = globalScore;
-
-        initGameOver();
+        initState();
     }
 
-    private void initGameOver() {
+    @Override
+    protected void initState() {
         List<MenuOption> op = new ArrayList<>();
         op.add(new MenuOption("Restart", new Position(2, 15), new OptionNewGame(mainController)));
         op.add(new MenuOption("Main Menu", new Position(2, 16), new OptionMainMenu(mainController)));
@@ -39,7 +39,6 @@ public class StateGameOver extends State {
     @Override
     public void run() throws IOException {
         MenuController controller = new MenuController(mainController, mainMenuModel, view);
-
         controller.run();
     }
 }

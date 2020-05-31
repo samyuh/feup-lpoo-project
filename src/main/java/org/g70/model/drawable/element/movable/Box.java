@@ -7,6 +7,6 @@ public class Box extends MovableElement {
     public Box(Position position) {
         super("O", "#0079d0", position);
 
-        setInteraction(new InteractBox(this));
+        interaction = new InteractBox(this);
     }
 }

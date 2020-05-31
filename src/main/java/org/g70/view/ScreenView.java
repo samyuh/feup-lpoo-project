@@ -14,16 +14,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class ScreenView {
-    private int width;
-    private int height;
-
     private Screen screen;
 
     public ScreenView(int width, int height) throws IOException, FontFormatException {
-            this.width = width;
-            this.height = height;
 
-            File file = new File(this.getClass().getResource("/font/square.ttf").getFile());
+        File file = new File(this.getClass().getResource("/font/square.ttf").getFile());
 
             // Custom Font
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(28f);
@@ -33,7 +28,7 @@ public class ScreenView {
             AWTTerminalFontConfiguration config = new SwingTerminalFontConfiguration(true, AWTTerminalFontConfiguration.BoldMode.NOTHING, customFont);
 
             Terminal terminal = new DefaultTerminalFactory()
-                    .setInitialTerminalSize(new TerminalSize(this.width,this.height))
+                    .setInitialTerminalSize(new TerminalSize(width, height))
                     .setTerminalEmulatorFontConfiguration(config).createTerminal();
 
             screen = new TerminalScreen(terminal);

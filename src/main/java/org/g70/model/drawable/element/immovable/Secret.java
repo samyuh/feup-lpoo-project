@@ -7,6 +7,6 @@ public class Secret extends ImmovableElement {
     public Secret(Position position) {
         super("\u2588", "#0065c6", position);
 
-        setInteraction(new InteractSecret(this));
+        interaction = new InteractSecret(this);
     }
 }

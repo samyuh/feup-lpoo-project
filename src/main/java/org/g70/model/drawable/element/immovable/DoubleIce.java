@@ -7,6 +7,6 @@ public class DoubleIce extends ImmovableElement {
     public DoubleIce(Position position) {
         super("\u2588", "#ffffff", position);
 
-        setInteraction(new InteractDoubleIce(this));
+        interaction = new InteractDoubleIce(this);
     }
 }

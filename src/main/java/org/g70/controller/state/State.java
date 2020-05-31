@@ -21,5 +21,7 @@ public abstract class State {
         this.view = view;
     }
 
+    protected abstract void initState();
+
     public abstract void run() throws IOException, InterruptedException;
 }

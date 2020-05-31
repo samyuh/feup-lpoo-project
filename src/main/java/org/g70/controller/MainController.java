@@ -2,7 +2,6 @@ package org.g70.controller;
 
 import org.g70.controller.state.*;
 import org.g70.view.ScreenView;
-import org.g70.view.game.GeneralView;
 
 import java.io.IOException;
 
@@ -13,8 +12,7 @@ public class MainController {
 
     public MainController(ScreenView gui) {
         this.gui = gui;
-        this.exit = false;
-
+        exit = false;
         state = new StateMainMenu(this);
     }
 
@@ -40,7 +38,7 @@ public class MainController {
 
     public void run() throws IOException, InterruptedException {
         while(!exit) {
-            this.state.run();
+            state.run();
         }
     }
 }

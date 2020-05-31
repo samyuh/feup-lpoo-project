@@ -7,6 +7,6 @@ public class Lock extends ImmovableElement {
     public Lock(Position position) {
         super("L", "#A0522D", position);
 
-        setInteraction(new InteractStop(this));
+        interaction = new InteractStop(this);
     }
 }
