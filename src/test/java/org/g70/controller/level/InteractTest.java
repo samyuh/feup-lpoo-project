@@ -74,6 +74,7 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, elementControllerMock);
         Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
         Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltDoubleIce.class));
     }
 
@@ -131,6 +132,7 @@ public class InteractTest {
 
         interactTest.executePuffle(controllerMock, elementControllerMock);
         Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
         Assert.assertTrue(testInvisibleWall.getInteraction() instanceof InteractStop);
         Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
     }
