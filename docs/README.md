@@ -80,15 +80,15 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
 
 | Menu                           | Instruções                         | Fim de Jogo                  |
 | ------------------------------ | -----------------------------------| -----------------------------|
-| ![](./images/screenshots/gameMainMenu.png) | ![](./images/screenshots/gameInstructions.png) | ![](./images/screenshots/gameFinish.png) |
+| ![MainMenu](./images/screenshots/gameMainMenu.png) | ![Instructions](./images/screenshots/gameInstructions.png) | ![Finish](./images/screenshots/gameFinish.png) |
 
 | Nível 1                       | Nível 19 (Passagem secreta oculta) |  Nível 19 (Passagem secreta descoberta) |
 | ----------------------------- | ---------------------------------- | --------------------------------------- |
-|  ![](./images/screenshots/gameLevel1.png) | ![](./images/screenshots/gameLevel19.png) | ![](./images/screenshots//gameLevel19Secret.png) |
+|  ![Level1](./images/screenshots/gameLevel1.png) | ![Level19](./images/screenshots/gameLevel19.png) | ![Level19Secret](./images/screenshots//gameLevel19Secret.png) |
 
 |Gameplay|
 |---|
-|![](./images/gameplay/game.gif)|
+|![Gameplay](./images/gameplay/game.gif)|
 
 ## Funcionalidades Planeadas
 
@@ -232,7 +232,7 @@ Para resolver este problema, decidimos utilizar o *Design Pattern* ***Strategy**
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![](images/UML/interact.png)
+![Interact](images/UML/interact.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -273,7 +273,7 @@ Este padrão permite-nos definir uma familia de algoritmos separados em diferent
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![](images/UML/meltstrategy.png)
+![Melt](images/UML/meltstrategy.png)
 
 ##### Ficheiros
 - [Melt](../src/main/java/org/g70/controller/level/strategy/Melt.java)
@@ -303,7 +303,7 @@ Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextB
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
-![](images/UML/factorymethod.png)
+![Factory](images/UML/factorymethod.png)
 
 
 ##### Ficheiros
@@ -383,7 +383,7 @@ Ao longo do desenvolvimento destes mesmos testes, fomos descobrindo que não ser
 
 ![testCoverage](./images/tests/testCoverage.png)
 
-Os resultados dos testes encontram-se na seguinte [pasta](./testing) e estão hospedados na seguinte [página]().
+Os resultados dos testes encontram-se na seguinte [pasta](./testing), encontrando-se também hospedados na seguinte [página](https://tests-lpoo-g70.surge.sh/).
 
 # Auto-avaliação
 
