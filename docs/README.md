@@ -26,7 +26,7 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 4. [Code Smells and Refactoring](#code-smells-and-refactoring)
     - [Data Class](#data-class)
     - [Large Class](#large-class)
-    - [Lazy Class](#lazy-class-)
+    - [Switch Statements](#switch-statements)
 5. [Unit Tests](#unit-tests)
 
 # Funcionalidades do jogo
@@ -370,8 +370,14 @@ poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Ele
 
 > Fonte: [Large Class](https://refactoring.guru/smells/large-class), [Extract Class](https://refactoring.guru/extract-class)
 
-### Lazy Class (to be done)
+### Switch Statements
+A classe [*LevelController*](src/main/java/org/g70/controller/level/LevelController.java) possui o método `processCommand()`, que contém um longo ***Switch Statement*** para processar o comando escolhido pelo utilizador.
 
+Esta situação origina o *Code Smell* ***Switch Statements***, que é problemático, pois a continua adição de comandos torna o código confuso e difícil de ler.
+
+O problema pode ser resolvido aplicando o *Design Pattern* ***Command***, criando um objeto para cada comando.
+
+> Fonte: [Switch Statements](https://refactoring.guru/smells/switch-statements), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
 # Unit Tests
 
