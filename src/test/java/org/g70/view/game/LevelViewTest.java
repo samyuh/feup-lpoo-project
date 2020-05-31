@@ -19,11 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class LevelViewTest {
     private List<Drawable> elementMocks;

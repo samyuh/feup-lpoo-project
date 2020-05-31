@@ -11,9 +11,8 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-
 public class KeyHandlerTest {
-    Screen scrMock;
+    private Screen scrMock;
     private KeyStroke keyUp;
     private KeyStroke keyDown;
     private KeyStroke keyLeft;
