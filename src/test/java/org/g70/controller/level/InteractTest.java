@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InteractTest {
-    LevelController controllerMock;
-    LevelElementController facadeMock;
-    Position position;
+    private LevelController controllerMock;
+    private LevelElementController elementControllerMock;
+    private Position position;
 
     @Before
     public void initElements() {
         controllerMock = Mockito.mock(LevelController.class);
-        facadeMock = Mockito.mock(LevelElementController.class);
+        elementControllerMock = Mockito.mock(LevelElementController.class);
         position = new Position(0,0);
     }
 
@@ -32,18 +32,21 @@ public class InteractTest {
         Box testBox = new Box(position);
         InteractBox interactTest = new InteractBox(testBox);
 
-        Assert.assertFalse(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(0)).moveBox(position);
+        Assert.assertFalse(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(0)).moveBox(position);
 
-        Mockito.when(facadeMock.boxLoop()).thenReturn(false);
-        interactTest.executePuffle(controllerMock, facadeMock);
+        Mockito.when(elementControllerMock.boxLoop()).thenReturn(false);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
         Mockito.verify(controllerMock, Mockito.times(0)).executePuffleMovement(position);
         Assert.assertTrue(testBox.getInteraction() instanceof InteractStop);
 
-        Mockito.when(facadeMock.boxLoop()).thenReturn(true);
-        interactTest.executePuffle(controllerMock, facadeMock);
+        testBox = new Box(position);
+        interactTest = new InteractBox(testBox);
+
+        Mockito.when(elementControllerMock.boxLoop()).thenReturn(true);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
         Mockito.verify(controllerMock, Mockito.times(1)).executePuffleMovement(position);
-        Assert.assertTrue(testBox.getInteraction() instanceof InteractStop);
+        Assert.assertTrue(testBox.getInteraction() instanceof InteractBox);
     }
 
     @Test
@@ -51,12 +54,14 @@ public class InteractTest {
         Coin testCoin = new Coin(position);
         InteractCoin interactTest = new InteractCoin(testCoin);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 10);
+
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -64,13 +69,12 @@ public class InteractTest {
         DoubleIce testIce = new DoubleIce(position);
         InteractDoubleIce interactTest = new InteractDoubleIce(testIce);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
-
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltDoubleIce.class));
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltDoubleIce.class));
     }
 
     @Test
@@ -78,13 +82,13 @@ public class InteractTest {
         EmptyBlock testEmptyBlock = new EmptyBlock(position);
         InteractEmptyBlock interactTest = new InteractEmptyBlock(testEmptyBlock);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
 
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
     }
 
     @Test
@@ -92,13 +96,14 @@ public class InteractTest {
         Ice testIce = new Ice(position);
         InteractIce interactTest = new InteractIce(testIce);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
 
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -106,13 +111,14 @@ public class InteractTest {
         Finish testFinish = new Finish(position);
         InteractFinish interactTest = new InteractFinish(testFinish);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
 
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -120,13 +126,13 @@ public class InteractTest {
         InvisibleWall testInvisibleWall = new InvisibleWall(position);
         InteractInvisibleWall interactTest = new InteractInvisibleWall(testInvisibleWall);
 
-        Assert.assertFalse(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(0)).moveBox(position);
+        Assert.assertFalse(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(0)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
         Assert.assertTrue(testInvisibleWall.getInteraction() instanceof InteractStop);
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltNothing.class));
     }
 
     @Test
@@ -134,13 +140,14 @@ public class InteractTest {
         Key testKey = new Key(position);
         InteractKey interactTest = new InteractKey(testKey);
 
-        Assert.assertTrue(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(position);
+        Assert.assertTrue(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
-        Mockito.verify(facadeMock, Mockito.times(1)).removeKeyLock();
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).removeKeyLock();
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -148,15 +155,16 @@ public class InteractTest {
         Secret testSecret = new Secret(position);
         InteractSecret interactTest = new InteractSecret(testSecret);
 
-        Assert.assertFalse(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(0)).moveBox(position);
+        Assert.assertFalse(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(0)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(position);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
         Mockito.verify(controllerMock, Mockito.times(1)).initSecretLevel();
 
         Assert.assertTrue(testSecret.getInteraction() instanceof InteractStop);
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 
     @Test
@@ -164,11 +172,11 @@ public class InteractTest {
         Wall testWall = new Wall(position);
         InteractStop interactTest = new InteractStop(testWall);
 
-        Assert.assertFalse(interactTest.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(0)).moveBox(position);
+        Assert.assertFalse(interactTest.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(0)).moveBox(position);
 
-        interactTest.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(0)).movePuffle(position);
+        interactTest.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(0)).movePuffle(position);
     }
 
     @Test
@@ -183,13 +191,14 @@ public class InteractTest {
         teleportList.add(testTeleport2);
 
         InteractTeleport interactTest1 = new InteractTeleport(testTeleport1);
-        Mockito.when(facadeMock.getTeleportPosition(testTeleport1)).thenReturn(teleport2);
-        Mockito.when(facadeMock.getTeleport()).thenReturn(teleportList);
+        Mockito.when(elementControllerMock.getTeleportPosition(testTeleport1)).thenReturn(teleport2);
+        Mockito.when(elementControllerMock.getTeleport()).thenReturn(teleportList);
 
-        Assert.assertTrue(interactTest1.executeBox(facadeMock));
-        Mockito.verify(facadeMock, Mockito.times(1)).moveBox(teleport2);
-        interactTest1.executePuffle(controllerMock, facadeMock);
-        Mockito.verify(facadeMock, Mockito.times(1)).movePuffle(teleport2);
+        Assert.assertTrue(interactTest1.executeBox(elementControllerMock));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).moveBox(teleport2);
+        interactTest1.executePuffle(controllerMock, elementControllerMock);
+        Mockito.verify(elementControllerMock, Mockito.times(1)).movePuffle(teleport2);
+        Mockito.verify(controllerMock, Mockito.times(1)).addScore(1, 1);
 
         Assert.assertTrue(testTeleport1.getInteraction() instanceof InteractStop);
         Assert.assertTrue(testTeleport2.getInteraction() instanceof InteractStop);
@@ -197,6 +206,6 @@ public class InteractTest {
         Assert.assertEquals("#0000ff", testTeleport1.getColorForeground());
         Assert.assertEquals("#0000ff", testTeleport2.getColorForeground());
 
-        Mockito.verify(facadeMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
+        Mockito.verify(elementControllerMock, Mockito.times(1)).setMelt(Mockito.any(MeltIce.class));
     }
 }
