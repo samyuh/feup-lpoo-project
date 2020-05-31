@@ -223,7 +223,7 @@ Para resolver este problema decidimos utilizar o *Design Pattern* *Strategy* que
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/CommandUML.png)
+![](images/UML/interact.png)
 
 ##### Ficheiros
 - [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
@@ -314,21 +314,20 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 ### Private Class Data
 
 #### Problema
-O nosso programa continha um enorme quantidade de objetos, que eram utilizados quer no *levelModel*, quer no *levelFacade*, causando o *Code Smells* *Data Clumps*.
+Uma vez que estamos a utilizar o *MVC* quase desde o ínicio deste trabalho, não tivemos relativamente um problema devido à manipulação indevida de atributos, uma vez que toda a informação sobre os dados encontram-se no *Model*.
 
 #### Padrão
-Para resolver este problema, decidimos utilizar o *Design Pattern* *Private Class Data*, que consiste na criação de uma
-*Data Class* contendo todos os objetos que se deseja encapsular.
+Esta situação provocou a criação de algumas *Design Pattern* *Private Class Data*. Este *Design Pattern* consiste na criação de uma data class contendo todos os objetos que se deseja encapsular.
 
 #### Implementação
-O diagrama seguinte demonstra como implementamos o *Design Pattern*
+O diagrama seguinte demonstra como este *Design Pattern* está implementado no LevelModel, LevelController e LevelElementController.
 
-![](images/PrivateClassData.png)
+![](images/UML/dataclass.png)
 
 #### Consequências
 
-- Corrige o *Code Smell* *Data Clumps*, organizando os elementos associados ao nível num só objeto, simplificando todas as classes que necessitem de ter acesso aos *Elements*.
-- Origina o *Code Smell* *Data Class*, que acaba por ser inerente ao padrão de arquitetura usado: *MVC* (Mais informação sobre este *Code Smell* no capítulo seguinte).
+- Permite controlar o acesso à informação presente no nível.
+- Origina o *Code Smell* *Data Class*, que acaba por ser inerente ao padrão de arquitetura usado: *MVC*.
 - Facilita a adição de *Elements* ao nível, pelo que basta adicionar mais um atributo ao levelModel.
 
 > Fonte : [Design Patterns - Private Class Data](https://en.wikipedia.org/wiki/Private_class_data_pattern), [Private Class Data](https://en.wikipedia.org/wiki/Private_class_data_pattern)
