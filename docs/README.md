@@ -381,7 +381,7 @@ A utilização de mutation tests, além de verificar se estavamos a testar de fo
 
 Ao longo do desenvolvimento destes mesmos testes, fomos descobrindo que não servem apenas para corrigir erros no código, mas também ajudam a promover um melhor desenvolvimento do mesmo.
 
-![testCoverage](./images/tests/testCoverage.png)
+![testCoverage](./images/tests/testcoverage.png)
 
 Os resultados dos testes encontram-se na seguinte [pasta](./testing), encontrando-se também hospedados na seguinte [página](https://tests-lpoo-g70.surge.sh/).
 
