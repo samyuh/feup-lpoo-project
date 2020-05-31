@@ -375,7 +375,7 @@ A classe [*LevelController*](src/main/java/org/g70/controller/level/LevelControl
 
 Esta situação origina o *Code Smell* ***Switch Statements***, que é problemático, pois a continua adição de comandos torna o código confuso e difícil de ler.
 
-O problema pode ser resolvido aplicando o *Design Pattern* ***Command***, criando um objeto para cada comando.
+O problema pode ser resolvido aplicando o *Design Pattern* ***Command***, criando um objeto para cada tecla presisonada pelo jogador.
 
 > Fonte: [Switch Statements](https://refactoring.guru/smells/switch-statements), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
@@ -389,7 +389,7 @@ Ao longo do desenvolvimento destes mesmos testes, fomos descobrindo que não ser
 
 ![testCoverage](./images/tests/testcoverage.png)
 
-Os resultados dos testes encontram-se na seguinte [pasta](./testing), encontrando-se também hospedados na seguinte [página](https://tests-lpoo-g70.surge.sh/).
+Os resultados dos testes encontram-se na seguinte [pasta](./tests), encontrando-se também hospedados na seguinte [página](https://tests-lpoo-g70.surge.sh/).
 
 # Auto-avaliação
 
