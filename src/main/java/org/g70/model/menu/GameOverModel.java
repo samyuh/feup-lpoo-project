@@ -7,7 +7,7 @@ import org.g70.model.drawable.menudrawable.MenuOption;
 import java.util.List;
 
 public class GameOverModel extends MenuFactory {
-    int globalScore;
+    private int globalScore;
 
     public GameOverModel(List<MenuOption> option, int globalScore) {
         super(option);

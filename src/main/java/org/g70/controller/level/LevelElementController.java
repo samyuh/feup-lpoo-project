@@ -110,12 +110,12 @@ public class LevelElementController {
 
     public void addWater(Position position) {
         Water water = new Water(position);
-        levelModel.getWater().add(water);
+        levelModel.addWater(water);
     }
 
     public void addIce(Position position){
         Ice ice = new Ice(position);
-        levelModel.getIce().add(ice);
+        levelModel.addIce(ice);
     }
 
     public void removeIce(Position position) {
