@@ -130,7 +130,7 @@ Para a realização deste projeto, decidimos separar e estruturar o nosso códig
 - O ***View***, que é responsável pela visualização do jogo e por enviar a informação recebida do utilizador, como por exemplo, teclas pressionadas no teclado para o *Controller*.
 - O ***Controller***, que processa a informação recebida pelo *View* e envia comandos ao *Model* para atualizar o seu estado.
 
-![MVC](./images/mvc.png)
+![MVC](./images/UML/mvc.png)
 
 Este padrão arquitetural permite uma maior modularidade ao código, facilitando a implementação de novas funcionalidades.
 
@@ -150,7 +150,7 @@ Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples 
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/UML/levelBuilder.png)
+![](images/UML/levelbuilder.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -250,7 +250,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
-### Melting Strategy
+### Melt Strategy
 
 #### Problema
 Ao mover o *Puffle* era necessário não só vericar as interações associadas ao bloco para qual o *Puffle* se tenta mover, mas também é necessário derreter o bloco sobre o qual se situa. Inicialmente, para implementarmos este funcionalidade, colocamos vários *if Statements* no método `movePuffle()`, originando os *Code Smells* *Long Method* e *Switch Statements*.
@@ -263,7 +263,7 @@ Este padrão permite-nos definir uma familia de algoritmos separados em diferent
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/MeltStrategyUML.png)
+![](images/UML/meltstrategy.png)
 
 ##### Ficheiros
 - [LevelFacade](../src/main/java/org/g70/controller/level/LevelFacade.java)
@@ -292,7 +292,7 @@ Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Cria
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/FactoryMethodUML.png)
+![](images/UML/factorymethod.png)
 
 
 ##### Ficheiros
