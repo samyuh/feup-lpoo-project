@@ -375,7 +375,7 @@ A classe [*LevelController*](src/main/java/org/g70/controller/level/LevelControl
 
 Esta situação origina o *Code Smell* ***Switch Statements***, que é problemático, pois a continua adição de comandos torna o código confuso e difícil de ler.
 
-O problema pode ser resolvido aplicando o *Design Pattern* ***Command***, criando um objeto para cada tecla presisonada pelo jogador.
+O problema pode ser resolvido aplicando o *Design Pattern* ***Command***, criando um objeto para cada tecla pressionada pelo jogador.
 
 > Fonte: [Switch Statements](https://refactoring.guru/smells/switch-statements), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
