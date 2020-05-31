@@ -124,7 +124,7 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
 
 # Padrão Arquitetural do Código
 
-Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes sendo estes:
+Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes, sendo estes:
 
 - O ***Model***, que representa toda a informação presente no jogo
 - O ***View***, que é responsável pela visualização do jogo e por enviar a informação recebida do utilizador, como por exemplo, teclas pressionadas no teclado para o *Controller*.
@@ -140,39 +140,37 @@ Este padrão arquitetural permite uma maior modularidade ao código, facilitando
 
 ### Level Builder
 #### Contexto do Problema
-Era necessário encontrar uma forma de criar os níveis predefinidos que, sua criação, iriam inicializar diferentes objetos, dependendo do nível, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
+Era necessário encontrar uma forma de criar os níveis predefinidos, que são compostos por vários objetos. Deste modo, dependendo do nível são inicializados diferentes objetos, evitando a existência de um construtor enorme responsável por decidir quais objetos a ser criados.
 
 #### Padrão
-Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***Builder***, usando como base o mecanismo de utilização de métodos *Build* para decidir se, em cada nível, iriamos precisar de criar um determinado *Element*.
+Para resolver este problema, utilizamos uma adaptação do *Design Pattern* ***Builder***, usando como base o mecanismo de utilização de métodos *Build* para decidir se, em cada nível, iriamos precisar de criar ou não um determinado *Element*.
 
 #### Implementação
 Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples de construir um nível seria a criação de uma classe única *LevelBuilder*, que iria ser capaz de ler um ficheiro `.txt` e descodificar os simbolos *ASCII*, que estaria associado a um elemento.
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/BuilderUML.png)
+![](images/BuilderUML.png) // AQUI MUDAR
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
 - [LevelBuilder](../src/main/java/org/g70/controller/level/LevelBuilder.java)
-- [Resources](../src/main/resources/levelDesign) (This folder contains 19 different levels)
+- [Level Resources](../src/main/resources/levelDesign) (Pasta que contém os níveis)
 
 #### Consequências
-- Facilita criação de novos níveis.
-- Facilita alteraçao dos ficheiros atuais.
-- Facilita a adição de novos *Elements*, sendo apenas necessário atribuir um novo símbolo ASCII (*Open-Closed Principle*).
+- Facilita criação de novos níveis
+- Facilita alteração dos níveis atuais
+- Facilita a adição de novos *Elements*, sendo apenas necessário atribuir um novo símbolo ASCII
 
 > Fonte: [Design Patterns - Builder](https://refactoring.guru/design-patterns/builder)
 
 
 ###  State
 #### Contexto do Problema
-Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse troca entre estados.
-
-Inicialmente, tinhamos apenas criado um simples menu principal capaz de iniciar ou terminar o jogo, que possuia apenas vários *Ifs* para executar a opção escolhida pelo utilizador, pelo que nos apercebemos que a contínua adição de funcionalidades aos menus iria causar o *Code Smell* *If Statements*
+Como planeávamos ter um programa que fosse possuir diversos estados de jogo, os quais teriam comportamentos distintos, decidimos que era necessário arranjar um padrão para organizar o código da melhor maneira possível, que permitisse a troca entre estados.
 
 #### Padrão
-Para resolver este problema, decidimos implementar o *Design Pattern* *State*. Este padrão iria possibilitar a criação de vários estados de jogo, que seriam alterados através de comandos, utilizando o *Design Pattern* *Command*.
+Para resolver este problema, decidimos implementar o *Design Pattern* *State*. Este padrão iria possibilitar a criação de vários estados de jogo.
 
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
@@ -186,34 +184,37 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
 - [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
 - [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
-- [MenuController](../src/main/java/org/g70/controller/menu/MenuController.java)
-- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
-- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
-- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
-- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
-- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
-- [MenuFactory](../src/main/java/org/g70/model/menu/MenuFactory.java)
-- [MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
 
 #### Consequências
 - Maior modularidade ao código, facilitando não só a alteração dos estados de jogo, mas também a sua adição (*Open-Closed Principle*).
-- Facilita a adição e alteração de *Options* (*Open-Closed Principle*).
-- Possibilita a criação de *Options* que afetem o estado de jogo.
-- Evita o uso de *If Statements* nos *States* e *Options*.
+- Evita o uso de *Switch Statements* para mudar os várioes *States*
 
 
 > Fonte: [Design Patterns - State](https://web.fe.up.pt/~arestivo/presentation/patterns/#35), [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
 ### Command
 #### Contexto do Problema
+Inicialmente, tinhamos apenas criado um simples menu principal capaz de iniciar ou terminar o jogo, que possuia apenas vários *Ifs* para executar a opção escolhida pelo utilizador, pelo que nos apercebemos que a contínua adição de funcionalidades aos menus iria causar o *Code Smell* *If Statements*
+
 #### Padrão
+Para resolver este problema decidimos que as diferentes opções existentes nos menus seriam alterados através de comandos, utilizando então o *Design Pattern* *Command*.
 #### Implementação
 #### Ficheiros
+- [Option](../src/main/java/org/g70/controller/menu/option/Option.java)
+- [OptionExit](../src/main/java/org/g70/controller/menu/option/OptionExit.java)
+- [OptionHelp](../src/main/java/org/g70/controller/menu/option/OptionHelp.java)
+- [OtionMainMenu](../src/main/java/org/g70/controller/menu/option/OptionMainMenu.java)
+- [OptionNewGame](../src/main/java/org/g70/controller/menu/option/OptionNewGame.java)
 #### Consequências
+- Facilita a adição e alteração de *Options* (*Open-Closed Principle*).
+- Possibilita a criação de *Options* que afetem o estado de jogo.
+- Evita o uso de *Switch Statements* para selecionar as opções.
 
 ### Puffle/Box Movement Strategy
 #### Problema
-Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos Elementos, como por exemplo, se o mesmo passa por cima de uma moeda, se colide com um parede ou outro tipo de bloco especial. A contínua adição de interações entre o objeto e o *Puffle* causou um *Code Smell*, devido ao elevado número de *If Statements* associados a cada interação. Para aleḿ disso, acabamos por adicionar um novo Elemento *Box*, que teria a sua própria interação com cada objeto, o que intensificou o *Code Smell* mencionado.
+Sempre que o utilizador pressiona uma tecla para mover a posição do Puffle, vão ser verificadas todas as interações com os diversos elementos presentes no jogo. Quando o Puffle colide com um parede ou com um teleporte a interação vai ser diferente. A contínua adição de interações entre o objeto e o *Puffle* causou um *Code Smell*, devido ao elevado número de *If Statements* associados a cada interação. 
+
+Aleḿ disso, acabamos por adicionar um novo elemento *Box*, que teria a sua própria interação com cada objeto o que provocou outro *Code Smell*.
 
 #### Padrão
 Para resolver este problema decidimos utilizar o *Design Pattern* *Strategy* que permite encapsular dinamicamente as diferentes interações de cada *Element* com o *Puffle* e a *Box* em diferentes classes, alterando a interação quando necessário.
@@ -243,20 +244,20 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [ElementModel](../src/main/java/org/g70/model/drawable/element/ElementModel.java)
 
 #### Consequências
-- Fácil e rápida implementação do comportamento de novos Elementos (*Open-Closed Principle*).
+- Fácil e rápida implementação do comportamento de novos Elementos.
 - Evita longos *If Statements* associados ao comportamento de cada Elemento
-- Permite evitar código repetido, dado que vários Elementos podem ter a mesma interação (ex: Wall e Water)
+- Permite evitar código repetido, dado que vários Elementos podem ter a mesma interação. Por exemplo, a *Wall* e a *Water* possuem ambas *InteractStop*.
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
 ### Melting Strategy
 
 #### Problema
-Ao mover o *Puffle* era necessário não só vericar as interações associadas ao bloco para qual o *Puffle* se tenta mover, mas também ao bloco sobre o qual se situa. Inicialmente, para implementarmos este funcionalidade, colocamos vários *if Statements* no método `movePuffle()`, originando os *Code Smells* *Long Method* e *Switch Statements*.
+Ao mover o *Puffle* era necessário não só vericar as interações associadas ao bloco para qual o *Puffle* se tenta mover, mas também é necessário derreter o bloco sobre o qual se situa. Inicialmente, para implementarmos este funcionalidade, colocamos vários *if Statements* no método `movePuffle()`, originando os *Code Smells* *Long Method* e *Switch Statements*.
 
 #### Padrão
 Para resolvermos este problema, decidimos utilizar o *Design Pattern Strategy*.
-Este padrão permite-nos definir uma familia de algoritmos separados em diferentes classes, alterando facilmente o algoritmo que um determinado objeto usa
+Este padrão permite-nos definir uma familia de algoritmos separados em diferentes classes, alterando facilmente o algoritmo que um determinado objeto usa. Deste modo, dependendo do bloco, o Puffle vai possuir um método diferente para derreter o gelo.
 
 #### Implementação
 
@@ -272,20 +273,20 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - [StrategyNothing](../src/main/java/org/g70/controller/level/strategy/StrategyNothing.java)
 
 #### Consequências
-- Evita um código desorganizado repleto de *if statements* confusos.
+- Evita um código desorganizado e repleto de *if statements* confusos.
 - Torna mais fácil alternar a estratégia a ser utilizada.
-- O controlador deixa de verificar se existe um objeto com uma interação debaixo dele (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*.
-- Facilita a adição de novos comportamentos do Puffle ao sair de uma posição (*Open-Closed Principle*).
+- O controlador deixa de verificar se existe um objeto com uma interação debaixo dela (na mesma posiçao), que maioritariamente nem iria existir, evitando erros e verificações associadas a *null pointers*.
+- Facilita a adição de novos comportamentos do Puffle ao sair de uma posição.
 
 > Fonte: [Design Patterns - Strategy](https://web.fe.up.pt/~arestivo/presentation/patterns/#30)
 
 
 ### Menu Factory
 #### Problema
-Os menus possuiam bastantes métodos repetidos, pelo que estávamos a tentar organizar as classes de modo a evitar o *Code Smell* *Duplicate Code*,  
+Os diferentes menus do jogo possuiam bastantes métodos e código repetido, pelo que procurámos tentar organizar as classes de modo a evitar o *Code Smell* *Duplicate Code*. 
 
 #### Padrão
-Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextBoxes*. posteriormente, criamos vários menus que extendem a clases *MenuFactory*, e cada um adiciona a cada *ArrayList* os objetos que deseja
+Este problema foi resolvido utilizando o *Design Pattern* *Factory Method*. Criamos a classe *Menu Factory*, que possui um *ArrayList* de *Options* e *TextBoxes*. posteriormente, criamos vários menus que extendem a clases *MenuFactory*, e cada um adiciona a cada *ArrayList* os objetos que deseja.
 
 #### Implementação
 
@@ -305,12 +306,12 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
 #### Consequências
 
-- Fácil criação de novos Menus.
-- Fácil de adicionar/remover funcionalidades(*Options*) a cada Menu (*Open-Closed Principle*)
+- Fácil criação de novos menus
+- Fácil de adicionar/remover opções a cada Menu
 
 > Fonte: [Design Patterns - Factory Method](https://web.fe.up.pt/~arestivo/presentation/patterns/#10)
 
-### Private Class Data on LevelModel
+### Private Class Data
 
 #### Problema
 O nosso programa continha um enorme quantidade de objetos, que eram utilizados quer no *levelModel*, quer no *levelFacade*, causando o *Code Smells* *Data Clumps*.
@@ -330,7 +331,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*
 - Origina o *Code Smell* *Data Class*, que acaba por ser inerente ao padrão de arquitetura usado: *MVC* (Mais informação sobre este *Code Smell* no capítulo seguinte).
 - Facilita a adição de *Elements* ao nível, pelo que basta adicionar mais um atributo ao levelModel.
 
-> Fonte : [Design Patterns - Private Class Data](https://sourcemaking.com/design_patterns/private_class_data)
+> Fonte : [Design Patterns - Private Class Data](https://en.wikipedia.org/wiki/Private_class_data_pattern), [Private Class Data](https://en.wikipedia.org/wiki/Private_class_data_pattern)
 
 
 # Code Smells e Refactoring
@@ -369,14 +370,14 @@ A utilização de mutation tests, além de verificar se estavamos a testar de fo
 
 Ao longo do desenvolvimento destes mesmos testes fomos descobrindo que os mesmos não servem apenas para corrigir erros no código, mas também ajudam a promover um melhor design do mesmo.
 
-![testCoverage](./images/testCoverage.png)
+![testCoverage](./images/tests/testCoverage.png)
 
 Os resultados dos testes encontram-se na seguinte [pasta](./test) e estão hospedados na seguinte [página]().
 
-# Auto-Avaliação
+# Auto-avaliação
 
-Decidimos que ambos os colaboradores contribuiram de igual forma para o desenvolvimento do trabalho!!
+Ambos os membros do grupo contribuiram de igual forma, tendo cada feito um enorme trabalho ao longo destes meses, permitindo o desenvolvimento deste projeto.
 
-Divisão percentual:
-- Diogo Samuel Fernandes : 50%
-- Hugo Guimarães : 50%
+Divisão percentualdo trabalho:
+- **Diogo Samuel Fernandes** - 50%
+- **Hugo Guimarães** - 50%
