@@ -15,15 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateHelp extends State {
-    HelpModel helpModel;
+    private HelpModel helpModel;
 
     public StateHelp(MainController mainController) {
         super(mainController);
 
-        initHelp();
+        initState();
     }
 
-    private void initHelp() {
+    @Override
+    protected void initState() {
         List<MenuOption> op = new ArrayList<>();
         op.add(new MenuOption("Start", new Position(16, 16), new OptionNewGame(mainController)));
         op.add(new MenuOption("Main Menu", new Position(2, 16), new OptionMainMenu(mainController)));
