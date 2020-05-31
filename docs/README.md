@@ -217,7 +217,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 - Possibilita a criação de *Options* que afetem o estado de jogo.
 - Evita o uso de *Switch Statements* para selecionar as opções.
 
- > Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
+> Fonte: [Design Patterns - Command](https://web.fe.up.pt/~arestivo/presentation/patterns/#20)
 
 ### Puffle/Box Interact Strategy
 #### Problema
