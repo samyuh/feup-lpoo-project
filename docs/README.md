@@ -73,7 +73,7 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
     - **Secret** - Objeto com igual comportamento parecido à Destination. No entanto, este desbloqueia o nível secreto.
     - **Teleport** - Está sempre associado a outro Teleport. Teletransporta o Puffle ou a Box entre a posição dos dois Teleports, sendo o seu uso bloqueado após a sua utilização por parte do Puffle.
     
-#### Screenshots
+#### Screenshots e Gameplay
 
 | Menu                           | Instruções                         | Fim de Jogo                  |
 | ------------------------------ | -----------------------------------| -----------------------------|
@@ -83,7 +83,9 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
 | ----------------------------- | ---------------------------------- | --------------------------------------- |
 |  ![](./images/screenshots/gameLevel1.png) | ![](./images/screenshots/gameLevel19.png) | ![](./images/screenshots//gameLevel19Secret.png) |
 
-#### Gameplay
+|Gameplay|
+|---|
+|![](./images/gameplay/game.gif)|
 
 ## Funcionalidades Planeadas
 
