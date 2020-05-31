@@ -1,4 +1,4 @@
-# FrostBite Penguin Madness
+# Frostbite Penguin Madness
 
 O nosso jogo é inspirado num mini-jogo existente no *Club Penguin*, chamado de `Gelo Fino`. O jogador deve controlar um `Puffle`através de inúmeros labirintos, passando pelo maior número de blocos de gelo antes de o completar. Ao longo do jogo vão surgindo moedas coletáveis, blocos de gelo duplo, teletransporte e até passagens secretas, que permitem ao jogador obter uma maior pontuação!
 
@@ -13,43 +13,26 @@ O nosso jogo é inspirado num mini-jogo existente no *Club Penguin*, chamado de 
 
 Para jogar este jogo é necessário correr o projeto utilizando o `Gradlew`, usando o comando
 ```shell
-./gradlew run   # se estiver a ser utilizado Linux
+./gradlew run # se estiver a ser utilizado Linux
 ./gradlew.bat run # se estiver a ser utilizado Windows
 ```
 
-## Pacotes Utilizados
+## Relatório
 
-- Lanterna
+O relatório sobre este projeto pode ser lido [aqui](./docs/README.md).
 
-## Funcionalidades
 
-- [x] Menu Principal
-    - [x] Começar um novo jogo
-    - [x] Escolha de nível
-    - [x] Sair do jogo
+### Screenshots e Gameplay
 
-- [x] Movimento
-    - [x] Sempre que o jogador se movimentar, a sua posição anterior fica inacessível
-    - [x] As posições inacessíveis são transformadas em água
-    - [x] Quando o jogador não se pode movimentar, isto é, quando rodeado por peças de água e por paredes, perde o jogo
+| Menu         | Instruções | Fim de Jogo |
+| ------------ | ---------- | ------------|
+| ![MainMenu](./docs/images/screenshots/gameMainMenu.png) | ![Instructions](./docs/images/screenshots/gameInstructions.png) | ![Finish](./docs/images/screenshots/gameFinish.png) |
 
-- [ ] Menu Pausa
-    - [ ] Recomeçar o nível
-    - [ ] Retornar ao menu principal
+| Nível 1                       | Nível 19 (Passagem secreta oculta) |  Nível 19 (Passagem secreta descoberta) |
+| ----------------------------- | ---------------------------------- | --------------------------------------- |
+|  ![Level1](./docs/images/screenshots/gameLevel1.png) | ![Level19](./docs/images/screenshots/gameLevel19.png) | ![Level19Secret](./docs/images/screenshots//gameLevel19Secret.png) |
 
-- [x] Pontuação
-    - [x] Sempre que o jogador percorre um novo quadrado, a sua pontuação incrementa um ponto
-    - [x] Existem moedas espalhadas em determinados niveís
-    - [x] Capturar uma moeda aumenta a pontuação do jogador em dez pontos
-
-- [x] Mecânicas de jogo
-    - [x] Quadrados onde o jogador pode passar por cima duas vezes.
-    - [x] Quadrados verdes que correspondem a uma zona de teletransporte. Quando o jogador passa por cima do mesmo vai ser teletransportado para outro quadrado verde do mesmo nível.
-    - [x] Existência de peças de jogo que são empurradas pelo jogador até colidirem com uma parede
-    - [ ] Passagens secretas que levem o jogador para zonas bónus com muitos sacos de moedas.
-
-- [x] Menu de fim de jogo
-    - [ ] O jogo acaba assim que o jogador completar todos os niveis ou perder. É apresentado a pontuação total.
-    - [x] Retornar ao Menu Principal
-
+| Gameplay                                   |
+| ------------------------------------------ |
+|![Gameplay](./docs/images/gameplay/game.gif)|
 
