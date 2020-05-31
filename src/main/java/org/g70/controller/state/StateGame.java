@@ -29,9 +29,7 @@ public class StateGame extends State {
     @Override
     public void run() throws IOException {
         LevelController controller = new LevelController(levelModel, headerModel, view);
-
-        controller. run();
-
+        controller.run();
         mainController.setState(new StateGameOver(mainController, headerModel.getGlobalScore().getScore()));
     }
 }

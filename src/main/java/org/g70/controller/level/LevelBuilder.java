@@ -59,9 +59,9 @@ public class LevelBuilder {
     public void initLevel(int levelNumber, boolean secretLevel) {
         try {
             if(secretLevel)
-                this.mapElements = readLines("/levelDesign/level" + levelNumber + "secret.txt");
+                mapElements = readLines("/levelDesign/level" + levelNumber + "secret.txt");
             else
-                this.mapElements = readLines("/levelDesign/level" + levelNumber + ".txt");
+                mapElements = readLines("/levelDesign/level" + levelNumber + ".txt");
 
             loadElements();
         } catch (IOException e) {

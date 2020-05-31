@@ -78,7 +78,6 @@ public class LevelElementController {
 
     private boolean executeBoxMovement(int x, int y) {
         Position position = boxMovement.moveDisplacement(x, y);
-
         return getInteract(position).executeBox(this);
     }
 

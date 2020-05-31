@@ -13,8 +13,7 @@ public class MainController {
 
     public MainController(ScreenView gui) {
         this.gui = gui;
-        this.exit = false;
-
+        exit = false;
         state = new StateMainMenu(this);
     }
 
@@ -40,7 +39,7 @@ public class MainController {
 
     public void run() throws IOException, InterruptedException {
         while(!exit) {
-            this.state.run();
+            state.run();
         }
     }
 }

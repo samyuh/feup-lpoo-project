@@ -22,7 +22,6 @@ public class StateGameOver extends State {
         super(mainController);
 
         this.globalScore = globalScore;
-
         initState();
     }
 
@@ -40,7 +39,6 @@ public class StateGameOver extends State {
     @Override
     public void run() throws IOException {
         MenuController controller = new MenuController(mainController, mainMenuModel, view);
-
         controller.run();
     }
 }

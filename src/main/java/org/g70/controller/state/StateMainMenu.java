@@ -38,7 +38,6 @@ public class StateMainMenu extends State {
     @Override
     public void run() throws IOException {
         MenuController controller = new MenuController(mainController, mainMenuModel, view);
-
         controller.run();
     }
 }
