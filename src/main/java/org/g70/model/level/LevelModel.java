@@ -7,7 +7,6 @@ import org.g70.model.drawable.element.immovable.*;
 import org.g70.model.drawable.element.movable.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

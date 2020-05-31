@@ -2,7 +2,6 @@ package org.g70.controller;
 
 import org.g70.controller.state.*;
 import org.g70.view.ScreenView;
-import org.g70.view.game.GeneralView;
 
 import java.io.IOException;
 

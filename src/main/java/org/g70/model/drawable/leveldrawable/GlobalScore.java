@@ -23,13 +23,11 @@ public class GlobalScore extends Drawable {
 
     public void addScore(int number) {
         score += number;
-
         updateImage();
     }
 
     public void resetScore() {
         score = restartLevelScore;
-
         updateImage();
     }
 
