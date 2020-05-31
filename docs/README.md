@@ -150,7 +150,7 @@ Ao implementar este *Design Pattern*, apercebemo-nos que a maneira mais simples 
 
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/BuilderUML.png) // AQUI MUDAR
+![](images/UML/levelBuilder.png)
 
 ##### Ficheiros
 - [LevelController](../src/main/java/org/g70/controller/level/LevelController.java)
@@ -175,7 +175,7 @@ Para resolver este problema, decidimos implementar o *Design Pattern* *State*. E
 #### Implementação
 O diagrama seguinte demonstra como implementamos o *Design Pattern*
 
-![](images/Menu-State-CommandUML.png)
+![](images/UML/state.png)
 
 #### Ficheiros
 - [Main Controller](..src/main/java/org/g70/controller/MainController.java)
