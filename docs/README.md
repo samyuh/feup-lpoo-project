@@ -11,21 +11,22 @@ O nosso jogo é inspirado no jogo `Gelo Fino` que existia no jogo *Club Penguin*
 
 # Indíce
 
-1. [Funcionalidades do jogo](#funcionalidades)
+1. [Funcionalidades do jogo](#funcionalidades-do-jogo)
     - [Funcionalidades Implementadas](#funcionalidades-implementadas)
     - [Funcionalidades Planeada](#funcionalidades-planeadas)
-2. [Padrão Arquitetural do Código](#padrao-arquitetural-do-codigo)
-3. [Design Patterns](#design)
+2. [Padrão Arquitetural do Código](#padrão-arquitetural-do-código)
+3. [Design Patterns](#design-patterns)
     - [Level Builder](#level-builder)
     - [State](#state)
-    - [Command](#state)
-    - [Interact Strategy](#pufflebox-movement-strategy)
-    - [Melting Strategy](#melting-strategy)
+    - [Command](#command)
+    - [Interact Strategy](#pufflebox-interact-strategy)
+    - [Melting Strategy](#melt-strategy)
     - [Menu Factory](#menu-factory)
-    - [Classe de dados privado](#private-class-data-on-levelmodel)
-4. [Code Smells e Refactoring](#code-smells-e-refactoring)
+    - [Private Class Data](#private-class-data)
+4. [Code Smells and Refactoring](#code-smells-and-refactoring)
     - [Data Class](#data-class)
     - [Large Class](#large-class)
+    - [Lazy Class](#lazy-class-)
 5. [Unit Tests](#unit-tests)
 
 # Funcionalidades do jogo
@@ -128,7 +129,7 @@ Os elementos podem ser divididos em dois tipos diferentes, sendo estes:
 
 Para a realização deste projeto, decidimos separar e estruturar o nosso código utilizando o MVC. Este modelo foi apresentado durante as aulas e consiste em separar o código em três *packages* diferentes, sendo estes:
 
-- O ***Model***, que representa toda a informação presente no jogo
+- O ***Model***, que representa toda a informação presente no jogo.
 - O ***View***, que é responsável pela visualização do jogo e por enviar a informação recebida do utilizador, como por exemplo, teclas pressionadas no teclado, para o *Controller*.
 - O ***Controller***, que processa a informação recebida pelo *View* e envia comandos ao *Model* para atualizar o seu estado.
 
@@ -184,7 +185,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 - [State](../src/main/java/org/g70/controller/state/State.java)
 - [StateGame](../src/main/java/org/g70/controller/state/StateGame.java)
 - [StateGameOver](../src/main/java/org/g70/controller/state/StateGameOver.java)
-- [StateHelp](..src/main/java/org/g70/controller/state/StateHelp.java)
+- [StateHelp](../src/main/java/org/g70/controller/state/StateHelp.java)
 - [StateMainMenu](../src/main/java/org/g70/controller/state/StateMainMenu.java)
 
 #### Consequências
@@ -241,7 +242,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 - [Interact](../src/main/java/org/g70/controller/level/interact/Interact.java)
 - [InteractBox](../src/main/java/org/g70/controller/level/interact/InteractBox.java)
 - [InteractCoin](../src/main/java/org/g70/controller/level/interact/InteractCoin.java)
-- [InteractDestination](../src/main/java/org/g70/controller/level/interact/InteractDestination.java)
+- [InteractFinish](../src/main/java/org/g70/controller/level/interact/InteractFinish.java)
 - [InteractEmptyBlock](../src/main/java/org/g70/controller/level/interact/InteractEmptyBlock.java)
 - [InteractIce](../src/main/java/org/g70/controller/level/interact/InteractIce.java)
 - [InteractInvisibleWall](../src/main/java/org/g70/controller/level/interact/InteractInvisibleWall.java)
@@ -249,7 +250,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 - [InteractSecret](../src/main/java/org/g70/controller/level/interact/InteractSecret.java)
 - [InteractStop](../src/main/java/org/g70/controller/level/interact/InteractStop.java)
 - [InteractTeleport](../src/main/java/org/g70/controller/level/interact/InteractTeleport.java)
-- [InteractToughIce](../src/main/java/org/g70/controller/level/interact/InteractToughIce.java)
+- [InteractDoubleIce](../src/main/java/org/g70/controller/level/interact/InteractDoubleIce.java)
 
 #### Consequências
 - Fácil e rápida implementação do comportamento de novos elementos.
@@ -276,7 +277,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 
 ##### Ficheiros
 - [Melt](../src/main/java/org/g70/controller/level/strategy/Melt.java)
-- [MeltDoubeIce](../src/main/java/org/g70/controller/level/strategy/MeltDoubeIce.java)
+- [MeltDoubleIce](../src/main/java/org/g70/controller/level/strategy/MeltDoubleIce.java)
 - [MeltIce](../src/main/java/org/g70/controller/level/strategy/MeltIce.java)
 - [MeltNothing](../src/main/java/org/g70/controller/level/strategy/MeltNothing.java)
 
@@ -308,7 +309,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 ##### Ficheiros
 
 - [Drawable](../src/main/java/org/g70/model/drawable/Drawable.java)
-- [MenuOption](../src/main/java/org/g70/model/drawable/menu/MenuOption.java)
+- [MenuOption](../src/main/java/org/g70/model/drawable/menudrawable/MenuOption.java)
 - [GameOverModel](../src/main/java/org/g70/model/menu/GameOverModel.java)
 - [HelpModel](../src/main/java/org/g70/model/menu/HelpModel.java)
 - [MainMenuModel](../src/main/java/org/g70/model/menu/MainMenuModel.java)
@@ -343,7 +344,7 @@ O diagrama seguinte demonstra como implementamos o *Design Pattern*.
 > Fonte : [Design Patterns - Private Class Data](https://sourcemaking.com/design_patterns/private_class_data), [Private Class Data](https://en.wikipedia.org/wiki/Private_class_data_pattern)
 
 
-# Code Smells e Refactoring
+# Code Smells and Refactoring
 
 ### Data Class
 
@@ -367,7 +368,7 @@ Por exemplo, os métodos:
 
 poderiam ser extraidos para uma nova classe, e o mesmo seria feito para cada Elemento.
 
-> Fonte: [Large Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#11), [Extract Class](https://web.fe.up.pt/~arestivo/presentation/refactoring/#31)
+> Fonte: [Large Class](https://refactoring.guru/smells/large-class), [Extract Class](https://refactoring.guru/extract-class)
 
 ### Lazy Class (to be done)
 
@@ -388,6 +389,6 @@ Os resultados dos testes encontram-se na seguinte [pasta](./testing) e estão ho
 
 Ambos os membros do grupo contribuiram de igual forma, tendo cada feito um enorme trabalho ao longo destes meses, permitindo o desenvolvimento deste projeto.
 
-Divisão percentualdo trabalho:
+Divisão percentual do trabalho:
 - **Diogo Samuel Fernandes** - 50%
 - **Hugo Guimarães** - 50%
