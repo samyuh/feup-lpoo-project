@@ -17,7 +17,7 @@ public class GameOverModel extends MenuFactory {
     }
 
     @Override
-    public void initTextBoxes() {
+    protected void initTextBoxes() {
         textBoxes.add(new Drawable("Frostbite Penguin Madness", "#ffffff", "#000077", new Position(1, 2)));
         textBoxes.add(new Drawable("Game Over", "#ffffff", "#000077", new Position(1, 4)));
         textBoxes.add(new Drawable("Score: " + this.globalScore, "#ffffff", "#000077", new Position(1, 6)));

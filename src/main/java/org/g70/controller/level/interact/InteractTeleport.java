@@ -1,7 +1,7 @@
 package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelElementController;
 import org.g70.controller.level.strategy.MeltIce;
 import org.g70.model.Position;
 import org.g70.model.drawable.element.immovable.Teleport;
@@ -14,26 +14,24 @@ public class InteractTeleport extends Interact<Teleport> {
     }
 
     @Override
-    public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
-        facade.movePuffle(position);
+    public void executePuffle(LevelController controller, LevelElementController elementController) {
+        Position otherTeleport = elementController.getTeleportPosition(element);
+        elementController.movePuffle(otherTeleport);
+
         controller.addScore(1, 1);
 
-        Position p2 = facade.getTeleportPosition(element);
-        facade.movePuffle(p2);
-
-        List<Teleport> tp = facade.getTeleport();
+        List<Teleport> tp = elementController.getTeleport();
         for(Teleport teleport : tp) {
             teleport.setInteraction(new InteractStop(teleport));
             teleport.setColorForeground("#0000ff");
         }
-        facade.setMelt(new MeltIce(facade));
+        elementController.setMelt(new MeltIce(elementController));
     }
 
     @Override
-    public boolean executeBox(LevelFacade facade) {
-        Position otherTeleport = facade.getTeleportPosition(element);
-        facade.moveBox(otherTeleport);
+    public boolean executeBox(LevelElementController elementController) {
+        Position otherTeleport = elementController.getTeleportPosition(element);
+        elementController.moveBox(otherTeleport);
         return true;
     }
 }

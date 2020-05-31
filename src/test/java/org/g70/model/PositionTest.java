@@ -9,9 +9,11 @@ public class PositionTest {
         Position elementPos1 = new Position(0,1);
         Position elementPos2 = new Position(0,1);
 
+        Assert.assertEquals(0, elementPos2.getX());
+        Assert.assertEquals(1, elementPos2.getY());
         Assert.assertEquals(elementPos1.getX(), elementPos2.getX());
         Assert.assertEquals(elementPos1.getY(), elementPos2.getY());
         Assert.assertEquals(elementPos1, elementPos2);
-        Assert.assertNotEquals(null, elementPos1);
+        Assert.assertNotNull(elementPos1);
     }
 }

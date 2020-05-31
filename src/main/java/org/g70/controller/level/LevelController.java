@@ -14,7 +14,7 @@ public class LevelController {
     private GeneralView levelView;
     private LevelHeaderModel levelHeader;
     private LevelBuilder levelBuilder;
-    private LevelFacade levelFacade;
+    private LevelElementController levelElementController;
     private int levelNum;
 
     public LevelController(LevelModel levelModel, LevelHeaderModel headerModel, GeneralView levelView) {
@@ -22,22 +22,20 @@ public class LevelController {
         this.levelView = levelView;
         this.levelHeader = headerModel;
         levelBuilder = new LevelBuilder(levelModel);
-        levelFacade = new LevelFacade(levelModel);
+        levelElementController = new LevelElementController(levelModel);
         levelNum = 1;
-
-        initLevel(false);
     }
 
     public int getLevelNum() {
         return levelNum;
     }
 
-    public LevelFacade getLevelFacade() {
-        return levelFacade;
-    }
-
     public void setLevelNum(int levelNum) {
         this.levelNum = levelNum;
+    }
+
+    public LevelElementController getLevelElementController() {
+        return levelElementController;
     }
 
     public void initRegularLevel(boolean restart) {
@@ -55,10 +53,12 @@ public class LevelController {
         levelModel.clearLevel(secretLevel);
         levelBuilder.initLevel(levelNum, secretLevel);
         levelHeader.setLevelNumber(levelNum);
-        levelFacade.newLevelMovement();
+        levelElementController.newLevelMovement();
     }
 
     public void run() throws IOException {
+        initLevel(false);
+
         do {
             if (gameFinished()) break;
             levelView.draw();
@@ -96,11 +96,11 @@ public class LevelController {
     }
 
     public void executePuffleMovement(Position position) {
-        levelFacade.getInteract(position).executePuffle(this, levelFacade);
+        levelElementController.getInteract(position).executePuffle(this, levelElementController);
     }
 
     private boolean checkCollisions(Position position) {
-        return levelFacade.getInteract(position).getClass() == InteractStop.class;
+        return levelElementController.getInteract(position).getClass() == InteractStop.class;
     }
 
     public boolean gameFinished() {

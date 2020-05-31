@@ -7,6 +7,7 @@ import org.g70.model.drawable.element.immovable.*;
 import org.g70.model.drawable.element.movable.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,6 +70,10 @@ public class LevelModel {
         this.walls.add(walls);
     }
 
+    public void addWater(Water water) {
+        this.water.add(water);
+    }
+
     public void addIce(Ice ice) {
         this.ice.add(ice);
     }
@@ -101,6 +106,10 @@ public class LevelModel {
         return lock;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
     public Box getBox() {
         return box;
     }
@@ -121,8 +130,16 @@ public class LevelModel {
         return coins;
     }
 
+    public EmptyBlock getEmptyBlock() {
+        return emptyBlock;
+    }
+
     public List<DoubleIce> getDoubleIce() {
         return doubleIce;
+    }
+
+    public List<InvisibleWall> getInvisibleWalls() {
+        return invisibleWalls;
     }
 
     public List<Teleport> getTeleports() {
@@ -133,11 +150,11 @@ public class LevelModel {
         return secret;
     }
 
-    // List of elements(as Drawables) ordered by gamePlay processing data order
-    public List<Drawable> getElements(){
+    // List of elements ordered by gameplay processing data order
+    private List<Drawable> getElements(){
         List<Drawable> elements = new ArrayList<>();
 
-        elements.add(puffle);
+        if(puffle != null) elements.add(puffle);
         if(box != null) elements.add(box);
         if(lock != null) elements.add(lock);
         if(key != null) elements.add(key);
@@ -146,7 +163,7 @@ public class LevelModel {
         elements.addAll(teleports);
         elements.addAll(walls);
         elements.addAll(invisibleWalls);
-        elements.add(finish);
+        if(finish != null) elements.add(finish);
         elements.addAll(coins);
         elements.addAll(doubleIce);
         elements.addAll(water);

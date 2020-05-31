@@ -7,7 +7,7 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
 
 public class KeyHandler {
-    public enum KEY {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT, RESTART};
+    public enum KEY {UP, RIGHT, DOWN, LEFT, CLOSE, NEXT, RESTART}
 
     public static KEY processKey(Screen screen) throws IOException {
         while (true) {

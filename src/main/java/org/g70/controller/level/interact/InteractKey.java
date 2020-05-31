@@ -1,7 +1,7 @@
 package org.g70.controller.level.interact;
 
 import org.g70.controller.level.LevelController;
-import org.g70.controller.level.LevelFacade;
+import org.g70.controller.level.LevelElementController;
 import org.g70.controller.level.strategy.MeltIce;
 import org.g70.model.drawable.element.immovable.Key;
 
@@ -12,17 +12,16 @@ public class InteractKey extends Interact<Key> {
     }
 
     @Override
-    public void executePuffle(LevelController controller, LevelFacade facade) {
-        facade.meltPreviousIce();
-        facade.movePuffle(position);
+    public void executePuffle(LevelController controller, LevelElementController elementController) {
+        elementController.movePuffle(position);
         controller.addScore(1,1);
-        facade.removeKeyLock();
-        facade.setMelt(new MeltIce(facade));
+        elementController.removeKeyLock();
+        elementController.setMelt(new MeltIce(elementController));
     }
 
     @Override
-    public boolean executeBox(LevelFacade facade) {
-        facade.moveBox(position);
+    public boolean executeBox(LevelElementController elementController) {
+        elementController.moveBox(position);
         return true;
     }
 }

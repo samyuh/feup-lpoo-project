@@ -29,6 +29,5 @@ public class DrawableViewTest {
 
         Mockito.verify(graphicsMock, Mockito.times(1)).setForegroundColor(TextColor.Factory.fromString("#FFBB33"));
         Mockito.verify(graphicsMock, Mockito.times(1)).putString(new TerminalPosition(0, 0), "I");
-
     }
 }

@@ -30,6 +30,7 @@ public class HelpModel extends MenuFactory {
         textBoxes.add(new DoubleIce(new Position(16, 12)));
         textBoxes.add(new Wall(new Position(16, 14)));
 
+        textBoxes.add(new Drawable( "Instructions", "#ffffff", "#000077", new Position(2, 1)));
         textBoxes.add(new Drawable( " Your Puffle!", "#ffffff", "#000077", new Position(3, 4)));
         textBoxes.add(new Drawable( " Moving Box", "#ffffff", "#000077", new Position(3, 6)));
         textBoxes.add(new Drawable( " Box Place", "#ffffff", "#000077", new Position(3, 8)));
