@@ -15,15 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateMainMenu extends State {
-    MainMenuModel mainMenuModel;
+    private MainMenuModel mainMenuModel;
 
     public StateMainMenu(MainController mainController) {
         super(mainController);
 
-        initMenu();
+        initState();
     }
 
-    private void initMenu() {
+    @Override
+    protected void initState() {
         List<MenuOption> options = new ArrayList<>();
 
         options.add(new MenuOption("Start", new Position(2, 14), new OptionNewGame(mainController)));
@@ -37,7 +38,6 @@ public class StateMainMenu extends State {
     @Override
     public void run() throws IOException {
         MenuController controller = new MenuController(mainController, mainMenuModel, view);
-
         controller.run();
     }
 }

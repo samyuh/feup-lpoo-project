@@ -7,6 +7,6 @@ public class Key extends ImmovableElement {
     public Key(Position position) {
         super("K", "#A0522D", position);
 
-        setInteraction(new InteractKey(this));
+        interaction = new InteractKey(this);
     }
 }

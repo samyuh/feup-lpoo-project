@@ -4,7 +4,7 @@ import org.g70.model.drawable.Drawable;
 import org.g70.model.Position;
 
 public abstract class ElementModel extends Drawable {
-    private Interact interaction;
+    protected Interact interaction;
 
     public ElementModel(String image, String colorForeground, String colorBackground, Position position) {
         super(image, colorForeground, colorBackground, position);

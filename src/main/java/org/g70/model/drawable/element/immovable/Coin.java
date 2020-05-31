@@ -7,6 +7,6 @@ public class Coin extends ImmovableElement {
     public Coin(Position position) {
         super("$", "#FFFF33", position);
 
-        setInteraction(new InteractCoin(this));
+        interaction = new InteractCoin(this);
     }
 }

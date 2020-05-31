@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuModelTest {
-    MainMenuModel mainMenuTest;
-    HelpModel helpMenuTest;
-    GameOverModel gameOverMenuTest;
-    List<MenuOption> options;
+    private MainMenuModel mainMenuTest;
+    private HelpModel helpMenuTest;
+    private GameOverModel gameOverMenuTest;
+    private List<MenuOption> options;
 
     @Before
     public void initOptions() {

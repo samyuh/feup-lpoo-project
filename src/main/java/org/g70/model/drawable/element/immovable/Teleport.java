@@ -7,6 +7,6 @@ public class Teleport extends ImmovableElement {
     public Teleport(Position position) {
         super("\u2588", "#4bd388", position);
 
-        setInteraction(new InteractTeleport(this));
+        interaction = new InteractTeleport(this);
     }
 }
