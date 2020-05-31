@@ -41,7 +41,7 @@ public class LevelController {
     public void initRegularLevel(boolean restart) {
         if(restart) levelHeader.resetGlobalScore();
         else levelHeader.lockGlobalScore();
-
+        levelHeader.setLevelNumber(levelNum);
         initLevel(false);
     }
 
@@ -52,7 +52,6 @@ public class LevelController {
     private void initLevel(boolean secretLevel) {
         levelModel.clearLevel(secretLevel);
         levelBuilder.initLevel(levelNum, secretLevel);
-        levelHeader.setLevelNumber(levelNum);
         levelElementController.newLevelMovement();
     }
 
